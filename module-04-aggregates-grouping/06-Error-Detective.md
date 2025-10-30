@@ -2,6 +2,8 @@
 
 Each includes: scenario, sample data, broken query, error/symptom, expected output, guiding questions, and fixed solution.
 
+**Beginner Tip:** GROUP BY errors are common when learning aggregates! The key rule: every non-aggregated column in SELECT must appear in GROUP BY. Run the broken queries and study the error messages—you'll quickly learn to spot and fix these patterns!
+
 ---
 
 ## Challenge 1: Non-aggregated Column in SELECT

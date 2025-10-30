@@ -1,5 +1,7 @@
 # Paired Programming: Data Cleanup Lab (30 min)
 
+**Beginner Tip:** Pair programming helps you learn from each other! The driver explains their thinking out loud (this solidifies learning). The navigator catches mistakes early. Switch roles so both people practice each skill. Be supportive and curious!
+
 Roles
 - Driver: Types SQL, narrates approach.
 - Navigator: Reviews logic, checks edge cases, and asks clarifying questions.

@@ -2,6 +2,8 @@
 
 Three multi-part exercises mixing subqueries, derived tables, and recursive CTEs. Includes open-ended prompts, detailed solutions, and trade-offs.
 
+**Beginner Tip:** These are the most advanced exercises in this module! Build complexity gradually—start with the simplest part of each challenge. CTEs let you name intermediate steps, making debugging easier. Test each CTE separately before combining them. Persistence pays off!
+
 ---
 
 ## Challenge 1: E-commerce Cohort Health — 45–55 min

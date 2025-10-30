@@ -1,6 +1,8 @@
-# Independent Practice: Aggregates & Grouping
+# Independent Practice (Aggregates & Grouping)
 
 Seven exercises: 3 Easy 🟢, 3 Medium 🟡, 1 Challenge 🔴. Each includes schema+data, requirements, example output, success criteria, 3-level hints, and detailed solutions with alternatives.
+
+**Beginner Tip:** Work through exercises in order—they build on each other. If you get an unexpected count or sum, double-check your WHERE filter and GROUP BY columns. Use the hints when needed; they're designed to guide without giving everything away!
 
 ---
 

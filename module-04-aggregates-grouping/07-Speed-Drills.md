@@ -2,6 +2,8 @@
 
 Immediate answers follow each question.
 
+**Beginner Tip:** Speed drills build quick recall of syntax and concepts. Try each question before checking the answer. These aren't tests—they're practice tools. Repeat them until the patterns feel natural!
+
 ---
 
 1) Write: Count all rows in table `t`.

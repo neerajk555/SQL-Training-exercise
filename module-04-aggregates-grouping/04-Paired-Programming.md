@@ -1,5 +1,7 @@
 # Paired Programming: Ops Dash Summaries (30 min)
 
+**Beginner Tip:** Collaboration strengthens learning! Talk through your logic as driver—explaining helps you think clearly. As navigator, ask "what if?" questions to explore edge cases. Both roles teach different skills. Be patient and encouraging!
+
 Roles
 - Driver: Writes SQL, narrates choices.
 - Navigator: Reviews logic, checks requirements, suggests edge cases.

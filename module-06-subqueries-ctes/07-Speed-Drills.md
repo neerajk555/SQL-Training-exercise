@@ -2,6 +2,8 @@
 
 Answer quickly. Immediate answers follow each question.
 
+**Beginner Tip:** These questions test your understanding of subquery patterns and best practices. Try answering first, then check. Revisit any you miss—these concepts are crucial for advanced SQL!
+
 1) Which predicate is more NULL-safe for anti-joins: NOT IN or NOT EXISTS?
 - Answer: NOT EXISTS
 

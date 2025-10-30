@@ -1,6 +1,8 @@
-# Independent Practice: Data Types & Functions
+# Independent Practice (Data Types & Functions)
 
 Seven exercises: 3 Easy 🟢, 3 Medium 🟡, 1 Challenge 🔴. Each includes schema+data, requirements, example output, success criteria, 3-level hints, and detailed solutions.
+
+**Beginner Tip:** Start with the Easy exercises to build confidence. Use the hints progressively—try solving first, then peek at Level 1 if stuck. Remember: making mistakes is part of learning! Compare your answer with the solution and understand any differences.
 
 ---
 

@@ -2,6 +2,8 @@
 
 Immediate answers provided for self-scoring.
 
+**Beginner Tip:** These are for building muscle memory! Try to answer without looking, then check immediately. Repeat any you miss. Speed comes with practice—don't worry if you need to look things up at first!
+
 ---
 
 1) Write: Cast string '12.5' to DECIMAL(5,2).

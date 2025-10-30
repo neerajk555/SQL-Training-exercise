@@ -2,6 +2,8 @@
 
 Each challenge includes scenario, broken query, error or wrong result, sample data, expected output, guiding questions, and a fix explanation.
 
+**Beginner Tip:** Subquery bugs often involve NULLs, wrong row counts, or scope issues. Test the inner query separately first. Watch out for NOT IN with NULLs—it's a classic trap! These challenges prepare you for real-world query debugging.
+
 ---
 
 ## ED1) NOT IN with NULL nukes your results

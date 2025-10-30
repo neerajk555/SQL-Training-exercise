@@ -2,6 +2,8 @@
 
 Three multi-part exercises using MySQL aggregates and grouping. Includes open-ended components and detailed solutions with trade-offs.
 
+**Beginner Tip:** These challenges require multiple skills combined! Work through each part methodically. Check intermediate results with COUNT(*) to verify your logic. It's okay to revisit earlier exercises if you need a refresher. Compare your approach with the solutions—there's often more than one way!
+
 ---
 
 ## Challenge 1: Customer Activity Summary (40–50 min)

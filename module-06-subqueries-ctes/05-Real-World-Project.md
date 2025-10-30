@@ -1,5 +1,7 @@
 # Real-World Project — Learning Platform Analytics (45–60 min)
 
+**Beginner Tip:** This is your capstone for subqueries and CTEs! Start with the simplest deliverable to build momentum. Test each CTE independently before combining. Use comments to document your logic. This complexity is normal for production analytics—work through it step by step and celebrate progress!
+
 Company background
 - Acme Learning Hub offers online courses with prerequisites. Students enroll, complete lessons, and generate daily activity. Stakeholders want actionable analytics driven by subqueries and CTEs.
 

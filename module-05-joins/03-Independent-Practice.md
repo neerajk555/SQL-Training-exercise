@@ -2,6 +2,8 @@
 
 Includes 3 easy, 3 medium, and 1 challenge. Each exercise has a time estimate, scenario, schema with data, requirements, example output, success criteria, tiered hints, and a detailed solution with alternatives.
 
+**Beginner Tip:** Joins combine multiple tables. Start with Easy exercises to build confidence with INNER and LEFT joins. Check row counts after each join to verify it's working correctly. If you get more rows than expected, you might have a many-to-many relationship. Use hints progressively when stuck!
+
 ---
 
 ## Easy 🟢 (10–12 min each)

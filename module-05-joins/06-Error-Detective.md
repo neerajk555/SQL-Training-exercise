@@ -2,6 +2,8 @@
 
 Each challenge includes a scenario, broken query, error or wrong result, sample data, expected output, guiding questions, and a fix explanation.
 
+**Beginner Tip:** Join bugs often produce too many rows (cartesian product) or too few (wrong join type). Count rows before and after joining. Check your ON conditions carefully. These exercises teach you to spot common join pitfalls!
+
 ---
 
 ## ED1) The Accidental CROSS JOIN

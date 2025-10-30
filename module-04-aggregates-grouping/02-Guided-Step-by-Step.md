@@ -2,6 +2,8 @@
 
 Three 15–20 minute activities to practice GROUP BY, HAVING, and date bucketing.
 
+**Beginner Tip:** Check your results at each checkpoint. If counts or sums don't match expectations, review your WHERE and GROUP BY clauses. Aggregation is powerful but requires precision!
+
 ---
 
 ## Activity 1: Category Revenue Snapshot

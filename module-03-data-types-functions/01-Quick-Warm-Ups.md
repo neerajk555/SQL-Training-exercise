@@ -2,6 +2,8 @@
 
 Each exercise: 5–10 minutes. Focus on conversions and core functions. Copy sample data to a scratch DB first.
 
+**Beginner Tip:** These exercises help you practice cleaning and transforming data—essential skills for real-world SQL work. Take your time, read error messages carefully, and try variations to deepen your understanding.
+
 ---
 
 ## 1) Round and Cast Prices

@@ -2,23 +2,24 @@
 
 This folder contains complete practice activities focused on MySQL data types and functions. All exercises provide copy-paste sample data and fully commented solutions.
 
-What’s inside
-- Quick Warm-Ups (5): Fast reps with conversions and core functions
-- Guided Step-by-Step (3): Structured data cleansing scenarios
-- Independent Practice (7): Easy → Medium → Challenge with solutions
-- Paired Programming (1): Collaborate using functions to normalize data
-- Real-World Project (1): End-to-end cleansing/export tasks
-- Error Detective (5): Fix function and conversion bugs
-- Speed Drills (10): Short Q&A with immediate answers
-- Take-Home Challenges (3): Multi-part, open-ended problems
+## What's inside
+- **01-Quick-Warm-Ups.md** — 5 fast exercises (5-10 min each) with conversions and core functions
+- **02-Guided-Step-by-Step.md** — 3 structured data cleansing scenarios (15-20 min each)
+- **03-Independent-Practice.md** — 7 exercises: 3 Easy 🟢, 3 Medium 🟡, 1 Challenge 🔴
+- **04-Paired-Programming.md** — 1 collaborative data cleanup activity (30 min)
+- **05-Real-World-Project.md** — 1 comprehensive data export project (45-60 min)
+- **06-Error-Detective.md** — 5 challenges to fix function and conversion bugs
+- **07-Speed-Drills.md** — 10 short questions (2-3 min each) with immediate answers
+- **08-Take-Home-Challenges.md** — 3 advanced multi-part problems
 
-How to start
+## How to start
 1) Create a scratch MySQL database.
 2) For each activity, run the provided CREATE/INSERT blocks.
 3) Attempt the tasks and compare with the commented solutions.
 
-Notes
+## Notes
 - Strictly MySQL syntax; includes NULL and edge cases.
 - Performance notes included where relevant.
+- Time estimates are guides—work at your own pace!
 
-You’ve got this—be curious and try variations to deepen understanding.
+**Encouragement:** You've got this! Be curious and try variations to deepen understanding. Data cleaning is a crucial real-world skill. 🚀

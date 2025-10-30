@@ -2,6 +2,8 @@
 
 Three 15–20 minute activities. Practice cleansing and transforming data with MySQL functions.
 
+**Beginner Tip:** Follow each step carefully and check the checkpoint results. If something doesn't match, pause and review before moving on. Learning SQL is about building understanding step-by-step!
+
 ---
 
 ## Activity 1: Clean Messy Prices for Display

@@ -1,5 +1,7 @@
 # Real-World Project — Marketplace Sales (45–60 min)
 
+**Beginner Tip:** Multi-table projects feel challenging but are incredibly valuable! Start by understanding the relationships between tables. Tackle one deliverable at a time. Check intermediate results (use LIMIT to preview). Join two tables, verify, then add the third. Take your time—real projects require patience!
+
 Company background
 - Acme Marketplace connects customers with multiple stores. Each order can have multiple items. Operations wants insights across stores, categories, and customers.
 

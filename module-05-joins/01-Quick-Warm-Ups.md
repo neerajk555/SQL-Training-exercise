@@ -2,6 +2,8 @@
 
 Each exercise includes a tiny setup, a task, the expected output, and an answer. Run each in its own session.
 
+**Beginner Tip:** Joins combine data from multiple tables. INNER JOIN keeps only matching rows, LEFT JOIN keeps all left table rows (even if no match), and SELF JOIN joins a table to itself. Start simple and build up!
+
 ---
 
 ## 1) Orders with Customer Names (INNER JOIN) — 7 min

@@ -2,6 +2,8 @@
 
 Each exercise includes a tiny setup, a task, expected output, and an answer. Run each in its own session.
 
+**Beginner Tip:** Subqueries are queries inside queries. CTEs (WITH clause) make complex queries easier to read. EXISTS checks if a related row exists. These patterns help you break down complex problems into manageable pieces!
+
 ---
 
 ## 1) Scalar Subquery in SELECT — 7 min

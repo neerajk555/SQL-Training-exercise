@@ -1,5 +1,7 @@
 # Paired Programming — Subqueries & CTEs (30 min)
 
+**Beginner Tip:** Complex queries benefit from two minds! Driver explains the nested logic step-by-step. Navigator ensures each subquery/CTE is tested before combining. Take turns—both roles develop different problem-solving muscles. Help each other succeed!
+
 Roles
 - Driver: types queries and explains each clause.
 - Navigator: challenges assumptions, checks edge cases, and suggests quick validations.

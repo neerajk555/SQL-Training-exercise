@@ -1,5 +1,7 @@
 # Real-World Project: Weekly Ops Summary Reports (45–60 min)
 
+**Beginner Tip:** This project simulates a real reporting task! Work through deliverables systematically. Verify row counts and totals make sense. Test edge cases (NULLs, empty groups). Real analysts iterate—so try, check, refine. The rubric helps you self-assess. Take breaks if needed!
+
 Company background
 - EduMart is an online retailer for education supplies.
 - Operations and Marketing teams need weekly summaries: orders by status, revenue by category, and monthly trends.

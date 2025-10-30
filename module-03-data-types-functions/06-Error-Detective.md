@@ -2,6 +2,8 @@
 
 Each includes: scenario, sample data, broken query, error/symptom, expected output, guiding questions, and a fixed solution with explanation.
 
+**Beginner Tip:** Debugging is a key SQL skill! Read error messages carefully—they often point to the exact problem. Try the broken query first, observe what happens, then work through the guiding questions. You'll learn more by fixing bugs than writing perfect code the first time!
+
 ---
 
 ## Challenge 1: Wrong NULL Check in COALESCE Context

@@ -34,7 +34,7 @@ Phase 3: Module 7: Set Operations | Module 8: Window Functions | Module 9: DML O
 Phase 4: Module 10: DDL & Schema | Module 11: Indexes & Optimization | Module 12: Transactions
 Phase 5: Module 13: Procedures & Functions | Module 14: Triggers | Module 15: Advanced Concepts | Module 16: Professional Practices
 
-Create complete activity pack for Module 6: Subqueries & CTEs
+Create complete activity pack for 
 Keep consistent formatting and structure across activities. Beginner friendly
 Include all 8 activity types with MySQL code, data, solutions, and support materials.
 

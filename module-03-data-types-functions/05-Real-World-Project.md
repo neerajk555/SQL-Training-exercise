@@ -1,5 +1,7 @@
 # Real-World Project: Clean Data Export Suite (45–60 min)
 
+**Beginner Tip:** Real-world projects tie everything together! Take your time—45-60 minutes means you should work methodically, not rush. Complete deliverables one at a time, checking output at each step. This simulates actual data analyst work. You've got this!
+
 Company background
 - CareCart is a small retailer expanding its online presence.
 - Operations needs clean exports for email campaigns, product listings, and order summaries.

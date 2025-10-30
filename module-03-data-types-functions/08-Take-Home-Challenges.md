@@ -2,6 +2,8 @@
 
 Three multi-part exercises using MySQL functions for robust cleaning and transformation. Each has an open-ended component and detailed solutions with trade-offs.
 
+**Beginner Tip:** These are advanced! Take your time—it's okay to spend multiple sessions on one challenge. Break each part into smaller steps. Test your queries incrementally. These exercises mimic real-world data work, so struggle is part of learning!
+
 ---
 
 ## Challenge 1: Marketing Contacts Normalization (40–50 min)

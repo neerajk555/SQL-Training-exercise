@@ -2,6 +2,8 @@
 
 Three guided activities to practice multi-table joins, ON vs WHERE with outer joins, and anti/semi-joins. Each includes setup, checkpoints, common mistakes, a full solution, and discussion questions.
 
+**Beginner Tip:** Joins can feel tricky at first! Start with INNER JOIN, then experiment with LEFT JOIN. Check row counts at each step to verify your joins are working correctly. Don't worry if you need to retry—joins take practice!
+
 ---
 
 ## Activity 1: Customer Spend Rollup (E-commerce)

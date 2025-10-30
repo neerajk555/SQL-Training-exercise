@@ -2,6 +2,8 @@
 
 Answer quickly. Immediate answers follow each question.
 
+**Beginner Tip:** Quick recall builds confidence! Try answering before looking. If you miss one, review that concept and try again later. Repetition builds mastery!
+
 1) Which join keeps all rows from the left table and matches on keys?
 - Answer: LEFT JOIN
 

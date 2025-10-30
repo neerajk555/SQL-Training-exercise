@@ -1,8 +1,10 @@
 # Paired Programming — Joins (30 min)
 
+**Beginner Tip:** Joins are easier to learn together! The driver thinks aloud while building queries. The navigator watches for row count surprises (too many = accidental cartesian product). Switch roles to practice both perspectives. Celebrate progress!
+
 Roles
 - Driver: types the queries and explains each clause aloud.
-- Navigator: reviews logic, asks “why,” spots edge cases, and suggests tests.
+- Navigator: reviews logic, asks "why," spots edge cases, and suggests tests.
 
 Collaboration tips
 - Switch roles after each part.

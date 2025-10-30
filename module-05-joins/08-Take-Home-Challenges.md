@@ -2,6 +2,8 @@
 
 Three multi-part exercises with realistic datasets. Include open-ended components and solutions with trade-offs.
 
+**Beginner Tip:** Multi-table challenges can feel overwhelming at first! Draw the relationships between tables if it helps. Join two tables first, verify the result, then add the third. Check row counts at each step. Take breaks when stuck—fresh eyes often spot the issue!
+
 ---
 
 ## Challenge 1: Customer Journey Insights (E-commerce) — 45–55 min

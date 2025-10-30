@@ -2,6 +2,8 @@
 
 Each exercise: 5–10 minutes. Copy sample data first.
 
+**Beginner Tip:** Aggregates (COUNT, SUM, AVG, MAX, MIN) help you summarize data. GROUP BY groups rows together before summarizing. HAVING filters groups after aggregation. These are powerful tools for reporting and analysis!
+
 ---
 
 ## 1) Count Orders

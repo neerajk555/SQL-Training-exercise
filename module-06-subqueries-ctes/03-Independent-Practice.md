@@ -2,6 +2,8 @@
 
 Includes 3 easy, 3 medium, and 1 challenge. Each exercise has a time estimate, scenario, schema with data (10–20 rows overall per exercise set), requirements, example output, success criteria, tiered hints, and detailed solutions with alternatives.
 
+**Beginner Tip:** Subqueries and CTEs let you break complex problems into smaller pieces. Test the inner query first before using it in a larger query. WITH (CTE) syntax makes code easier to read and debug. Start with Easy exercises and work your way up!
+
 ---
 
 ## Easy 🟢 (10–12 min each)

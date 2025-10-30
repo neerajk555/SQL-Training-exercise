@@ -2,6 +2,8 @@
 
 Three guided activities to practice correlated subqueries, derived tables for top-N per group, and a non-recursive CTE pipeline. Each includes setup, checkpoints, common mistakes, full solutions with comments, and discussion questions.
 
+**Beginner Tip:** Subqueries and CTEs make complex queries manageable. Build them piece by piece—test the inner query first, then wrap it. CTEs especially help you think clearly about multi-step logic!
+
 ---
 
 ## Activity 1: Latest Order Per Customer (Correlated Subquery)
