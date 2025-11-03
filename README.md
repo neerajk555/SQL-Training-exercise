@@ -71,6 +71,7 @@ A comprehensive SQL training course covering fundamental to advanced database co
 - [Take-Home Challenges](module-06-subqueries-ctes/08-Take-Home-Challenges.md)
 
 ### Module 07: Set Operations
+- [Module Overview](module-07-set-operations/Module-07-Set-Operations.md)
 - [Quick Warm-Ups](module-07-set-operations/01-Quick-Warm-Ups.md)
 - [Guided Step-by-Step](module-07-set-operations/02-Guided-Step-by-Step.md)
 - [Independent Practice](module-07-set-operations/03-Independent-Practice.md)
@@ -81,31 +82,103 @@ A comprehensive SQL training course covering fundamental to advanced database co
 - [Take-Home Challenges](module-07-set-operations/08-Take-Home-Challenges.md)
 
 ### Module 08: Window Functions
-- [Module Content](module-08-window-functions/)
+- [Module Overview](module-08-window-functions/Module-08-Window-Functions.md)
+- [Quick Warm-Ups](module-08-window-functions/01-Quick-Warm-Ups.md)
+- [Guided Step-by-Step](module-08-window-functions/02-Guided-Step-by-Step.md)
+- [Independent Practice](module-08-window-functions/03-Independent-Practice.md)
+- [Paired Programming](module-08-window-functions/04-Paired-Programming.md)
+- [Real-World Project](module-08-window-functions/05-Real-World-Project.md)
+- [Error Detective](module-08-window-functions/06-Error-Detective.md)
+- [Speed Drills](module-08-window-functions/07-Speed-Drills.md)
+- [Take-Home Challenges](module-08-window-functions/08-Take-Home-Challenges.md)
 
 ### Module 09: DML Operations
-- [Module Content](module-09-dml-operations/)
+- [Module Overview](module-09-dml-operations/Module-09-DML-Operations.md)
+- [Quick Warm-Ups](module-09-dml-operations/01-Quick-Warm-Ups.md)
+- [Guided Step-by-Step](module-09-dml-operations/02-Guided-Step-by-Step.md)
+- [Independent Practice](module-09-dml-operations/03-Independent-Practice.md)
+- [Paired Programming](module-09-dml-operations/04-Paired-Programming.md)
+- [Real-World Project](module-09-dml-operations/05-Real-World-Project.md)
+- [Error Detective](module-09-dml-operations/06-Error-Detective.md)
+- [Speed Drills](module-09-dml-operations/07-Speed-Drills.md)
+- [Take-Home Challenges](module-09-dml-operations/08-Take-Home-Challenges.md)
 
 ### Module 10: DDL and Schema
-- [Module Content](module-10-ddl-schema/)
+- [Module Overview](module-10-ddl-schema/Module-10-DDL-Schema.md)
+- [Quick Warm-Ups](module-10-ddl-schema/01-Quick-Warm-Ups.md)
+- [Guided Step-by-Step](module-10-ddl-schema/02-Guided-Step-by-Step.md)
+- [Independent Practice](module-10-ddl-schema/03-Independent-Practice.md)
+- [Paired Programming](module-10-ddl-schema/04-Paired-Programming.md)
+- [Real-World Project](module-10-ddl-schema/05-Real-World-Project.md)
+- [Error Detective](module-10-ddl-schema/06-Error-Detective.md)
+- [Speed Drills](module-10-ddl-schema/07-Speed-Drills.md)
+- [Take-Home Challenges](module-10-ddl-schema/08-Take-Home-Challenges.md)
 
 ### Module 11: Indexes and Optimization
-- [Module Content](module-11-indexes-optimization/)
+- [Module Overview](module-11-indexes-optimization/Module-11-Indexes-Optimization.md)
+- [Quick Warm-Ups](module-11-indexes-optimization/01-Quick-Warm-Ups.md)
+- [Guided Step-by-Step](module-11-indexes-optimization/02-Guided-Step-by-Step.md)
+- [Independent Practice](module-11-indexes-optimization/03-Independent-Practice.md)
+- [Paired Programming](module-11-indexes-optimization/04-Paired-Programming.md)
+- [Real-World Project](module-11-indexes-optimization/05-Real-World-Project.md)
+- [Error Detective](module-11-indexes-optimization/06-Error-Detective.md)
+- [Speed Drills](module-11-indexes-optimization/07-Speed-Drills.md)
+- [Take-Home Challenges](module-11-indexes-optimization/08-Take-Home-Challenges.md)
 
 ### Module 12: Transactions
-- [Module Content](module-12-transactions/)
+- [Module Overview](module-12-transactions/Module-12-Transactions.md)
+- [Quick Warm-Ups](module-12-transactions/01-Quick-Warm-Ups.md)
+- [Guided Step-by-Step](module-12-transactions/02-Guided-Step-by-Step.md)
+- [Independent Practice](module-12-transactions/03-Independent-Practice.md)
+- [Paired Programming](module-12-transactions/04-Paired-Programming.md)
+- [Real-World Project](module-12-transactions/05-Real-World-Project.md)
+- [Error Detective](module-12-transactions/06-Error-Detective.md)
+- [Speed Drills](module-12-transactions/07-Speed-Drills.md)
+- [Take-Home Challenges](module-12-transactions/08-Take-Home-Challenges.md)
 
 ### Module 13: Procedures and Functions
-- [Module Content](module-13-procedures-functions/)
+- [Module Overview](module-13-procedures-functions/Module-13-Procedures-Functions.md)
+- [Quick Warm-Ups](module-13-procedures-functions/01-Quick-Warm-Ups.md)
+- [Guided Step-by-Step](module-13-procedures-functions/02-Guided-Step-by-Step.md)
+- [Independent Practice](module-13-procedures-functions/03-Independent-Practice.md)
+- [Paired Programming](module-13-procedures-functions/04-Paired-Programming.md)
+- [Real-World Project](module-13-procedures-functions/05-Real-World-Project.md)
+- [Error Detective](module-13-procedures-functions/06-Error-Detective.md)
+- [Speed Drills](module-13-procedures-functions/07-Speed-Drills.md)
+- [Take-Home Challenges](module-13-procedures-functions/08-Take-Home-Challenges.md)
 
 ### Module 14: Triggers
-- [Module Content](module-14-triggers/)
+- [Module Overview](module-14-triggers/Module-14-Triggers.md)
+- [Quick Warm-Ups](module-14-triggers/01-Quick-Warm-Ups.md)
+- [Guided Step-by-Step](module-14-triggers/02-Guided-Step-by-Step.md)
+- [Independent Practice](module-14-triggers/03-Independent-Practice.md)
+- [Paired Programming](module-14-triggers/04-Paired-Programming.md)
+- [Real-World Project](module-14-triggers/05-Real-World-Project.md)
+- [Error Detective](module-14-triggers/06-Error-Detective.md)
+- [Speed Drills](module-14-triggers/07-Speed-Drills.md)
+- [Take-Home Challenges](module-14-triggers/08-Take-Home-Challenges.md)
 
 ### Module 15: Advanced Concepts
-- [Module Content](module-15-advanced-concepts/)
+- [Module Overview](module-15-advanced-concepts/Module-15-Advanced-Concepts.md)
+- [Quick Warm-Ups](module-15-advanced-concepts/01-Quick-Warm-Ups.md)
+- [Guided Step-by-Step](module-15-advanced-concepts/02-Guided-Step-by-Step.md)
+- [Independent Practice](module-15-advanced-concepts/03-Independent-Practice.md)
+- [Paired Programming](module-15-advanced-concepts/04-Paired-Programming.md)
+- [Real-World Project](module-15-advanced-concepts/05-Real-World-Project.md)
+- [Error Detective](module-15-advanced-concepts/06-Error-Detective.md)
+- [Speed Drills](module-15-advanced-concepts/07-Speed-Drills.md)
+- [Take-Home Challenges](module-15-advanced-concepts/08-Take-Home-Challenges.md)
 
 ### Module 16: Professional Practices
-- [Module Content](module-16-professional-practices/)
+- [Module Overview](module-16-professional-practices/Module-16-Professional-Practices.md)
+- [Quick Warm-Ups](module-16-professional-practices/01-Quick-Warm-Ups.md)
+- [Guided Step-by-Step](module-16-professional-practices/02-Guided-Step-by-Step.md)
+- [Independent Practice](module-16-professional-practices/03-Independent-Practice.md)
+- [Paired Programming](module-16-professional-practices/04-Paired-Programming.md)
+- [Real-World Project](module-16-professional-practices/05-Real-World-Project.md)
+- [Error Detective](module-16-professional-practices/06-Error-Detective.md)
+- [Speed Drills](module-16-professional-practices/07-Speed-Drills.md)
+- [Take-Home Challenges](module-16-professional-practices/08-Take-Home-Challenges.md)
 
 ## Getting Started
 
