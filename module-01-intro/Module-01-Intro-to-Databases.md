@@ -259,24 +259,22 @@ Each includes: business context, setup, final goal, 4 steps with checkpoints, mi
   ('2025-12-01 14:00:00','SCHEDULED'),
   ('2025-11-15 11:30:00','SCHEDULED');
   ```
-- Final Goal: Show scheduled appointments ordered by date, plus count of scheduled.
+- Final Goal: Show scheduled appointments ordered by date with a status indicator.
 - Steps:
   1) Select scheduled only: `WHERE status='SCHEDULED'`.
   2) Order by date ascending.
-  3) Count scheduled: basic aggregate with `COUNT(*)` on the same filter.
-  4) Verify counts match number of returned rows.
+  3) Add computed column `days_until_appt` using DATEDIFF from reference date '2025-03-31'.
+  4) Verify the date ordering and calculation logic.
 - Mistakes:
-  - Forgetting to repeat the WHERE when counting.
+  - Forgetting to filter by status.
+  - Wrong date order in DATEDIFF function.
 - Solution:
   ```sql
-  SELECT `appt_id`, `appt_date`
+  SELECT `appt_id`, `appt_date`,
+         DATEDIFF(`appt_date`, '2025-03-31') AS `days_until_appt`
   FROM `appointments`
   WHERE `status` = 'SCHEDULED'
   ORDER BY `appt_date` ASC;
-
-  SELECT COUNT(*) AS scheduled_count
-  FROM `appointments`
-  WHERE `status` = 'SCHEDULED';
   ```
 - Discussion:
   1) When would you include a date range filter?
@@ -466,42 +464,47 @@ Each includes: difficulty badge, time, scenario, schema+data, requirements, exam
   ORDER BY `category` ASC;
   ```
 
-### Independent 7: Orders Integrity Check (🔴 Challenge, 20–25 min)
-- Scenario: Identify orders with no items or cancelled.
+### Independent 7: Order Status Review (🔴 Challenge, 20–25 min)
+- Scenario: Find high-priority orders that need attention (cancelled or pending review).
 - Schema + Data:
   ```sql
   CREATE TEMPORARY TABLE `orders` (
     `order_id` INT,
-    `status` VARCHAR(20)
-  );
-  CREATE TEMPORARY TABLE `order_items` (
-    `order_id` INT,
-    `product` VARCHAR(50)
+    `status` VARCHAR(20),
+    `order_date` DATE,
+    `total_amount` DECIMAL(10,2),
+    `needs_review` TINYINT(1)
   );
   INSERT INTO `orders` VALUES
-  (1,'PAID'),(2,'CANCELLED'),(3,'PAID');
-  INSERT INTO `order_items` VALUES
-  (1,'Mouse'),(1,'Cable'),(3,'Keyboard');
+  (1,'PAID','2025-03-15',59.99,0),
+  (2,'CANCELLED','2025-03-16',129.50,1),
+  (3,'PAID','2025-03-17',45.00,0),
+  (4,'PENDING','2025-03-18',89.99,1),
+  (5,'CANCELLED','2025-03-19',75.00,0);
   ```
 - Requirements:
-  1) Return orders that are CANCELLED or have zero items.
-  2) Output: `order_id`, `status`, `item_count`.
+  1) Return orders that are CANCELLED or marked for review (`needs_review` = 1).
+  2) Add a computed column `priority_level`: 'HIGH' if status is CANCELLED, 'MEDIUM' otherwise.
+  3) Include only columns: `order_id`, `status`, `order_date`, `total_amount`, `priority_level`.
+  4) Sort by `priority_level` DESC, then by `order_date` DESC.
 - Example Output:
-  | order_id | status    | item_count |
-  |----------|-----------|------------|
-  | 2        | CANCELLED | 0          |
-- Success Criteria: Correct left join and grouping to find zero-match.
+  | order_id | status    | order_date | total_amount | priority_level |
+  |----------|-----------|------------|--------------|----------------|
+  | 5        | CANCELLED | 2025-03-19 | 75.00        | HIGH           |
+  | 2        | CANCELLED | 2025-03-16 | 129.50       | HIGH           |
+  | 4        | PENDING   | 2025-03-18 | 89.99        | MEDIUM         |
+- Success Criteria: Correct use of WHERE with OR conditions, CASE expression, and multi-column ORDER BY.
 - Hints:
-  - Level 1: Use LEFT JOIN from orders to items.
-  - Level 2: COUNT item rows grouped by order.
-  - Level 3: Use HAVING for zero or filter by status.
+  - Level 1: Use WHERE with OR to filter by status or needs_review flag.
+  - Level 2: CASE expression to create priority_level based on status.
+  - Level 3: ORDER BY with DESC on priority_level, then order_date.
 - Solution:
   ```sql
-  SELECT o.`order_id`, o.`status`, COUNT(oi.`product`) AS `item_count`
-  FROM `orders` o
-  LEFT JOIN `order_items` oi ON o.`order_id` = oi.`order_id`
-  GROUP BY o.`order_id`, o.`status`
-  HAVING o.`status` = 'CANCELLED' OR COUNT(oi.`product`) = 0;
+  SELECT `order_id`, `status`, `order_date`, `total_amount`,
+         CASE WHEN `status` = 'CANCELLED' THEN 'HIGH' ELSE 'MEDIUM' END AS `priority_level`
+  FROM `orders`
+  WHERE `status` = 'CANCELLED' OR `needs_review` = 1
+  ORDER BY `priority_level` DESC, `order_date` DESC;
   ```
 
 ---
@@ -510,52 +513,51 @@ Each includes: difficulty badge, time, scenario, schema+data, requirements, exam
 - Roles:
   - Driver: Types SQL, verifies outputs
   - Navigator: Reads requirements, checks logic, suggests tests
-- Schema (2 tables):
+- Schema (single table with denormalized order data):
   ```sql
-  CREATE TEMPORARY TABLE `products` (
-    `product_id` INT,
-    `name` VARCHAR(50),
-    `category` VARCHAR(50),
-    `price` DECIMAL(10,2)
-  );
-  CREATE TEMPORARY TABLE `orders` (
+  CREATE TEMPORARY TABLE `order_details` (
     `order_id` INT,
-    `product_id` INT,
-    `quantity` INT
+    `product_name` VARCHAR(50),
+    `category` VARCHAR(50),
+    `quantity` INT,
+    `unit_price` DECIMAL(10,2),
+    `order_date` DATE,
+    `customer_name` VARCHAR(100)
   );
-  INSERT INTO `products` VALUES
-  (1,'Cable','Cables',9.99),(2,'Mouse','Accessories',19.99),(3,'Keyboard','Accessories',79.99);
-  INSERT INTO `orders` VALUES
-  (101,1,2),(101,2,1),(102,3,1);
+  INSERT INTO `order_details` VALUES
+  (101,'Cable','Cables',2,9.99,'2025-03-15','Alice Johnson'),
+  (101,'Mouse','Accessories',1,19.99,'2025-03-15','Alice Johnson'),
+  (102,'Keyboard','Accessories',1,79.99,'2025-03-16','Bob Smith'),
+  (103,'Cable','Cables',5,9.99,'2025-03-17','Charlie Davis'),
+  (103,'Mouse Pad','Accessories',2,6.50,'2025-03-17','Charlie Davis');
   ```
 - Parts:
-  - A) List all orders with product name and line total (`quantity * price`).
-  - B) Add order totals per order_id.
-  - C) Return only orders with totals >= 50.00.
+  - A) Calculate line totals: For each order line, compute `line_total` = `quantity * unit_price`. Display `order_id`, `product_name`, `quantity`, `unit_price`, and `line_total`.
+  - B) Categorize orders: Add a computed column `order_size` with values 'LARGE' if `quantity` >= 3, otherwise 'SMALL'. Sort by `order_id` and `quantity` DESC.
+  - C) Premium orders: Filter for orders where `line_total` >= 40.00 and add a `discount_eligible` column showing 'YES' for Accessories category, 'NO' for others.
 - Role-Switch Points: Switch after A and after B.
-- Collaboration Tips: Talk through join keys, verify arithmetic, check duplicates.
+- Collaboration Tips: Discuss computed column logic, verify arithmetic, test edge cases with different quantities.
 - Solutions:
   ```sql
-  -- A
-  SELECT o.`order_id`, p.`name`, o.`quantity`, (o.`quantity` * p.`price`) AS `line_total`
-  FROM `orders` o
-  JOIN `products` p ON p.`product_id` = o.`product_id`;
+  -- A: Calculate line totals
+  SELECT `order_id`, `product_name`, `quantity`, `unit_price`,
+         (`quantity` * `unit_price`) AS `line_total`
+  FROM `order_details`
+  ORDER BY `order_id`, `product_name`;
 
-  -- B
-  SELECT o.`order_id`, SUM(o.`quantity` * p.`price`) AS `order_total`
-  FROM `orders` o
-  JOIN `products` p ON p.`product_id` = o.`product_id`
-  GROUP BY o.`order_id`;
+  -- B: Categorize by order size
+  SELECT `order_id`, `product_name`, `quantity`,
+         CASE WHEN `quantity` >= 3 THEN 'LARGE' ELSE 'SMALL' END AS `order_size`
+  FROM `order_details`
+  ORDER BY `order_id`, `quantity` DESC;
 
-  -- C
-  SELECT t.`order_id`, t.`order_total`
-  FROM (
-    SELECT o.`order_id`, SUM(o.`quantity` * p.`price`) AS `order_total`
-    FROM `orders` o
-    JOIN `products` p ON p.`product_id` = o.`product_id`
-    GROUP BY o.`order_id`
-  ) t
-  WHERE t.`order_total` >= 50.00;
+  -- C: Premium orders with discount eligibility
+  SELECT `order_id`, `product_name`, `category`,
+         (`quantity` * `unit_price`) AS `line_total`,
+         CASE WHEN `category` = 'Accessories' THEN 'YES' ELSE 'NO' END AS `discount_eligible`
+  FROM `order_details`
+  WHERE (`quantity` * `unit_price`) >= 40.00
+  ORDER BY `order_id`;
   ```
 
 ---
@@ -571,10 +573,13 @@ Each includes: difficulty badge, time, scenario, schema+data, requirements, exam
      - Sorted by `category`, then `name`
   2) Customer signup recency
      - Columns: `customer_id`, full name, `created_at`, `is_recent` (created within last 60 days of '2025-03-31')
-  3) Order revenue by order
-     - For PAID orders only, compute per-order total using `order_items.unit_price * quantity`
-  4) Top categories by revenue (bonus)
-     - Aggregate revenue by product category for PAID orders
+  3) Order export by status
+     - For PAID orders only, list all `order_id`, `customer_id`, `order_date`, `status` with a computed column `days_since_order` (days between order_date and '2025-03-31')
+     - Sort by most recent orders first
+  4) Product categories summary (bonus)
+     - Create a distinct list of all product categories from active (non-discontinued) products
+     - Add a computed column `category_type`: 'TECH' for categories containing 'Cables' or 'Cameras', 'OTHER' for all else
+     - Sort alphabetically by category
 - Evaluation Rubric:
   - Correctness (50%), Readability (20%), Edge Cases (15%), Performance Notes (15%)
 - Model Solutions:
@@ -594,25 +599,24 @@ Each includes: difficulty badge, time, scenario, schema+data, requirements, exam
               THEN 'RECENT' ELSE 'NOT_RECENT' END AS `is_recent`
   FROM `customers`;
 
-  -- 3) Order revenue by order (PAID only)
-  SELECT o.`order_id`, SUM(oi.`quantity` * oi.`unit_price`) AS `order_total`
-  FROM `orders` o
-  JOIN `order_items` oi ON oi.`order_id` = o.`order_id`
-  WHERE o.`status` = 'PAID'
-  GROUP BY o.`order_id`;
+  -- 3) Order export by status (PAID only)
+  SELECT `order_id`, `customer_id`, `order_date`, `status`,
+         DATEDIFF('2025-03-31', `order_date`) AS `days_since_order`
+  FROM `orders`
+  WHERE `status` = 'PAID'
+  ORDER BY `order_date` DESC;
 
-  -- 4) Bonus: Top categories by revenue (PAID)
-  SELECT p.`category`, SUM(oi.`quantity` * oi.`unit_price`) AS `category_revenue`
-  FROM `orders` o
-  JOIN `order_items` oi ON oi.`order_id` = o.`order_id`
-  JOIN `products` p ON p.`product_id` = oi.`product_id`
-  WHERE o.`status` = 'PAID'
-  GROUP BY p.`category`
-  ORDER BY `category_revenue` DESC;
+  -- 4) Bonus: Product categories summary
+  SELECT DISTINCT `category`,
+         CASE WHEN `category` IN ('Cables', 'Cameras') THEN 'TECH' ELSE 'OTHER' END AS `category_type`
+  FROM `products`
+  WHERE `discontinued` = 0
+  ORDER BY `category`;
   ```
 - Performance Notes:
-  - For larger data, indexes on `orders(status)`, `order_items(order_id)`, and `order_items(product_id)` help.
-  - Consider composite indexes aligned with common joins and filters.
+  - For larger data, indexes on `orders(status)` and `orders(order_date)` help with filtering and sorting.
+  - DISTINCT operations can be optimized with indexes on the category column.
+  - Date calculations like DATEDIFF are efficient for single-row operations.
 
 ---
 
@@ -648,63 +652,55 @@ Each includes: scenario, broken query, error, expected output, guiding questions
   ```
 - Explanation: Single quotes denote string literals in MySQL.
 
-### Error 3: Missing Join Condition
-- Scenario: Compute order totals.
+### Error 3: Incorrect Date Comparison
+- Scenario: Find orders from March 2025.
 - Broken Query:
   ```sql
-  SELECT * FROM orders o, order_items oi;
+  SELECT * FROM `orders` WHERE `order_date` = '2025-03';
   ```
-- Error: Cartesian product explosion.
-- Expected: Join on key.
-- Fix:
+- Error: Returns 0 rows; partial date string doesn't match full DATE values.
+- Expected: Use proper date range or LIKE pattern.
+- Fix Option 1 (Range):
   ```sql
-  SELECT o.`order_id`, SUM(oi.`quantity` * oi.`unit_price`) AS total
-  FROM `orders` o
-  JOIN `order_items` oi ON oi.`order_id` = o.`order_id`
-  GROUP BY o.`order_id`;
+  SELECT * FROM `orders` 
+  WHERE `order_date` >= '2025-03-01' AND `order_date` < '2025-04-01';
   ```
-- Explanation: Always specify join predicates.
+- Fix Option 2 (LIKE with caution):
+  ```sql
+  SELECT * FROM `orders` WHERE `order_date` LIKE '2025-03-%';
+  ```
+- Explanation: DATE columns need complete date values or proper range comparisons. LIKE works but is less efficient than range queries.
 
-### Error 4: Ambiguous Column
-- Scenario: Filter by `status` but column exists in multiple tables.
+### Error 4: Missing ORDER BY Column in SELECT
+- Scenario: Sort products by price but forgot to include price in output.
 - Broken Query:
   ```sql
-  SELECT *
-  FROM orders
-  JOIN order_items ON order_items.order_id = orders.order_id
-  WHERE status = 'PAID';
+  SELECT `product_id`, `name` FROM `products` ORDER BY price;
   ```
-- Error: Ambiguous column 'status'.
+- Error: Works in MySQL but ambiguous—sorting by column not in SELECT can confuse readers.
+- Expected: Include all ORDER BY columns in SELECT for clarity (best practice).
 - Fix:
   ```sql
-  SELECT *
-  FROM `orders` o
-  JOIN `order_items` oi ON oi.`order_id` = o.`order_id`
-  WHERE o.`status` = 'PAID';
+  SELECT `product_id`, `name`, `price` FROM `products` ORDER BY `price`;
   ```
-- Explanation: Qualify columns when duplicates may exist.
+- Explanation: While MySQL allows ordering by columns not in SELECT, including them improves query readability and is required in DISTINCT queries.
 
-### Error 5: COUNT With WHERE vs HAVING
-- Scenario: Find orders with zero items.
+### Error 5: Wrong Operator for String Patterns
+- Scenario: Find products with names starting with 'USB'.
 - Broken Query:
   ```sql
-  SELECT o.order_id
-  FROM orders o
-  LEFT JOIN order_items oi ON o.order_id = oi.order_id
-  WHERE COUNT(oi.product) = 0
-  GROUP BY o.order_id;
+  SELECT * FROM `products` WHERE `name` = 'USB%';
   ```
-- Error: `WHERE` cannot use aggregates; also order of clauses.
+- Error: Returns 0 rows; `=` looks for exact match including the % character.
+- Expected: Use LIKE for pattern matching.
 - Fix:
   ```sql
-  SELECT o.`order_id`
-  FROM `orders` o
-  LEFT JOIN `order_items` oi ON o.`order_id` = oi.`order_id`
+  SELECT * FROM `products` WHERE `name` LIKE 'USB%';
+  ```
+- Explanation: Use `=` for exact matches, `LIKE` for pattern matching with wildcards (% for any characters, _ for single character)
   GROUP BY o.`order_id`
   HAVING COUNT(oi.`product`) = 0;
   ```
-- Explanation: Use HAVING for aggregate filters.
-
 ---
 
 ## 7) Speed Drills (10 questions, 2–3 min each)
@@ -740,10 +736,10 @@ Immediate answers for self-scoring.
    ```sql
    SELECT CONCAT(`first_name`,' ',`last_name`) AS `full_name` FROM `customers`;
    ```
-6) Count scheduled appointments.
+6) Show all scheduled appointments.
    - Answer:
    ```sql
-   SELECT COUNT(*) FROM `appointments` WHERE `status`='SCHEDULED';
+   SELECT * FROM `appointments` WHERE `status`='SCHEDULED';
    ```
 7) Return top 5 cheapest products.
    - Answer:
