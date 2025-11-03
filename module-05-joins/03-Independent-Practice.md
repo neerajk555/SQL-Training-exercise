@@ -364,14 +364,14 @@ Shop C  | 7.99
 ```
 Success criteria
 - Handle many-to-many multiplicative effects.
-- Use window function or anti-join for top-per-group.
+- Use correlated subquery or alternative for top-per-group.
 
 Hints
 - L1: Join items→products, then group by seller.
-- L2: For top per group, use ROW_NUMBER() OVER (PARTITION BY seller ORDER BY revenue DESC).
+- L2: For top per group, use a correlated subquery to find max revenue per seller.
 - L3: For sellers with no sales, LEFT JOIN from sellers.
 
-Solution
+Solution (Part A - using current module concepts)
 ```sql
 -- A) Revenue by seller (include zero)
 SELECT s.name AS seller,
@@ -382,7 +382,16 @@ LEFT JOIN ip5_c_order_items oi ON oi.product_id = p.product_id
 GROUP BY s.name
 ORDER BY revenue DESC, s.name;
 
--- B) Top product by revenue per seller
+-- B) Top product by revenue per seller (using JOIN concepts only)
+-- For a simpler approach, you can return all products with their revenue
+-- and manually identify the top per seller, or wait for Module 6 (CTEs) and Module 8 (Window Functions)
+-- for more elegant solutions.
+```
+
+**📚 Advanced Alternative (Preview of Modules 6 & 8):**
+Part B can be solved more elegantly using CTEs (Module 6) and Window Functions (Module 8). Here's a preview:
+```sql
+-- ADVANCED: Uses CTE (Module 6) + ROW_NUMBER() window function (Module 8)
 WITH seller_product AS (
   SELECT s.name AS seller, p.name AS product,
          SUM(oi.qty * p.price) AS revenue,

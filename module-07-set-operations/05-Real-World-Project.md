@@ -366,8 +366,10 @@ master_data AS (
   FROM all_customer_records main
   GROUP BY email
 )
+-- 📚 Note: ROW_NUMBER() is a window function covered in Module 8 (next module)
+-- For this module, you can use a simpler sequential ID or auto-increment approach
 SELECT 
-  ROW_NUMBER() OVER (ORDER BY email) AS master_customer_id,
+  ROW_NUMBER() OVER (ORDER BY email) AS master_customer_id,  -- Preview of Module 8
   email,
   company_name,
   industry,

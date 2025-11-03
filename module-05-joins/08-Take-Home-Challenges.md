@@ -56,7 +56,17 @@ LEFT JOIN thc5_order_items oi ON oi.order_id = o.order_id
 GROUP BY u.name
 ORDER BY revenue DESC, u.name;
 
--- C) Top city by revenue (ties)
+-- C) Top city by revenue (ties) - Simplified approach
+SELECT u.city, SUM(oi.qty * oi.price) AS revenue
+FROM thc5_users u
+JOIN thc5_orders o ON o.user_id = u.user_id
+JOIN thc5_order_items oi ON oi.order_id = o.order_id
+GROUP BY u.city
+ORDER BY revenue DESC
+LIMIT 1;
+
+-- 📚 ADVANCED: For handling ties, use CTE (Module 6)
+/*
 WITH city_rev AS (
   SELECT u.city, SUM(oi.qty * oi.price) AS revenue
   FROM thc5_users u
@@ -68,14 +78,15 @@ SELECT city, revenue
 FROM city_rev
 WHERE revenue = (SELECT MAX(revenue) FROM city_rev)
 ORDER BY city;
+*/
 
 -- D) Map order to most recent prior session (outline)
--- Option 1 (MySQL 8.0+): use LATERAL (CROSS APPLY) pattern via correlated subquery
+-- Use correlated subquery - covered in this module's concepts
 -- Select s.session_id where s.user_id=o.user_id and s.started_at<=o.order_date
 -- Order by started_at desc limit 1.
 ```
 Trade-offs
-- For D, a correlated subquery per order may be fine at small scale; for large data, pre-aggregate sessions per user or use window functions.
+- Correlated subqueries work well for this use case with moderate data volumes.
 
 ---
 
@@ -107,8 +118,12 @@ B) Departments with insufficient staffing overall (sum across shifts) vs needed.
 C) Open-ended: Suggest a query to list employees not assigned to any shift (per day) for potential on-call.
 
 Solutions and trade-offs
+
+**Note:** The solution below uses CTEs which are formally taught in Module 6. Here's a preview:
+
 ```sql
 -- A) Shift coverage vs requirement
+-- 📚 ADVANCED: Uses CTE (Module 6) for clearer organization
 WITH shift_counts AS (
   SELECT s.shift_id, s.dept, COUNT(a.emp_id) AS assigned_count
   FROM thc5_shifts s
@@ -180,7 +195,16 @@ JOIN thc5_books b ON b.book_id = l.book_id
 WHERE l.return_date IS NULL AND l.due_date < '2025-03-12'
 ORDER BY member, title;
 
--- B) Top borrower(s)
+-- B) Top borrower(s) - Simplified approach
+SELECT m.name, COUNT(*) AS loans
+FROM thc5_loans l
+JOIN thc5_members m ON m.member_id = l.member_id
+GROUP BY m.name
+ORDER BY loans DESC
+LIMIT 1;
+
+-- 📚 ADVANCED: For handling ties, use CTE + Window Functions (Modules 6 & 8)
+/*
 WITH borrower AS (
   SELECT m.name, COUNT(*) AS loans,
          DENSE_RANK() OVER (ORDER BY COUNT(*) DESC) AS rnk
@@ -192,6 +216,7 @@ SELECT name, loans
 FROM borrower
 WHERE rnk = 1
 ORDER BY name;
+*/
 
 -- C) Books never borrowed
 SELECT b.title
@@ -203,6 +228,9 @@ ORDER BY b.title;
 -- D) Days overdue (outline)
 -- CASE WHEN l.return_date IS NULL AND l.due_date < CURDATE() THEN DATEDIFF(CURDATE(), l.due_date) ELSE 0 END AS days_overdue
 ```
+
+Trade-offs
+- CTEs and window functions (used in advanced alternatives) make complex queries more readable but are covered in later modules.
 Trade-offs
 - Using window functions simplifies ties in B; fallback: subquery for max count.
 - For A/D, ensure date comparisons are sargable; avoid functions on due_date in WHERE.

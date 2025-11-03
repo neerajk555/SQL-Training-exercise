@@ -60,17 +60,18 @@ GROUP BY order_id
 ORDER BY revenue DESC;
 ```
 
-Part C (Driver 1): City-level Order Counts (customers with NULL city grouped as 'Unknown')
-- Task: Show `city_label` and `orders_cnt` grouped by city from customers who placed orders.
+Part C (Driver 1): Order Count by Status
+- Task: Show `status` and `orders_cnt` grouped by order status. Sort by count descending.
 - Solution
 ```sql
-SELECT COALESCE(c.city,'Unknown') AS city_label,
+SELECT status,
        COUNT(*) AS orders_cnt
-FROM pp4_orders o
-JOIN pp4_customers c ON c.customer_id = o.customer_id
-GROUP BY COALESCE(c.city,'Unknown')
-ORDER BY orders_cnt DESC, city_label;
+FROM pp4_orders
+GROUP BY status
+ORDER BY orders_cnt DESC, status;
 ```
+
+**Note:** This exercise focuses on aggregation only. Multi-table queries with JOINs will be covered in Module 5 (next module).
 
 Role-switching points
 - Switch after each part; Navigator summarizes validation steps.

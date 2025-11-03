@@ -217,12 +217,11 @@ WHERE user_handle NOT IN (
 );
 -- TikTok: 2 exclusive (@jack_frontend, @karen_backend), avg 6.75
 
--- Combined analysis
+-- Combined analysis (simplified - no ranking)
 SELECT 
   platform,
   exclusive_users,
-  avg_engagement,
-  RANK() OVER (ORDER BY avg_engagement DESC) AS engagement_rank
+  avg_engagement
 FROM (
   SELECT 'Twitter' AS platform, COUNT(*) AS exclusive_users, ROUND(AVG(engagement_score), 2) AS avg_engagement
   FROM thc7_twitter_engagement
@@ -235,7 +234,18 @@ FROM (
   SELECT 'TikTok', COUNT(*), ROUND(AVG(engagement_score), 2)
   FROM thc7_tiktok_engagement
   WHERE user_handle NOT IN (SELECT user_handle FROM thc7_twitter_engagement UNION SELECT user_handle FROM thc7_instagram_engagement)
-) AS exclusive_analysis;
+) AS exclusive_analysis
+ORDER BY avg_engagement DESC;
+
+-- 📚 ADVANCED: To add engagement ranking, use window functions (Module 8, next module)
+/*
+SELECT 
+  platform,
+  exclusive_users,
+  avg_engagement,
+  RANK() OVER (ORDER BY avg_engagement DESC) AS engagement_rank
+FROM (...previous query...)
+*/
 ```
 
 ### Open-Ended Component

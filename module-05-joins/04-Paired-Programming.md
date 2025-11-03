@@ -49,6 +49,19 @@ GROUP BY a.name
 ORDER BY plays DESC, artist;
 
 -- B) Top 2 artists per user
+-- Simplified approach: Show all user-artist combinations with play counts
+-- For "top N per group" filtering, see the advanced solution below
+SELECT u.name AS user_name, a.name AS artist,
+       COUNT(p.play_id) AS plays
+FROM pp5_users u
+LEFT JOIN pp5_plays p ON p.user_id = u.user_id
+LEFT JOIN pp5_tracks t ON t.track_id = p.track_id
+LEFT JOIN pp5_artists a ON a.artist_id = t.artist_id
+GROUP BY u.user_id, u.name, a.name
+ORDER BY user_name, plays DESC;
+
+-- 📚 ADVANCED: For limiting to top 2 per user, use CTE + Window Functions (Modules 6 & 8)
+/*
 WITH user_artist AS (
   SELECT u.name AS user_name, a.name AS artist,
          COUNT(p.play_id) AS plays,
@@ -63,6 +76,7 @@ SELECT user_name, artist, plays
 FROM user_artist
 WHERE rn <= 2
 ORDER BY user_name, rn;
+*/
 
 -- C) Users with no plays
 SELECT u.name, 'No plays yet' AS note

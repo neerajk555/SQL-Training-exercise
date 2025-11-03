@@ -777,8 +777,9 @@ Each includes multi-part queries, realistic dataset, an open-ended component, an
 - Dataset: Use `m1_intro_ecom`.
 - Parts:
   A) Return customers with a computed `full_name` and `created_at`.
-  B) Count orders per customer (include customers with zero orders).
-  C) Open-ended: Suggest 2 additional columns to help onboarding insights and explain why.
+  B) Add computed columns: `account_age_days` (days since created_at until '2025-03-31') and `email_status` ('HAS_EMAIL' if email exists, 'MISSING' if NULL).
+  C) Filter for customers created in March 2025 AND sort by most recent first.
+  D) Open-ended: Suggest 2 additional columns to help onboarding insights and explain why.
 - Solution:
   ```sql
   USE m1_intro_ecom;
@@ -788,62 +789,98 @@ Each includes multi-part queries, realistic dataset, an open-ended component, an
   FROM `customers`;
 
   -- B
-  SELECT c.`customer_id`, CONCAT(c.`first_name`,' ',c.`last_name`) AS `full_name`,
-         COUNT(o.`order_id`) AS `order_count`
-  FROM `customers` c
-  LEFT JOIN `orders` o ON o.`customer_id` = c.`customer_id`
-  GROUP BY c.`customer_id`, c.`first_name`, c.`last_name`;
-  ```
-- Trade-offs: LEFT JOIN includes new customers with zero orders; INNER JOIN would exclude them. Counting on order_id is safe since it's PK.
+  SELECT `customer_id`, CONCAT(`first_name`,' ',`last_name`) AS `full_name`, `created_at`,
+         DATEDIFF('2025-03-31', `created_at`) AS `account_age_days`,
+         CASE WHEN `email` IS NULL THEN 'MISSING' ELSE 'HAS_EMAIL' END AS `email_status`
+  FROM `customers`;
 
-### Take-Home 2: Product Availability and Sales
+  -- C
+  SELECT `customer_id`, CONCAT(`first_name`,' ',`last_name`) AS `full_name`, `created_at`,
+         DATEDIFF('2025-03-31', `created_at`) AS `account_age_days`,
+         CASE WHEN `email` IS NULL THEN 'MISSING' ELSE 'HAS_EMAIL' END AS `email_status`
+  FROM `customers`
+  WHERE `created_at` >= '2025-03-01' AND `created_at` < '2025-04-01'
+  ORDER BY `created_at` DESC;
+  ```
+- Trade-offs: DATEDIFF provides numeric days for easy comparison. CASE expressions are readable for status fields. Date range filtering is efficient with proper indexes.
+
+### Take-Home 2: Product Catalog Analysis
 - Dataset: Use `m1_intro_ecom`.
 - Parts:
-  A) List active products with `stock_status`.
-  B) For each product, compute total units sold (only PAID orders).
-  C) Open-ended: Recommend an index to speed B and justify.
+  A) List active products with `stock_status` ('IN_STOCK' or 'OUT_OF_STOCK').
+  B) Add a `price_category` column: 'BUDGET' for price < 20, 'STANDARD' for 20-50, 'PREMIUM' for > 50.
+  C) Filter for Accessories category only, show products that are either out of stock OR priced > $50.
+  D) Open-ended: Recommend how to identify products needing restocking and explain your criteria.
 - Solution:
   ```sql
   USE m1_intro_ecom;
 
   -- A
-  SELECT `product_id`, `name`, `price`, `stock`,
+  SELECT `product_id`, `name`, `category`, `price`, `stock`,
          CASE WHEN `stock` > 0 THEN 'IN_STOCK' ELSE 'OUT_OF_STOCK' END AS `stock_status`
   FROM `products`
   WHERE `discontinued` = 0;
 
   -- B
-  SELECT p.`product_id`, p.`name`, SUM(oi.`quantity`) AS `units_sold`
-  FROM `products` p
-  JOIN `order_items` oi ON oi.`product_id` = p.`product_id`
-  JOIN `orders` o ON o.`order_id` = oi.`order_id`
-  WHERE o.`status` = 'PAID'
-  GROUP BY p.`product_id`, p.`name`;
-  ```
-- Trade-offs: Filtering early on `o.status` reduces rows joined; adding index on `orders(status)` and `order_items(product_id)` helps.
+  SELECT `product_id`, `name`, `price`,
+         CASE 
+           WHEN `price` < 20 THEN 'BUDGET'
+           WHEN `price` <= 50 THEN 'STANDARD'
+           ELSE 'PREMIUM'
+         END AS `price_category`
+  FROM `products`
+  WHERE `discontinued` = 0
+  ORDER BY `price`;
 
-### Take-Home 3: Education Snapshot
+  -- C
+  SELECT `product_id`, `name`, `price`, `stock`,
+         CASE WHEN `stock` > 0 THEN 'IN_STOCK' ELSE 'OUT_OF_STOCK' END AS `stock_status`
+  FROM `products`
+  WHERE `discontinued` = 0 
+    AND `category` = 'Accessories' 
+    AND (`stock` = 0 OR `price` > 50)
+  ORDER BY `stock`, `price` DESC;
+  ```
+- Trade-offs: Nested CASE expressions provide clear categorization. Combining conditions with OR requires careful parentheses. Sorting by stock helps prioritize restocking needs.
+
+### Take-Home 3: Course Catalog Review
 - Dataset: Use `m1_intro_edu`.
 - Parts:
-  A) Show active courses only with `course_id`, `title`.
-  B) For each course, show enrollment count (include 0 for inactive—then decide to include/exclude).
-  C) Open-ended: Discuss pros/cons of allowing NULL grades.
+  A) Show active courses only with `course_id`, `title`, and `credits`.
+  B) Add a computed column `course_level`: 'INTRO' if title contains 'Introduction' or 'Fundamentals', 'ADVANCED' otherwise.
+  C) Filter for courses with 3 or more credits, sorted by credits DESC then title ASC.
+  D) Open-ended: Create a query to identify courses that might need updating (consider title keywords, credit hours, active status). Explain your criteria.
 - Solution:
   ```sql
   USE m1_intro_edu;
 
   -- A
-  SELECT `course_id`, `title`
+  SELECT `course_id`, `title`, `credits`
   FROM `courses`
   WHERE `active` = 1;
 
-  -- B (include courses with 0 enrollments)
-  SELECT c.`course_id`, c.`title`, COUNT(e.`student_id`) AS `enrolled`
-  FROM `courses` c
-  LEFT JOIN `enrollments` e ON e.`course_id` = c.`course_id`
-  GROUP BY c.`course_id`, c.`title`;
+  -- B
+  SELECT `course_id`, `title`, `credits`,
+         CASE 
+           WHEN `title` LIKE '%Introduction%' OR `title` LIKE '%Fundamentals%' 
+           THEN 'INTRO'
+           ELSE 'ADVANCED'
+         END AS `course_level`
+  FROM `courses`
+  WHERE `active` = 1;
+
+  -- C
+  SELECT `course_id`, `title`, `credits`,
+         CASE 
+           WHEN `title` LIKE '%Introduction%' OR `title` LIKE '%Fundamentals%' 
+           THEN 'INTRO'
+           ELSE 'ADVANCED'
+         END AS `course_level`
+  FROM `courses`
+  WHERE `active` = 1 AND `credits` >= 3
+  ORDER BY `credits` DESC, `title` ASC;
   ```
-- Trade-offs: LEFT JOIN keeps all courses visible; if performance is a concern at scale, pre-aggregate enrollment counts.
+- Trade-offs: LIKE with wildcards enables text pattern matching but can be slower on large datasets without full-text indexes. Multiple OR conditions in CASE are readable but could be refactored into a lookup table for complex categorizations.
 
 ---
 

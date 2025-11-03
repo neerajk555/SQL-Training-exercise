@@ -44,39 +44,18 @@ C) Orders per city and status with counts.
 D) Open-ended: Identify the top city by shipped orders and include ties.
 
 Solutions and notes
+
+**Note:** Parts B, C, and D require JOINs which are covered in Module 5 (next module). For now, focus on Part A and single-table aggregations. You can return to these after completing Module 5.
+
 ```sql
--- A
+-- A (Current module concepts)
 SELECT status, COUNT(*) AS cnt
 FROM thc4_orders
 GROUP BY status
 ORDER BY cnt DESC, status;
 
--- B
-SELECT COALESCE(city,'Unknown') AS city_label, COUNT(*) AS orders_cnt
-FROM thc4_orders o
-JOIN thc4_customers c ON c.customer_id = o.customer_id
-GROUP BY COALESCE(city,'Unknown')
-ORDER BY orders_cnt DESC, city_label;
-
--- C
-SELECT COALESCE(city,'Unknown') AS city_label, status, COUNT(*) AS cnt
-FROM thc4_orders o
-JOIN thc4_customers c ON c.customer_id = o.customer_id
-GROUP BY COALESCE(city,'Unknown'), status
-ORDER BY city_label, cnt DESC;
-
--- D (top city by shipped, ties included)
-WITH shipped AS (
-  SELECT COALESCE(city,'Unknown') AS city_label, COUNT(*) AS shipped_cnt
-  FROM thc4_orders o
-  JOIN thc4_customers c ON c.customer_id = o.customer_id
-  WHERE status = 'shipped'
-  GROUP BY COALESCE(city,'Unknown')
-)
-SELECT s.*
-FROM shipped s
-WHERE s.shipped_cnt = (SELECT MAX(shipped_cnt) FROM shipped)
-ORDER BY s.city_label;
+-- B, C, D: Skip for now - these require JOINs from Module 5
+-- You'll practice these concepts after learning multi-table queries in the next module.
 ```
 Trade-offs
 - CTE used for readability; can be replaced by a subquery if desired.
@@ -123,43 +102,16 @@ D) Open-ended: Return top 2 categories by revenue and include a `rank` label (1 
 
 Solutions and notes
 ```sql
--- A
-SELECT p.category, SUM(COALESCE(oi.qty,0)) AS items_sold
-FROM thc4_order_items oi
-JOIN thc4_products p ON p.product_id = oi.product_id
-GROUP BY p.category
-ORDER BY items_sold DESC, p.category;
+**⚠️ Note:** Parts A-D require JOINs which are covered in Module 5 (next module). These exercises will be easier after you complete Module 5. For now, skip to Challenge 3 below which focuses on single-table aggregations, or return to these exercises after Module 5.
 
--- B
-SELECT p.category, SUM(COALESCE(oi.qty,0) * p.price) AS revenue
-FROM thc4_order_items oi
-JOIN thc4_products p ON p.product_id = oi.product_id
-GROUP BY p.category
-ORDER BY revenue DESC;
-
--- C
-SELECT p.category,
-       AVG(CASE WHEN oi.qty IS NULL THEN NULL ELSE oi.qty * p.price END) AS avg_line_value
-FROM thc4_order_items oi
-JOIN thc4_products p ON p.product_id = oi.product_id
-GROUP BY p.category
-ORDER BY avg_line_value DESC;
-
--- D (rank top 2 by revenue)
-SELECT category, revenue,
-       CASE WHEN rn = 1 THEN 1 WHEN rn = 2 THEN 2 END AS rank_label
-FROM (
-  SELECT p.category, SUM(COALESCE(oi.qty,0) * p.price) AS revenue,
-         ROW_NUMBER() OVER (ORDER BY SUM(COALESCE(oi.qty,0) * p.price) DESC) AS rn
-  FROM thc4_order_items oi
-  JOIN thc4_products p ON p.product_id = oi.product_id
-  GROUP BY p.category
-) x
-WHERE rn <= 2
-ORDER BY rn;
+```sql
+-- Parts A-D solutions require JOINs - covered in Module 5
+-- Return to these exercises after learning multi-table queries in the next module
 ```
+
 Trade-offs
-- Window functions require MySQL 8.0+; fallback would use correlated subqueries.
+- Multi-table aggregations are powerful but require JOIN knowledge first (next module).
+- Window functions (used in Part D) are covered in Module 8 as an advanced alternative.
 
 ---
 

@@ -78,10 +78,12 @@ INSERT INTO rwp4_categories VALUES
 Deliverables
 1) Orders by status (last 30 days window): `status`, `COUNT(*)` as `orders_cnt`, sorted by count desc.
    - Acceptance: Use a date window relative to latest order date for demo: `order_date >= DATE_SUB((SELECT MAX(order_date) FROM rwp4_orders), INTERVAL 30 DAY)`.
-2) Revenue by category: compute `revenue = SUM(qty * price)` using joins on items and products; include only active products; group by `category` and sort by revenue desc.
-   - Acceptance: NULL-safe multiplication; only active rows.
+2) Product summary by category: For products table only, show `category`, count of active products as `product_cnt`, and average price as `avg_price`; sort by avg_price desc.
+   - Acceptance: Include only non-discontinued products; handle NULL prices safely.
 3) Monthly order trend: `month_label`, `orders_cnt`, and `sample_ids` (up to 3) via `GROUP_CONCAT`, sorted by month.
    - Acceptance: One row per month with proper ordering.
+
+**Note:** Multi-table analysis with JOINs will be covered in Module 5 (next module). This project focuses on single-table and subquery aggregations.
 
 Bonus objectives
 - Distinct customers per city: `city_label`, `COUNT(DISTINCT customer_id)`.
@@ -104,15 +106,15 @@ GROUP BY status
 ORDER BY orders_cnt DESC, status;
 ```
 
-2) Revenue by category (active products only)
+2) Product summary by category
 ```sql
-SELECT p.category,
-       SUM(COALESCE(oi.qty,0) * p.price) AS revenue
-FROM rwp4_order_items oi
-JOIN rwp4_products p ON p.product_id = oi.product_id
-WHERE p.active = 1
-GROUP BY p.category
-ORDER BY revenue DESC, p.category;
+SELECT category,
+       COUNT(*) AS product_cnt,
+       ROUND(AVG(COALESCE(price, 0)), 2) AS avg_price
+FROM rwp4_products
+WHERE active = 1
+GROUP BY category
+ORDER BY avg_price DESC, category;
 ```
 
 3) Monthly order trend with sample IDs

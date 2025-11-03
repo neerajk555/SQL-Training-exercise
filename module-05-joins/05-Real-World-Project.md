@@ -101,7 +101,20 @@ LEFT JOIN rwp5_products p ON p.product_id = oi.product_id
 GROUP BY s.name
 ORDER BY revenue DESC, s.name;
 
--- 2) Top category per store (ties allowed)
+-- 2) Top category per store (simplified - shows all categories per store)
+-- For "top per group" with ties, see advanced solution below
+SELECT s.name AS store, c.name AS category,
+       SUM(oi.qty * p.price) AS revenue
+FROM rwp5_stores s
+JOIN rwp5_orders o ON o.store_id = s.store_id
+JOIN rwp5_order_items oi ON oi.order_id = o.order_id
+JOIN rwp5_products p ON p.product_id = oi.product_id
+JOIN rwp5_categories c ON c.category_id = p.category_id
+GROUP BY s.store_id, s.name, c.name
+ORDER BY store, revenue DESC;
+
+-- 📚 ADVANCED: To show only top category per store (with ties), use CTE + Window Functions (Modules 6 & 8)
+/*
 WITH store_category AS (
   SELECT s.store_id, s.name AS store, c.name AS category,
          SUM(oi.qty * p.price) AS revenue,
@@ -120,6 +133,7 @@ SELECT store, category, revenue
 FROM store_category
 WHERE rnk = 1
 ORDER BY store, category;
+*/
 
 -- 3) Customer lifetime value (include 0)
 SELECT c.full_name AS customer,
