@@ -37,63 +37,53 @@ Five debugging challenges. Each includes a scenario, broken query, error details
 
 ---
 
-## Error 3: Missing Join Condition
-- Scenario: Compute order totals.
+## Error 3: Incorrect Date Comparison
+- Scenario: Find orders from March 2025.
 - Broken Query:
   ```sql
-  SELECT * FROM orders o, order_items oi;
+  SELECT * FROM `orders` WHERE `order_date` = '2025-03';
   ```
-- Error: Cartesian product explosion.
-- Expected: Join on key.
-- Fix:
+- Error: Returns 0 rows; partial date string doesn't match full DATE values.
+- Expected: Use proper date range or LIKE pattern.
+- Fix Option 1 (Range):
   ```sql
-  SELECT o.`order_id`, SUM(oi.`quantity` * oi.`unit_price`) AS total
-  FROM `orders` o
-  JOIN `order_items` oi ON oi.`order_id` = o.`order_id`
-  GROUP BY o.`order_id`;
+  SELECT * FROM `orders` 
+  WHERE `order_date` >= '2025-03-01' AND `order_date` < '2025-04-01';
   ```
-- Explanation: Always specify join predicates.
+- Fix Option 2 (LIKE with caution):
+  ```sql
+  SELECT * FROM `orders` WHERE `order_date` LIKE '2025-03-%';
+  ```
+- Explanation: DATE columns need complete date values or proper range comparisons. LIKE works but is less efficient than range queries.
 
 ---
 
-## Error 4: Ambiguous Column
-- Scenario: Filter by `status` but column exists in multiple tables.
+## Error 4: Missing ORDER BY Column in SELECT
+- Scenario: Sort products by price but forgot to include price in output.
 - Broken Query:
   ```sql
-  SELECT *
-  FROM orders
-  JOIN order_items ON order_items.order_id = orders.order_id
-  WHERE status = 'PAID';
+  SELECT `product_id`, `name` FROM `products` ORDER BY price;
   ```
-- Error: Ambiguous column 'status'.
+- Error: Works in MySQL but ambiguous—sorting by column not in SELECT can confuse readers.
+- Expected: Include all ORDER BY columns in SELECT for clarity (best practice).
 - Fix:
   ```sql
-  SELECT *
-  FROM `orders` o
-  JOIN `order_items` oi ON oi.`order_id` = o.`order_id`
-  WHERE o.`status` = 'PAID';
+  SELECT `product_id`, `name`, `price` FROM `products` ORDER BY `price`;
   ```
-- Explanation: Qualify columns when duplicates may exist.
+- Explanation: While MySQL allows ordering by columns not in SELECT, including them improves query readability and is required in DISTINCT queries.
 
 ---
 
-## Error 5: COUNT With WHERE vs HAVING
-- Scenario: Find orders with zero items.
+## Error 5: Wrong Operator for String Patterns
+- Scenario: Find products with names starting with 'USB'.
 - Broken Query:
   ```sql
-  SELECT o.order_id
-  FROM orders o
-  LEFT JOIN order_items oi ON o.order_id = oi.order_id
-  WHERE COUNT(oi.product) = 0
-  GROUP BY o.order_id;
+  SELECT * FROM `products` WHERE `name` = 'USB%';
   ```
-- Error: `WHERE` cannot use aggregates; also order of clauses.
+- Error: Returns 0 rows; `=` looks for exact match including the % character.
+- Expected: Use LIKE for pattern matching.
 - Fix:
   ```sql
-  SELECT o.`order_id`
-  FROM `orders` o
-  LEFT JOIN `order_items` oi ON o.`order_id` = oi.`order_id`
-  GROUP BY o.`order_id`
-  HAVING COUNT(oi.`product`) = 0;
+  SELECT * FROM `products` WHERE `name` LIKE 'USB%';
   ```
-- Explanation: Use HAVING for aggregate filters.
+- Explanation: Use `=` for exact matches, `LIKE` for pattern matching with wildcards (% for any characters, _ for single character).

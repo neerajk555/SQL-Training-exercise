@@ -2,6 +2,35 @@
 
 Three 15–20 minute activities. Each includes setup, checkpoints, and a fully explained solution.
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through these guided activities, you will:
+- Build queries using SELECT, WHERE, and ORDER BY with real business scenarios
+- Learn to use column aliases for cleaner output
+- Practice handling NULL values with COALESCE
+- Master string functions (CONCAT, LOWER, UPPER)
+- Understand pattern matching with LIKE
+- Develop structured problem-solving skills with checkpoints
+
+### How to Execute Each Activity
+**Step-by-step execution process:**
+1. **Copy and run the complete setup code** (DROP TABLE through INSERT statements)
+2. **Follow each numbered step** in order:
+   - Read the step description
+   - Write and execute the SQL described
+   - Compare your results with the checkpoint
+   - ✅ If checkpoint passes: move to next step
+   - ❌ If checkpoint fails: debug before continuing
+3. **Read "Common Mistakes"** to avoid typical pitfalls
+4. **Study the complete solution** with comments
+5. **Answer discussion questions** to deepen understanding
+
+**Checkpoint Strategy:**
+- Checkpoints verify you're on the right track
+- Build incrementally—each step adds to the previous one
+- If stuck, review the step and your query syntax carefully
+
 ---
 
 ## Activity 1: Clean Product Listing for a Promo Email

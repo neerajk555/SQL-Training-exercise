@@ -1,5 +1,47 @@
 # Quick Warm-Ups — Transactions (5–10 min each)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these warm-ups, you will:
+- Use START TRANSACTION to begin transactions
+- Apply COMMIT to save changes permanently
+- Use ROLLBACK to undo changes
+- Understand ACID properties
+- Handle errors safely with transactions
+
+### Key Transaction Concepts for Beginners
+**What are Transactions?**
+- A group of SQL statements that execute as a single unit
+- Either ALL statements succeed (COMMIT) or ALL fail (ROLLBACK)
+- Protects data integrity during multi-step operations
+- Example: Transferring money between accounts (debit one, credit other)
+
+**Transaction Commands:**
+- `START TRANSACTION;` or `BEGIN;` - Start a transaction
+- `COMMIT;` - Save all changes permanently
+- `ROLLBACK;` - Undo all changes since START TRANSACTION
+- `SAVEPOINT name;` - Create a checkpoint within transaction
+- `ROLLBACK TO SAVEPOINT name;` - Undo to specific checkpoint
+
+**ACID Properties:**
+- **Atomicity**: All or nothing (can't partially complete)
+- **Consistency**: Database stays in valid state
+- **Isolation**: Transactions don't interfere with each other
+- **Durability**: Committed changes are permanent
+
+**When to Use Transactions:**
+- ✅ Financial transfers (debit + credit)
+- ✅ Multi-table updates that must succeed together
+- ✅ Any operation where partial completion would be bad
+- ✅ Testing changes before committing
+
+### Execution Tips
+1. **Always START TRANSACTION** before related changes
+2. **Test with SELECT** to verify results before COMMIT
+3. **Use ROLLBACK** if anything looks wrong
+4. **COMMIT only when certain** changes are correct
+
 **Beginner Tip:** Transactions ensure all-or-nothing execution. Use START TRANSACTION, then COMMIT (success) or ROLLBACK (undo). Essential for data integrity!
 
 ---

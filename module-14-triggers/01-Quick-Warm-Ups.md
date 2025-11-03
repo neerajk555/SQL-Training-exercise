@@ -1,5 +1,49 @@
 # Quick Warm-Ups — Triggers (5–10 min each)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these warm-ups, you will:
+- Create triggers that fire on INSERT/UPDATE/DELETE
+- Use BEFORE triggers for validation and modification
+- Use AFTER triggers for auditing and logging
+- Access OLD and NEW row values
+- Understand trigger timing and events
+
+### Key Trigger Concepts for Beginners
+**What are Triggers?**
+- Automatically execute code when specific events occur
+- Events: INSERT, UPDATE, DELETE
+- Timing: BEFORE (validate/modify) or AFTER (audit/log)
+- Run automatically—no CALL needed!
+
+**Trigger Components:**
+- **Event**: INSERT, UPDATE, or DELETE
+- **Timing**: BEFORE or AFTER the event
+- **Table**: Which table the trigger watches
+- **Body**: SQL code that executes
+
+**OLD vs NEW:**
+- `NEW.column`: New value being inserted/updated
+- `OLD.column`: Old value before update/delete
+- INSERT: Only NEW exists
+- DELETE: Only OLD exists
+- UPDATE: Both OLD and NEW exist
+
+**Common Use Cases:**
+- ✅ Validation: BEFORE triggers reject invalid data
+- ✅ Audit trails: AFTER triggers log changes
+- ✅ Computed columns: BEFORE triggers calculate values
+- ✅ Cascade actions: AFTER triggers update related tables
+
+### Execution Tips
+1. **Drop before creating**: `DROP TRIGGER IF EXISTS`
+2. **Use DELIMITER**: Triggers need delimiter like procedures
+3. **Test thoroughly**: Insert/update/delete test data
+4. **Check audit tables**: Verify triggers fired correctly
+
+**Safety Warning:** Triggers run automatically and can't be skipped! Be careful with trigger logic—infinite loops and performance issues are possible.
+
 **Beginner Tip:** Triggers automatically execute on INSERT/UPDATE/DELETE events. BEFORE triggers validate/modify data. AFTER triggers audit/log changes. Use NEW for new values, OLD for previous values!
 
 ---

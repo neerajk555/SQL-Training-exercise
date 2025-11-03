@@ -2,6 +2,29 @@
 
 Three 15–20 minute activities to practice GROUP BY, HAVING, and date bucketing.
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through these guided activities, you will:
+- Build summary reports with multiple aggregate functions
+- Master the WHERE vs HAVING distinction in real scenarios
+- Group by dates for time-series analysis
+- Use GROUP_CONCAT for comma-separated lists
+- Understand when to filter before vs after aggregation
+
+### Execution Process
+1. **Run complete setup** for each activity
+2. **Follow numbered steps** with incremental queries
+3. **Check each checkpoint**—verify your results match
+4. **Read "Common Mistakes"** before final solution
+5. **Study the complete solution** with comments
+6. **Answer discussion questions** for depth
+
+**Critical Concept:**
+- Filter raw data with WHERE (runs before GROUP BY)
+- Filter grouped results with HAVING (runs after GROUP BY)
+- Example: `WHERE active=1` filters products, `HAVING COUNT(*)>5` filters categories
+
 **Beginner Tip:** Check your results at each checkpoint. If counts or sums don't match expectations, review your WHERE and GROUP BY clauses. Aggregation is powerful but requires precision!
 
 ---

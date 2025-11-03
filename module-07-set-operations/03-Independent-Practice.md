@@ -2,6 +2,49 @@
 
 Work through these exercises on your own. Each includes difficulty level, time estimate, scenario, schema with sample data, requirements, example output, success criteria, hints (3 levels), and detailed solution with alternatives.
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through independent practice, you will:
+- Apply set operations without guidance
+- Choose the right operation (UNION, UNION ALL, INTERSECT, EXCEPT)
+- Combine data from multiple tables effectively
+- Handle column alignment and type matching
+- Solve real-world data merging problems
+
+### Difficulty Progression
+- 🟢 **Easy (1-3)**: Simple UNION/UNION ALL, 12-15 minutes
+- 🟡 **Medium (4-6)**: INTERSECT/EXCEPT patterns, filtering, 18-22 minutes
+- 🔴 **Challenge (7)**: Complex multi-operation queries, 25-30 minutes
+
+### Problem-Solving Strategy
+1. **READ** requirements—identify which operation is needed
+2. **SETUP** sample data
+3. **PLAN** your approach:
+   - Combine data? → UNION or UNION ALL
+   - Find common rows? → INTERSECT (or INNER JOIN DISTINCT)
+   - Find differences? → EXCEPT (or LEFT JOIN ... IS NULL)
+   - Need duplicates? → UNION ALL, else UNION
+4. **VERIFY column compatibility** (count, types, order)
+5. **TRY** solving independently
+6. **TEST** and check row counts
+7. **USE HINTS** if stuck
+8. **REVIEW** solution for alternatives
+
+**Common Pitfalls:**
+- ❌ Column count mismatch between SELECTs
+- ❌ Wrong column order causing type incompatibility
+- ❌ ORDER BY in wrong place (must be at end)
+- ❌ Using UNION when UNION ALL is faster and sufficient
+- ❌ Expecting row deduplication when row content differs slightly
+- ✅ Test each SELECT independently before combining!
+
+**Quick Decision Guide:**
+- Need ALL rows from multiple sources? → UNION ALL
+- Need UNIQUE rows from multiple sources? → UNION
+- Need rows in BOTH sources? → INTERSECT or INNER JOIN
+- Need rows in A but NOT in B? → EXCEPT or LEFT JOIN ... IS NULL
+
 **Beginner Tip:** Start with Easy exercises. Read the scenario carefully, set up the data, and try solving before looking at hints. Set operations let you combine and compare datasets elegantly!
 
 ---

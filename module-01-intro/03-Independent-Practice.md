@@ -250,40 +250,45 @@ Tip: Quick to run with temporary tables; optional larger datasets in `module-01-
 
 ---
 
-## Independent 7: Orders Integrity Check (🔴 Challenge, 20–25 min)
-- Scenario: Identify orders with no items or cancelled.
+## Independent 7: Order Status Review (🔴 Challenge, 20–25 min)
+- Scenario: Find high-priority orders that need attention (cancelled or pending review).
 - Schema + Data:
   ```sql
   CREATE TEMPORARY TABLE `orders` (
     `order_id` INT,
-    `status` VARCHAR(20)
-  );
-  CREATE TEMPORARY TABLE `order_items` (
-    `order_id` INT,
-    `product` VARCHAR(50)
+    `status` VARCHAR(20),
+    `order_date` DATE,
+    `total_amount` DECIMAL(10,2),
+    `needs_review` TINYINT(1)
   );
   INSERT INTO `orders` VALUES
-  (1,'PAID'),(2,'CANCELLED'),(3,'PAID');
-  INSERT INTO `order_items` VALUES
-  (1,'Mouse'),(1,'Cable'),(3,'Keyboard');
+  (1,'PAID','2025-03-15',59.99,0),
+  (2,'CANCELLED','2025-03-16',129.50,1),
+  (3,'PAID','2025-03-17',45.00,0),
+  (4,'PENDING','2025-03-18',89.99,1),
+  (5,'CANCELLED','2025-03-19',75.00,0);
   ```
 - Requirements:
-  1) Return orders that are CANCELLED or have zero items.
-  2) Output: `order_id`, `status`, `item_count`.
+  1) Return orders that are CANCELLED or marked for review (`needs_review` = 1).
+  2) Add a computed column `priority_level`: 'HIGH' if status is CANCELLED, 'MEDIUM' otherwise.
+  3) Include only columns: `order_id`, `status`, `order_date`, `total_amount`, `priority_level`.
+  4) Sort by `priority_level` DESC, then by `order_date` DESC.
 - Example Output:
-  | order_id | status    | item_count |
-  |----------|-----------|------------|
-  | 2        | CANCELLED | 0          |
-- Success Criteria: Correct left join and grouping to find zero-match.
+  | order_id | status    | order_date | total_amount | priority_level |
+  |----------|-----------|------------|--------------|----------------|
+  | 5        | CANCELLED | 2025-03-19 | 75.00        | HIGH           |
+  | 2        | CANCELLED | 2025-03-16 | 129.50       | HIGH           |
+  | 4        | PENDING   | 2025-03-18 | 89.99        | MEDIUM         |
+- Success Criteria: Correct use of WHERE with OR conditions, CASE expression, and multi-column ORDER BY.
 - Hints:
-  - Level 1: Use LEFT JOIN from orders to items.
-  - Level 2: COUNT item rows grouped by order.
-  - Level 3: Use HAVING for zero or filter by status.
+  - Level 1: Use WHERE with OR to filter by status or needs_review flag.
+  - Level 2: CASE expression to create priority_level based on status.
+  - Level 3: ORDER BY with DESC on priority_level, then order_date.
 - Solution:
   ```sql
-  SELECT o.`order_id`, o.`status`, COUNT(oi.`product`) AS `item_count`
-  FROM `orders` o
-  LEFT JOIN `order_items` oi ON o.`order_id` = oi.`order_id`
-  GROUP BY o.`order_id`, o.`status`
-  HAVING o.`status` = 'CANCELLED' OR COUNT(oi.`product`) = 0;
+  SELECT `order_id`, `status`, `order_date`, `total_amount`,
+         CASE WHEN `status` = 'CANCELLED' THEN 'HIGH' ELSE 'MEDIUM' END AS `priority_level`
+  FROM `orders`
+  WHERE `status` = 'CANCELLED' OR `needs_review` = 1
+  ORDER BY `priority_level` DESC, `order_date` DESC;
   ```

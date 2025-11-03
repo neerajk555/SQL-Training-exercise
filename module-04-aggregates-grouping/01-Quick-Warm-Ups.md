@@ -2,6 +2,38 @@
 
 Each exercise: 5–10 minutes. Copy sample data first.
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these warm-ups, you will:
+- Use aggregate functions (COUNT, SUM, AVG, MAX, MIN)
+- Group data with GROUP BY for summary reports
+- Filter aggregated results with HAVING
+- Understand NULL behavior in aggregates
+- Master the WHERE vs HAVING distinction
+
+### Key Concepts for Beginners
+**Aggregate Functions:**
+- `COUNT(*)` counts all rows (including NULLs)
+- `COUNT(column)` counts non-NULL values only
+- `SUM`, `AVG`, `MIN`, `MAX` ignore NULL values
+- Aggregates reduce multiple rows to a single summary value
+
+**GROUP BY:**
+- Groups rows with the same values together
+- Each selected non-aggregated column MUST be in GROUP BY
+- Use with aggregates to get summaries per group
+
+**HAVING vs WHERE:**
+- `WHERE` filters rows BEFORE grouping (use for non-aggregated conditions)
+- `HAVING` filters groups AFTER aggregation (use for aggregated conditions)
+
+### Execution Tips
+1. **Run the setup** for each exercise (DROP + CREATE + INSERT)
+2. **Try solving** before checking the solution
+3. **Verify row counts** match expected output
+4. **Experiment** by changing GROUP BY columns to see the effect
+
 **Beginner Tip:** Aggregates (COUNT, SUM, AVG, MAX, MIN) help you summarize data. GROUP BY groups rows together before summarizing. HAVING filters groups after aggregation. These are powerful tools for reporting and analysis!
 
 ---

@@ -2,7 +2,30 @@
 
 Each exercise: 5–10 minutes. Focus on conversions and core functions. Copy sample data to a scratch DB first.
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these warm-ups, you will:
+- Master type conversions with CAST and CONVERT
+- Clean messy data with TRIM, LOWER, and UPPER
+- Work with date functions for parsing and arithmetic
+- Handle NULL values in function calls
+- Use CASE statements for conditional logic
+
+### Environment Setup & Execution
+1. **Connect to MySQL** and choose/create a practice database
+2. **Copy each exercise setup** (DROP + CREATE + INSERT)
+3. **Run the setup** to create sample data
+4. **Try solving** before looking at the solution
+5. **Compare your output** with expected results
+
 **Beginner Tip:** These exercises help you practice cleaning and transforming data—essential skills for real-world SQL work. Take your time, read error messages carefully, and try variations to deepen your understanding.
+
+**Common Function Pitfalls:**
+- ❌ String functions return NULL if input is NULL (use COALESCE to handle)
+- ❌ Date parsing fails with wrong format—match STR_TO_DATE pattern exactly
+- ❌ CAST to numeric types may truncate unexpectedly—check your precision
+- ✅ Test with edge cases (NULL, empty string, zero) to build robust queries
 
 ---
 

@@ -2,6 +2,25 @@
 
 Three 15–20 minute activities. Practice cleansing and transforming data with MySQL functions.
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through these guided activities, you will:
+- Clean and standardize messy real-world data
+- Chain multiple functions together for complex transformations
+- Handle NULL values and edge cases safely
+- Convert between data types properly
+- Build production-ready data cleaning queries
+
+### How to Execute
+**Follow this process for each activity:**
+1. **Run the complete setup** (DROP through INSERT)
+2. **Execute each step** incrementally
+3. **Verify checkpoints** match your results
+4. **Study common mistakes** before attempting the full solution
+5. **Review the complete solution** with detailed comments
+6. **Answer discussion questions** for deeper insights
+
 **Beginner Tip:** Follow each step carefully and check the checkpoint results. If something doesn't match, pause and review before moving on. Learning SQL is about building understanding step-by-step!
 
 ---

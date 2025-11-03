@@ -2,6 +2,34 @@
 
 Seven exercises: 3 Easy 🟢, 3 Medium 🟡, 1 Challenge 🔴. Each includes schema+data, requirements, example output, success criteria, 3-level hints, and detailed solutions.
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through independent practice, you will:
+- Apply data type conversions in real-world scenarios
+- Master string cleaning and formatting functions
+- Work confidently with date arithmetic and parsing
+- Handle NULL values and edge cases properly
+- Build complex function chains for data transformation
+
+### Difficulty Progression
+- 🟢 **Easy (1-3)**: Single function or simple combinations, 10-12 minutes
+- 🟡 **Medium (4-6)**: Multiple functions chained, edge cases, 15-20 minutes
+- 🔴 **Challenge (7)**: Complex transformations, multiple edge cases, 25-30 minutes
+
+### Problem-Solving Approach
+1. **READ** requirements carefully—note data types and formats
+2. **SETUP** sample data and verify with SELECT *
+3. **PLAN** your functions:
+   - What needs cleaning? → TRIM, REPLACE
+   - What needs formatting? → CONCAT, UPPER, LOWER
+   - What needs conversion? → CAST, STR_TO_DATE
+   - What about NULLs? → COALESCE, NULLIF, CASE
+4. **TRY** solving independently
+5. **TEST** with sample data
+6. **USE HINTS** progressively if stuck
+7. **REVIEW** solution for alternative approaches
+
 **Beginner Tip:** Start with the Easy exercises to build confidence. Use the hints progressively—try solving first, then peek at Level 1 if stuck. Remember: making mistakes is part of learning! Compare your answer with the solution and understand any differences.
 
 ---

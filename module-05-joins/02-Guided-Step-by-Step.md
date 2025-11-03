@@ -2,6 +2,39 @@
 
 Three guided activities to practice multi-table joins, ON vs WHERE with outer joins, and anti/semi-joins. Each includes setup, checkpoints, common mistakes, a full solution, and discussion questions.
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through these guided activities, you will:
+- Join 3-4 tables together correctly
+- Master ON vs WHERE conditions with LEFT JOINs
+- Build aggregation queries across joined tables
+- Implement anti-join and semi-join patterns
+- Handle NULL values from outer joins properly
+
+### Critical Join Concepts
+**ON vs WHERE with LEFT JOIN:**
+- Conditions in ON: Applied during the join (preserves left table rows)
+- Conditions in WHERE: Applied after the join (can filter out left table rows)
+- Example: `LEFT JOIN orders o ON o.customer_id = c.id AND o.year = 2025`
+  - Keeps ALL customers, showing only 2025 orders
+- Example: `LEFT JOIN orders o ON o.customer_id = c.id WHERE o.year = 2025`
+  - Filters to customers WHO HAVE 2025 orders (becomes INNER JOIN behavior)
+
+**Join Chain Strategy:**
+- Start with the "main" table (e.g., customers)
+- Add tables one at a time, left to right
+- Verify row counts after each join
+- Use LEFT JOIN to preserve main table rows
+
+### Execution Process
+1. **Run complete setup** (all CREATE and INSERT statements)
+2. **Follow each numbered step** incrementally
+3. **Check checkpoints** carefully (especially row counts)
+4. **Review "Common Mistakes"** before attempting full solution
+5. **Study the complete solution** with annotations
+6. **Answer discussion questions** to solidify understanding
+
 **Beginner Tip:** Joins can feel tricky at first! Start with INNER JOIN, then experiment with LEFT JOIN. Check row counts at each step to verify your joins are working correctly. Don't worry if you need to retry—joins take practice!
 
 ---

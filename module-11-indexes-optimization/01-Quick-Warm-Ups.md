@@ -1,5 +1,44 @@
 # Quick Warm-Ups — Indexes & Optimization (5–10 min each)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these warm-ups, you will:
+- Create indexes to speed up queries
+- Use EXPLAIN to analyze query performance
+- Understand when indexes help (and when they don't)
+- Identify slow queries and optimize them
+- Balance query speed vs write performance
+
+### Key Index Concepts for Beginners
+**What are Indexes?**
+- Special lookup structures that speed up data retrieval
+- Like a book index: find information without reading every page
+- Created on columns frequently used in WHERE, JOIN, ORDER BY
+
+**Index Trade-offs:**
+- ✅ **Faster**: SELECT queries with WHERE/JOIN/ORDER BY
+- ❌ **Slower**: INSERT, UPDATE, DELETE (must update index too)
+- ❌ **Storage**: Indexes take disk space
+- **Rule**: Index columns you search, not columns you update frequently
+
+**Types of Indexes:**
+- **PRIMARY KEY**: Automatically indexed, unique, not null
+- **UNIQUE**: Indexed automatically, enforces uniqueness
+- **INDEX**: Non-unique index for faster lookups
+- **COMPOSITE**: Index on multiple columns (e.g., last_name, first_name)
+
+**Using EXPLAIN:**
+- Shows how MySQL will execute your query
+- Look for: `type: ALL` (bad—full table scan) vs `type: ref` (good—uses index)
+- Check `possible_keys` and `key` to see if indexes are used
+
+### Execution Tips
+1. **EXPLAIN before indexing**: See current query plan
+2. **Create index**: On columns in WHERE/JOIN/ORDER BY
+3. **EXPLAIN after indexing**: Verify index is used
+4. **Test with data**: Indexes help most with large tables
+
 **Beginner Tip:** Indexes speed up SELECT/WHERE/JOIN but slow down INSERT/UPDATE/DELETE. Use EXPLAIN to see if queries use indexes. Index columns used in WHERE, JOIN ON, and ORDER BY clauses!
 
 ---

@@ -2,6 +2,41 @@
 
 Seven exercises: 3 Easy 🟢, 3 Medium 🟡, 1 Challenge 🔴. Each includes schema+data, requirements, example output, success criteria, 3-level hints, and detailed solutions with alternatives.
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through independent practice, you will:
+- Build complex aggregation queries independently
+- Combine filtering, grouping, and sorting
+- Handle NULLs in aggregate functions correctly
+- Use HAVING to filter aggregated results
+- Create practical business reports with SQL
+
+### Difficulty Progression
+- 🟢 **Easy (1-3)**: Single aggregate with GROUP BY, 10-12 minutes
+- 🟡 **Medium (4-6)**: Multiple aggregates, HAVING, date grouping, 15-20 minutes
+- 🔴 **Challenge (7)**: Complex multi-level aggregation, 25-30 minutes
+
+### Problem-Solving Strategy
+1. **READ** requirements—identify what to aggregate and group by
+2. **SETUP** sample data
+3. **PLAN** your query structure:
+   - What aggregates? → COUNT, SUM, AVG, MAX, MIN
+   - Group by what? → Non-aggregated columns in SELECT
+   - Filter before grouping? → WHERE clause
+   - Filter after grouping? → HAVING clause
+   - What order? → ORDER BY (can use aggregate results)
+4. **TRY** solving independently
+5. **TEST** and verify counts/sums
+6. **USE HINTS** if stuck
+7. **REVIEW** solution for alternative approaches
+
+**Common Pitfalls:**
+- ❌ Putting aggregated conditions in WHERE (use HAVING instead)
+- ❌ Selecting columns not in GROUP BY (causes errors with ONLY_FULL_GROUP_BY)
+- ❌ Forgetting that AVG/SUM ignore NULLs
+- ✅ Test with data that has NULLs, duplicates, and edge cases
+
 **Beginner Tip:** Work through exercises in order—they build on each other. If you get an unexpected count or sum, double-check your WHERE filter and GROUP BY columns. Use the hints when needed; they're designed to guide without giving everything away!
 
 ---

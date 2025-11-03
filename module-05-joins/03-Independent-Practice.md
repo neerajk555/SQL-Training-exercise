@@ -2,6 +2,49 @@
 
 Includes 3 easy, 3 medium, and 1 challenge. Each exercise has a time estimate, scenario, schema with data, requirements, example output, success criteria, tiered hints, and a detailed solution with alternatives.
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through independent practice, you will:
+- Apply joins without step-by-step guidance
+- Combine 2-4 tables to answer business questions
+- Master LEFT JOIN for "all records" scenarios
+- Implement anti-join patterns (LEFT JOIN ... IS NULL)
+- Join tables with aggregation
+- Handle many-to-many relationships correctly
+
+### Difficulty Progression
+- 🟢 **Easy (1-3)**: 2 tables, simple join, 10-12 minutes
+- 🟡 **Medium (4-6)**: 3+ tables or complex join patterns, 15-20 minutes
+- 🔴 **Challenge (7)**: Multiple joins with aggregation and edge cases, 25-30 minutes
+
+### Problem-Solving Strategy
+1. **READ** the scenario and identify which tables are needed
+2. **SETUP** the sample data
+3. **PLAN** your joins:
+   - What's the "main" table? (start here)
+   - Which other tables have related data?
+   - What are the join keys? (columns linking tables)
+   - INNER or LEFT? (do you need ALL main table rows?)
+4. **SKETCH** the join chain on paper if helpful
+5. **TRY** solving independently
+6. **TEST** and verify row counts
+7. **USE HINTS** progressively if stuck
+8. **REVIEW** solution for alternative approaches
+
+**Common Join Pitfalls:**
+- ❌ Too many rows: Check for many-to-many joins (might need DISTINCT or aggregation)
+- ❌ Too few rows: Using INNER JOIN when LEFT JOIN is needed
+- ❌ Missing data: Forgot to join a necessary table
+- ❌ Wrong ON clause: Joining on incorrect columns
+- ✅ Always verify row counts against expected output!
+
+**Debugging Tip:** If your join produces unexpected results:
+1. Test each table separately with SELECT * to see data
+2. Join two tables first, verify results
+3. Add third table and verify again
+4. Check that join keys actually match between tables
+
 **Beginner Tip:** Joins combine multiple tables. Start with Easy exercises to build confidence with INNER and LEFT joins. Check row counts after each join to verify it's working correctly. If you get more rows than expected, you might have a many-to-many relationship. Use hints progressively when stuck!
 
 ---

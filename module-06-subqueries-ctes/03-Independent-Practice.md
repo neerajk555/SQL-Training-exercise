@@ -2,6 +2,54 @@
 
 Includes 3 easy, 3 medium, and 1 challenge. Each exercise has a time estimate, scenario, schema with data (10–20 rows overall per exercise set), requirements, example output, success criteria, tiered hints, and detailed solutions with alternatives.
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through independent practice, you will:
+- Apply subqueries without step-by-step guidance
+- Choose appropriate subquery type for each problem
+- Write CTEs for multi-step logic
+- Handle NULL safely with NOT EXISTS
+- Implement complex analytical patterns
+
+### Difficulty Progression
+- 🟢 **Easy (1-3)**: Simple subqueries, EXISTS, scalar subqueries, 10-12 minutes
+- 🟡 **Medium (4-6)**: Derived tables, CTEs, correlated subqueries, 15-20 minutes
+- 🔴 **Challenge (7)**: Multi-level subqueries or complex CTEs, 25-30 minutes
+
+### Problem-Solving Strategy
+1. **READ** requirements and identify the complexity
+2. **SETUP** sample data
+3. **PLAN** your approach:
+   - Can this be a simple JOIN? (try that first!)
+   - Do I need a subquery? What type?
+   - Scalar (one value), table (multiple rows), or EXISTS (check existence)?
+   - Would a CTE make this clearer?
+4. **TEST inner queries** separately first
+5. **TRY** solving independently
+6. **VERIFY** results match expected output
+7. **USE HINTS** if stuck
+8. **REVIEW** solution for alternative approaches
+
+**Common Subquery Pitfalls:**
+- ❌ `NOT IN` with NULLs: Returns empty set! Use NOT EXISTS instead
+- ❌ Forgetting alias for derived tables in FROM
+- ❌ Correlated subquery without correlation (returns same value for all rows)
+- ❌ Multiple rows returned from scalar subquery (causes error)
+- ✅ Test subqueries independently before nesting them!
+
+**When to Use What:**
+- **EXISTS**: Checking if related records exist (customers with orders)
+- **Scalar subquery**: Comparing to a single value (price > average)
+- **Derived table**: Pre-aggregating before joining
+- **CTE**: Multi-step logic, recursive queries, or improving readability
+
+**Debugging Strategy:**
+1. Run the subquery alone—does it return what you expect?
+2. Check for NULLs in key columns
+3. Verify scalar subqueries return exactly one value
+4. With CTEs, query each CTE separately to verify intermediate results
+
 **Beginner Tip:** Subqueries and CTEs let you break complex problems into smaller pieces. Test the inner query first before using it in a larger query. WITH (CTE) syntax makes code easier to read and debug. Start with Easy exercises and work your way up!
 
 ---

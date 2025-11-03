@@ -2,6 +2,45 @@
 
 Three guided activities to practice correlated subqueries, derived tables for top-N per group, and a non-recursive CTE pipeline. Each includes setup, checkpoints, common mistakes, full solutions with comments, and discussion questions.
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through these guided activities, you will:
+- Write correlated subqueries that reference the outer query
+- Use derived tables (subqueries in FROM) for complex calculations
+- Build multi-step queries with CTEs for readability
+- Implement top-N per group patterns
+- Understand when to use subqueries vs joins
+
+### Critical Subquery Concepts
+**Correlated Subqueries:**
+- Inner query references columns from outer query
+- Executes once per outer row (can be slower)
+- Example: Latest order date per customer
+- Pattern: `SELECT (SELECT MAX(...) FROM table2 WHERE table2.id = table1.id)`
+
+**Derived Tables:**
+- Subquery in FROM clause creates a temporary result set
+- Must have an alias
+- Good for pre-aggregation before joining
+- Example: `FROM (SELECT category, SUM(sales) ... GROUP BY category) AS t`
+
+**CTEs (WITH clause):**
+- Named temporary result sets
+- More readable than nested subqueries
+- Can reference multiple CTEs in sequence
+- Great for multi-step transformations
+
+### Execution Process
+1. **Run complete setup** for the activity
+2. **Test subqueries independently** before embedding them
+3. **Follow each step** and verify checkpoints
+4. **Review common mistakes** specific to subqueries
+5. **Study the solution** with detailed annotations
+6. **Answer discussion questions** about performance and alternatives
+
+**Performance Note:** Correlated subqueries can be slow on large tables. Consider JOINs or window functions as alternatives when performance matters.
+
 **Beginner Tip:** Subqueries and CTEs make complex queries manageable. Build them piece by piece—test the inner query first, then wrap it. CTEs especially help you think clearly about multi-step logic!
 
 ---

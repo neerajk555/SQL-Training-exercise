@@ -2,6 +2,43 @@
 
 Each exercise: 5–10 minutes. Copy sample data into a scratch database first.
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these warm-ups, you will:
+- Select specific columns instead of using SELECT *
+- Filter data with multiple conditions (AND, OR)
+- Sort and limit results for better presentation
+- Handle NULL values safely with COALESCE
+- Use wildcards for pattern matching with LIKE
+
+### Environment Setup
+1. **Connect to MySQL**: Open your MySQL client (MySQL Workbench, command line, or any SQL IDE)
+2. **Choose a database**: 
+   ```sql
+   USE your_database_name;  -- Replace with your practice database
+   -- OR create a new one:
+   CREATE DATABASE IF NOT EXISTS sql_practice;
+   USE sql_practice;
+   ```
+3. **Verify connection**: Run `SELECT 1;` to confirm you're connected
+
+### How to Execute Each Exercise
+**Step-by-step process:**
+1. **Copy the setup code** (DROP TABLE IF EXISTS + CREATE TABLE + INSERT statements)
+2. **Paste and run it** in your SQL client to create sample data
+3. **Read the task carefully** and identify what's needed
+4. **Write your query** (try solving it yourself first!)
+5. **Run your query** and compare results with the expected output
+6. **If stuck**, peek at the solution and understand each part
+7. **Verify**: Run the solution query to confirm expected results
+
+**Troubleshooting Tips:**
+- ❌ Error "Table doesn't exist": Re-run the CREATE TABLE statements
+- ❌ Wrong results: Check your WHERE clause and comparison operators
+- ❌ Syntax error: Verify commas between columns and proper quoting
+- ✅ These tables are permanent—use DROP TABLE when done or use a test database!
+
 ---
 
 ## 1) Pick the Columns You Need

@@ -2,6 +2,46 @@
 
 Each exercise includes a tiny setup, a task, expected output, and an answer. Run each in its own session.
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these warm-ups, you will:
+- Write scalar subqueries (return one value)
+- Use EXISTS for semi-joins (check if related rows exist)
+- Handle NOT IN vs NOT EXISTS with NULL safety
+- Create CTEs with WITH clause for readable multi-step queries
+- Understand correlated vs non-correlated subqueries
+
+### Key Subquery Concepts for Beginners
+**Types of Subqueries:**
+1. **Scalar subquery**: Returns exactly one value (one row, one column)
+   - Used in SELECT, WHERE, or HAVING
+   - Example: `(SELECT AVG(price) FROM products)`
+
+2. **Row subquery**: Returns one row with multiple columns
+   - Example: `(SELECT MIN(price), MAX(price) FROM products)`
+
+3. **Table subquery**: Returns multiple rows and columns
+   - Used in FROM (derived table) or with IN/EXISTS
+   - Example: `(SELECT category, AVG(price) FROM products GROUP BY category)`
+
+**EXISTS vs IN:**
+- `EXISTS`: Checks if any row exists (stops at first match—efficient!)
+- `IN`: Checks if value matches any in a list
+- `NOT IN` with NULLs: Returns no results! (Use NOT EXISTS instead)
+
+**CTEs (Common Table Expressions):**
+- Defined with WITH clause before main query
+- Makes complex queries readable and testable
+- Can reference earlier CTEs in the same WITH clause
+- Syntax: `WITH cte_name AS (SELECT ...) SELECT ... FROM cte_name`
+
+### Execution Tips
+1. **Test inner queries first**: Run subquery separately to verify results
+2. **Check for NULLs**: Use NOT EXISTS instead of NOT IN when NULLs possible
+3. **CTEs for clarity**: Use WITH when query has multiple steps
+4. **Correlated subqueries**: Reference outer table in inner query
+
 **Beginner Tip:** Subqueries are queries inside queries. CTEs (WITH clause) make complex queries easier to read. EXISTS checks if a related row exists. These patterns help you break down complex problems into manageable pieces!
 
 ---

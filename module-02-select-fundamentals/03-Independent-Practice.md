@@ -2,6 +2,40 @@
 
 Seven exercises: 3 Easy 🟢, 3 Medium 🟡, 1 Challenge 🔴. Each has schema+data, requirements, example output, hints, and solutions. Time estimates are guides—take what you need.
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through independent practice, you will:
+- Apply SELECT fundamentals without step-by-step guidance
+- Progress from basic filtering to complex multi-condition queries
+- Master data cleaning with string functions
+- Handle edge cases (NULLs, duplicates, case sensitivity)
+- Build confidence solving problems independently
+
+### Difficulty Progression
+- 🟢 **Easy (1-3)**: Single concepts, clear requirements, 8-12 minutes
+- 🟡 **Medium (4-6)**: Multiple concepts combined, 15-20 minutes
+- 🔴 **Challenge (7)**: Complex logic, requires planning, 25-30 minutes
+
+### Strategic Problem-Solving Process
+1. **READ** the scenario and requirements carefully
+2. **SETUP** the data (copy/run CREATE and INSERT statements)
+3. **PLAN** your query:
+   - Which columns? → SELECT clause
+   - Which rows? → WHERE clause
+   - What order? → ORDER BY clause
+   - Any transformations? → Functions
+4. **TRY** solving yourself (resist hints initially!)
+5. **TEST** and compare with expected output
+6. **USE HINTS** strategically if needed (Level 1 → Level 2 → Level 3)
+7. **REVIEW** the solution even if you succeed
+
+**Learning from Hints:**
+- Level 1: Directional guidance
+- Level 2: More specific approach
+- Level 3: Near-complete solution (last resort)
+- After using hints, try writing the query from memory
+
 ---
 
 ## Easy 🟢 (1): Simple Filtering in E‑commerce (10–12 min)

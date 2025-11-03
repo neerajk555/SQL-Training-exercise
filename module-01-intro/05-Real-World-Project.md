@@ -21,11 +21,14 @@ Create initial analytical views for products, customers, and orders to guide bas
 2) Customer signup recency
 - Columns: `customer_id`, full name, `created_at`, `is_recent` (created within last 60 days of '2025-03-31')
 
-3) Order revenue by order
-- For PAID orders only, compute per-order total using `order_items.unit_price * quantity`
+3) Order export by status
+- For PAID orders only, list all `order_id`, `customer_id`, `order_date`, `status` with a computed column `days_since_order` (days between order_date and '2025-03-31')
+- Sort by most recent orders first
 
-4) Bonus: Top categories by revenue
-- Aggregate revenue by product category for PAID orders
+4) Bonus: Product categories summary
+- Create a distinct list of all product categories from active (non-discontinued) products
+- Add a computed column `category_type`: 'TECH' for categories containing 'Cables' or 'Cameras', 'OTHER' for all else
+- Sort alphabetically by category
 
 ## Evaluation Rubric
 - Correctness (50%), Readability (20%), Edge Cases (15%), Performance Notes (15%)
@@ -49,23 +52,22 @@ SELECT `customer_id`, CONCAT(`first_name`,' ',`last_name`) AS `full_name`, `crea
             THEN 'RECENT' ELSE 'NOT_RECENT' END AS `is_recent`
 FROM `customers`;
 
--- 3) Order revenue by order (PAID only)
-SELECT o.`order_id`, SUM(oi.`quantity` * oi.`unit_price`) AS `order_total`
-FROM `orders` o
-JOIN `order_items` oi ON oi.`order_id` = o.`order_id`
-WHERE o.`status` = 'PAID'
-GROUP BY o.`order_id`;
+-- 3) Order export by status (PAID only)
+SELECT `order_id`, `customer_id`, `order_date`, `status`,
+       DATEDIFF('2025-03-31', `order_date`) AS `days_since_order`
+FROM `orders`
+WHERE `status` = 'PAID'
+ORDER BY `order_date` DESC;
 
--- 4) Bonus: Top categories by revenue (PAID)
-SELECT p.`category`, SUM(oi.`quantity` * oi.`unit_price`) AS `category_revenue`
-FROM `orders` o
-JOIN `order_items` oi ON oi.`order_id` = o.`order_id`
-JOIN `products` p ON p.`product_id` = oi.`product_id`
-WHERE o.`status` = 'PAID'
-GROUP BY p.`category`
-ORDER BY `category_revenue` DESC;
+-- 4) Bonus: Product categories summary
+SELECT DISTINCT `category`,
+       CASE WHEN `category` IN ('Cables', 'Cameras') THEN 'TECH' ELSE 'OTHER' END AS `category_type`
+FROM `products`
+WHERE `discontinued` = 0
+ORDER BY `category`;
 ```
 
 ## Performance Notes
-- For larger data, indexes on `orders(status)`, `order_items(order_id)`, and `order_items(product_id)` help.
-- Consider composite indexes aligned with common joins and filters.
+- For larger data, indexes on `orders(status)` and `orders(order_date)` help with filtering and sorting.
+- DISTINCT operations can be optimized with indexes on the category column.
+- Date calculations like DATEDIFF are efficient for single-row operations.

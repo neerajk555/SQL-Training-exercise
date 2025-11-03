@@ -2,6 +2,45 @@
 
 Each activity includes business context, database setup, final goal, step-by-step instructions with checkpoints, common mistakes, complete solution, and discussion questions.
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through these guided activities, you will:
+- Design multi-table schemas with relationships
+- Implement referential integrity with foreign keys
+- Use constraints to enforce business rules
+- Modify schemas with ALTER TABLE
+- Test constraints to ensure data quality
+
+### Critical Schema Design Concepts
+**Schema Design Process:**
+1. Identify entities (things to store: customers, orders, products)
+2. Define attributes (columns for each entity)
+3. Identify relationships (one-to-many, many-to-many)
+4. Choose appropriate data types
+5. Add constraints for data integrity
+
+**Referential Integrity:**
+- Foreign keys ensure child records reference valid parent records
+- Cannot insert child record with non-existent parent ID
+- Cannot delete parent if children exist (unless CASCADE configured)
+- Maintains data consistency across tables
+
+**Constraint Best Practices:**
+- PRIMARY KEY on every table (unique identifier)
+- FOREIGN KEY for relationships
+- NOT NULL for required fields
+- UNIQUE for fields that must be distinct
+- CHECK for business rules (price > 0, age >= 18)
+- DEFAULT for sensible defaults
+
+### Execution Process
+1. **Run setup** to clean slate
+2. **Follow each step** in order (parent tables first!)
+3. **Verify checkpoints** with DESCRIBE and SELECT
+4. **Test constraints** by trying invalid inserts
+5. **Study complete solution**
+
 **Beginner Tip:** Follow each step carefully. Schema design is foundational—good structure makes querying easier and enforces data integrity automatically!
 
 ---

@@ -1,5 +1,41 @@
 # Quick Warm-Ups — Stored Procedures & Functions (5–10 min each)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these warm-ups, you will:
+- Create stored procedures for reusable SQL logic
+- Write functions that return values
+- Use parameters (IN, OUT, INOUT)
+- Understand DELIMITER and why it's needed
+- Call procedures and use functions in queries
+
+### Key Concepts for Beginners
+**Procedures vs Functions:**
+- **Procedure**: Performs actions, no return value, called with CALL
+- **Function**: Returns a single value, used in SELECT/WHERE
+
+**Why DELIMITER?**
+- Procedures/functions contain semicolons (;) in their body
+- DELIMITER changes the statement terminator temporarily
+- Pattern: `DELIMITER //` → create procedure → `DELIMITER ;`
+
+**Parameter Types:**
+- `IN`: Input only (read by procedure)
+- `OUT`: Output only (set by procedure, returned to caller)
+- `INOUT`: Both input and output
+
+**When to Use:**
+- ✅ Procedures: Encapsulate complex multi-step operations
+- ✅ Functions: Reusable calculations in queries
+- ✅ Both: Reduce code duplication, centralize business logic
+
+### Execution Tips
+1. **Drop before creating**: Use `DROP PROCEDURE IF EXISTS`
+2. **Change DELIMITER**: Always use DELIMITER // before creation
+3. **Reset DELIMITER**: Change back to ; after creation
+4. **Test immediately**: CALL procedure or SELECT function()
+
 **Beginner Tip:** Procedures perform actions (INSERT, UPDATE). Functions return values for use in queries. Use DELIMITER to change statement terminator!
 
 ---

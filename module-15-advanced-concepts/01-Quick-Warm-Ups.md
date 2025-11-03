@@ -1,5 +1,45 @@
 # Quick Warm-Ups — Advanced MySQL Concepts (5–10 min each)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these warm-ups, you will:
+- Store and query JSON data in MySQL
+- Use full-text search for text searching
+- Create recursive CTEs for hierarchical data
+- Generate computed columns automatically
+- Understand when to use advanced features
+
+### Key Advanced Concepts for Beginners
+**JSON in MySQL:**
+- Store structured data (objects, arrays) in a single column
+- Query with JSON functions: `JSON_EXTRACT`, `->`, `->>`
+- Good for flexible schemas, API responses, configuration data
+- Don't overuse—relational tables are usually better!
+
+**Full-Text Search:**
+- Fast text searching in large TEXT/VARCHAR columns
+- Better than `LIKE '%word%'` for finding words
+- Requires FULLTEXT index
+- Use `MATCH...AGAINST` syntax
+
+**Recursive CTEs:**
+- Query hierarchical data (org charts, categories, trees)
+- WITH RECURSIVE allows self-referencing
+- Needs base case and recursive case
+- MySQL 8.0+ feature
+
+**Generated Columns:**
+- Automatically calculated from other columns
+- VIRTUAL (calculated on read) or STORED (saved to disk)
+- Useful for complex calculations, indexing expressions
+
+### Execution Tips
+1. **Start simple**: Test basic JSON/fulltext before complex queries
+2. **Index appropriately**: FULLTEXT for text search, indexes on JSON paths
+3. **Know the limits**: Advanced features have performance trade-offs
+4. **Consider alternatives**: Often simpler approaches work better
+
 **Beginner Tip:** JSON stores structured data in single column. Full-text search finds words in text. Recursive CTEs traverse hierarchical data. Generated columns auto-calculate values!
 
 ---

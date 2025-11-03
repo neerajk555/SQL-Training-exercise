@@ -2,6 +2,30 @@
 
 Each activity includes business context, database setup, a final goal, step-by-step instructions with checkpoints, common mistakes, a complete solution with comments, and discussion questions.
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through these guided activities, you will:
+- Combine data from multiple sources with UNION
+- Choose between UNION and UNION ALL appropriately
+- Find common records with INTERSECT patterns
+- Identify differences with EXCEPT patterns
+- Handle column alignment and naming
+
+### Execution Process
+1. **Run complete setup** for each activity
+2. **Follow numbered steps** building the query incrementally
+3. **Verify checkpoints** carefully—row counts matter!
+4. **Read "Common Mistakes"** before attempting full solution
+5. **Study complete solution** with annotations
+6. **Answer discussion questions**
+
+**Critical Concepts:**
+- UNION removes duplicates by comparing ENTIRE rows
+- Column order and types must match exactly
+- ORDER BY applies to final combined result
+- Performance: UNION ALL is faster when duplicates don't matter
+
 **Beginner Tip:** Follow each step carefully. Check your results at each checkpoint. Set operations are powerful—understanding how to combine, intersect, and subtract datasets opens up many analysis possibilities!
 
 ---

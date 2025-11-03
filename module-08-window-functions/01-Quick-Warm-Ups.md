@@ -1,5 +1,42 @@
 # Quick Warm-Ups — Window Functions (5–10 min each)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these warm-ups, you will:
+- Use ROW_NUMBER() to assign sequential numbers
+- Apply RANK() and DENSE_RANK() for rankings with ties
+- Calculate running totals with SUM() OVER
+- Access previous/next rows with LAG() and LEAD()
+- Partition data with PARTITION BY
+
+### Key Window Function Concepts
+**What are Window Functions?**
+- Perform calculations across rows related to the current row
+- DON'T reduce the number of rows (unlike GROUP BY)
+- Add calculated columns to existing rows
+- Use OVER clause to define the "window"
+
+**Common Window Functions:**
+- `ROW_NUMBER()`: Sequential numbers (1,2,3...) no matter what
+- `RANK()`: Rankings with gaps for ties (1,1,3,4...)
+- `DENSE_RANK()`: Rankings without gaps (1,1,2,3...)
+- `LAG()`: Access previous row value
+- `LEAD()`: Access next row value
+- `SUM/AVG/COUNT() OVER`: Running aggregates
+
+**PARTITION BY vs ORDER BY:**
+- `PARTITION BY`: Divides data into groups (like GROUP BY but doesn't collapse)
+- `ORDER BY`: Defines the order within each partition
+- Example: `OVER (PARTITION BY category ORDER BY price DESC)`
+  - Creates separate rankings within each category
+
+### Execution Tips
+1. **Start simple**: Try window functions on small datasets
+2. **Verify partitions**: Check that PARTITION BY groups make sense
+3. **Understand ORDER BY**: It affects which rows are included in calculations
+4. **Test incrementally**: Add window functions one at a time
+
 **Beginner Tip:** Window functions add calculated columns without reducing rows. ROW_NUMBER() assigns unique numbers, RANK() handles ties, LAG() looks backward. Practice with small datasets first!
 
 ---

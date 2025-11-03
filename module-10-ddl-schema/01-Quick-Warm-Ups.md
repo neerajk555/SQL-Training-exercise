@@ -2,6 +2,46 @@
 
 Each exercise includes setup, task, expected output, and solution. Run each in its own session.
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these warm-ups, you will:
+- Create tables with appropriate data types
+- Modify existing table structures with ALTER
+- Add and manage constraints (PRIMARY KEY, FOREIGN KEY, UNIQUE, CHECK)
+- Understand referential integrity
+- Drop tables and constraints safely
+
+### Key DDL Concepts for Beginners
+**DDL = Data Definition Language:**
+- `CREATE`: Create new database objects (tables, indexes)
+- `ALTER`: Modify existing structures
+- `DROP`: Delete database objects
+- These operations change the STRUCTURE, not the data
+
+**Essential Constraints:**
+- `PRIMARY KEY`: Unique identifier, not null, one per table
+- `FOREIGN KEY`: Links to another table's primary key (enforces relationships)
+- `UNIQUE`: No duplicate values allowed
+- `NOT NULL`: Must have a value
+- `CHECK`: Validates data (e.g., price > 0)
+- `DEFAULT`: Provides default value if none specified
+
+**Data Type Guidelines:**
+- `INT`: Whole numbers (user IDs, counts)
+- `VARCHAR(n)`: Variable-length text (names, emails)
+- `DECIMAL(p,s)`: Exact numbers (prices: DECIMAL(10,2))
+- `DATE/DATETIME`: Date and time values
+- `TEXT`: Long text content
+- `BOOLEAN/TINYINT(1)`: True/false flags
+
+### Execution Tips
+1. **Plan before creating**: Sketch table relationships on paper
+2. **Create in order**: Parent tables before child tables (FK dependencies)
+3. **Use DESCRIBE**: Verify table structure after creation
+4. **Test constraints**: Try inserting invalid data to verify constraints work
+5. **DROP safely**: Use IF EXISTS to avoid errors
+
 **Beginner Tip:** DDL creates database structure. CREATE makes tables, ALTER modifies them, DROP removes them. Always plan your schema before creating! Use constraints to enforce data integrity.
 
 ---

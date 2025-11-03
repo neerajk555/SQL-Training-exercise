@@ -1,5 +1,34 @@
 # Guided Step-by-Step — Window Functions (15–20 min each)
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through these guided activities, you will:
+- Use ROW_NUMBER() and RANK() for top-N per group
+- Calculate moving averages with window frames
+- Compare values across rows with LAG() and LEAD()
+- Understand PARTITION BY for grouped calculations
+- Master window frame specifications (ROWS/RANGE)
+
+### Critical Window Function Concepts
+**Window Frame Specifications:**
+- `ROWS BETWEEN 2 PRECEDING AND CURRENT ROW`: Last 3 rows physically
+- `RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW`: Running total
+- Frame defines which rows are included in aggregate calculation
+
+**Top-N Per Group Pattern:**
+1. Use ROW_NUMBER() or RANK() with PARTITION BY
+2. Wrap in subquery or CTE
+3. Filter WHERE row_number <= N
+
+**Execution Process:**
+1. **Run complete setup**
+2. **Follow steps** building query incrementally
+3. **Verify results** at each checkpoint
+4. **Study complete solution**
+
+---
+
 ## Activity 1: Top Products Per Category (15 min)
 Business context: Show top 3 products by sales in each category.
 

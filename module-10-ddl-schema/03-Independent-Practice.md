@@ -2,6 +2,54 @@
 
 Work through these exercises independently. Each includes difficulty, time estimate, scenario, requirements, success criteria, hints, and solution.
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through independent practice, you will:
+- Design complete database schemas from requirements
+- Implement multi-table relationships
+- Choose appropriate data types and constraints
+- Create normalized table structures
+- Test schema integrity
+
+### Difficulty Progression
+- ⭐ **Easy (1-2)**: 2-3 tables, simple relationships, 15-18 minutes
+- ⭐⭐ **Medium (3-5)**: 3-4 tables, multiple FKs, junction tables, 20-25 minutes
+- ⭐⭐⭐ **Challenge (6-7)**: Complex schemas, many-to-many, advanced constraints, 30-40 minutes
+
+### Problem-Solving Strategy
+1. **READ** requirements thoroughly
+2. **SKETCH** schema on paper:
+   - What entities (tables)?
+   - What attributes (columns)?
+   - What relationships (FKs)?
+   - What constraints?
+3. **PLAN** creation order:
+   - Parent tables first (no FK dependencies)
+   - Child tables next (reference parents)
+   - Junction tables last (many-to-many)
+4. **CREATE** tables with constraints
+5. **TEST** with sample data
+6. **VERIFY** constraints work (try invalid inserts)
+7. **REVIEW** solution
+
+**Common Pitfalls:**
+- ❌ Creating child table before parent (FK fails)
+- ❌ Wrong data types (VARCHAR(10) for email is too small)
+- ❌ Missing NOT NULL on required fields
+- ❌ No PRIMARY KEY (every table needs one!)
+- ❌ Forgetting to test constraints
+- ✅ Always verify with DESCRIBE and test inserts!
+
+**Schema Design Checklist:**
+- [ ] Every table has PRIMARY KEY
+- [ ] Foreign keys defined for relationships
+- [ ] NOT NULL on required fields
+- [ ] Appropriate data types and sizes
+- [ ] UNIQUE constraints where needed
+- [ ] CHECK constraints for business rules
+- [ ] DEFAULT values where appropriate
+
 **Beginner Tip:** Start with Easy exercises. Plan your schema on paper first! Think about relationships, constraints, and data types before writing DDL.
 
 ---

@@ -87,77 +87,78 @@ Through paired programming, you will:
 - Role-Switch Points: Switch after Part A and again after Part B.
 - Collaboration Tips: Talk through join keys, verify arithmetic, and check for duplicate rows.
 
-- Schema (2 tables):
+- Schema (single table with denormalized order data):
   ```sql
   -- Safe re-run: drop if exists to avoid conflicts
-  DROP TEMPORARY TABLE IF EXISTS `pp_orders`;
-  DROP TEMPORARY TABLE IF EXISTS `pp_products`;
+  DROP TEMPORARY TABLE IF EXISTS `pp_order_details`;
 
-  CREATE TEMPORARY TABLE `pp_products` (
-    `product_id` INT,
-    `name` VARCHAR(50),
-    `category` VARCHAR(50),
-    `price` DECIMAL(10,2)
-  );
-  CREATE TEMPORARY TABLE `pp_orders` (
+  CREATE TEMPORARY TABLE `pp_order_details` (
     `order_id` INT,
-    `product_id` INT,
-    `quantity` INT
+    `product_name` VARCHAR(50),
+    `category` VARCHAR(50),
+    `quantity` INT,
+    `unit_price` DECIMAL(10,2),
+    `order_date` DATE,
+    `customer_name` VARCHAR(100)
   );
-  INSERT INTO `pp_products` VALUES
-  (1,'Cable','Cables',9.99),(2,'Mouse','Accessories',19.99),(3,'Keyboard','Accessories',79.99);
-  INSERT INTO `pp_orders` VALUES
-  (101,1,2),(101,2,1),(102,3,1);
+  INSERT INTO `pp_order_details` VALUES
+  (101,'Cable','Cables',2,9.99,'2025-03-15','Alice Johnson'),
+  (101,'Mouse','Accessories',1,19.99,'2025-03-15','Alice Johnson'),
+  (102,'Keyboard','Accessories',1,79.99,'2025-03-16','Bob Smith'),
+  (103,'Cable','Cables',5,9.99,'2025-03-17','Charlie Davis'),
+  (103,'Mouse Pad','Accessories',2,6.50,'2025-03-17','Charlie Davis');
   ```
 
 - Parts:
-  - A) List all orders with product name and line total (`quantity * price`).
-  - B) Add order totals per `order_id`.
-  - C) Return only orders with totals >= 50.00.
+  - A) Calculate line totals: For each order line, compute `line_total` = `quantity * unit_price`. Display `order_id`, `product_name`, `quantity`, `unit_price`, and `line_total`.
+  - B) Categorize orders: Add a computed column `order_size` with values 'LARGE' if `quantity` >= 3, otherwise 'SMALL'. Sort by `order_id` and `quantity` DESC.
+  - C) Premium orders: Filter for orders where `line_total` >= 40.00 and add a `discount_eligible` column showing 'YES' for Accessories category, 'NO' for others.
 
   Expected outputs
   - A)
     ```
-    order_id | name     | quantity | line_total
-    101      | Cable    | 2        | 19.98
-    101      | Mouse    | 1        | 19.99
-    102      | Keyboard | 1        | 79.99
+    order_id | product_name | quantity | unit_price | line_total
+    101      | Cable        | 2        | 9.99       | 19.98
+    101      | Mouse        | 1        | 19.99      | 19.99
+    102      | Keyboard     | 1        | 79.99      | 79.99
+    103      | Cable        | 5        | 9.99       | 49.95
+    103      | Mouse Pad    | 2        | 6.50       | 13.00
     ```
   - B)
     ```
-    order_id | order_total
-    101      | 39.97
-    102      | 79.99
+    order_id | product_name | quantity | order_size
+    101      | Cable        | 2        | SMALL
+    101      | Mouse        | 1        | SMALL
+    102      | Keyboard     | 1        | SMALL
+    103      | Cable        | 5        | LARGE
+    103      | Mouse Pad    | 2        | SMALL
     ```
   - C)
     ```
-    order_id | order_total
-    102      | 79.99
+    order_id | product_name | category    | line_total | discount_eligible
+    102      | Keyboard     | Accessories | 79.99      | YES
+    103      | Cable        | Cables      | 49.95      | NO
     ```
 
 - Solutions:
   ```sql
-  -- A
-  SELECT o.`order_id`, p.`name`, o.`quantity`, (o.`quantity` * p.`price`) AS `line_total`
-  FROM `pp_orders` o
-  JOIN `pp_products` p ON p.`product_id` = o.`product_id`
-  ORDER BY o.`order_id`, p.`name`;
+  -- A: Calculate line totals
+  SELECT `order_id`, `product_name`, `quantity`, `unit_price`,
+         (`quantity` * `unit_price`) AS `line_total`
+  FROM `pp_order_details`
+  ORDER BY `order_id`, `product_name`;
 
-  -- B
-  SELECT o.`order_id`, SUM(o.`quantity` * p.`price`) AS `order_total`
-  FROM `pp_orders` o
-  JOIN `pp_products` p ON p.`product_id` = o.`product_id`
-  GROUP BY o.`order_id`
-  ORDER BY o.`order_id`;
+  -- B: Categorize by order size
+  SELECT `order_id`, `product_name`, `quantity`,
+         CASE WHEN `quantity` >= 3 THEN 'LARGE' ELSE 'SMALL' END AS `order_size`
+  FROM `pp_order_details`
+  ORDER BY `order_id`, `quantity` DESC;
 
-  -- C
-  SELECT t.`order_id`, t.`order_total`
-  FROM (
-    SELECT o.`order_id`, SUM(o.`quantity` * p.`price`) AS `order_total`
-    FROM `pp_orders` o
-    JOIN `pp_products` p ON p.`product_id` = o.`product_id`
-    GROUP BY o.`order_id`
-  ) t
-  WHERE t.`order_total` >= 50.00
-  ORDER BY t.`order_id`;
+  -- C: Premium orders with discount eligibility
+  SELECT `order_id`, `product_name`, `category`,
+         (`quantity` * `unit_price`) AS `line_total`,
+         CASE WHEN `category` = 'Accessories' THEN 'YES' ELSE 'NO' END AS `discount_eligible`
+  FROM `pp_order_details`
+  WHERE (`quantity` * `unit_price`) >= 40.00
+  ORDER BY `order_id`;
   ```

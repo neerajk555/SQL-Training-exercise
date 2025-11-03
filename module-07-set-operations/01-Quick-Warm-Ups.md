@@ -2,6 +2,40 @@
 
 Each exercise includes a tiny setup, a task, expected output, and an answer. Run each in its own session.
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these warm-ups, you will:
+- Use UNION to combine and deduplicate result sets
+- Apply UNION ALL to keep all rows including duplicates
+- Implement INTERSECT to find common rows
+- Use EXCEPT to find differences between datasets
+- Understand column matching requirements
+
+### Key Set Operation Concepts
+**UNION vs UNION ALL:**
+- `UNION`: Combines results and removes duplicate rows (slower)
+- `UNION ALL`: Combines results and keeps all rows (faster)
+- Use UNION when you need unique combined results
+- Use UNION ALL when duplicates are acceptable or don't exist
+
+**INTERSECT and EXCEPT (MySQL 8.0.31+):**
+- `INTERSECT`: Returns only rows in BOTH result sets
+- `EXCEPT`: Returns rows in first set NOT in second set
+- For older MySQL, use JOIN patterns as alternatives
+
+**Critical Rules:**
+- All SELECT statements must have same number of columns
+- Corresponding columns must have compatible data types
+- Column names come from first SELECT
+- ORDER BY goes at the very end (applies to combined result)
+
+### Execution Tips
+1. **Verify column counts match** across all SELECTs
+2. **Use same aliases** in all queries for clarity
+3. **Test each SELECT separately** before combining
+4. **Add ORDER BY last** after all set operations
+
 **Beginner Tip:** Set operations combine results from multiple queries. UNION removes duplicates, UNION ALL keeps them all. INTERSECT finds common rows, EXCEPT finds differences. Always match column count and types!
 
 ---

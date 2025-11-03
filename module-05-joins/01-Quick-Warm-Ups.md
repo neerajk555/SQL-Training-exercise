@@ -2,6 +2,45 @@
 
 Each exercise includes a tiny setup, a task, the expected output, and an answer. Run each in its own session.
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these warm-ups, you will:
+- Use INNER JOIN to combine matching rows from two tables
+- Apply LEFT JOIN to preserve all rows from the left table
+- Implement self-joins to relate a table to itself
+- Combine joins with aggregation
+- Understand anti-joins (LEFT JOIN ... IS NULL pattern)
+
+### Key Join Concepts for Beginners
+**INNER JOIN:**
+- Returns only rows that have matches in BOTH tables
+- Use when you only want records that exist in both tables
+- Example: Orders WITH customer information (excludes invalid customer_ids)
+
+**LEFT JOIN (LEFT OUTER JOIN):**
+- Returns ALL rows from the left table
+- Includes matches from right table, or NULL if no match
+- Use when you want ALL left records, even without matches
+- Example: ALL customers, showing orders if they exist
+
+**Self-Join:**
+- Joins a table to itself (using different aliases)
+- Use for hierarchical data (employee-manager relationships)
+- Example: Employees table referencing itself for manager names
+
+**Anti-Join Pattern:**
+- LEFT JOIN ... WHERE right_table.key IS NULL
+- Finds rows in left table with NO match in right table
+- Example: Customers who have never placed an order
+
+### Execution Tips
+1. **Run setup code** for each exercise (DROP + CREATE + INSERT)
+2. **Note the table relationships** (which columns link tables)
+3. **Try solving** before checking the solution
+4. **Verify row counts** match expected output
+5. **Experiment** with different join types to see the difference
+
 **Beginner Tip:** Joins combine data from multiple tables. INNER JOIN keeps only matching rows, LEFT JOIN keeps all left table rows (even if no match), and SELF JOIN joins a table to itself. Start simple and build up!
 
 ---

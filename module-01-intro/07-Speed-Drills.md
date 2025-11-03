@@ -39,10 +39,10 @@ WHERE `email` IS NULL;
 SELECT CONCAT(`first_name`,' ',`last_name`) AS `full_name` FROM `customers`;
 ```
 
-6) Count scheduled appointments.
+6) Show all scheduled appointments.
 - Answer:
 ```sql
-SELECT COUNT(*) FROM `appointments` WHERE `status`='SCHEDULED';
+SELECT * FROM `appointments` WHERE `status`='SCHEDULED';
 ```
 
 7) Return top 5 cheapest products.

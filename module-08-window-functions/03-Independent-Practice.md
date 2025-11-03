@@ -1,5 +1,40 @@
 # Independent Practice — Window Functions
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through independent practice, you will:
+- Apply window functions without step-by-step guidance
+- Choose appropriate ranking functions (ROW_NUMBER, RANK, DENSE_RANK)
+- Calculate running totals and moving averages
+- Use LAG/LEAD for row comparisons
+- Solve top-N per group problems
+
+### Difficulty Progression
+- 🟢 **Easy (1-2)**: Basic rankings and running totals, 12-13 minutes
+- 🟡 **Medium (3-5)**: Moving averages, LAG/LEAD, top-N patterns, 18-22 minutes
+- 🔴 **Challenge (6-7)**: Complex window frames, multiple functions, 25-30 minutes
+
+### Problem-Solving Strategy
+1. **READ** requirements—identify if window function is needed
+2. **SETUP** sample data
+3. **PLAN** your window function:
+   - What calculation? (ROW_NUMBER, SUM, AVG, LAG, etc.)
+   - PARTITION BY? (group separately by category, etc.)
+   - ORDER BY? (defines sequence)
+   - Frame? (for moving averages: ROWS BETWEEN...)
+4. **TRY** solving independently
+5. **TEST** results
+6. **REVIEW** solution
+
+**Common Pitfalls:**
+- ❌ Using GROUP BY when you need window function (GROUP BY reduces rows)
+- ❌ Wrong ORDER BY in OVER clause (affects ranking/frame)
+- ❌ Forgetting PARTITION BY when you need separate groups
+- ✅ Test window functions on small datasets first!
+
+---
+
 ## Exercise 1: Sales Ranking 🟢 Easy (12 min)
 Schema:
 ```sql
