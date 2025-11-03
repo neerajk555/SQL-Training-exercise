@@ -197,3 +197,76 @@ A comprehensive SQL training course covering fundamental to advanced database co
 ## Course Structure
 
 Each module contains multiple exercise types designed to reinforce learning through various approaches and difficulty levels.
+
+## Prerequisites
+
+- MySQL 8.0+ (Workbench or the mysql command-line client)
+- Basic familiarity with running SQL scripts
+
+Optional: If you're brand new, start in Module 01 where every activity includes tiny inline datasets you can copy/paste. You can also load the optional sample schemas below for richer practice.
+
+## Quickstart (Windows, MySQL CLI)
+
+Use these steps if you have MySQL installed locally and want to run the optional sample schemas used throughout examples.
+
+1) Open Command Prompt
+2) Start the MySQL client and log in as root (or your user):
+
+```
+mysql -u root -p
+```
+
+3) From the MySQL prompt, run the Module 01 setup script (adjust the path):
+
+```
+SOURCE "e:/sql -ex/module-01-intro/module-01-setup.sql";
+```
+
+4) Verify databases were created:
+
+```
+SHOW DATABASES LIKE 'm1_intro%';
+```
+
+Tip: If you prefer MySQL Workbench, open `module-01-setup.sql` and execute it there.
+
+## Using the Exercises
+
+- All activities are self-contained: each Markdown file provides its own `CREATE`/`INSERT` setup blocks you can run directly in a scratch database.
+- Many examples also work against the optional sample schemas from Module 01.
+- You can safely re-run setup blocks—files usually start with `DROP TABLE IF EXISTS` to reset state.
+
+## Optional Sample Schemas (from Module 01)
+
+Running `module-01-setup.sql` creates three small databases you can reuse across modules:
+
+- m1_intro_ecom (e-commerce)
+   - products(product_id, name, category, price, stock, discontinued)
+   - customers(customer_id, first_name, last_name, email, created_at)
+   - orders(order_id, customer_id, order_date, status)
+   - order_items(order_id, product_id, quantity, unit_price)
+
+- m1_intro_edu (education)
+   - courses(course_id, title, category, active)
+   - students(student_id, full_name, email, enrolled_on)
+   - enrollments(student_id, course_id, grade)
+
+- m1_intro_health (healthcare)
+   - patients(patient_id, first_name, last_name, dob)
+   - appointments(appt_id, patient_id, appt_date, status)
+
+These include useful edge cases: NULL emails, out-of-stock or discontinued products, inactive courses, future appointments, etc.
+
+## Common Troubleshooting
+
+- Error: "Table doesn't exist" → Run the setup block in the activity first, or switch to a database with `USE your_db;`
+- Error: "Access denied" → Check user/password and permissions
+- Wrong results → Double-check WHERE conditions and join logic; print intermediate results
+
+## Resetting
+
+To reset the optional sample schemas created by Module 01, re-run the setup script. It starts by dropping and recreating the databases:
+
+```
+SOURCE "e:/sql -ex/module-01-intro/module-01-setup.sql";
+```
