@@ -2,6 +2,47 @@
 
 Three structured activities with business context, setup, final goal, stepwise checkpoints, common mistakes, and full solutions. Time per activity: 15–20 minutes.
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through these guided activities, you will:
+- Practice structured problem-solving with SQL queries
+- Learn to verify your work at each checkpoint
+- Understand database exploration techniques (DESCRIBE, SELECT *)
+- Master filtering and sorting in realistic business scenarios
+- Develop debugging skills by recognizing common mistakes
+
+### Environment Setup & How to Execute
+**Initial Setup:**
+1. **Connect to MySQL** using your preferred client
+2. **Each activity creates its own database** (e.g., `g1_shop`, `g2_uni`, `g3_health`)
+3. **Run the entire setup block** for each activity before starting the steps
+
+**Step-by-Step Execution Process:**
+1. **Copy and run the complete setup code** (CREATE DATABASE through INSERT statements)
+2. **Follow each numbered step** in order:
+   - Type the SQL command described
+   - Run it and observe the results
+   - Compare your output with the checkpoint description
+   - ✅ If checkpoint passes: move to next step
+   - ❌ If checkpoint fails: review the step and try again
+3. **Read "Common Mistakes"** before writing your final query
+4. **Write your complete solution** combining all steps
+5. **Compare with the provided solution** and understand any differences
+6. **Answer discussion questions** to deepen understanding
+
+**Checkpoint Tips:**
+- Checkpoints are mini-goals to verify you're on track
+- If a checkpoint doesn't match, **STOP** and debug before continuing
+- Use `SELECT COUNT(*) FROM table_name;` to verify row counts
+- Use `DESCRIBE table_name;` to verify column structure
+
+**Troubleshooting:**
+- ❌ "Database exists": Add `DROP DATABASE IF EXISTS db_name;` before CREATE
+- ❌ "Can't drop database": First run `USE another_db;` to switch away
+- ❌ Wrong results: Verify you ran ALL INSERT statements
+- ✅ Clean slate: Run `DROP DATABASE db_name;` to start fresh
+
 Tip: You can also load larger sample data from `module-01-setup.sql`.
 
 ---

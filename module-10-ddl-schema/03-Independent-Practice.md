@@ -1,0 +1,1 @@
+# Exercises: Basic table creation, Column modifications, Constraint addition, Complex schema design

@@ -2,6 +2,82 @@
 
 One collaborative activity designed for 30 minutes. Includes driver/navigator roles, schema, progressive parts (A/B/C), role-switching points, collaboration tips, and complete solutions.
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through paired programming, you will:
+- Experience collaborative SQL problem-solving
+- Learn to communicate technical decisions clearly
+- Practice giving and receiving constructive feedback
+- Build teamwork skills essential for professional development
+- Understand how different perspectives improve solutions
+
+### Paired Programming Setup
+**Finding a Partner:**
+- Classmate, study buddy, or online learning partner
+- Screen sharing works great for remote pairing
+- Even better: sit side-by-side sharing one computer
+
+**Setting Up Your Environment:**
+1. **One computer, two people** (or screen share)
+2. **Driver controls the keyboard**—types SQL queries
+3. **Navigator has the exercise open**—reads requirements, catches errors
+4. **Both have MySQL connected** to the same practice database
+
+### Understanding Roles
+
+**🚗 Driver Responsibilities:**
+- Types all SQL code
+- Verbalizes thought process ("I'm adding a WHERE clause because...")
+- Asks navigator for confirmation before running queries
+- Focuses on syntax and typing correctly
+
+**🧭 Navigator Responsibilities:**
+- Keeps the requirements in view
+- Spots errors before code runs ("Did you join on the right key?")
+- Suggests tests ("Let's verify the row count matches")
+- Thinks about edge cases and alternative approaches
+- **Does NOT touch the keyboard** (resist the urge!)
+
+### How to Execute This Activity
+
+**Initial Setup (Together, 3-5 min):**
+1. **Decide who starts as Driver** (you'll switch roles)
+2. **Driver runs the schema setup** (CREATE TABLE + INSERT)
+3. **Both verify data**: `SELECT * FROM products; SELECT * FROM orders;`
+4. **Navigator reads Part A aloud**
+
+**For Each Part (A, B, C):**
+1. **Navigator**: Read requirements and expected output
+2. **Both**: Discuss approach for 1-2 minutes
+   - "What columns do we need?"
+   - "Do we need JOIN, WHERE, GROUP BY?"
+3. **Driver**: Types query while explaining each line
+4. **Navigator**: Reviews logic, asks clarifying questions
+5. **Driver**: Runs query
+6. **Both**: Verify output matches requirements
+7. **Compare with solution** and discuss differences
+8. **SWITCH ROLES** at designated points
+
+**Role-Switching Protocol:**
+1. **Save/comment the current query** so both can refer to it
+2. **Switch seats** (or pass keyboard control)
+3. **New navigator reviews** what's been completed
+4. **Continue with next part**
+
+**Collaboration Best Practices:**
+- 🗣️ **Talk continuously**: Silence means someone is lost
+- ❓ **Ask "why" questions**: "Why use LEFT JOIN here?"
+- ✋ **Pause to discuss**: Don't rush through disagreements
+- 🎯 **Stay focused**: One part at a time
+- 🎉 **Celebrate small wins**: Got a checkpoint? High five!
+
+**Troubleshooting:**
+- 🤔 **Stuck together?** Look at hint or solution, discuss it, then try again
+- 😤 **Disagreement?** Try both approaches and compare results
+- 😴 **Navigator disengaged?** Switch roles immediately
+- 🏎️ **Driver going too fast?** Navigator: "Slow down, let's verify this"
+
 ---
 
 ## Activity: Order Totals Walkthrough

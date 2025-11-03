@@ -1,0 +1,1 @@
+# Project: Design complete database schema for e-commerce system with normalization

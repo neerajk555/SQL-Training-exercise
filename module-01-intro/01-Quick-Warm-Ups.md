@@ -2,7 +2,44 @@
 
 Each warm-up includes a tiny dataset, a focused task, expected output, and a solution. Time per exercise: 5–10 minutes.
 
-Tip: These use temporary tables and won’t affect your database. You can also load optional data from `module-01-setup.sql`.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these warm-ups, you will:
+- Master basic SELECT statements with WHERE clauses
+- Learn to filter data using different comparison operators
+- Practice working with NULL values correctly
+- Understand ORDER BY for sorting results
+- Build confidence with small, focused queries
+
+### Environment Setup
+1. **Connect to MySQL**: Open your MySQL client (MySQL Workbench, command line, or any SQL IDE)
+2. **Choose a database**: 
+   ```sql
+   USE your_database_name;  -- Replace with your practice database
+   -- OR create a new one:
+   CREATE DATABASE IF NOT EXISTS sql_practice;
+   USE sql_practice;
+   ```
+3. **Verify connection**: Run `SELECT 1;` to confirm you're connected
+
+### How to Execute Each Exercise
+**Step-by-step process:**
+1. **Copy the setup code** (CREATE TEMPORARY TABLE + INSERT statements)
+2. **Paste and run it** in your SQL client to create sample data
+3. **Read the task carefully** and identify what columns and filters are needed
+4. **Write your query** (try solving it yourself first!)
+5. **Run your query** and compare results with the expected output
+6. **If stuck**, peek at the solution and understand each part
+7. **Verify**: Run the solution query to confirm expected results
+
+**Troubleshooting Tips:**
+- ❌ Error "Table doesn't exist": Re-run the CREATE TABLE statements
+- ❌ Wrong results: Check your WHERE clause carefully
+- ❌ Syntax error: Check backticks around MySQL keywords (like `name`, `discontinued`)
+- ✅ Temporary tables auto-delete when your session ends—safe for practice!
+
+Tip: These use temporary tables and won't affect your database. You can also load optional data from `module-01-setup.sql`.
 
 ---
 

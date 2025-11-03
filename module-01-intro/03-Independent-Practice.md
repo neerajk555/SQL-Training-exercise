@@ -2,6 +2,59 @@
 
 Seven exercises with progressive difficulty: 3 easy, 3 medium, 1 challenge. Each includes scenario, schema+sample data, requirements, example output, success criteria, multi-level hints, and detailed solutions.
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through independent practice, you will:
+- Apply SQL concepts without step-by-step guidance
+- Progress from easy to challenging problems systematically
+- Learn to break down requirements into SQL clauses
+- Practice strategic hint usage to develop problem-solving skills
+- Build confidence in writing queries independently
+
+### Difficulty Progression
+- 🟢 **Easy (1-3)**: Focus on single concepts, 10-12 minutes each
+- 🟡 **Medium (4-6)**: Combine 2-3 concepts, 15-20 minutes each  
+- 🔴 **Challenge (7)**: Multi-concept integration, 25-30 minutes
+
+### How to Approach Each Exercise
+**Strategic Problem-Solving Process:**
+
+1. **READ** the scenario and requirements carefully (don't rush!)
+2. **SETUP** the data:
+   ```sql
+   -- Copy and run the CREATE TEMPORARY TABLE and INSERT statements
+   -- Verify: SELECT * FROM table_name; to see all data
+   ```
+3. **PLAN** your query:
+   - What columns do I need? → SELECT clause
+   - What rows should I filter? → WHERE clause
+   - What order? → ORDER BY clause
+   - Any special cases (NULL, CASE, etc.)? → Note them
+4. **TRY** writing the query yourself (resist peeking at hints!)
+5. **TEST** your query and compare output with expected results
+6. **USE HINTS** strategically if stuck:
+   - Level 1: General direction (try this first)
+   - Level 2: More specific guidance
+   - Level 3: Nearly complete hint (use only if really stuck)
+7. **REVIEW** the solution even if you solved it (learn alternative approaches)
+
+**Success Criteria Tips:**
+- Success criteria describe what makes your solution correct
+- Check BOTH output AND the approach (e.g., correct handling of NULLs)
+- Your query might differ from the solution but still be correct!
+
+**Troubleshooting:**
+- ❌ Output doesn't match: Check ORDER BY clause (sort order matters!)
+- ❌ Wrong row count: Review your WHERE conditions
+- ❌ NULL handling issues: Use `IS NULL` / `IS NOT NULL`, not `= NULL`
+- ✅ Multiple valid solutions: There's often more than one correct approach
+
+**Learning from Hints:**
+- Don't feel bad using hints—they're learning tools!
+- After using a hint, close the file and try writing the query from memory
+- Practice the same exercise again tomorrow without hints
+
 Tip: Quick to run with temporary tables; optional larger datasets in `module-01-setup.sql`.
 
 ---

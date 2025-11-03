@@ -1,0 +1,1 @@
+# Collaborative schema design for multi-table system with relationships

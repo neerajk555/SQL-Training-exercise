@@ -1,0 +1,1 @@
+# Activities: CREATE TABLE patterns, ALTER TABLE modifications, FK relationships, Index creation, Schema refactoring

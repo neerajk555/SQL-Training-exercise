@@ -1,0 +1,1 @@
+# Quick questions on CREATE, ALTER, DROP, Constraints, Keys, Data types

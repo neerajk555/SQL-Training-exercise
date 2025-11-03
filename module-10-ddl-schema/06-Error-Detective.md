@@ -1,0 +1,1 @@
+# Debug: FK violations, Data type mismatches, Constraint errors, Migration failures
