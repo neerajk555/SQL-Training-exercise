@@ -290,30 +290,18 @@ WITH prod_rev AS (
   FROM ip6_m2_items i
   JOIN ip6_m2_products p ON p.product_id = i.product_id
   GROUP BY p.category, p.name
-)
-SELECT category, product, revenue,
-       ROW_NUMBER() OVER (PARTITION BY category ORDER BY revenue DESC) AS rnk
-FROM prod_rev
-WHERE revenue IS NOT NULL
-QUALIFY rnk <= 2; -- MySQL doesn't support QUALIFY; use a wrapping SELECT instead
-```
-Alternative (MySQL-compliant)
-```sql
-WITH prod_rev AS (
-  SELECT p.category, p.name AS product, SUM(i.qty * p.price) AS revenue
-  FROM ip6_m2_items i
-  JOIN ip6_m2_products p ON p.product_id = i.product_id
-  GROUP BY p.category, p.name
 ), ranked AS (
   SELECT category, product, revenue,
          ROW_NUMBER() OVER (PARTITION BY category ORDER BY revenue DESC) AS rnk
   FROM prod_rev
+  WHERE revenue IS NOT NULL
 )
-SELECT *
+SELECT category, product, revenue, rnk
 FROM ranked
 WHERE rnk <= 2
 ORDER BY category, rnk, product;
 ```
+Note: MySQL doesn't support QUALIFY (a feature in some other SQL databases), so we use a wrapping CTE instead.
 
 ---
 
