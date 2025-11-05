@@ -9,6 +9,10 @@ Quick-fire questions to test your knowledge. Try to answer before looking at the
 
 **Answer:** UNION removes duplicate rows from the combined result; UNION ALL keeps all rows including duplicates. UNION ALL is faster because it doesn't need to eliminate duplicates.
 
+**Memory Trick:** "UNION = Unique ON" → turns duplicate removal ON. "UNION ALL = All included" → everything stays.
+
+**Performance Impact:** On large datasets (millions of rows), UNION can be 2-10x slower than UNION ALL because it must sort/hash to find duplicates.
+
 ---
 
 ## Drill 2: Column Count Rule
@@ -42,12 +46,22 @@ Quick-fire questions to test your knowledge. Try to answer before looking at the
 
 **Answer:** IDs that exist in BOTH table_a AND table_b. INTERSECT returns only the rows that appear in all result sets.
 
+**Visual:** Think Venn diagram—INTERSECT gives you the overlapping middle section.
+
+**Real Use:** "Show me customers who bought in Q1 AND Q2" or "Products in both warehouses"
+
 ---
 
 ## Drill 6: EXCEPT/MINUS Meaning
 **Question:** What does `SELECT email FROM customers EXCEPT SELECT email FROM unsubscribed` return?
 
 **Answer:** Emails that exist in customers but NOT in unsubscribed. EXCEPT returns rows from the first result set that don't appear in the second.
+
+**Think:** Subtraction! "A minus B" → Items in A that aren't in B.
+
+**Real Use:** "Customers who haven't unsubscribed" or "Products we stock but have never sold"
+
+**Order Matters:** `A EXCEPT B` ≠ `B EXCEPT A` (unlike UNION which is commutative)
 
 ---
 
@@ -62,6 +76,14 @@ SELECT 'B';
 ```
 
 **Answer:** 2 rows ('A' and 'B'). UNION removes duplicates, so the two 'A' rows become one.
+
+**Explanation:** 
+- First SELECT: 'A'
+- Second SELECT: 'A' (duplicate—UNION removes it)
+- Third SELECT: 'B' (unique—kept)
+- Final result: 'A', 'B'
+
+**If it were UNION ALL:** Would return 3 rows ('A', 'A', 'B') because it keeps everything.
 
 ---
 
@@ -93,6 +115,16 @@ SELECT order_amount FROM orders;   -- DECIMAL column
 ```
 
 **Answer:** It will run (MySQL does implicit conversion), but it's bad practice. The result will convert both to a common type (likely DECIMAL), which may not make logical sense. Column types should be semantically compatible, not just technically castable.
+
+**Why This Is Bad:**
+- Mixing customer IDs with dollar amounts makes no business sense
+- Results will be confusing: is "100" an ID or $100?
+- Other devs reading your code will be confused
+
+**The Right Way:**
+- Match columns with compatible **data types** AND **meanings**
+- UNION should combine apples with apples, not apples with oranges
+- If types differ slightly (INT vs BIGINT), that's OK—but semantics must match!
 
 ---
 

@@ -109,17 +109,24 @@ sale_id | product  | amount  | sale_date  | region
 
 ### Hints
 
-**Level 1 (Gentle Nudge):** Use UNION ALL with literal strings for region labels.
+**Level 1 (Gentle Nudge):** 
+Think about combining the two tables. Do you want to remove duplicates or keep all records? Look at the requirements: "keeping all records including duplicates" → which operation keeps everything?
 
-**Level 2 (More Direct):** Add `'North' AS region` in the first SELECT and `'South' AS region` in the second SELECT.
+**Level 2 (More Direct):** 
+Use UNION ALL to combine both tables. Add a literal string column for the region: `'North' AS region` in the first SELECT and `'South' AS region` in the second. Remember to match all columns (sale_id, product, amount, sale_date, region) in both SELECTs.
 
 **Level 3 (Almost There):** 
 ```sql
 SELECT sale_id, product, amount, sale_date, 'North' AS region FROM ip7_north_sales
 UNION ALL
 SELECT sale_id, product, amount, sale_date, 'South' AS region FROM ip7_south_sales
-ORDER BY ...
+ORDER BY sale_date, sale_id  -- Sort by date first, then ID
 ```
+
+**Stuck? Common Issues:**
+- Forgetting to include all 5 columns in both SELECTs
+- Using UNION instead of UNION ALL (removes duplicates you want to keep)
+- ORDER BY in wrong place (must be at the very end)
 
 ### Solution
 ```sql
@@ -129,27 +136,45 @@ SELECT
   product,
   amount,
   sale_date,
-  'North' AS region
+  'North' AS region  -- Add literal label to identify source
 FROM ip7_north_sales
 
-UNION ALL  -- Keep all rows including duplicates
+UNION ALL  -- Keep all rows including duplicates (faster, no deduplication)
 
 SELECT 
   sale_id,
   product,
   amount,
   sale_date,
-  'South' AS region
+  'South' AS region  -- Add literal label to identify source
 FROM ip7_south_sales
 
-ORDER BY sale_date, sale_id;
--- Returns 6 rows with region labels, sorted chronologically
+ORDER BY sale_date, sale_id;  -- Sort combined result by date, then ID
+-- Returns 6 rows (3 from North + 3 from South) with region labels
 ```
 
+**Why This Solution Works:**
+- ✅ Both SELECTs have 5 columns (sale_id, product, amount, sale_date, region)
+- ✅ All column types match (INT, VARCHAR, DECIMAL, DATE, VARCHAR)
+- ✅ UNION ALL keeps all 6 records without checking for duplicates (faster)
+- ✅ ORDER BY at end sorts the final combined result
+
 **Alternative Approaches:**
-- Could use UNION if you wanted to eliminate exact duplicates (but unlikely with different sale_ids)
-- Could filter by date range before combining: add WHERE clauses before UNION ALL
-- Could aggregate after combining: wrap in a subquery and SUM(amount) GROUP BY product
+- **Use UNION** if you wanted to eliminate exact duplicates (unlikely here since each sale_id is unique, but if same product/amount/date appeared in both regions, UNION would keep only one)
+- **Filter before combining**: Add WHERE clauses to pre-filter data
+  ```sql
+  SELECT ... FROM ip7_north_sales WHERE sale_date >= '2025-03-01'
+  UNION ALL
+  SELECT ... FROM ip7_south_sales WHERE sale_date >= '2025-03-01'
+  ```
+- **Aggregate after combining**: Wrap in subquery and analyze
+  ```sql
+  SELECT region, SUM(amount) AS total_sales
+  FROM (
+    SELECT ... FROM ip7_north_sales UNION ALL SELECT ... FROM ip7_south_sales
+  ) AS combined
+  GROUP BY region;
+  ```
 
 ---
 
@@ -208,27 +233,42 @@ customer_id | customer_name
 
 ### Hints
 
-**Level 1 (Gentle Nudge):** INNER JOIN on customer_id returns only matching rows.
+**Level 1 (Gentle Nudge):** 
+You need customers in BOTH stores—that's an intersection problem. Think: What operation shows you the overlap? (Hint: INTERSECT or INNER JOIN)
 
-**Level 2 (More Direct):** Join downtown to suburban WHERE d.customer_id = s.customer_id.
+**Level 2 (More Direct):** 
+INNER JOIN keeps only rows that have matches in BOTH tables. Join the two customer tables on customer_id. Alternatively, if you have MySQL 8.0.31+, use INTERSECT to get matching customer records.
 
 **Level 3 (Almost There):**
 ```sql
 SELECT DISTINCT d.customer_id, d.customer_name
 FROM ip7_downtown_customers d
-INNER JOIN ip7_suburban_customers s ON ...
+INNER JOIN ip7_suburban_customers s ON d.customer_id = s.customer_id
+ORDER BY d.customer_id;
 ```
+
+**Debugging Tips:**
+- Test each table separately first: `SELECT * FROM ip7_downtown_customers` and `SELECT * FROM ip7_suburban_customers`
+- Look for customer_ids that appear in both: 102 and 103
+- INNER JOIN will keep ONLY those two matching records
 
 ### Solution
 ```sql
--- Find customers who shop at both locations
+-- Find customers who shop at both locations (the intersection)
 SELECT DISTINCT 
   d.customer_id,
   d.customer_name
 FROM ip7_downtown_customers d
 INNER JOIN ip7_suburban_customers s ON d.customer_id = s.customer_id
+-- INNER JOIN keeps only rows where customer_id exists in BOTH tables
 ORDER BY d.customer_id;
 -- Returns 2 customers: Bob (102) and Carol (103)
+
+/* Why this works:
+   Downtown has: 101, 102, 103, 104, 105
+   Suburban has: 102, 103, 106, 107
+   Overlap (in BOTH): 102, 103 ← These are our loyalty program candidates!
+*/
 
 -- Alternative with INTERSECT (MySQL 8.0.31+)
 -- SELECT customer_id, customer_name FROM ip7_downtown_customers
@@ -237,7 +277,12 @@ ORDER BY d.customer_id;
 -- ORDER BY customer_id;
 ```
 
-**Performance Note:** With indexes on customer_id, INNER JOIN is very fast. INTERSECT is cleaner syntactically but may be slower on large datasets.
+**Why DISTINCT?** Even though customer_id is a PRIMARY KEY (no duplicates within tables), it's good practice when using INNER JOIN for set operations to ensure no unexpected duplicates.
+
+**Performance Note:** 
+- With indexes on customer_id, INNER JOIN is very fast
+- INTERSECT is syntactically cleaner but may be slightly slower on large datasets
+- For most real-world uses, the difference is negligible—choose based on readability and MySQL version
 
 ---
 

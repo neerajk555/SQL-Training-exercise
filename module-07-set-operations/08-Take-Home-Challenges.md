@@ -4,6 +4,30 @@ Three advanced multi-part problems for deeper practice. Each includes complex re
 
 **Challenge Tip:** These are designed to take 45-60 minutes each. Break them into parts, test incrementally, and explore multiple approaches!
 
+## 📋 Approach Strategy for Complex Problems
+
+**Before You Start Coding:**
+1. **Read the entire problem** - Understand all requirements before writing SQL
+2. **Identify the operation types** needed:
+   - Combining data? → UNION/UNION ALL
+   - Finding overlaps? → INTERSECT or INNER JOIN
+   - Finding differences? → EXCEPT or LEFT JOIN...IS NULL
+3. **Break into sub-problems** - Tackle one deliverable at a time
+4. **Sketch on paper** - Draw Venn diagrams or table relationships
+5. **Test data first** - Query each table individually to understand the data
+
+**While Coding:**
+1. Build incrementally - Don't write the whole query at once
+2. Test each piece - Make sure each SELECT works before combining
+3. Check intermediate results - Use subqueries you can test independently
+4. Add comments - Explain your logic for future reference
+
+**Debugging Complex Queries:**
+- Comment out parts to isolate the error
+- Check column counts and types at each UNION
+- Test with smaller data subsets first
+- Verify your business logic matches the requirements
+
 ---
 
 ## Challenge 1: Multi-Platform Social Media Analytics (45–55 min)

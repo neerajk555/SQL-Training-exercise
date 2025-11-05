@@ -107,44 +107,69 @@ ORDER BY customer_id;
 **Checkpoint:** All 8 rows sorted by customer_id. IDs: 1,2,2,3,3,4,5,6.
 
 ### Common Mistakes
-- **Column mismatch**: Forgetting to alias `phone` as `contact` to match `email AS contact` → different column names cause errors
-- **Wrong column count**: Including different numbers of columns in each SELECT
-- **ORDER BY placement**: Putting ORDER BY inside parentheses instead of at the end
-- **Expecting deduplication**: UNION removes duplicate *rows* but if any column differs, rows aren't duplicates
+- **Column mismatch**: Forgetting to alias `phone` as `contact` to match `email AS contact` → MySQL won't complain about names, but having consistent names makes queries clearer
+- **Wrong column count**: Including different numbers of columns in each SELECT → ERROR: "different number of columns"
+- **ORDER BY placement**: Putting ORDER BY inside parentheses instead of at the end → Syntax error, ORDER BY must be LAST
+- **Expecting deduplication**: UNION removes duplicate *rows* but if any column differs (even just the source), rows aren't considered duplicates
+
+**Beginner Tip:** Test each SELECT independently first! Make sure they return the same structure (column count and compatible types) before combining with UNION.
 
 ### Complete Solution
 ```sql
 -- Unified contact list from two systems
 SELECT 
   customer_id,
-  email AS contact,
-  source
+  email AS contact,  -- Alias email as 'contact' for consistency
+  source             -- Source column shows where data came from
 FROM gs7_email_contacts
 
 UNION  -- Removes exact duplicate rows (none here because source differs)
+       -- Even if same customer_id, if contact or source differs, it's not a duplicate
 
 SELECT 
   customer_id,
-  phone AS contact,
+  phone AS contact,  -- Alias phone as 'contact' to match first SELECT
   source
 FROM gs7_phone_contacts
 
-ORDER BY customer_id;
+ORDER BY customer_id;  -- Sort final combined result
 -- Result: 8 rows showing all contacts from both systems
--- Note: IDs 2,3 appear twice because they have both email and phone
+-- Note: IDs 2,3 appear twice because they have both email AND phone (different rows)
+-- Customer 1: email only (in email system only)
+-- Customer 2: email + phone (in both systems)
+-- Customer 3: email + phone (in both systems)
+-- Customer 4: email only
+-- Customer 5: email only
+-- Customer 6: phone only (in phone system only)
 ```
 
+**What's Happening Here:**
+1. First SELECT gets email contacts with 'contact' and 'source' columns
+2. Second SELECT gets phone contacts with matching column structure
+3. UNION combines them, checking for exact row duplicates (there are none)
+4. ORDER BY sorts the final 8 rows by customer_id
+
 ### Discussion Questions
-1. **Why do customers 2 and 3 appear twice?** *(Each has an email row and a phone row; UNION sees them as different rows)*
-2. **What if you wanted just one row per customer?** *(You'd need to JOIN or use GROUP BY with GROUP_CONCAT/JSON_ARRAYAGG)*
-3. **When would UNION ALL be better here?** *(If you want to count total contact points regardless of duplicates)*
+1. **Why do customers 2 and 3 appear twice?** 
+   - *Answer:* Each has an email row AND a phone row. Even though the customer_id is the same, the 'contact' value differs (email vs phone), so UNION sees them as different rows.
+
+2. **What if you wanted just one row per customer with both email and phone?** 
+   - *Answer:* You'd need to JOIN the tables instead: `SELECT a.customer_id, a.email, b.phone FROM email_contacts a LEFT JOIN phone_contacts b ON a.customer_id = b.customer_id`
+
+3. **When would UNION ALL be better here?** 
+   - *Answer:* If you're counting total contact points (e.g., "we have 8 contact records") or if you know there are no actual duplicates and want faster performance.
+
+4. **What if both systems had the exact same email for a customer?**
+   - *Answer:* If the entire row is identical (same customer_id, same email in the 'contact' column, same source), UNION would remove one. But here, sources differ ('email_system' vs 'phone_system'), so they'd still be seen as different rows.
 
 ---
 
 ## Activity 2: Inventory Reconciliation (INTERSECT) — 17 min
 
 ### Business Context
-Your warehouse uses two inventory systems. You need to identify products that exist in BOTH systems to reconcile discrepancies.
+Your warehouse uses two inventory systems (maybe one is legacy, one is new). You need to identify products that exist in BOTH systems to reconcile discrepancies. This is a classic INTERSECT use case—finding the overlap.
+
+**Why This Matters:** If a product exists in both systems but with different quantities, you have a data quality issue to investigate. First, you need to find which products are in BOTH systems.
 
 ### Database Setup
 ```sql
@@ -204,33 +229,67 @@ ORDER BY a.product_code;
 **Checkpoint:** A101 shows difference of +2, A102 shows 0 (match).
 
 ### Common Mistakes
-- **Using UNION instead of INTERSECT**: UNION combines all; INTERSECT finds common
-- **Forgetting DISTINCT**: When simulating INTERSECT with JOIN, duplicates may appear
-- **Comparing only codes**: For reconciliation, you need quantities too (full JOIN query)
-- **MySQL version**: INTERSECT requires 8.0.31+; use INNER JOIN alternative for older versions
+- **Using UNION instead of INTERSECT**: UNION combines ALL items from both tables; INTERSECT finds only COMMON items
+- **Forgetting DISTINCT**: When simulating INTERSECT with JOIN, if tables have internal duplicates, you might see duplicate results
+- **Comparing only codes**: For business needs, finding common codes is step 1, but reconciliation requires comparing quantities too (that's why INNER JOIN with both quantities is more practical here)
+- **MySQL version**: INTERSECT requires MySQL 8.0.31+; if you're on an older version, use the INNER JOIN pattern instead
+
+**Beginner Tip:** INTERSECT is conceptually clean ("show me the overlap"), but INNER JOIN is often more practical because you can include additional columns for comparison.
 
 ### Complete Solution
 ```sql
 -- Find products in both systems with quantity comparison
 SELECT 
-  a.product_code,
-  a.quantity AS qty_system_a,
-  b.quantity AS qty_system_b,
-  (a.quantity - b.quantity) AS difference
+  a.product_code,           -- The product code that exists in BOTH systems
+  a.quantity AS qty_system_a, -- How many system A says we have
+  b.quantity AS qty_system_b, -- How many system B says we have
+  (a.quantity - b.quantity) AS difference  -- The discrepancy to investigate
 FROM gs7_system_a a
-INNER JOIN gs7_system_b b ON a.product_code = b.product_code
+INNER JOIN gs7_system_b b ON a.product_code = b.product_code  
+-- INNER JOIN only keeps rows where product_code matches in BOTH tables
+-- This is the set intersection: products in A AND B
 ORDER BY a.product_code;
 
--- Alternative with INTERSECT (MySQL 8.0.31+) - just codes
+/* Results explained:
+   A101: System A has 50, System B has 48 → Difference of +2 (investigate!)
+   A102: Both systems have 30 → Perfect match! ✓
+   
+   Notice what's NOT here:
+   - A103, A105 (only in system A)
+   - A104, A106 (only in system B)
+*/
+
+-- Alternative with INTERSECT (MySQL 8.0.31+) - just codes, no quantities
 -- SELECT product_code FROM gs7_system_a
 -- INTERSECT
 -- SELECT product_code FROM gs7_system_b;
+-- This gives you: A101, A102 (the intersection)
+-- But you lose the ability to compare quantities!
 ```
 
+**Why INNER JOIN is Better Here:**
+- INTERSECT only tells you "these products exist in both" (A101, A102)
+- INNER JOIN tells you that PLUS the quantities from each system
+- For reconciliation, you need both pieces of information
+
 ### Discussion Questions
-1. **Why is INNER JOIN more useful than INTERSECT here?** *(We need quantities from both sides, not just matching codes)*
-2. **How would you find products ONLY in system A?** *(LEFT JOIN ... WHERE b.product_code IS NULL, or EXCEPT)*
-3. **What if quantities differ significantly?** *(Flag for manual review, investigate data entry or system sync issues)*
+1. **Why is INNER JOIN more useful than INTERSECT here?** 
+   - *Answer:* INTERSECT only gives you product codes that exist in both systems. But for reconciliation, you need to see the quantities from BOTH sides to compare them. INNER JOIN lets you include columns from both tables.
+
+2. **How would you find products ONLY in system A?** 
+   - *Answer:* Use LEFT JOIN ... WHERE b.product_code IS NULL (or EXCEPT for MySQL 8.0.31+)
+   ```sql
+   SELECT a.product_code FROM gs7_system_a a
+   LEFT JOIN gs7_system_b b ON a.product_code = b.product_code
+   WHERE b.product_code IS NULL;
+   -- Result: A103, A105 (only in A)
+   ```
+
+3. **What if quantities differ significantly?** 
+   - *Answer:* Add a WHERE clause to flag large discrepancies: `WHERE ABS(a.quantity - b.quantity) > 5`. This helps prioritize which mismatches to investigate first.
+
+4. **Could you use UNION here?**
+   - *Answer:* UNION would give you ALL products from both systems (A101, A102, A103, A104, A105, A106), not just the overlap. Wrong tool for finding commonalities!
 
 ---
 

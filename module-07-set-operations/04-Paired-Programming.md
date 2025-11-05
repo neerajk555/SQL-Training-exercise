@@ -64,14 +64,24 @@ INSERT INTO pp7_social_campaign VALUES
 Find the total unique customer reach across all three channels. How many unique customers were contacted?
 
 ### Navigator Guiding Questions
-- Should we use UNION or UNION ALL? Why?
-- Do we need all columns or just customer_id?
-- How do we count unique customers after combining?
+- **Should we use UNION or UNION ALL? Why?**
+  - *Think: Do we want total contact attempts (UNION ALL) or unique customers (UNION)?*
+  - *Answer: UNION to remove duplicates—same customer across channels should count once*
+
+- **Do we need all columns or just customer_id?**
+  - *Think: What are we counting? Just need customer_id for unique count*
+
+- **How do we count unique customers after combining?**
+  - *Think: UNION already deduplicates, so COUNT(*) on the result works*
+  - *Or: Use COUNT(DISTINCT customer_id) if using UNION ALL*
 
 ### Hints
-- UNION removes duplicates automatically
-- Can combine three SELECTs with two UNIONs
-- Count rows or use COUNT(DISTINCT)
+- UNION removes duplicates automatically (customer in multiple channels counted once)
+- Combine three SELECTs with two UNIONs
+- Wrap in subquery and count rows: `SELECT COUNT(*) FROM (UNION queries)`
+
+### Collaboration Checkpoint
+**Navigator:** Before Partner 1 types, discuss: "What will the query structure look like? Write pseudo-code on paper first."
 
 ### Solution
 ```sql
@@ -96,8 +106,17 @@ SELECT customer_id FROM pp7_social_campaign
 ORDER BY customer_id;
 ```
 
-### Discussion
-- Why UNION instead of UNION ALL? *(Want unique count, not total sends)*
+### Discussion (Both Partners)
+- **Why UNION instead of UNION ALL?** 
+  - *Answer: We want unique customers reached, not total contact attempts. Customer 4 appears in all 3 channels but should count as 1 person, not 3.*
+
+- **What if we used UNION ALL?**
+  - *Would get 17 rows (5 email + 5 SMS + 5 social) instead of 8 unique customers*
+
+- **Alternative approach?**
+  - *Could use UNION ALL with COUNT(DISTINCT): `SELECT COUNT(DISTINCT customer_id) FROM (... UNION ALL ...)`*
+
+**Learning Point:** When measuring "reach," UNION gives you unique people. When measuring "impressions" or "touches," UNION ALL gives you total attempts.
 - What's the cost of UNION? *(Duplicate elimination requires sorting/hashing)*
 - How many customers got multiple touches? *(Will find in Part B)*
 

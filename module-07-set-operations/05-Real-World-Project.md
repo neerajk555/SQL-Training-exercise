@@ -4,6 +4,33 @@ Apply set operations to a realistic business scenario with multiple requirements
 
 **Project Tip:** Read the entire project first. Plan your queries. Test incrementally. Set operations shine when combining and comparing multiple data sources!
 
+## 🎯 Project Planning Guide
+
+**Phase 1: Understanding (10 minutes)**
+- Read all requirements and deliverables
+- Identify which operations you'll need (UNION, INTERSECT, EXCEPT)
+- Note any data quality issues (different company names, etc.)
+- Sketch a Venn diagram if helpful
+
+**Phase 2: Setup (5 minutes)**
+- Run the database setup
+- Query each table individually to understand the data
+- Note the row counts and sample data
+
+**Phase 3: Execution (25-35 minutes)**
+- Tackle deliverables one at a time in order
+- Test each query before moving to the next
+- Save working queries—you might need them later
+- Add comments explaining your logic
+
+**Phase 4: Review (5-10 minutes)**
+- Verify each deliverable meets acceptance criteria
+- Check for edge cases
+- Review alternative approaches
+- Document any assumptions made
+
+**Beginner Strategy:** Don't try to write perfect queries immediately. Get something working, then refine it. Real projects are iterative!
+
 ---
 
 ## Project: Enterprise Data Integration & Reconciliation

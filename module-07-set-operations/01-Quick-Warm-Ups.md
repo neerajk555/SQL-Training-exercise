@@ -41,7 +41,12 @@ By completing these warm-ups, you will:
 ---
 
 ## 1) Combine Active and Inactive Users (UNION) — 7 min
-Scenario: Merge two user lists and remove duplicates.
+
+**Scenario:** Merge two user lists and remove duplicates.
+
+**What You're Learning:** How UNION automatically removes duplicate rows when combining data from multiple tables.
+
+**Real-World Context:** You have users in both an "active" and "inactive" table. Some users might exist in both (like Carol, who was active but is now inactive). You want a single list of all unique users.
 
 Sample data
 ```sql
@@ -53,6 +58,9 @@ DROP TABLE IF EXISTS wu7_inactive_users;
 CREATE TABLE wu7_inactive_users (user_id INT PRIMARY KEY, username VARCHAR(60));
 INSERT INTO wu7_inactive_users VALUES (3,'carol'),(4,'dave'),(5,'eve');
 ```
+
+**Notice:** Carol (user_id 3) appears in BOTH tables!
+
 Task: Return all unique user_id and username from both tables.
 
 Expected output
@@ -60,7 +68,7 @@ Expected output
 user_id | username
 1       | alice
 2       | bob
-3       | carol
+3       | carol  ← Carol appears only ONCE despite being in both tables
 4       | dave
 5       | eve
 ```
@@ -74,10 +82,22 @@ SELECT user_id, username FROM wu7_inactive_users
 ORDER BY user_id;
 ```
 
+**Why This Works:**
+- UNION compares every row from both queries
+- When it finds identical rows (same user_id AND username), it keeps only one copy
+- The result is 5 unique users, not 6 rows (even though we had 3 + 3 = 6 total rows)
+
+**Try This:** Change UNION to UNION ALL and run again—you'll see Carol twice!
+
 ---
 
 ## 2) All Orders Including Duplicates (UNION ALL) — 6 min
-Scenario: Combine current and archived orders, keeping all rows.
+
+**Scenario:** Combine current and archived orders, keeping all rows.
+
+**What You're Learning:** How UNION ALL keeps ALL rows, including duplicates—useful when you need accurate counts or when you know duplicates are meaningful.
+
+**Real-World Context:** You're generating a financial report that needs to show EVERY order record, even if the same order appears in both current and archived systems. Each appearance represents a separate database entry that matters for auditing.
 
 Sample data
 ```sql
@@ -89,14 +109,17 @@ DROP TABLE IF EXISTS wu7_archived_orders;
 CREATE TABLE wu7_archived_orders (order_id INT, amount DECIMAL(8,2));
 INSERT INTO wu7_archived_orders VALUES (102,75.50),(103,120.00);
 ```
+
+**Notice:** Order 102 for $75.50 exists in BOTH tables—maybe it was archived but also still showing in current for some reason.
+
 Task: Return all orders from both tables (including duplicates).
 
 Expected output
 ```
 order_id | amount
 101      | 50.00
-102      | 75.50
-102      | 75.50
+102      | 75.50  ← Order 102 appears TWICE
+102      | 75.50  ← Once from current, once from archived
 103      | 120.00
 ```
 
@@ -109,10 +132,26 @@ SELECT order_id, amount FROM wu7_archived_orders
 ORDER BY order_id;
 ```
 
+**Why This Works:**
+- UNION ALL just stacks the results together without checking for duplicates
+- We get 4 rows total (2 from current + 2 from archived)
+- Order 102 appears twice because it's in both tables
+- Much faster than UNION because no duplicate checking is needed
+
+**When to Use UNION ALL:**
+- When you need to count total records (each record matters)
+- When you know there are no duplicates (or duplicates are meaningful)
+- When performance matters and you don't need deduplication
+
 ---
 
 ## 3) Common Products (INTERSECT Alternative) — 8 min
-Scenario: Find products available in both warehouses.
+
+**Scenario:** Find products available in both warehouses.
+
+**What You're Learning:** How to find the intersection—items that exist in BOTH datasets. This is crucial for finding overlaps or commonalities.
+
+**Real-World Context:** You manage inventory for two warehouses. You want to know which products are stocked in BOTH locations (the overlap), so you can transfer stock strategically or ensure backup availability.
 
 Sample data
 ```sql
@@ -124,14 +163,22 @@ DROP TABLE IF EXISTS wu7_warehouse_b;
 CREATE TABLE wu7_warehouse_b (product_id INT PRIMARY KEY, product_name VARCHAR(60));
 INSERT INTO wu7_warehouse_b VALUES (2,'Mouse'),(3,'Keyboard'),(4,'Monitor');
 ```
+
+**Notice:** 
+- Warehouse A has: Laptop, Mouse, Keyboard
+- Warehouse B has: Mouse, Keyboard, Monitor
+- Common to BOTH: Mouse and Keyboard
+
 Task: Return products that exist in BOTH warehouses (use INNER JOIN or INTERSECT if MySQL 8.0.31+).
 
 Expected output
 ```
 product_id | product_name
-2          | Mouse
-3          | Keyboard
+2          | Mouse      ← In both warehouses
+3          | Keyboard   ← In both warehouses
 ```
+
+**Note:** Laptop (only in A) and Monitor (only in B) are NOT returned because they're not in BOTH.
 
 Solution (INNER JOIN for compatibility)
 ```sql
@@ -148,10 +195,23 @@ ORDER BY a.product_id;
 -- ORDER BY product_id;
 ```
 
+**Why This Works:**
+- INNER JOIN only keeps rows where there's a match in BOTH tables
+- We match on product_id, so only products with the same ID in both tables survive
+- DISTINCT handles any potential duplicates within individual tables
+- Result: Only the 2 products that exist in both warehouses
+
+**Think of it as:** "Show me the overlap in the Venn diagram"
+
 ---
 
 ## 4) Products Only in Warehouse A (EXCEPT Alternative) — 8 min
-Scenario: Find products in warehouse A but NOT in warehouse B.
+
+**Scenario:** Find products in warehouse A but NOT in warehouse B.
+
+**What You're Learning:** How to find the difference—items unique to one set. This is like subtraction: "Give me A minus B".
+
+**Real-World Context:** You need to know which products are ONLY in warehouse A (not in B). Maybe you want to transfer them to B, or these are exclusive items that B doesn't carry.
 
 Sample data
 ```sql
@@ -163,14 +223,23 @@ DROP TABLE IF EXISTS wu7_wh_b;
 CREATE TABLE wu7_wh_b (product_id INT PRIMARY KEY);
 INSERT INTO wu7_wh_b VALUES (11),(13);
 ```
+
+**Notice:**
+- Warehouse A has: 10, 11, 12
+- Warehouse B has: 11, 13
+- Product 11 is in BOTH (so we DON'T want it)
+- Products 10 and 12 are ONLY in A (these are what we want!)
+
 Task: Return product_id from A that's NOT in B (use LEFT JOIN ... IS NULL or EXCEPT).
 
 Expected output
 ```
 product_id
-10
-12
+10  ← Only in A
+12  ← Only in A
 ```
+
+**Note:** Product 11 is NOT returned because it exists in B too!
 
 Solution (LEFT JOIN for compatibility)
 ```sql
@@ -188,10 +257,25 @@ ORDER BY a.product_id;
 -- ORDER BY product_id;
 ```
 
+**Why This Works:**
+- LEFT JOIN keeps ALL rows from warehouse A (the left table)
+- For products that DON'T have a match in B, the B columns are NULL
+- WHERE b.product_id IS NULL filters to ONLY the non-matching rows
+- Result: Products in A but not in B
+
+**Think of it as:** "Show me what's in the first circle but not in the second circle of the Venn diagram"
+
+**Common Mistake:** Using INNER JOIN would only show matches (the opposite of what we want!)
+
 ---
 
 ## 5) Three-Way Union with Labels — 9 min
-Scenario: Combine three employee lists with source labels.
+
+**Scenario:** Combine three employee lists with source labels.
+
+**What You're Learning:** How to combine MORE than two tables, and how to add a label column to identify where each row came from.
+
+**Real-World Context:** Your company has full-time employees, part-time employees, and contractors in separate tables. You need a unified employee roster that shows everyone along with their employment type for a company directory.
 
 Sample data
 ```sql
@@ -207,16 +291,19 @@ DROP TABLE IF EXISTS wu7_contractors;
 CREATE TABLE wu7_contractors (emp_id INT PRIMARY KEY, name VARCHAR(60));
 INSERT INTO wu7_contractors VALUES (4,'Dave'),(5,'Eve');
 ```
+
+**Notice:** Each table has only emp_id and name, but we want to ADD a "source" column to track employment type.
+
 Task: Combine all employees with a source column ('FT', 'PT', 'Contractor').
 
 Expected output
 ```
 emp_id | name  | source
-1      | Alice | FT
-2      | Bob   | FT
-3      | Carol | PT
-4      | Dave  | Contractor
-5      | Eve   | Contractor
+1      | Alice | FT         ← From full_time table
+2      | Bob   | FT         ← From full_time table
+3      | Carol | PT         ← From part_time table
+4      | Dave  | Contractor ← From contractors table
+5      | Eve   | Contractor ← From contractors table
 ```
 
 Solution
@@ -229,6 +316,17 @@ UNION ALL
 SELECT emp_id, name, 'Contractor' AS source FROM wu7_contractors
 ORDER BY emp_id;
 ```
+
+**Why This Works:**
+- Each SELECT adds a literal string ('FT', 'PT', or 'Contractor') as the third column
+- All three SELECTs have the same structure: emp_id (INT), name (VARCHAR), source (VARCHAR)
+- UNION ALL combines them all without checking for duplicates
+- We chain multiple UNION ALLs—you can combine as many queries as needed!
+- ORDER BY at the end sorts the entire combined result
+
+**Key Technique:** Adding literal values (like 'FT') as columns is a powerful way to label where data came from when combining multiple sources.
+
+**Why UNION ALL here?** Since each employee has a unique ID and is only in one table, we know there are no duplicates—UNION ALL is faster and appropriate.
 
 ---
 

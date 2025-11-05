@@ -4,6 +4,18 @@ Debug these broken queries. Each includes scenario, buggy code, error message or
 
 **Detective Tip:** Read error messages carefully. Check column counts, data types, operator choice, and ORDER BY placement. Set operations are strict about structure!
 
+## 🔍 Systematic Debugging Approach
+
+When a set operation query fails, check in this order:
+
+1. **Column Count**: Do all SELECTs return the same number of columns?
+2. **Column Types**: Are column types compatible in the same positions?
+3. **Operation Choice**: Did you use the right operation (UNION vs INTERSECT vs EXCEPT)?
+4. **ORDER BY Placement**: Is ORDER BY at the very end (not in the middle)?
+5. **Duplicate Handling**: Do you want UNION (remove dups) or UNION ALL (keep all)?
+
+**Beginner Strategy:** When you see an error, don't panic! Read the error message—MySQL tells you exactly what's wrong. Then work through the checklist above.
+
 ---
 
 ## Challenge 1: The Missing Column Mystery
@@ -44,9 +56,10 @@ product_id | product_name | quantity
 ```
 
 ### Guiding Questions
-1. How many columns does the first SELECT return?
-2. How many columns does the second SELECT return?
-3. What's the UNION rule about column counts?
+1. How many columns does the first SELECT return? *(Count them: product_id, product_name, quantity = 3)*
+2. How many columns does the second SELECT return? *(Count them: product_id, product_name, quantity, location = 4)*
+3. What's the UNION rule about column counts? *(ALL SELECTs must return the SAME number of columns)*
+4. What are your options to fix this? *(Either add a column to the first, or remove one from the second)*
 
 ### Solution
 ```sql
@@ -65,7 +78,18 @@ SELECT product_id, product_name, quantity, location
 FROM ed7_warehouse_west;
 ```
 
-**Explanation:** UNION requires all SELECT statements to have the same number of columns. The first query has 3 columns, the second has 4. Either remove `location` from the second SELECT or add it as NULL in the first.
+**Explanation:** 
+UNION requires all SELECT statements to have the SAME number of columns. The first query has 3 columns, the second has 4. MySQL can't combine them because it doesn't know what to do with that extra column.
+
+**Two Fixes:**
+1. **Remove the extra column** from warehouse_west (if you don't need location)
+2. **Add a placeholder column** to warehouse_east (if you want to keep location data)
+
+**Which to choose?** 
+- If location doesn't matter for your report → Remove it (Option 1)
+- If you want location for west but east doesn't have it → Add NULL placeholder (Option 2)
+
+**Learning Point:** Always ensure structural compatibility BEFORE combining with set operations!
 
 ---
 
@@ -109,9 +133,10 @@ total_contacts
 (3 email + 4 phone = 7 total contact events, including duplicates)
 
 ### Guiding Questions
-1. What's the difference between UNION and UNION ALL?
-2. Do we want to count duplicates here?
-3. Which operator removes duplicates?
+1. What's the difference between UNION and UNION ALL? *(UNION removes duplicates, UNION ALL keeps everything)*
+2. Do we want to count duplicates here for "total contacts"? *(Yes! Each contact event matters, even if it's the same customer on the same date via different channels)*
+3. Which operator removes duplicates? *(UNION removes them, which is why we're getting 5 instead of 7)*
+4. Look at the data: Which customer-date pairs appear in BOTH tables? *(Customers 2 and 3 on their respective dates exist in both email and phone)*
 
 ### Solution
 ```sql
@@ -125,7 +150,23 @@ FROM (
 -- Result: 7 (3 + 4, duplicates kept)
 ```
 
-**Explanation:** UNION automatically removes duplicate rows. Customers 2 and 3 were contacted on the same dates via both channels, so UNION deduplicated them (5 unique customer-date pairs). For volume reporting, use UNION ALL to count all contact events.
+**Explanation:** 
+UNION automatically removes duplicate rows. When it sees the same customer_id AND contact_date from both tables, it treats them as duplicates and keeps only one.
+
+**The Bug:**
+- Email contacts: (1, 2025-03-01), (2, 2025-03-02), (3, 2025-03-03) = 3 rows
+- Phone contacts: (2, 2025-03-02), (3, 2025-03-03), (4, 2025-03-04) = 4 rows
+- Customer 2 on 2025-03-02 appears in BOTH → UNION keeps only 1 copy
+- Customer 3 on 2025-03-03 appears in BOTH → UNION keeps only 1 copy
+- Result: 1 + 2 + 3 + 4 = 5 unique customer-date combinations
+
+**The Fix:**
+Use UNION ALL to keep ALL contact events, treating each channel as a separate touchpoint.
+- 3 email contacts + 4 phone contacts = 7 total contact events
+
+**When to Use Each:**
+- UNION → "How many unique customers were contacted?"
+- UNION ALL → "How many total contact attempts were made?"
 
 ---
 
