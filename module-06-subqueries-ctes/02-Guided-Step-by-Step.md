@@ -91,9 +91,55 @@ FROM gs6_customers c
 ORDER BY c.full_name;
 ```
 
+**Detailed Explanation:**
+This is a **correlated subquery** because the inner query references `c.customer_id` from the outer query. Here's what happens:
+
+1. **For each customer** (outer query loops through all 4 customers)
+2. **The subquery executes** with that customer's ID
+3. **MAX(order_date)** finds the most recent order for THAT specific customer
+4. **If no orders exist**, MAX returns NULL (see Leo with NULL)
+
+**Execution Flow:**
+```
+Customer: Ava (ID=1)
+  → Subquery: MAX(order_date) WHERE customer_id=1
+  → Found: 2025-03-05 ✓
+
+Customer: Leo (ID=4)  
+  → Subquery: MAX(order_date) WHERE customer_id=4
+  → Found: NULL (no orders) ✗
+
+Customer: Mia (ID=3)
+  → Subquery: MAX(order_date) WHERE customer_id=3
+  → Found: 2024-12-30 ✓
+
+Customer: Noah (ID=2)
+  → Subquery: MAX(order_date) WHERE customer_id=2
+  → Found: 2025-03-01 ✓
+```
+
 Discussion
-- When does a correlated subquery outperform a JOIN + GROUP BY? When is the reverse true?
-- How would you filter to only customers with a 2025 latest order using the correlated value?
+- **When does a correlated subquery outperform a JOIN + GROUP BY?** 
+  - When you need just ONE value per row and the subquery can use an index
+  - When most outer rows won't have matches (subquery stops early)
+  - Small outer table × large inner table
+  
+- **When is JOIN + GROUP BY better?**
+  - When you need MULTIPLE aggregates (COUNT, SUM, AVG together)
+  - Large result sets where batch processing is more efficient
+  - Modern optimizers often convert correlated subqueries to joins anyway!
+
+- **How would you filter to only customers with a 2025 latest order?**
+  ```sql
+  SELECT c.full_name,
+    (SELECT MAX(o.order_date) FROM gs6_orders o 
+     WHERE o.customer_id = c.customer_id) AS latest_order_date
+  FROM gs6_customers c
+  WHERE (SELECT MAX(o.order_date) FROM gs6_orders o 
+         WHERE o.customer_id = c.customer_id) >= '2025-01-01'
+  ORDER BY c.full_name;
+  ```
+  Note: The subquery runs twice! With a CTE or JOIN, it would run once.
 
 ---
 
@@ -149,9 +195,90 @@ WHERE rnk = 1
 ORDER BY category, product;
 ```
 
+**Detailed Explanation:**
+This solution combines **aggregation**, **window functions**, and **filtering** in a multi-step process:
+
+**Step 1: Inner Query (Derived Table)**
+```sql
+-- Join items to products and calculate revenue per product
+SELECT p.category, p.name,
+       SUM(oi.qty * p.price) AS revenue,  ← Total revenue per product
+       DENSE_RANK() OVER (                ← Rank within each category
+         PARTITION BY p.category           ← Separate rankings per category
+         ORDER BY SUM(...) DESC            ← Highest revenue = rank 1
+       ) AS rnk
+FROM gs6_order_items oi
+JOIN gs6_products p ON p.product_id = oi.product_id
+GROUP BY p.category, p.name              ← One row per product
+```
+
+**What This Produces:**
+| category   | name      | revenue | rnk |
+|------------|-----------|---------|-----|
+| home       | LED Strip | 66.00   | 1   |
+| home       | Lamp      | 12.00   | 2   |
+| kitchen    | Mug       | 15.98   | 1   |
+| stationery | Notebook  | 19.96   | 1   |
+| stationery | Pen       | 7.50    | 2   |
+
+**Step 2: Outer Query (Filter)**
+```sql
+SELECT category, name, revenue
+FROM (...) t
+WHERE rnk = 1  ← Keep only the top product per category
+```
+
+**Why DENSE_RANK vs ROW_NUMBER?**
+- `DENSE_RANK()`: Ties get the same rank (1,1,2,3...)
+  - Use when you want ALL winners if there's a tie
+- `ROW_NUMBER()`: No ties, arbitrary ordering (1,2,3,4...)
+  - Use when you want EXACTLY one winner per group
+
+**Example of Tie Handling:**
+If two products had $20 revenue in the same category:
+```
+DENSE_RANK: Product A (rank 1), Product B (rank 1) → Both appear!
+ROW_NUMBER: Product A (rank 1), Product B (rank 2) → Only A appears
+```
+
+**Execution Order (Inside → Outside):**
+1. JOIN items to products
+2. GROUP BY to sum revenue per product
+3. DENSE_RANK() assigns ranks within each category
+4. WHERE filters to rank 1 only
+5. ORDER BY sorts the final results
+
 Discussion
-- When should you pre-aggregate in a derived table before ranking?
-- How would you return the top 2 products per category?
+- **When should you pre-aggregate in a derived table before ranking?**
+  - ALWAYS when working with detail-level data (order items)
+  - Prevents ranking individual line items (which would be wrong!)
+  - GROUP BY first → then rank the aggregated results
+  
+- **How would you return the top 2 products per category?**
+  ```sql
+  -- Just change the WHERE clause:
+  WHERE rnk <= 2  ← Top 2 instead of top 1
+  ```
+
+**Alternative: Using CTE (More Readable)**
+```sql
+WITH product_revenue AS (
+  SELECT p.category, p.name,
+         SUM(oi.qty * p.price) AS revenue
+  FROM gs6_order_items oi
+  JOIN gs6_products p ON p.product_id = oi.product_id
+  GROUP BY p.category, p.name
+),
+ranked_products AS (
+  SELECT *,
+         DENSE_RANK() OVER (PARTITION BY category ORDER BY revenue DESC) AS rnk
+  FROM product_revenue
+)
+SELECT category, name, revenue
+FROM ranked_products
+WHERE rnk = 1;
+```
+This CTE version breaks down the logic into clearer steps!
 
 ---
 
@@ -208,6 +335,100 @@ GROUP BY au.name
 ORDER BY march_revenue DESC, au.name;
 ```
 
+**Detailed Explanation:**
+This query uses **multiple CTEs** to create a clean data pipeline. Each CTE handles one logical step!
+
+**CTE 1: active_users**
+```sql
+-- Filter to only active users upfront
+SELECT user_id, name FROM gs6_users WHERE active = 1
+-- Result: (1,'Ava'), (2,'Noah'), (4,'Leo')  ← Mia excluded (inactive)
+```
+
+**CTE 2: march_orders**
+```sql
+-- Get only March 2025 orders
+WHERE order_date >= '2025-03-01' AND order_date < '2025-04-01'
+-- Result: (2001,1), (2002,1), (2004,4)  ← Noah's order excluded (Feb 28)
+```
+
+**CTE 3: order_revenue**
+```sql
+-- Calculate total for each order (sum up all items in that order)
+SUM(qty * price) ... GROUP BY order_id
+-- Result: (2001, 17.97), (2002, 7.50), (2004, 12.00)
+```
+
+**Main Query: Combine Everything**
+```sql
+FROM active_users au              ← Start with ALL active users
+LEFT JOIN march_orders mo ...     ← Add their March orders (NULL if none)
+LEFT JOIN order_revenue orv ...   ← Add revenue for those orders
+GROUP BY au.name                  ← Sum revenue per user
+```
+
+**Why Multiple LEFT JOINs?**
+- **First LEFT JOIN**: Keeps users with NO March orders (Leo gets included with NULL)
+- **Second LEFT JOIN**: Connects orders to their revenue
+- **COALESCE**: Converts NULL to 0 for users with no revenue
+
+**Data Flow Example - Following Ava:**
+1. **CTE 1**: Ava is active → included ✓
+2. **CTE 2**: Ava has orders 2001, 2002 in March → both included ✓
+3. **CTE 3**: Order 2001 = $17.97, Order 2002 = $7.50
+4. **Main query**: SUM(17.97 + 7.50) = $25.47 for Ava
+
+**Data Flow Example - Following Leo:**
+1. **CTE 1**: Leo is active → included ✓
+2. **CTE 2**: Leo has order 2004 in March → included ✓
+3. **CTE 3**: Order 2004 = $12.00
+4. **Main query**: SUM(12.00) = $12.00 for Leo
+
+**Data Flow Example - Following Mia:**
+1. **CTE 1**: Mia is inactive (active=0) → EXCLUDED completely ✗
+2. Never appears in results
+
+**Pipeline Visualization:**
+```
+Step 1: [All Users] → Filter → [Active Users Only]
+Step 2: [All Orders] → Filter → [March Orders Only]
+Step 3: [Order Items] → Aggregate → [Revenue per Order]
+Step 4: Join all together → Sum per user → Final results
+```
+
 Discussion
-- What are the trade-offs of staging steps in CTEs vs nesting subqueries?
-- How would you extend this to compute average order value per active user for March?
+- **What are the trade-offs of staging steps in CTEs vs nesting subqueries?**
+  
+  **CTEs (Better!):**
+  ✅ Easy to read and understand (top-to-bottom flow)
+  ✅ Can test each step independently
+  ✅ Easy to modify one step without touching others
+  ✅ Reusable within the same query
+  ✅ Self-documenting with meaningful names
+  
+  **Nested Subqueries (Harder):**
+  ❌ Inside-out reading (counterintuitive)
+  ❌ Hard to debug (can't easily test intermediate steps)
+  ❌ Difficult to maintain (changing one part affects everything)
+  ❌ No reusability
+  
+  Example of nested nightmare:
+  ```sql
+  SELECT name, COALESCE(SUM(total),0)
+  FROM (SELECT ... FROM (SELECT ... FROM (SELECT ... ))) ← Hard to read!
+  ```
+
+- **How would you extend this to compute average order value per active user for March?**
+  ```sql
+  -- Add this to the final SELECT:
+  SELECT au.name, 
+         COALESCE(SUM(orv.order_total),0) AS march_revenue,
+         COALESCE(AVG(orv.order_total),0) AS avg_order_value,
+         COUNT(mo.order_id) AS order_count
+  FROM active_users au
+  LEFT JOIN march_orders mo ON mo.user_id = au.user_id
+  LEFT JOIN order_revenue orv ON orv.order_id = mo.order_id
+  GROUP BY au.name;
+  ```
+  
+**Pro Tip:** When building complex queries, always start with CTEs! Write and test each CTE separately, then combine them in the main query. This makes debugging SO much easier!

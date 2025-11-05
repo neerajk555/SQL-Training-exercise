@@ -83,6 +83,48 @@ Evaluation rubric (10 pts total)
 - Robustness (2)
 - Performance (1)
 
+**Approaching This Project (Strategy Guide):**
+
+Before diving into solutions, let's break down the approach:
+
+1. **Understand the schema**: 6 tables with relationships
+   - Users → Enrollments → Courses
+   - Courses → Lessons → Completions
+   - Courses → Prerequisites (self-referencing)
+
+2. **Tackle one deliverable at a time**: Don't try to solve everything at once!
+   - Start with the simplest (completion rate)
+   - Build confidence before tackling recursive CTEs
+
+3. **Use CTEs to break down complexity**: Each CTE handles ONE logical step
+   - CTE 1: Get relevant data
+   - CTE 2: Aggregate or filter
+   - CTE 3: Join and combine
+   - Final query: Present results
+
+4. **Test intermediate results**: Run each CTE separately to verify
+   ```sql
+   WITH my_cte AS (SELECT ...)
+   SELECT * FROM my_cte LIMIT 10;  ← Test before combining!
+   ```
+
+5. **Handle edge cases**: 
+   - Courses with no lessons
+   - Users with no completions
+   - NULL values in joins
+   - Use COALESCE, LEFT JOIN, and IS NOT NULL checks
+
+**Common Patterns You'll Use:**
+- **EXISTS/NOT EXISTS**: Check prerequisites completion
+- **LEFT JOIN**: Keep all courses/users even with 0 counts
+- **GROUP BY + Aggregates**: Count completions, lessons
+- **Recursive CTE**: Generate date ranges
+- **Multiple CTEs**: Stage data transformations
+
+Now let's see the solutions!
+
+---
+
 Model solutions
 ```sql
 -- 1) Completion rate per course
@@ -107,7 +149,42 @@ FROM rwp6_courses co
 LEFT JOIN lesson_counts lc ON lc.course_id = co.course_id
 LEFT JOIN course_completions cc ON cc.course_id = co.course_id
 ORDER BY co.code;
+```
 
+**Deliverable 1 Explanation:**
+
+This query uses **multiple CTEs** to cleanly separate concerns:
+
+**CTE 1: lesson_counts**
+```sql
+-- Count how many lessons each course has
+SELECT course_id, COUNT(*) AS lessons_count
+FROM rwp6_lessons
+GROUP BY course_id
+-- Result: (101, 3), (102, 2), (201, 2), etc.
+```
+
+**CTE 2: course_completions**
+```sql
+-- For each course, count unique learners and total completions
+-- Must join: completions → lessons → course to link them
+JOIN rwp6_lessons l ON l.lesson_id = c.lesson_id  ← Links completion to course
+```
+
+**Main Query:**
+- **Start with ALL courses** (FROM rwp6_courses)
+- **LEFT JOIN** both CTEs so courses with 0 lessons/completions still appear
+- **COALESCE**: Convert NULLs to 0 for display
+- **CASE**: Prevent division by zero (if lessons_count = 0)
+
+**Why This Approach?**
+- Aggregating BEFORE joining prevents row explosion
+- LEFT JOIN ensures all courses appear (even with 0 data)
+- Clean CTEs make it easy to verify each step independently
+
+---
+
+```sql
 -- 2) Learners enrolled without meeting prerequisites
 -- For each enrollment, check for any prereq of that course that the user has NOT completed.
 WITH prereq_codes AS (

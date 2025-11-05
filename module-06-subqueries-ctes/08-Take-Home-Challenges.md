@@ -26,6 +26,29 @@ A) First-order conversion by signup month: For each month, count signups and use
 B) Repeat buyers: Users with 2+ orders (subquery in WHERE or HAVING on derived table).
 C) Open-ended: Build a cohort retention grid (month since signup → whether ordered) outline using a calendar CTE.
 
+**Approach Strategy:**
+Before diving into solutions, here's how to tackle each part:
+
+**Part A (First-order conversion):**
+1. Extract signup month from signup_date using DATE_FORMAT
+2. Count total signups per month (easy!)
+3. Count users with at least one order (EXISTS pattern)
+4. Join these counts together
+
+**Part B (Repeat buyers):**
+1. Count orders per user (subquery with COUNT)
+2. Filter to users with 2+ orders (WHERE count >= 2)
+3. Simple but effective!
+
+**Part C (Cohort retention - Conceptual):**
+This is complex! The idea:
+- Generate a calendar (recursive CTE)
+- For each signup cohort, track if they ordered in month 0, 1, 2, etc.
+- Create a "retention matrix" showing % who ordered in each subsequent month
+- This is advanced analytics - sketch the logic, don't need perfect code
+
+---
+
 Solutions and trade-offs
 ```sql
 -- A) Conversion by signup month
@@ -64,6 +87,21 @@ Trade-offs
 
 ## Challenge 2: Supply Hierarchy and Cost Rollup — 50–60 min
 Scenario: Compute a bill-of-materials (BOM) cost using a recursive CTE and subqueries.
+
+**Real-World Context:**
+A Bill of Materials (BOM) shows how products are assembled from components:
+- Widget (final product) contains Body + 2 Axles
+- Each Axle contains 2 Wheels + 4 Bolts
+- To calculate total cost, we need to "explode" the BOM and multiply quantities down the tree
+
+**Example Tree:**
+```
+Widget (part 1)
+├─ Body (part 2) × 1
+└─ Axle (part 5) × 2
+   ├─ Wheel (part 3) × 2  → Total needed: 2 axles × 2 wheels = 4 wheels
+   └─ Bolt (part 4) × 4   → Total needed: 2 axles × 4 bolts = 8 bolts
+```
 
 Schema and sample data
 ```sql
@@ -131,6 +169,14 @@ Trade-offs
 
 ## Challenge 3: Hospital Follow-up Compliance — 50–60 min
 Scenario: Track whether discharged patients had a follow-up within 14 days using subqueries and a calendar CTE.
+
+**Healthcare Context:**
+After discharge, patients should have a follow-up visit within 14 days to ensure recovery is on track. This is a key quality metric for hospitals!
+
+**What You're Building:**
+- For each discharge, check if follow-up happened in time
+- Track rolling 7-day follow-up counts (helps identify capacity issues)
+- Use calendar CTE to ensure every day appears (even with 0 follow-ups)
 
 Schema and sample data
 ```sql

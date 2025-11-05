@@ -49,6 +49,14 @@ By completing these warm-ups, you will:
 ## 1) Scalar Subquery in SELECT — 7 min
 Scenario: Show each product with its category name via scalar subquery.
 
+**What You're Learning:**
+A **scalar subquery** returns exactly ONE value (one row, one column). In this exercise, for each product row, we'll look up its category name by running a mini-query inside the SELECT clause.
+
+**Why Use This Pattern:**
+- When you need to fetch a related value without doing a JOIN
+- Perfect for one-to-one or many-to-one relationships
+- Makes the query more readable when you only need one related field
+
 Sample data
 ```sql
 DROP TABLE IF EXISTS wu6_categories;
@@ -76,10 +84,30 @@ FROM wu6_products p
 ORDER BY p.name;
 ```
 
+**How It Works (Step-by-Step):**
+1. For EACH product row in `wu6_products`, the outer query runs
+2. The subquery `(SELECT c.name FROM wu6_categories c WHERE c.category_id = p.category_id)` executes
+3. Notice `p.category_id` in the subquery - this references the outer query's current product row!
+4. The subquery finds the matching category and returns just the category name
+5. This single value becomes the "category" column in our result
+
+**Alternative Approach:**
+You could also use a JOIN: `SELECT p.name, c.name AS category FROM wu6_products p JOIN wu6_categories c ON c.category_id = p.category_id`
+Both work! Use subqueries when you want to emphasize the "lookup one value" pattern.
+
 ---
 
 ## 2) EXISTS (semi-join) — 6 min
 Scenario: List customers who have at least one order.
+
+**What You're Learning:**
+The **EXISTS** operator checks "does a related row exist?" It returns TRUE or FALSE, not actual data. It's super efficient because it stops searching as soon as it finds ONE matching row!
+
+**Why Use EXISTS:**
+- **Performance**: Stops at first match (doesn't count all matches like COUNT would)
+- **Clarity**: "Give me customers WHO HAVE orders" is clear intent
+- **NULL-safe**: Unlike IN, EXISTS handles NULL values correctly
+- **No duplicates**: Returns each customer once, even if they have multiple orders
 
 Sample data
 ```sql
@@ -110,10 +138,42 @@ WHERE EXISTS (
 ORDER BY c.full_name;
 ```
 
+**How It Works (Step-by-Step):**
+1. For EACH customer (Ava, Noah, Mia), check the WHERE EXISTS condition
+2. The subquery looks for ANY order with matching customer_id
+3. **For Ava**: Found order 100 → EXISTS returns TRUE → Include Ava ✓
+4. **For Noah**: Found order 102 → EXISTS returns TRUE → Include Noah ✓
+5. **For Mia**: No orders found → EXISTS returns FALSE → Exclude Mia ✗
+
+**Why "SELECT 1"?**
+We write `SELECT 1` because we don't care WHAT data exists, only IF it exists. The "1" is just a placeholder. You could write `SELECT *` or `SELECT order_id` - it makes no difference! EXISTS only checks if any rows match.
+
+**Pattern Recognition:**
+This is called a "semi-join" - we're filtering the customers table based on the existence of related rows in another table, without actually joining the tables together.
+
 ---
 
 ## 3) NOT IN vs NOT EXISTS with NULLs — 9 min
 Scenario: Find products not ordered; ensure NULL-safety.
+
+**What You're Learning:**
+This is a **critical SQL gotcha!** The `NOT IN` operator has a dangerous trap with NULL values that can make your entire query return ZERO rows. `NOT EXISTS` is the safe alternative.
+
+**The NULL Trap Explained:**
+```sql
+-- ❌ DANGEROUS: NOT IN with NULLs
+WHERE product_id NOT IN (1, NULL)
+-- This means: WHERE product_id != 1 AND product_id != NULL
+-- But nothing equals NULL (not even NULL = NULL!)
+-- So this ALWAYS returns FALSE → NO ROWS RETURNED!
+```
+
+**Why This Matters:**
+In real databases, NULL values sneak in from:
+- Optional foreign keys (not every order item links to a product)
+- Data quality issues
+- LEFT JOINs that didn't match
+- If even ONE NULL exists in your NOT IN list, the whole query breaks!
 
 Sample data
 ```sql
@@ -145,10 +205,39 @@ ORDER BY p.name;
 -- Avoid NOT IN (SELECT product_id ... ) when subquery may return NULL.
 ```
 
+**How It Works (Step-by-Step):**
+1. **For Notebook (ID=1)**: Check if any order_item has product_id=1 → YES (row 1) → NOT EXISTS = FALSE → Exclude
+2. **For Lamp (ID=2)**: Check if any order_item has product_id=2 → NO → NOT EXISTS = TRUE → Include ✓
+3. **For Mug (ID=3)**: Check if any order_item has product_id=3 → NO → NOT EXISTS = TRUE → Include ✓
+4. The NULL in order_items is safely ignored (NULL != 2 and NULL != 3)
+
+**What Happens With NOT IN (WRONG!):**
+```sql
+-- ❌ THIS RETURNS ZERO ROWS!
+SELECT p.name FROM wu6_p p
+WHERE p.product_id NOT IN (SELECT product_id FROM wu6_oi);
+-- Subquery returns (1, NULL)
+-- "WHERE 2 NOT IN (1, NULL)" becomes "WHERE 2 != 1 AND 2 != NULL"
+-- Since "2 != NULL" is UNKNOWN (not TRUE), the whole condition fails
+```
+
+**Golden Rule:**
+🌟 **Always use NOT EXISTS for "anti-joins" (finding rows that DON'T have a match)**
+🌟 **Only use NOT IN when you're 100% certain there are no NULLs**
+
 ---
 
 ## 4) Derived Table (FROM subquery) — 7 min
 Scenario: Count orders per customer using a subquery in FROM.
+
+**What You're Learning:**
+A **derived table** is a subquery in the FROM clause that creates a temporary result set. Think of it as creating a "virtual table on the fly" that you can join to other tables!
+
+**Why Use Derived Tables:**
+- **Pre-aggregate before joining**: Calculate summaries first, then join
+- **Avoid row explosion**: GROUP BY in subquery prevents duplicate rows
+- **Multi-step logic**: Break complex queries into manageable pieces
+- **Must have an alias**: The `t` in `AS t` is required in MySQL!
 
 Sample data
 ```sql
@@ -176,10 +265,61 @@ LEFT JOIN (
 ORDER BY c.full_name;
 ```
 
+**How It Works (Step-by-Step):**
+1. **Inner subquery runs FIRST**: 
+   ```sql
+   SELECT customer_id, COUNT(*) FROM wu6_orders GROUP BY customer_id
+   -- Results: (1, 2), (2, 1)  ← This becomes our "table t"
+   ```
+2. **LEFT JOIN to customers**: Now we join this summarized data to customers
+3. **COALESCE handles NULLs**: Mia has no orders, so t.order_count is NULL → convert to 0
+
+**Why LEFT JOIN?**
+- `LEFT JOIN` keeps ALL customers, even those with no orders
+- If we used `INNER JOIN`, Mia would disappear from results
+- For customers with no orders, the joined columns are NULL
+
+**Breaking Down the Derived Table:**
+```sql
+(
+  SELECT o.customer_id, COUNT(*) AS order_count  ← What to calculate
+  FROM wu6_orders o                               ← Source data
+  GROUP BY o.customer_id                          ← Summarize per customer
+) t                                                ← REQUIRED alias!
+```
+
+**Common Mistake:**
+```sql
+-- ❌ ERROR: Derived table must have alias
+LEFT JOIN (SELECT ...) ON ...
+
+-- ✓ CORRECT: Must add alias "t"
+LEFT JOIN (SELECT ...) t ON ...
+```
+
 ---
 
 ## 5) Simple CTE for Staging — 8 min
 Scenario: Stage active students, then count enrollments.
+
+**What You're Learning:**
+A **CTE (Common Table Expression)** is like giving a name to a subquery using the `WITH` clause. It makes your query more readable by breaking it into logical steps!
+
+**Why Use CTEs:**
+- **Readability**: Named steps are easier to understand than nested subqueries
+- **Reusability**: Reference the same CTE multiple times in one query
+- **Testing**: Run just the CTE part to verify intermediate results
+- **Maintainability**: Easier to modify and debug complex queries
+
+**CTE vs Derived Table:**
+```sql
+-- Derived table (harder to read)
+SELECT ... FROM table1 JOIN (SELECT ...) t ON ...
+
+-- CTE (clearer intent)
+WITH my_summary AS (SELECT ...)
+SELECT ... FROM table1 JOIN my_summary ON ...
+```
 
 Sample data
 ```sql
@@ -210,4 +350,43 @@ FROM active_students a
 LEFT JOIN wu6_enrollments e ON e.student_id = a.student_id
 GROUP BY a.name
 ORDER BY a.name;
+```
+
+**How It Works (Step-by-Step):**
+1. **WITH clause defines the CTE**: 
+   ```sql
+   WITH active_students AS (...)  ← Create a named temporary result set
+   ```
+2. **CTE filters active students**: Only students with active=1 (Ava and Mia)
+3. **Main query uses the CTE**: Like it's a regular table - `FROM active_students a`
+4. **LEFT JOIN counts enrollments**: Count courses for each active student
+5. **Noah is excluded**: He's not active, so never makes it into the CTE
+
+**Breaking Down the Query:**
+```sql
+WITH active_students AS (         ← Step 1: Define what "active students" means
+  SELECT student_id, name 
+  FROM wu6_students 
+  WHERE active = 1
+)                                 ← CTE ends here
+SELECT a.name,                    ← Step 2: Use the CTE in main query
+       COUNT(e.course_code) 
+FROM active_students a            ← Reference CTE by name!
+LEFT JOIN wu6_enrollments e ...
+```
+
+**Why COUNT(e.course_code) instead of COUNT(*):**
+- `COUNT(e.course_code)` counts non-NULL enrollment records
+- `COUNT(*)` would count the row even if there's no enrollment
+- With LEFT JOIN, students with no enrollments still appear but e.course_code is NULL
+- `COUNT(NULL)` = 0, which is what we want!
+
+**Testing Your CTE:**
+```sql
+-- You can run just the CTE to see intermediate results:
+WITH active_students AS (
+  SELECT student_id, name FROM wu6_students WHERE active = 1
+)
+SELECT * FROM active_students;
+-- Shows: (1, 'Ava'), (3, 'Mia')
 ```

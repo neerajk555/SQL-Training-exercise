@@ -97,6 +97,24 @@ WHERE EXISTS (
 ORDER BY c.full_name;
 ```
 
+**Why This Works:**
+- **EXISTS** checks "does this customer have ANY order?" 
+- Returns TRUE/FALSE, not actual data
+- **Efficient**: Stops searching after finding first match (doesn't count all orders)
+- **Result**: Only Ava and Noah have orders → they appear in results
+
+**Why Not Use JOIN?**
+```sql
+-- This would work BUT has issues:
+SELECT DISTINCT c.full_name
+FROM ip6_e1_customers c
+JOIN ip6_e1_orders o ON o.customer_id = c.customer_id;
+```
+Problems: 
+- Need DISTINCT (Ava has 2 orders → would appear twice)
+- Joins all rows first, then removes duplicates (less efficient)
+- EXISTS is clearer intent: "customers WHO HAVE orders"
+
 ---
 
 ### E2) Above/Below Average Price (Scalar Subquery)
@@ -135,6 +153,32 @@ SELECT p.name, p.price,
        THEN 'above' ELSE 'below_or_equal' END AS label
 FROM ip6_e2_products p
 ORDER BY p.price DESC;
+```
+
+**How This Works:**
+1. **Scalar subquery**: `(SELECT AVG(price) FROM ip6_e2_products)` returns ONE value (13.70)
+2. **Appears twice**: Once for display, once for comparison in CASE
+3. **MySQL optimization**: Smart enough to run the subquery only once!
+4. **For each product**: Compare its price to the average
+
+**Example Execution:**
+```
+Keyboard ($39.00) > $13.70 → 'above' ✓
+Lamp ($12.00) < $13.70 → 'below_or_equal' ✓
+Mug ($7.99) < $13.70 → 'below_or_equal' ✓
+```
+
+**Alternative (More Efficient for Large Tables):**
+```sql
+-- Calculate average once in a CTE
+WITH stats AS (
+  SELECT AVG(price) AS avg_price FROM ip6_e2_products
+)
+SELECT p.name, p.price, s.avg_price,
+  CASE WHEN p.price > s.avg_price THEN 'above' 
+       ELSE 'below_or_equal' END AS label
+FROM ip6_e2_products p
+CROSS JOIN stats s;
 ```
 
 ---
@@ -346,6 +390,34 @@ WHERE NOT EXISTS (
 ORDER BY m.name;
 ```
 
+**Critical Concept - The NULL Trap:**
+```sql
+-- ❌ WRONG - Returns NOTHING if any NULL exists!
+WHERE member_id NOT IN (SELECT member_id FROM ip6_m3_loans)
+-- Expands to: WHERE member_id NOT IN (1, NULL)
+-- Means: WHERE member_id != 1 AND member_id != NULL
+-- Since "!= NULL" is UNKNOWN, the whole condition fails!
+
+-- ✅ CORRECT - NOT EXISTS handles NULLs safely
+WHERE NOT EXISTS (
+  SELECT 1 FROM ip6_m3_loans l WHERE l.member_id = m.member_id
+)
+-- For each member, checks: "Does a loan with THIS member_id exist?"
+-- NULL member_ids in loans are safely ignored
+```
+
+**Step-by-Step for Each Member:**
+1. **Ava (ID=1)**: Any loan with member_id=1? YES (row 1) → NOT EXISTS = FALSE → Exclude
+2. **Noah (ID=2)**: Any loan with member_id=2? NO → NOT EXISTS = TRUE → Include ✓
+3. **Mia (ID=3)**: Any loan with member_id=3? NO → NOT EXISTS = TRUE → Include ✓
+4. **Leo (ID=4)**: Any loan with member_id=4? NO → NOT EXISTS = TRUE → Include ✓
+
+**The NULL row (member_id=NULL) never matches anyone**, which is exactly what we want!
+
+**Remember:** 
+🚨 **ALWAYS use NOT EXISTS for "anti-joins" (finding missing relationships)**
+🚨 **NEVER use NOT IN when NULLs are possible**
+
 ---
 
 ## Challenge 🔴 (25–30 min)
@@ -398,5 +470,94 @@ FROM org
 ORDER BY lvl, name;
 ```
 
+**Understanding Recursive CTEs:**
+A recursive CTE has TWO parts:
+1. **Anchor/Base Case**: Starting point (WHERE manager_id IS NULL finds CEO)
+2. **Recursive Case**: Keeps adding rows until no more matches found
+
+**How Recursion Works (Step-by-Step):**
+
+**Iteration 0 (Anchor):**
+```
+Find employees with no manager (CEO):
+Alice | lvl=0 | path='Alice'
+```
+
+**Iteration 1 (Recursive):**
+```
+Find employees whose manager is in previous results:
+Join employees WHERE manager_id = Alice's emp_id
+Found: Bob, Evan
+Bob   | lvl=1 | path='Alice > Bob'
+Evan  | lvl=1 | path='Alice > Evan'
+```
+
+**Iteration 2 (Recursive):**
+```
+Find employees whose manager is Bob or Evan:
+Found: Cara, Drew (report to Bob); Faye, Gina (report to Evan)
+Cara  | lvl=2 | path='Alice > Bob > Cara'
+Drew  | lvl=2 | path='Alice > Bob > Drew'
+Faye  | lvl=2 | path='Alice > Evan > Faye'
+Gina  | lvl=2 | path='Alice > Evan > Gina'
+```
+
+**Iteration 3 (Recursive):**
+```
+Find employees whose manager is Cara, Drew, Faye, or Gina:
+Found: Hank, Ivan (report to Faye); Jade, Kyle (report to Gina)
+... and so on
+```
+
+**Continues until no more employees found** (reached the bottom of hierarchy)
+
+**Breaking Down the Query:**
+
+**Part 1 - Anchor (Starting Point):**
+```sql
+SELECT emp_id, name, manager_id, 
+       0 AS lvl,                         ← CEO is level 0
+       CAST(name AS CHAR(255)) AS path   ← Path starts with just their name
+FROM ip6_c1_employees
+WHERE manager_id IS NULL                 ← Find the root (CEO with no manager)
+```
+
+**Part 2 - UNION ALL:**
+```sql
+UNION ALL  ← Combines anchor with recursive results (keeps duplicates if any)
+```
+
+**Part 3 - Recursive (Build Next Level):**
+```sql
+SELECT e.emp_id, e.name, e.manager_id,
+       o.lvl + 1,                        ← Increment level (go deeper)
+       CONCAT(o.path,' > ', e.name)      ← Append to path
+FROM ip6_c1_employees e                  ← All employees
+JOIN org o ON o.emp_id = e.manager_id    ← Find direct reports of previous level
+                                         ← "org" refers to PREVIOUS iteration's results!
+```
+
+**Key Concepts:**
+- **RECURSIVE keyword**: Tells MySQL this CTE references itself
+- **UNION ALL**: Combines base case with all recursive iterations
+- **Termination**: Automatically stops when JOIN finds no new rows
+- **CAST(name AS CHAR(255))**: Ensures path has enough space to grow
+- **o.lvl + 1**: Each level goes deeper in the hierarchy
+- **CONCAT(o.path, ' > ', e.name)**: Builds the chain from CEO down
+
+**Why This Pattern?**
+- Hierarchies (org charts, category trees, bill of materials)
+- Graphs (social networks, routing)
+- Sequences (date ranges, number series)
+
+**Safety Tip:**
+```sql
+-- Add a maximum depth to prevent infinite loops:
+WHERE o.lvl < 10  ← Stop after 10 levels
+```
+
 Alternatives
-- Store a materialized path or closure table for complex hierarchies; compute deltas incrementally.
+- **Materialized path**: Store path as a column (e.g., '/1/2/5/') for faster queries
+- **Closure table**: Separate table storing all ancestor-descendant pairs
+- **Nested sets**: Left/right values for subtree queries
+- For VERY deep hierarchies, compute deltas incrementally rather than full recursion
