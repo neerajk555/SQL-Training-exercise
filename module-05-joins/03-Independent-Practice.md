@@ -128,7 +128,7 @@ Hints
 
 Solution
 ```sql
-SELECT c.code, COALESCE(i.name,'TBD') AS instructor
+SELECT c.code, COALESCE(i.name, 'TBD') AS instructor
 FROM ip5_e_courses c
 LEFT JOIN ip5_e_instructors i ON i.instructor_id = c.instructor_id
 ORDER BY c.code;
@@ -375,7 +375,7 @@ Solution (Part A - using current module concepts)
 ```sql
 -- A) Revenue by seller (include zero)
 SELECT s.name AS seller,
-       COALESCE(SUM(oi.qty * p.price),0) AS revenue
+       COALESCE(SUM(oi.qty * p.price), 0) AS revenue
 FROM ip5_c_sellers s
 LEFT JOIN ip5_c_products p ON p.seller_id = s.seller_id
 LEFT JOIN ip5_c_order_items oi ON oi.product_id = p.product_id
@@ -388,10 +388,10 @@ ORDER BY revenue DESC, s.name;
 -- for more elegant solutions.
 ```
 
-**📚 Advanced Alternative (Preview of Modules 6 & 8):**
+**📚 Preview of Modules 6 & 8:**
 Part B can be solved more elegantly using CTEs (Module 6) and Window Functions (Module 8). Here's a preview:
 ```sql
--- ADVANCED: Uses CTE (Module 6) + ROW_NUMBER() window function (Module 8)
+-- PREVIEW: Uses CTE (Module 6) + ROW_NUMBER() window function (Module 8)
 WITH seller_product AS (
   SELECT s.name AS seller, p.name AS product,
          SUM(oi.qty * p.price) AS revenue,

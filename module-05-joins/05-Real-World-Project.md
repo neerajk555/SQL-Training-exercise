@@ -93,7 +93,7 @@ Model solutions
 ```sql
 -- 1) Revenue by store (include 0)
 SELECT s.name AS store,
-       COALESCE(SUM(oi.qty * p.price),0) AS revenue
+       COALESCE(SUM(oi.qty * p.price), 0) AS revenue
 FROM rwp5_stores s
 LEFT JOIN rwp5_orders o ON o.store_id = s.store_id
 LEFT JOIN rwp5_order_items oi ON oi.order_id = o.order_id
@@ -101,8 +101,8 @@ LEFT JOIN rwp5_products p ON p.product_id = oi.product_id
 GROUP BY s.name
 ORDER BY revenue DESC, s.name;
 
--- 2) Top category per store (simplified - shows all categories per store)
--- For "top per group" with ties, see advanced solution below
+-- 2) Top category per store (shows all categories per store with revenue)
+-- Note: For selecting only the top category with ties, see Module 8 (Window Functions)
 SELECT s.name AS store, c.name AS category,
        SUM(oi.qty * p.price) AS revenue
 FROM rwp5_stores s
@@ -113,7 +113,8 @@ JOIN rwp5_categories c ON c.category_id = p.category_id
 GROUP BY s.store_id, s.name, c.name
 ORDER BY store, revenue DESC;
 
--- 📚 ADVANCED: To show only top category per store (with ties), use CTE + Window Functions (Modules 6 & 8)
+-- 📚 PREVIEW (Module 8): To show only top category per store with ties handling
+-- This uses Window Functions which will be covered in Module 8
 /*
 WITH store_category AS (
   SELECT s.store_id, s.name AS store, c.name AS category,
@@ -137,7 +138,7 @@ ORDER BY store, category;
 
 -- 3) Customer lifetime value (include 0)
 SELECT c.full_name AS customer,
-       COALESCE(SUM(oi.qty * p.price),0) AS clv
+       COALESCE(SUM(oi.qty * p.price), 0) AS clv
 FROM rwp5_customers c
 LEFT JOIN rwp5_orders o ON o.customer_id = c.customer_id
 LEFT JOIN rwp5_order_items oi ON oi.order_id = o.order_id
@@ -148,7 +149,7 @@ ORDER BY clv DESC, customer;
 -- 4) Employee productivity (include zeros)
 SELECT e.full_name AS employee, s.name AS store,
        COUNT(DISTINCT o.order_id) AS orders_taken,
-       COALESCE(SUM(oi.qty * p.price),0) AS revenue
+       COALESCE(SUM(oi.qty * p.price), 0) AS revenue
 FROM rwp5_employees e
 JOIN rwp5_stores s ON s.store_id = e.store_id
 LEFT JOIN rwp5_orders o ON o.emp_id = e.emp_id
@@ -157,13 +158,13 @@ LEFT JOIN rwp5_products p ON p.product_id = oi.product_id
 GROUP BY e.full_name, s.name
 ORDER BY revenue DESC, employee;
 
--- 5) Monthly revenue trend
-SELECT DATE_FORMAT(o.order_date,'%Y-%m') AS ym,
+-- 5) Monthly revenue trend (MySQL)
+SELECT DATE_FORMAT(o.order_date, '%Y-%m') AS ym,
        SUM(oi.qty * p.price) AS revenue
 FROM rwp5_orders o
 JOIN rwp5_order_items oi ON oi.order_id = o.order_id
 JOIN rwp5_products p ON p.product_id = oi.product_id
-GROUP BY DATE_FORMAT(o.order_date,'%Y-%m')
+GROUP BY DATE_FORMAT(o.order_date, '%Y-%m')
 ORDER BY ym;
 ```
 

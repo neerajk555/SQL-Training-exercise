@@ -8,9 +8,13 @@ Learning goals
 - Prevent duplicate-counting with many-to-many relationships
 - Combine joins with aggregation and filtering
 
-What you’ll practice
+What you'll practice
 - E-commerce, education, and healthcare scenarios
 - Multi-table queries, anti/semi joins, and join performance basics
+
+Database requirements
+- MySQL 8.0+ required for all exercises
+- Uses MySQL-specific functions: DATE_FORMAT, COALESCE, DATEDIFF, CURDATE
 
 Assessment
 - Warm-ups and speed drills for retrieval

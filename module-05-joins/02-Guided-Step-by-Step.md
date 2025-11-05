@@ -146,12 +146,12 @@ Common mistakes
 Solution
 ```sql
 SELECT c.code, c.title,
-       COALESCE(i.name,'TBD') AS instructor,
+       COALESCE(i.name, 'TBD') AS instructor,
        COUNT(e.student_id) AS enrolled_count
 FROM gs5_courses c
 LEFT JOIN gs5_instructors i ON i.instructor_id = c.instructor_id
 LEFT JOIN gs5_enrollments e ON e.course_id = c.course_id
-GROUP BY c.code, c.title, COALESCE(i.name,'TBD')
+GROUP BY c.code, c.title, COALESCE(i.name, 'TBD')
 ORDER BY c.code;
 ```
 

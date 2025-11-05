@@ -162,7 +162,7 @@ Drew Dev  | Bob Lead
 Solution
 ```sql
 SELECT e.full_name,
-       COALESCE(m.full_name,'None') AS manager
+       COALESCE(m.full_name, 'None') AS manager
 FROM wu5_employees e
 LEFT JOIN wu5_employees m ON m.emp_id = e.manager_id
 ORDER BY e.emp_id;
@@ -198,5 +198,7 @@ SELECT p.name
 FROM wu5_products p
 LEFT JOIN wu5_order_items oi ON oi.product_id = p.product_id
 WHERE oi.order_item_id IS NULL
+ORDER BY p.name;
+```
 ORDER BY p.name;
 ```

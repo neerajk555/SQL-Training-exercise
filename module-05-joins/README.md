@@ -13,7 +13,7 @@ Welcome to Module 05: Joins. You’ll learn to combine data across tables with I
 - **08-Take-Home-Challenges.md** — 3 advanced multi-part join scenarios
 
 ## How to use
-- MySQL 8.0+ recommended; alternatives provided when relevant.
+- **MySQL 8.0+ required** — All exercises use MySQL-specific syntax (DATE_FORMAT, COALESCE, etc.)
 - All activities are self-contained: each includes the CREATE/INSERT setup it needs.
 - Time estimates are guides—take what you need to understand the concepts!
 

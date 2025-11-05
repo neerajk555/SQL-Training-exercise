@@ -49,7 +49,7 @@ GROUP BY u.name
 ORDER BY u.name;
 
 -- B) Revenue per user (include 0)
-SELECT u.name, COALESCE(SUM(oi.qty * oi.price),0) AS revenue
+SELECT u.name, COALESCE(SUM(oi.qty * oi.price), 0) AS revenue
 FROM thc5_users u
 LEFT JOIN thc5_orders o ON o.user_id = u.user_id
 LEFT JOIN thc5_order_items oi ON oi.order_id = o.order_id
@@ -65,7 +65,7 @@ GROUP BY u.city
 ORDER BY revenue DESC
 LIMIT 1;
 
--- 📚 ADVANCED: For handling ties, use CTE (Module 6)
+-- 📚 PREVIEW (Module 6): For handling ties with CTEs
 /*
 WITH city_rev AS (
   SELECT u.city, SUM(oi.qty * oi.price) AS revenue
@@ -123,7 +123,7 @@ Solutions and trade-offs
 
 ```sql
 -- A) Shift coverage vs requirement
--- 📚 ADVANCED: Uses CTE (Module 6) for clearer organization
+-- 📚 PREVIEW (Module 6): This solution uses CTEs for clearer organization
 WITH shift_counts AS (
   SELECT s.shift_id, s.dept, COUNT(a.emp_id) AS assigned_count
   FROM thc5_shifts s
@@ -195,7 +195,7 @@ JOIN thc5_books b ON b.book_id = l.book_id
 WHERE l.return_date IS NULL AND l.due_date < '2025-03-12'
 ORDER BY member, title;
 
--- B) Top borrower(s) - Simplified approach
+-- B) Top borrower(s) by number of loans
 SELECT m.name, COUNT(*) AS loans
 FROM thc5_loans l
 JOIN thc5_members m ON m.member_id = l.member_id
@@ -203,7 +203,7 @@ GROUP BY m.name
 ORDER BY loans DESC
 LIMIT 1;
 
--- 📚 ADVANCED: For handling ties, use CTE + Window Functions (Modules 6 & 8)
+-- 📚 PREVIEW (Modules 6 & 8): For handling ties with Window Functions
 /*
 WITH borrower AS (
   SELECT m.name, COUNT(*) AS loans,
@@ -230,7 +230,6 @@ ORDER BY b.title;
 ```
 
 Trade-offs
-- CTEs and window functions (used in advanced alternatives) make complex queries more readable but are covered in later modules.
-Trade-offs
+- CTEs and window functions (shown in PREVIEW comments) make complex queries more readable but are covered in Modules 6 & 8.
 - Using window functions simplifies ties in B; fallback: subquery for max count.
 - For A/D, ensure date comparisons are sargable; avoid functions on due_date in WHERE.
