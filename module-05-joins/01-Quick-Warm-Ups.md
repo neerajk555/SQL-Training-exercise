@@ -179,7 +179,10 @@ DROP TABLE IF EXISTS wu5_products;
 CREATE TABLE wu5_products (product_id INT PRIMARY KEY, name VARCHAR(60));
 INSERT INTO wu5_products VALUES (1,'Notebook'),(2,'Lamp'),(3,'Mug');
 
--- re-use wu5_order_items from earlier
+DROP TABLE IF EXISTS wu5_order_items;
+CREATE TABLE wu5_order_items (order_item_id INT PRIMARY KEY, order_id INT, product_id INT, qty INT);
+INSERT INTO wu5_order_items VALUES
+(1,101,1,2),(2,101,2,1),(3,102,1,3),(4,103,2,1);
 ```
 Task: Return product names that never appear in wu5_order_items.
 
