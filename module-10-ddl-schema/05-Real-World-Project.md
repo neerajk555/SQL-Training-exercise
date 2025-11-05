@@ -313,16 +313,80 @@ ORDER BY avg_rating DESC, review_count DESC
 LIMIT 10;
 ```
 
-### Extension Challenges
+### Extension Challenges (Optional Advanced Practice)
 
-1. **Add Wishlist Feature:** Create table for customers to save products
-2. **Implement Reviews for Vendors:** Separate from product reviews
-3. **Shipping Tracking:** Add table for tracking shipment status
-4. **Return/Refund System:** Handle order returns and refunds
-5. **Product Images:** Store multiple images per product
-6. **Inventory Alerts:** Track low stock notifications
-7. **Order History:** Optimize queries for customer order history
-8. **Analytics Tables:** Aggregate data for reporting
+**Challenge 1: Add Wishlist Feature**
+Create a table for customers to save products for later:
+```sql
+CREATE TABLE rw10_wishlist (
+  wishlist_id INT AUTO_INCREMENT PRIMARY KEY,
+  customer_id INT,
+  variant_id INT,
+  added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (customer_id) REFERENCES rw10_customers(customer_id) ON DELETE CASCADE,
+  FOREIGN KEY (variant_id) REFERENCES rw10_product_variants(variant_id) ON DELETE CASCADE,
+  UNIQUE KEY uk_customer_variant (customer_id, variant_id)
+);
+```
+
+**Challenge 2: Implement Vendor Reviews**
+Separate from product reviews - rate the seller:
+```sql
+CREATE TABLE rw10_vendor_reviews (
+  review_id INT AUTO_INCREMENT PRIMARY KEY,
+  vendor_id INT,
+  customer_id INT,
+  rating INT CHECK (rating BETWEEN 1 AND 5),
+  communication_rating INT CHECK (communication_rating BETWEEN 1 AND 5),
+  shipping_speed_rating INT CHECK (shipping_speed_rating BETWEEN 1 AND 5),
+  review_text TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (vendor_id) REFERENCES rw10_vendors(vendor_id),
+  FOREIGN KEY (customer_id) REFERENCES rw10_customers(customer_id),
+  INDEX idx_vendor (vendor_id)
+);
+```
+
+**Challenge 3: Shipping Tracking**
+Track shipment status and location:
+```sql
+CREATE TABLE rw10_shipments (
+  shipment_id INT AUTO_INCREMENT PRIMARY KEY,
+  order_id INT,
+  tracking_number VARCHAR(100) UNIQUE,
+  carrier VARCHAR(50),
+  status ENUM('pending', 'in_transit', 'delivered', 'failed') DEFAULT 'pending',
+  estimated_delivery DATE,
+  actual_delivery DATE,
+  FOREIGN KEY (order_id) REFERENCES rw10_orders(order_id)
+);
+```
+
+**Challenge 4: Return/Refund System**
+```sql
+CREATE TABLE rw10_returns (
+  return_id INT AUTO_INCREMENT PRIMARY KEY,
+  order_item_id INT,
+  reason TEXT,
+  status ENUM('requested', 'approved', 'rejected', 'completed') DEFAULT 'requested',
+  refund_amount DECIMAL(10,2),
+  requested_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (order_item_id) REFERENCES rw10_order_items(order_item_id)
+);
+```
+
+**Challenge 5: Product Images (One-to-Many)**
+```sql
+CREATE TABLE rw10_product_images (
+  image_id INT AUTO_INCREMENT PRIMARY KEY,
+  product_id INT,
+  image_url VARCHAR(500),
+  is_primary BOOLEAN DEFAULT FALSE,
+  display_order INT DEFAULT 0,
+  FOREIGN KEY (product_id) REFERENCES rw10_products(product_id) ON DELETE CASCADE,
+  INDEX idx_product (product_id)
+);
+```
 
 ### Evaluation Criteria
 

@@ -102,7 +102,10 @@ SELECT * FROM wu10_inventory;
 ---
 
 ## 3) Add Foreign Key Constraint — 7 min
-Scenario: Link orders to customers with foreign key.
+**Scenario:** Link orders to customers with foreign key to enforce referential integrity.
+
+**Beginner Context:** 
+A **foreign key (FK)** creates a relationship between two tables. It ensures that the value in one table (child) must exist in another table (parent). This prevents "orphaned" records - like having an order that references a customer who doesn't exist!
 
 Sample data:
 ```sql
@@ -120,18 +123,40 @@ CREATE TABLE wu10_orders (
 );
 ```
 
-Task: Add foreign key constraint on wu10_orders.customer_id referencing wu10_customers.customer_id.
+**Task:** Add foreign key constraint on `wu10_orders.customer_id` referencing `wu10_customers.customer_id`.
+
+**What This Does:**
+- Prevents inserting an order with a `customer_id` that doesn't exist in the customers table
+- Prevents deleting a customer who has orders (or you can configure CASCADE behavior)
+- Maintains data integrity automatically
 
 Solution:
 ```sql
--- Add foreign key constraint
+-- Add foreign key constraint using ALTER TABLE
+-- Syntax: FOREIGN KEY (column_in_this_table) REFERENCES other_table(column_in_other_table)
 ALTER TABLE wu10_orders
-ADD CONSTRAINT fk_customer
-FOREIGN KEY (customer_id) REFERENCES wu10_customers(customer_id);
+ADD CONSTRAINT fk_customer                      -- Constraint name (for later reference)
+FOREIGN KEY (customer_id)                       -- Column in wu10_orders
+REFERENCES wu10_customers(customer_id);         -- Column in wu10_customers
 
 -- Verify constraint exists
 SHOW CREATE TABLE wu10_orders;
+
+-- Test the constraint
+INSERT INTO wu10_customers VALUES (1, 'Alice Smith');
+
+-- This works (customer 1 exists):
+INSERT INTO wu10_orders VALUES (100, '2025-11-06', 1);
+
+-- This fails (customer 999 doesn't exist):
+-- INSERT INTO wu10_orders VALUES (101, '2025-11-06', 999);
+-- Error: Cannot add or update a child row: a foreign key constraint fails
 ```
+
+**Key Points:**
+- Foreign key column and referenced column must have **exactly the same data type**
+- Referenced column must be a PRIMARY KEY or UNIQUE
+- Named constraints (`fk_customer`) make it easier to drop them later: `ALTER TABLE wu10_orders DROP FOREIGN KEY fk_customer;`
 
 ---
 
@@ -196,29 +221,61 @@ SHOW CREATE TABLE wu10_members;
 ---
 
 ## 6) Create Table with Multiple Constraints — 8 min
-Scenario: Create employee table with various constraints.
+**Scenario:** Create employee table with various constraints to enforce data quality.
 
-Task: Create table with: emp_id (PK, auto-increment), email (unique, not null), salary (must be positive), hire_date (default today).
+**Beginner Context:**
+Constraints are rules that protect your data. They prevent invalid data from entering the database. It's much better to enforce these rules at the database level than relying on application code alone!
+
+**Task:** Create table with: emp_id (PK, auto-increment), email (unique, not null), salary (must be positive), hire_date (default today).
+
+**What Each Constraint Does:**
+- **PRIMARY KEY + AUTO_INCREMENT**: Automatically generates unique IDs (1, 2, 3...)
+- **UNIQUE**: No two employees can have the same email address
+- **NOT NULL**: Email is required - can't be left blank
+- **CHECK**: Salary must be greater than 0 (prevents negative salaries)
+- **DEFAULT**: If hire_date not provided, uses today's date automatically
 
 Solution:
 ```sql
 DROP TABLE IF EXISTS wu10_employees;
+
+-- Create table with multiple constraints
 CREATE TABLE wu10_employees (
-  emp_id INT AUTO_INCREMENT PRIMARY KEY,
-  email VARCHAR(100) UNIQUE NOT NULL,
-  salary DECIMAL(10,2) CHECK (salary > 0),
-  hire_date DATE DEFAULT (CURDATE())
+  emp_id INT AUTO_INCREMENT PRIMARY KEY,        -- Auto-generates 1, 2, 3...
+  email VARCHAR(100) UNIQUE NOT NULL,           -- Must be unique and required
+  salary DECIMAL(10,2) CHECK (salary > 0),      -- Must be positive (MySQL 8.0.16+)
+  hire_date DATE DEFAULT (CURDATE())            -- Defaults to today if not specified
 );
 
 -- Test constraints
-INSERT INTO wu10_employees (email, salary) VALUES ('emp1@company.com', 50000);
--- This inserts with today's date automatically
+-- Good insert: all constraints satisfied
+INSERT INTO wu10_employees (email, salary) 
+VALUES ('emp1@company.com', 50000);
+-- Note: hire_date automatically set to today, emp_id automatically set to 1
 
--- This will fail (negative salary):
+-- Try to insert duplicate email (will fail due to UNIQUE):
+-- INSERT INTO wu10_employees (email, salary) VALUES ('emp1@company.com', 60000);
+-- Error: Duplicate entry 'emp1@company.com' for key 'email'
+
+-- Try to insert negative salary (will fail due to CHECK):
 -- INSERT INTO wu10_employees (email, salary) VALUES ('emp2@company.com', -1000);
+-- Error: Check constraint 'wu10_employees_chk_1' is violated
 
+-- Try to insert without email (will fail due to NOT NULL):
+-- INSERT INTO wu10_employees (salary) VALUES (45000);
+-- Error: Field 'email' doesn't have a default value
+
+-- View the data
 SELECT * FROM wu10_employees;
+
+-- See the table structure
+DESCRIBE wu10_employees;
 ```
+
+**Important Notes:**
+- **CHECK constraints** require MySQL 8.0.16+. If using older MySQL, the constraint will be ignored (no error, but no validation)
+- **DEFAULT (CURDATE())** requires MySQL 8.0.13+. For older versions, use just `DEFAULT CURRENT_DATE` or handle in application
+- Constraints prevent bad data BEFORE it enters the database - much safer than checking in code!
 
 ---
 
@@ -256,38 +313,83 @@ DESCRIBE wu10_old_table;
 ---
 
 ## 8) Composite Primary Key — 7 min
-Scenario: Create enrollment table with composite key.
+**Scenario:** Create enrollment table with composite primary key.
 
-Task: Create course_enrollment table where combination of student_id and course_id is unique.
+**Beginner Context:**
+A **composite primary key** uses multiple columns together as the unique identifier. This is common in junction tables (many-to-many relationships) where the combination of two IDs must be unique, but each ID alone can repeat.
+
+**Example:** A student can enroll in many courses, and a course can have many students. But the same student can't enroll in the same course twice - that combination must be unique!
+
+**Task:** Create course_enrollment table where the combination of `student_id` and `course_id` is unique.
+
+**What This Does:**
+- `(student_id=1, course_id=101)` - allowed
+- `(student_id=1, course_id=102)` - allowed (same student, different course)
+- `(student_id=2, course_id=101)` - allowed (different student, same course)
+- `(student_id=1, course_id=101)` again - **NOT allowed** (duplicate combination)
 
 Solution:
 ```sql
 DROP TABLE IF EXISTS wu10_course_enrollment;
+
+-- Create table with composite primary key
 CREATE TABLE wu10_course_enrollment (
-  student_id INT,
-  course_id INT,
+  student_id INT,                               -- Part of composite PK
+  course_id INT,                                -- Part of composite PK
   enrollment_date DATE,
-  PRIMARY KEY (student_id, course_id)
+  grade VARCHAR(2),
+  PRIMARY KEY (student_id, course_id)          -- Both columns together form PK
 );
 
--- Test: same student can enroll in multiple courses
-INSERT INTO wu10_course_enrollment VALUES (1, 101, '2025-01-15');
-INSERT INTO wu10_course_enrollment VALUES (1, 102, '2025-01-16');
+-- Test: Same student can enroll in multiple courses
+INSERT INTO wu10_course_enrollment VALUES (1, 101, '2025-01-15', NULL);
+INSERT INTO wu10_course_enrollment VALUES (1, 102, '2025-01-16', NULL);
 
--- This will fail (duplicate composite key):
--- INSERT INTO wu10_course_enrollment VALUES (1, 101, '2025-02-01');
+-- Same course can have multiple students
+INSERT INTO wu10_course_enrollment VALUES (2, 101, '2025-01-17', NULL);
 
+-- View all enrollments
 SELECT * FROM wu10_course_enrollment;
+
+-- This will fail (duplicate composite key - student 1 already enrolled in course 101):
+-- INSERT INTO wu10_course_enrollment VALUES (1, 101, '2025-02-01', NULL);
+-- Error: Duplicate entry '1-101' for key 'PRIMARY'
+
+-- Query: Which courses is student 1 taking?
+SELECT course_id, enrollment_date FROM wu10_course_enrollment WHERE student_id = 1;
+
+-- Query: Who is enrolled in course 101?
+SELECT student_id, enrollment_date FROM wu10_course_enrollment WHERE course_id = 101;
 ```
+
+**Key Differences:**
+```sql
+-- Single column PK: Only student_id must be unique
+PRIMARY KEY (student_id)              -- Each student can appear only once total
+
+-- Composite PK: Combination must be unique
+PRIMARY KEY (student_id, course_id)   -- Each student can appear multiple times (different courses)
+```
+
+**When to Use Composite PKs:**
+- Junction tables (many-to-many relationships)
+- Tables representing relationships between entities
+- When no single column uniquely identifies a row
 
 ---
 
 **Key Takeaways:**
-- Always use PRIMARY KEY for unique identifiers
-- Use FOREIGN KEY to maintain referential integrity
-- Add UNIQUE constraints for naturally unique data (emails, usernames)
-- Use CHECK constraints for business rules (MySQL 8.0.16+)
-- DEFAULT values reduce INSERT complexity
-- MODIFY changes column definition, CHANGE renames and modifies
-- Test constraints by trying to violate them
+- Always use **PRIMARY KEY** for unique identifiers (single or composite)
+- Use **FOREIGN KEY** to maintain referential integrity between tables
+- Add **UNIQUE** constraints for naturally unique data (emails, usernames, SKUs)
+- Use **CHECK** constraints for business rules like positive numbers (MySQL 8.0.16+)
+- **DEFAULT** values reduce INSERT complexity and ensure consistency
+- **MODIFY** changes column definition; **CHANGE** renames and modifies simultaneously
+- **Test constraints** by trying to violate them - helps verify they work correctly!
+- **Composite primary keys** are perfect for junction tables in many-to-many relationships
+
+**MySQL Version Notes:**
+- CHECK constraints require MySQL 8.0.16 or higher
+- DEFAULT with functions like CURDATE() requires MySQL 8.0.13+
+- If using older versions, constraints may be ignored or cause syntax errors
 

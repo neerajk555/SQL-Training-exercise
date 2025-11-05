@@ -127,6 +127,12 @@ WHERE customer_id = 101 AND order_date >= '2025-11-01';
 ---
 
 ## 4) Drop Unused Index — 5 min
+
+**What You'll Learn:** How to identify and remove unnecessary indexes.
+
+**Beginner Explanation:**
+Too many indexes slow down INSERT/UPDATE/DELETE because MySQL must update every index when data changes. If an index isn't helping queries, remove it!
+
 ```sql
 DROP TABLE IF EXISTS wu11_logs;
 CREATE TABLE wu11_logs (
@@ -134,17 +140,34 @@ CREATE TABLE wu11_logs (
   message TEXT,
   log_date DATE
 );
-CREATE INDEX idx_message ON wu11_logs(message(100));  -- Bad idea!
+-- ❌ Bad: Indexing TEXT columns is rarely useful (and expensive!)
+CREATE INDEX idx_message ON wu11_logs(message(100));  -- Prefix index on first 100 chars
 ```
 
-Task: Drop the inefficient index on TEXT column.
+**Task:** Drop the inefficient index on TEXT column and explain why it's problematic.
 
-Solution:
+**Why This is Bad:**
+- TEXT columns are large (can be megabytes!)
+- Indexing TEXT uses lots of disk space
+- Queries with `LIKE '%keyword%'` (wildcard search) can't use indexes anyway
+- Better alternatives: Full-text search (FULLTEXT index) or search engine (Elasticsearch)
+
+**Solution:**
 ```sql
+-- View all indexes on the table
 SHOW INDEXES FROM wu11_logs;
+
+-- Remove the inefficient index
 DROP INDEX idx_message ON wu11_logs;
--- Indexing TEXT columns is usually inefficient
+
+-- ✅ Better approach: Index date for time-range queries
+CREATE INDEX idx_log_date ON wu11_logs(log_date);
+
+-- Now this query is fast:
+SELECT * FROM wu11_logs WHERE log_date >= '2025-01-01';
 ```
+
+**Key Takeaway:** Only index columns that will actually speed up your queries. TEXT/BLOB columns rarely benefit from indexes!
 
 ---
 
@@ -206,6 +229,16 @@ INSERT INTO wu11_accounts VALUES (1, 'alice');
 ---
 
 ## 7) Covering Index — 7 min
+
+**What You'll Learn:** Create "covering indexes" that make queries super-fast.
+
+**Beginner Explanation:**
+A **covering index** contains ALL columns needed by a query. MySQL can answer the query using ONLY the index, without touching the actual table data. This is MUCH faster!
+
+**Think of it like this:**
+- Normal index: Like a book index that says "see page 42" (you still need to look up page 42)
+- Covering index: Like a book index that includes the full answer (no need to look up the page!)
+
 ```sql
 DROP TABLE IF EXISTS wu11_customers;
 CREATE TABLE wu11_customers (
@@ -220,20 +253,43 @@ INSERT INTO wu11_customers VALUES
 (2, 'Bob', 'Jones', 'bob@email.com', 'New York');
 ```
 
-Task: Create covering index for query that selects email and city by customer_id.
+**Task:** Create a covering index for a query that selects email and city by customer_id.
 
-Solution:
+**Solution:**
 ```sql
--- Covering index includes all columns in query
+-- ❌ Without covering index:
+EXPLAIN SELECT email, city FROM wu11_customers WHERE customer_id = 1;
+-- Uses PRIMARY KEY, but must access table to get email/city
+
+-- ✅ Create covering index (includes customer_id, email, AND city)
 CREATE INDEX idx_covering ON wu11_customers(customer_id, email, city);
 
+-- Now the query is SUPER fast!
 EXPLAIN SELECT email, city FROM wu11_customers WHERE customer_id = 1;
--- Using index (no table access needed!)
+-- Extra: Using index
+-- MySQL reads ONLY the index, not the table!
+
+-- Test: This query benefits from covering index
+SELECT email, city FROM wu11_customers WHERE customer_id = 2;
+-- Fast because all needed columns (customer_id, email, city) are in the index
 ```
+
+**Key Takeaway:** 
+- Include all SELECT columns in the index to create a "covering index"
+- Look for "Using index" in EXPLAIN output
+- Trade-off: Larger index size for faster queries
 
 ---
 
 ## 8) Prefix Index on VARCHAR — 6 min
+
+**What You'll Learn:** Save disk space with prefix indexes on long VARCHAR columns.
+
+**Beginner Explanation:**
+URLs, descriptions, and long text fields take up lots of space. A **prefix index** only indexes the first N characters instead of the entire value. This saves disk space while still speeding up queries!
+
+**Example:** Instead of indexing the full URL `https://example.com/blog/articles/2025/january/my-article-title-is-very-long-and-takes-space`, just index the first 100 characters: `https://example.com/blog/articles/2025/january/my-article-title-is-very-long-and-takes-`
+
 ```sql
 DROP TABLE IF EXISTS wu11_articles;
 CREATE TABLE wu11_articles (
@@ -241,18 +297,42 @@ CREATE TABLE wu11_articles (
   title VARCHAR(255),
   url VARCHAR(500)
 );
+
+-- Insert test data
+INSERT INTO wu11_articles VALUES
+(1, 'MySQL Guide', 'https://example.com/blog/mysql-indexing-tutorial'),
+(2, 'Python Tips', 'https://example.com/blog/python-best-practices');
 ```
 
-Task: Create prefix index on first 100 characters of URL.
+**Task:** Create a prefix index on the first 100 characters of the URL column.
 
-Solution:
+**Solution:**
 ```sql
--- Index only first 100 chars to save space
+-- ✅ Index only first 100 characters to save space
+-- (Most URLs differ in the first 100 chars anyway!)
 CREATE INDEX idx_url_prefix ON wu11_articles(url(100));
 
--- Still helps with searches
-SELECT * FROM wu11_articles WHERE url LIKE 'https://example.com%';
+-- Check the index was created
+SHOW INDEXES FROM wu11_articles;
+
+-- ✅ Still helps with prefix searches:
+SELECT * FROM wu11_articles WHERE url LIKE 'https://example.com/blog/%';
+
+-- ✅ Also helps with exact matches (if match is in first 100 chars):
+SELECT * FROM wu11_articles WHERE url = 'https://example.com/blog/mysql-indexing-tutorial';
 ```
+
+**When to Use Prefix Indexes:**
+- ✅ Long VARCHAR columns (> 100 characters)
+- ✅ URLs, file paths, descriptions
+- ✅ When queries use prefix matching (`LIKE 'prefix%'`)
+
+**When NOT to Use:**
+- ❌ When you need suffix matching (`LIKE '%suffix'`) - prefix indexes don't help
+- ❌ Short columns (< 50 characters) - just index the whole column
+- ❌ When exact uniqueness is needed (use full column index)
+
+**Key Takeaway:** Prefix indexes save space on long VARCHAR columns while still speeding up queries!
 
 ---
 

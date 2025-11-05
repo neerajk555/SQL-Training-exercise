@@ -106,45 +106,91 @@ CHECK (pages > 0)
 </details>
 
 ### Solution
+
+**Step-by-Step Approach:**
+1. Drop tables in correct order (child first, parent second)
+2. Create parent table (authors) - has no dependencies
+3. Create child table (books) - references authors
+4. Insert data (parent first, then child)
+5. Verify with a JOIN query
+
 ```sql
--- Create authors table (parent)
+-- STEP 1: Clean slate - drop in reverse dependency order
+-- Drop child table first (has foreign key)
 DROP TABLE IF EXISTS ip10_books;
+-- Drop parent table second (referenced by foreign key)
 DROP TABLE IF EXISTS ip10_authors;
 
+-- STEP 2: Create parent table (authors) first - no dependencies
 CREATE TABLE ip10_authors (
-  author_id INT AUTO_INCREMENT PRIMARY KEY,
-  author_name VARCHAR(100) NOT NULL,
-  country VARCHAR(50)
+  author_id INT AUTO_INCREMENT PRIMARY KEY,     -- Auto-generates 1, 2, 3...
+  author_name VARCHAR(100) NOT NULL,            -- Required field
+  country VARCHAR(50)                           -- Optional field (can be NULL)
 );
 
--- Create books table (child)
+-- STEP 3: Create child table (books) - references authors
 CREATE TABLE ip10_books (
   book_id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(200) NOT NULL,
-  author_id INT,
-  isbn VARCHAR(13) UNIQUE,
+  author_id INT,                                -- Foreign key column
+  isbn VARCHAR(13) UNIQUE,                      -- ISBN must be unique across all books
   published_year INT,
-  pages INT CHECK (pages > 0),
-  CONSTRAINT fk_author FOREIGN KEY (author_id) 
-    REFERENCES ip10_authors(author_id)
+  pages INT CHECK (pages > 0),                  -- Must be positive (MySQL 8.0.16+)
+  CONSTRAINT fk_author FOREIGN KEY (author_id)  -- Named constraint for clarity
+    REFERENCES ip10_authors(author_id)          -- Links to authors table
 );
 
--- Insert sample data
+-- Verify table structures
+DESCRIBE ip10_authors;
+DESCRIBE ip10_books;
+
+-- STEP 4: Insert sample data - parent first!
 INSERT INTO ip10_authors (author_name, country) VALUES
 ('George Orwell', 'United Kingdom'),
 ('J.K. Rowling', 'United Kingdom');
 
+-- View authors with their IDs
+SELECT * FROM ip10_authors;
+
+-- Now insert books referencing valid author_ids
 INSERT INTO ip10_books (title, author_id, isbn, published_year, pages) VALUES
 ('1984', 1, '9780451524935', 1949, 328),
 ('Animal Farm', 1, '9780451526342', 1945, 112),
 ('Harry Potter and the Philosopher''s Stone', 2, '9780439708180', 1997, 309);
+-- Note: Two single quotes ('') escape a single quote in SQL strings
 
--- Verify relationships
-SELECT b.title, a.author_name, b.published_year, b.pages
+-- STEP 5: Verify relationships with JOIN query
+SELECT 
+  b.title,
+  a.author_name,
+  b.published_year,
+  b.pages,
+  b.isbn
 FROM ip10_books b
 JOIN ip10_authors a ON b.author_id = a.author_id
 ORDER BY b.published_year;
+
+-- Test constraints
+-- ❌ This should fail (author_id 99 doesn't exist):
+-- INSERT INTO ip10_books (title, author_id, isbn, published_year, pages) 
+-- VALUES ('Test Book', 99, '1234567890123', 2025, 200);
+
+-- ❌ This should fail (duplicate ISBN):
+-- INSERT INTO ip10_books (title, author_id, isbn, published_year, pages) 
+-- VALUES ('Another Book', 1, '9780451524935', 2025, 250);
+
+-- ❌ This should fail (pages = 0, not > 0):
+-- INSERT INTO ip10_books (title, author_id, isbn, published_year, pages) 
+-- VALUES ('Empty Book', 1, '1111111111111', 2025, 0);
 ```
+
+**Key Learning Points:**
+1. **Order matters**: Create parent tables before child tables
+2. **Named constraints** (`fk_author`) make it easier to manage constraints later
+3. **Test your constraints** to ensure they work as expected
+4. **VARCHAR(13)** for ISBN is appropriate (ISBNs are 10 or 13 characters)
+5. **CHECK constraints** require MySQL 8.0.16+ (older versions ignore them)
+6. **Two single quotes** ('') escape a quote in a string: `'Harry Potter and the Philosopher''s Stone'`
 
 ---
 
@@ -211,77 +257,136 @@ Or add after table creation with ALTER TABLE.
 </details>
 
 ### Solution
-```sql
--- Clean slate
-DROP TABLE IF EXISTS ip10_comments;
-DROP TABLE IF EXISTS ip10_posts;
-DROP TABLE IF EXISTS ip10_users;
 
--- Users table
+**Planning Your Schema:**
+1. **users** - base table (no dependencies)
+2. **posts** - depends on users (author)
+3. **comments** - depends on both posts and users (commenter)
+
+**Relationship Diagram:**
+```
+users (1) ----< posts (many)     "One user writes many posts"
+  |
+  |
+users (1) ----< comments (many)  "One user writes many comments"
+posts (1) ----< comments (many)  "One post has many comments"
+```
+
+```sql
+-- STEP 1: Clean slate - drop in dependency order (deepest first)
+DROP TABLE IF EXISTS ip10_comments;  -- Depends on posts AND users
+DROP TABLE IF EXISTS ip10_posts;     -- Depends on users
+DROP TABLE IF EXISTS ip10_users;     -- No dependencies
+
+-- STEP 2: Create base table (users) - no dependencies
 CREATE TABLE ip10_users (
   user_id INT AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(50) UNIQUE NOT NULL,
-  email VARCHAR(100) UNIQUE NOT NULL,
+  username VARCHAR(50) UNIQUE NOT NULL,         -- Must be unique and required
+  email VARCHAR(100) UNIQUE NOT NULL,           -- Must be unique and required
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Posts table
+-- STEP 3: Create posts table - depends on users
 CREATE TABLE ip10_posts (
   post_id INT AUTO_INCREMENT PRIMARY KEY,
-  user_id INT,
+  user_id INT,                                  -- Foreign key to users
   title VARCHAR(200) NOT NULL,
-  content TEXT,
+  content TEXT,                                 -- TEXT for long content
   published_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  views INT DEFAULT 0,
+  views INT DEFAULT 0,                          -- Track view count
   CONSTRAINT fk_post_user FOREIGN KEY (user_id) 
-    REFERENCES ip10_users(user_id),
-  INDEX idx_user (user_id)
+    REFERENCES ip10_users(user_id),             -- Link to author
+  INDEX idx_user (user_id)                      -- Speed up "posts by user" queries
 );
 
--- Comments table
+-- STEP 4: Create comments table - depends on posts AND users
 CREATE TABLE ip10_comments (
   comment_id INT AUTO_INCREMENT PRIMARY KEY,
-  post_id INT,
-  user_id INT,
-  comment_text TEXT NOT NULL,
+  post_id INT,                                  -- Foreign key to posts
+  user_id INT,                                  -- Foreign key to users (commenter)
+  comment_text TEXT NOT NULL,                   -- Comment content required
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_comment_post FOREIGN KEY (post_id) 
-    REFERENCES ip10_posts(post_id),
+    REFERENCES ip10_posts(post_id),             -- Which post is commented on
   CONSTRAINT fk_comment_user FOREIGN KEY (user_id) 
-    REFERENCES ip10_users(user_id),
-  INDEX idx_post (post_id),
-  INDEX idx_user (user_id)
+    REFERENCES ip10_users(user_id),             -- Who wrote the comment
+  INDEX idx_post (post_id),                     -- Speed up "comments on post X"
+  INDEX idx_user (user_id)                      -- Speed up "comments by user Y"
 );
 
--- Insert sample data
+-- Verify table structures
+DESCRIBE ip10_users;
+DESCRIBE ip10_posts;
+DESCRIBE ip10_comments;
+
+-- STEP 5: Insert sample data (parent to child order)
 INSERT INTO ip10_users (username, email) VALUES
 ('alice_writer', 'alice@blog.com'),
 ('bob_reader', 'bob@blog.com');
 
+-- Verify users
+SELECT * FROM ip10_users;
+
 INSERT INTO ip10_posts (user_id, title, content, views) VALUES
-(1, 'Introduction to SQL', 'SQL is a powerful language...', 150),
-(1, 'Database Design Tips', 'Good schema design is crucial...', 89),
-(2, 'My First Post', 'Hello blogging world!', 45);
+(1, 'Introduction to SQL', 'SQL is a powerful language for managing data...', 150),
+(1, 'Database Design Tips', 'Good schema design is crucial for performance...', 89),
+(2, 'My First Post', 'Hello blogging world! Excited to share my journey.', 45);
+
+-- Verify posts with author names
+SELECT p.post_id, p.title, u.username AS author, p.views
+FROM ip10_posts p
+JOIN ip10_users u ON p.user_id = u.user_id;
 
 INSERT INTO ip10_comments (post_id, user_id, comment_text) VALUES
-(1, 2, 'Great article! Very helpful.'),
+(1, 2, 'Great article! Very helpful for beginners.'),
 (1, 2, 'Can you write more about joins?'),
 (2, 2, 'Schema design is underrated!'),
 (3, 1, 'Welcome to blogging, Bob!'),
 (3, 1, 'Looking forward to more posts.');
 
--- Query: All comments on post 1 with details
+-- STEP 6: Verify with complex queries
+
+-- Query 1: All comments on post 1 with details
 SELECT 
   p.title AS post_title,
   c.comment_text,
   u.username AS commenter,
-  c.created_at
+  c.created_at AS comment_time
 FROM ip10_comments c
 JOIN ip10_posts p ON c.post_id = p.post_id
 JOIN ip10_users u ON c.user_id = u.user_id
 WHERE p.post_id = 1
 ORDER BY c.created_at;
+
+-- Query 2: Post summary with comment count
+SELECT 
+  p.title,
+  u.username AS author,
+  p.views,
+  COUNT(c.comment_id) AS comment_count
+FROM ip10_posts p
+JOIN ip10_users u ON p.user_id = u.user_id
+LEFT JOIN ip10_comments c ON p.post_id = c.post_id
+GROUP BY p.post_id, p.title, u.username, p.views
+ORDER BY p.views DESC;
+
+-- Query 3: Most active commenters
+SELECT 
+  u.username,
+  COUNT(c.comment_id) AS total_comments
+FROM ip10_users u
+LEFT JOIN ip10_comments c ON u.user_id = c.user_id
+GROUP BY u.user_id, u.username
+ORDER BY total_comments DESC;
 ```
+
+**Key Learning Points:**
+1. **Multiple foreign keys**: Comments table has TWO foreign keys (post_id and user_id)
+2. **Indexes on FKs**: Always index foreign key columns for better JOIN performance
+3. **TEXT vs VARCHAR**: Use TEXT for long content, VARCHAR for limited length
+4. **Dependency chain**: users → posts → comments (create in this order)
+5. **Named constraints**: Makes debugging and maintenance easier
+6. **LEFT JOIN vs JOIN**: Use LEFT JOIN when you want all rows even if no match exists
 
 ---
 
