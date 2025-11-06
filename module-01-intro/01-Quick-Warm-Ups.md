@@ -2,7 +2,7 @@
 
 Each warm-up includes a tiny dataset, a focused task, expected output, and a solution. Time per exercise: 5–10 minutes.
 
-## 📋 Before You Start
+##  Before You Start
 
 ### Learning Objectives
 By completing these warm-ups, you will:

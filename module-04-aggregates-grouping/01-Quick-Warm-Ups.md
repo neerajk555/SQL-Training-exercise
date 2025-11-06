@@ -2,7 +2,7 @@
 
 Each exercise: 5–10 minutes. Copy sample data first.
 
-## 📋 Before You Start
+##  Before You Start
 
 ### Learning Objectives
 By completing these warm-ups, you will:

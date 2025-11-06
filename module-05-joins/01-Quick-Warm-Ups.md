@@ -2,7 +2,7 @@
 
 Each exercise includes a tiny setup, a task, the expected output, and an answer. Run each in its own session.
 
-## 📋 Before You Start
+##  Before You Start
 
 ### Learning Objectives
 By completing these warm-ups, you will:

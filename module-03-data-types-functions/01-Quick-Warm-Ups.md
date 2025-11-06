@@ -2,7 +2,7 @@
 
 Each exercise: 5–10 minutes. Focus on conversions and core functions. Copy sample data to a scratch DB first.
 
-## 📋 Before You Start
+##  Before You Start
 
 ### Learning Objectives
 By completing these warm-ups, you will:
