@@ -2,6 +2,13 @@
 
 ##  Before You Start
 
+### Database Setup
+First, create and use a database for these exercises:
+```sql
+CREATE DATABASE IF NOT EXISTS m9_dml_practice;
+USE m9_dml_practice;
+```
+
 ### Learning Objectives
 By completing these warm-ups, you will:
 - Insert data with INSERT INTO statements
