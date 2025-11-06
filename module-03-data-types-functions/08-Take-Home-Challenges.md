@@ -1,8 +1,36 @@
 # Take-Home Challenges (Advanced, Data Types & Functions)
 
-Three multi-part exercises using MySQL functions for robust cleaning and transformation. Each has an open-ended component and detailed solutions with trade-offs.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these take-home challenges, you will:
+- Apply data type conversions and functions to complex data cleaning
+- Practice multi-step data transformation scenarios
+- Develop skills for handling messy, real-world data
+- Build confidence with advanced function combinations
+- Learn to choose optimal functions for different scenarios
+
+### How to Approach
+**Time Allocation (45-60 min per challenge):**
+- 📖 **10 min**: Read all parts, identify data quality issues
+- 🎯 **5 min**: Plan functions needed (TRIM, CAST, STR_TO_DATE, etc.)
+- 💻 **30-35 min**: Complete parts, test with edge cases
+- ✅ **5-10 min**: Review solutions, understand function choices
+
+**Success Tips:**
+- ✅ Test with sample rows before full query
+- ✅ Handle NULLs explicitly at each step
+- ✅ Chain functions carefully (inside-out)
+- ✅ Verify data types match expectations
+- ✅ Compare multiple cleaning approaches
 
 **Beginner Tip:** These are advanced! Take your time—it's okay to spend multiple sessions on one challenge. Break each part into smaller steps. Test your queries incrementally. These exercises mimic real-world data work, so struggle is part of learning!
+
+---
+
+## Take-Home Challenges
+
+Three multi-part exercises using MySQL functions for robust cleaning and transformation. Each has an open-ended component and detailed solutions with trade-offs.
 
 ---
 

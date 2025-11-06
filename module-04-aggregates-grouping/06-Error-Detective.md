@@ -1,8 +1,29 @@
 # Error Detective: Aggregates & Grouping Bugs (5 challenges)
 
-Each includes: scenario, sample data, broken query, error/symptom, expected output, guiding questions, and fixed solution.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these error detective challenges, you will:
+- Develop debugging skills for aggregate and GROUP BY errors
+- Practice identifying missing GROUP BY columns and HAVING vs WHERE issues
+- Learn the key rule: non-aggregated columns must be in GROUP BY
+- Build troubleshooting skills for summary queries
+- Understand common aggregation pitfalls
+
+### How to Approach Each Challenge
+1. **Read scenario** - understand the aggregation goal
+2. **Run broken query** - observe error message
+3. **Answer guiding questions** - analyze GROUP BY requirements
+4. **Check the fix** - see correct grouping
+5. **Verify results** - ensure aggregates are correct
 
 **Beginner Tip:** GROUP BY errors are common when learning aggregates! The key rule: every non-aggregated column in SELECT must appear in GROUP BY. Run the broken queries and study the error messages—you'll quickly learn to spot and fix these patterns!
+
+---
+
+## Error Detective Challenges
+
+Each includes: scenario, sample data, broken query, error/symptom, expected output, guiding questions, and fixed solution.
 
 ---
 

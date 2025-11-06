@@ -1,6 +1,32 @@
 # Speed Drills — Indexes & Optimization
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these speed drills, you will:
+- Build muscle memory for CREATE INDEX syntax
+- Practice quick recall of EXPLAIN interpretation
+- Develop speed with index operations
+- Reinforce optimization patterns
+- Test your mastery of performance tuning
+
+### How to Use Speed Drills
+**Purpose:** Rapid practice for indexing mastery. 2-3 minutes per drill!
+
+**Process:**
+1. Answer from memory
+2. Check solution
+3. Practice EXPLAIN patterns
+4. Repeat until automatic
+5. Apply in real queries
+
+**Scoring:** 9-10: Performance expert | 7-8: Good | 5-6: Practice | <5: Review
+
 **🎯 Goal:** Build muscle memory for index operations.
+
+---
+
+## Speed Drill Questions
 
 ---
 

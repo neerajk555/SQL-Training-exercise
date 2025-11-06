@@ -1,5 +1,37 @@
 # Module 1: Speed Drills (MySQL)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these speed drills, you will:
+- Build muscle memory for basic SQL syntax
+- Practice quick recall of SELECT, WHERE, ORDER BY patterns
+- Develop speed and confidence with fundamental queries
+- Reinforce core concepts through rapid repetition
+- Test your understanding of key SQL commands
+
+### How to Use Speed Drills
+**Purpose:** These are designed for QUICK repetition and recall. Each question should take 2-3 minutes max!
+
+**Best Practice:**
+1. **Try answering immediately** (don't overthink!)
+2. **Check answer right away** (instant feedback)
+3. **If wrong, note it** and review that concept
+4. **Repeat missed questions** until automatic
+5. **Come back tomorrow** and try again
+
+**Scoring Yourself:**
+- 9-10 correct: Excellent mastery!
+- 7-8 correct: Good, review missed concepts
+- 5-6 correct: Need more practice with fundamentals
+- <5 correct: Review module content before continuing
+
+**Beginner Tip:** Speed drills build automatic recall. Don't worry about getting everything perfect—this is practice! Mistakes show you what to review. Come back to these regularly for spaced repetition!
+
+---
+
+## Speed Drill Questions
+
 Ten quick questions (2–3 minutes each). Immediate answers provided for self-scoring.
 
 ---

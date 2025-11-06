@@ -1,5 +1,28 @@
 # Error Detective — Professional Practices
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these error detective challenges, you will:
+- Develop debugging skills for security and quality issues
+- Practice identifying SQL injection vulnerabilities
+- Learn to recognize poor documentation and naming practices
+- Build troubleshooting skills for production code
+- Understand critical professional standards
+
+### How to Approach Each Challenge
+1. **Read code as attacker** - how could this be exploited?
+2. **Identify security/quality issue** - SQL injection? Poor naming?
+3. **Assess impact** - could this cause data breach or loss?
+4. **Check the fix** - see secure/professional version
+5. **Test with malicious input** - verify fix prevents attacks
+
+**Beginner Tip:** Professional practice errors are the most dangerous in production! SQL injection can expose entire databases. Poor documentation causes maintenance nightmares. Build secure, readable habits now!
+
+---
+
+## Error Detective Challenges
+
 **Welcome, Detective!**
 
 Your mission: Find and fix dangerous bugs in production code. Each error represents a real-world mistake that causes security breaches, data loss, or system crashes.

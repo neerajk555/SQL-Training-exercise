@@ -1,6 +1,34 @@
 # Paired Programming — DDL & Schema Design
 
-Work with a partner: one person as **Driver** (writes code), one as **Navigator** (reviews, suggests). Switch roles halfway through.
+## 📋 Before You Start
+
+### Learning Objectives
+Through paired programming, you will:
+- Experience collaborative database schema design
+- Learn to communicate table relationships and constraints clearly
+- Practice discussing data type choices and trade-offs
+- Build teamwork skills for architectural decisions
+- Apply DDL commands (CREATE, ALTER, DROP) collaboratively
+
+### Paired Programming Roles
+**🚗 Driver (Controls Keyboard):**
+- Types all SQL code
+- Verbalizes design decisions ("Using VARCHAR(100) because...")
+- Asks navigator about constraint choices
+- Focuses on syntax
+
+**🧭 Navigator (Reviews & Guides):**
+- Keeps requirements visible
+- Spots missing constraints or relationships
+- Suggests alternative data types
+- Discusses normalization trade-offs
+- **Does NOT touch the keyboard**
+
+### Execution Flow
+1. **Setup**: Both discuss schema requirements
+2. **Challenge 1**: Navigator reads requirements → discuss design → Driver codes → verify → **SWITCH ROLES**
+3. **Challenge 2**: Repeat with reversed roles
+4. **Review**: Compare with solutions, discuss alternatives
 
 **Goal:** Collaborate on schema design decisions, discuss trade-offs, and learn from each other's perspectives.
 

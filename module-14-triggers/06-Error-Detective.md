@@ -1,6 +1,27 @@
 # Error Detective — Triggers
 
-## 🔍 Overview
+## � Before You Start
+
+### Learning Objectives
+By completing these error detective challenges, you will:
+- Develop debugging skills for trigger code
+- Practice identifying OLD/NEW misuse, timing errors, and infinite loops
+- Learn to recognize trigger syntax problems
+- Build troubleshooting skills for automatic data management
+- Understand common trigger pitfalls
+
+### How to Approach Each Challenge
+1. **Read scenario** - understand what trigger should do
+2. **Identify problem** - wrong timing? Using OLD incorrectly?
+3. **Answer guiding questions** - analyze trigger logic
+4. **Check the fix** - see correct trigger code
+5. **Test with INSERT/UPDATE/DELETE** - verify trigger fires correctly
+
+**Beginner Tip:** Trigger errors often involve using OLD when only NEW exists (INSERT), or AFTER when BEFORE is needed (validation). Test triggers with both valid and invalid data!
+
+---
+
+## �🔍 Overview
 Learning from mistakes is crucial! These are **real errors** that beginners (and experienced developers!) make with triggers. Each includes:
 - The buggy code
 - Why it's wrong

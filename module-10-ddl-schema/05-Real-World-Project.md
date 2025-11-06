@@ -1,5 +1,31 @@
 # Real-World Project — DDL & Schema Design
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing this real-world project, you will:
+- Apply DDL to design complete database schemas
+- Practice table relationships and normalization
+- Work with realistic e-commerce platform requirements
+- Build schemas with proper constraints and relationships
+- Develop database architecture skills
+
+### Project Approach
+**Time Allocation (60-90 minutes):**
+- 📖 **15 min**: Read all requirements, sketch ERD on paper
+- 🔧 **10 min**: Identify entities, relationships, and constraints
+- 💻 **40-55 min**: Create tables progressively, test relationships
+- ✅ **10 min**: Review schema, verify normalization
+
+**Success Tips:**
+- ✅ Create parent tables before child tables (FK dependencies)
+- ✅ Use appropriate data types (VARCHAR length, DECIMAL precision)
+- ✅ Add all constraints (PK, FK, UNIQUE, CHECK, NOT NULL)
+- ✅ Normalize to 3NF (no redundancy)
+- ✅ Test with sample INSERT to verify relationships
+
+---
+
 ## Project: Multi-Vendor E-Commerce Platform Database
 
 **Difficulty:** Advanced  

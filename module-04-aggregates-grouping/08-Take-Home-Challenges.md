@@ -1,8 +1,36 @@
 # Take-Home Challenges (Advanced, Aggregates & Grouping)
 
-Three multi-part exercises using MySQL aggregates and grouping. Includes open-ended components and detailed solutions with trade-offs.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these take-home challenges, you will:
+- Apply aggregates and GROUP BY to complex business analytics
+- Practice multi-level grouping and filtering scenarios
+- Develop skills for creating comprehensive summary reports
+- Build confidence combining WHERE, GROUP BY, HAVING, ORDER BY
+- Learn to choose appropriate aggregate functions for different metrics
+
+### How to Approach
+**Time Allocation (45-60 min per challenge):**
+- 📖 **10 min**: Read all parts, identify metrics needed
+- 🎯 **5 min**: Plan groupings and aggregates
+- 💻 **30-35 min**: Complete parts, verify totals
+- ✅ **5-10 min**: Review solutions, understand grouping choices
+
+**Success Tips:**
+- ✅ Verify grouping columns cover all requirements
+- ✅ Use WHERE before GROUP BY for row filters
+- ✅ Use HAVING after GROUP BY for aggregate filters
+- ✅ Check totals manually for sample data
+- ✅ Test with COUNT(*) to verify groupings
 
 **Beginner Tip:** These challenges require multiple skills combined! Work through each part methodically. Check intermediate results with COUNT(*) to verify your logic. It's okay to revisit earlier exercises if you need a refresher. Compare your approach with the solutions—there's often more than one way!
+
+---
+
+## Take-Home Challenges
+
+Three multi-part exercises using MySQL aggregates and grouping. Includes open-ended components and detailed solutions with trade-offs.
 
 ---
 

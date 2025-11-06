@@ -1,5 +1,41 @@
 # Paired Programming: Store Snapshot Explorer (30 min)
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through paired programming, you will:
+- Experience collaborative SQL problem-solving
+- Learn to communicate technical decisions clearly
+- Practice giving and receiving constructive feedback
+- Build teamwork skills essential for professional development
+- Apply SELECT fundamentals in a collaborative setting
+
+### Paired Programming Roles
+**🚗 Driver (Controls Keyboard):**
+- Types all SQL code
+- Verbalizes thought process ("I'm adding WHERE because...")
+- Asks navigator for confirmation
+- Focuses on syntax
+
+**🧭 Navigator (Reviews & Guides):**
+- Keeps requirements visible
+- Spots errors before execution
+- Suggests tests and edge cases
+- **Does NOT touch the keyboard**
+
+### Execution Flow
+1. **Setup**: Driver runs schema (CREATE + INSERT)
+2. **Part A**: Navigator reads requirements → discuss approach → Driver codes → verify → **SWITCH ROLES**
+3. **Part B**: Repeat with reversed roles → **SWITCH ROLES**
+4. **Part C**: Repeat with reversed roles
+5. **Review**: Compare solutions together
+
+**Tips:** Talk continuously • Ask "why" questions • Celebrate small wins!
+
+---
+
+## Activity: Store Snapshot Explorer
+
 Roles
 - Driver: Types SQL, verbalizes approach.
 - Navigator: Reviews logic, asks questions, checks requirements.

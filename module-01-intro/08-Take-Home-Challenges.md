@@ -1,8 +1,47 @@
 # Module 1: Take-Home Challenges (MySQL)
 
-Three advanced exercises with multi-part problems (3–4 related queries), realistic datasets, open-ended components, and detailed solutions with trade-offs.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these take-home challenges, you will:
+- Apply multiple concepts to complex, multi-part problems
+- Practice working with realistic datasets and edge cases
+- Develop problem-solving skills for open-ended requirements
+- Build confidence tackling advanced scenarios independently
+- Learn to evaluate trade-offs in different solution approaches
+
+### Challenge Characteristics
+**What Makes These "Take-Home":**
+- **Longer time commitment**: 45-60 minutes per challenge
+- **Multi-part problems**: 3-4 related queries that build on each other
+- **Open-ended components**: Require creativity and decision-making
+- **Realistic complexity**: Edge cases, NULLs, and ambiguous requirements
+- **Trade-offs**: Multiple valid approaches with different pros/cons
+
+### How to Approach
+**Recommended Process:**
+1. **Read entire challenge** before writing any SQL (10 min)
+2. **Plan your approach** - sketch out queries on paper (5 min)
+3. **Complete parts in order** - they often build on each other (30-35 min)
+4. **Test thoroughly** - verify edge cases and NULL handling (5 min)
+5. **Review solutions** - compare approaches and understand trade-offs (5-10 min)
+
+**Success Tips:**
+- ✅ Take breaks - these require sustained focus
+- ✅ Don't rush - thorough beats fast
+- ✅ Test edge cases deliberately (NULL, empty, duplicates)
+- ✅ Compare your solution with provided one
+- ✅ Understand WHY alternative approaches exist
+
+**Beginner Tip:** These are challenging by design! If stuck for 10+ minutes, check the hints or solution. Learning from solutions is valid—study them, understand them, then try similar problems!
 
 Tip: Use databases from `module-01-setup.sql` (`m1_intro_ecom`, `m1_intro_edu`).
+
+---
+
+## Take-Home Challenges
+
+Three advanced exercises with multi-part problems (3–4 related queries), realistic datasets, open-ended components, and detailed solutions with trade-offs.
 
 ---
 

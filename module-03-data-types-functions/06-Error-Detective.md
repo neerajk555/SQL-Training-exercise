@@ -1,8 +1,29 @@
 # Error Detective: Functions & Conversion Bugs (5 challenges)
 
-Each includes: scenario, sample data, broken query, error/symptom, expected output, guiding questions, and a fixed solution with explanation.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these error detective challenges, you will:
+- Develop debugging skills for function and conversion errors
+- Practice identifying type mismatch, NULL propagation, and format issues
+- Learn to handle data type conversions safely
+- Build troubleshooting skills for function calls
+- Understand common function pitfalls
+
+### How to Approach Each Challenge
+1. **Read scenario** - understand what transformation is needed
+2. **Run broken query** - observe error or unexpected result
+3. **Answer guiding questions** - analyze the problem
+4. **Check the fix** - see correct function usage
+5. **Test with edge cases** - verify NULL and unusual value handling
 
 **Beginner Tip:** Debugging is a key SQL skill! Read error messages carefully—they often point to the exact problem. Try the broken query first, observe what happens, then work through the guiding questions. You'll learn more by fixing bugs than writing perfect code the first time!
+
+---
+
+## Error Detective Challenges
+
+Each includes: scenario, sample data, broken query, error/symptom, expected output, guiding questions, and a fixed solution with explanation.
 
 ---
 

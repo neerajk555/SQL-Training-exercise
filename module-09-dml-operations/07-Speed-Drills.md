@@ -1,8 +1,34 @@
 # Speed Drills: DML Operations (10 questions, 2–3 min each)
 
-**How to use:** Try to answer each question quickly. Answers immediately follow each question for self-scoring.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these speed drills, you will:
+- Build muscle memory for INSERT, UPDATE, DELETE syntax
+- Practice quick recall of WHERE clause requirements
+- Develop speed with data modification commands
+- Reinforce transaction and safety patterns
+- Test your mastery of DML operations
+
+### How to Use Speed Drills
+**Purpose:** Rapid practice for DML mastery. 2-3 minutes per question!
+
+**Process:**
+1. Answer quickly from memory
+2. Check solution immediately
+3. Note safety violations
+4. Practice correct patterns
+5. Always think: "Do I need WHERE?"
 
 **⚠️ Safety First:** All answers assume you're testing in a safe environment with backups and transactions!
+
+**Scoring:** 9-10: Safe expert | 7-8: Careful practitioner | 5-6: Practice more | <5: Review safety!
+
+---
+
+## Speed Drill Questions
+
+**How to use:** Try to answer each question quickly. Answers immediately follow each question for self-scoring.
 
 ---
 

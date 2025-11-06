@@ -1,8 +1,36 @@
 # Take-Home Challenges — Joins (Advanced)
 
-Three multi-part exercises with realistic datasets. Include open-ended components and solutions with trade-offs.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these take-home challenges, you will:
+- Apply multiple join types to complex multi-table scenarios
+- Practice navigating intricate table relationships
+- Develop skills for combining data from many sources
+- Build confidence with INNER JOIN, LEFT JOIN, self-joins
+- Learn to verify join correctness and avoid cartesian products
+
+### How to Approach
+**Time Allocation (45-60 min per challenge):**
+- 📖 **10 min**: Read all parts, sketch table relationships
+- 🎯 **5 min**: Identify join types and sequences
+- 💻 **30-35 min**: Build queries incrementally, verify row counts
+- ✅ **5-10 min**: Review solutions, understand join choices
+
+**Success Tips:**
+- ✅ Draw ERD or relationship diagram
+- ✅ Join two tables first, then add third
+- ✅ Verify row counts at each join (too many = problem!)
+- ✅ Use LIMIT 5 to preview results quickly
+- ✅ Check for NULL-extended rows (LEFT JOIN)
 
 **Beginner Tip:** Multi-table challenges can feel overwhelming at first! Draw the relationships between tables if it helps. Join two tables first, verify the result, then add the third. Check row counts at each step. Take breaks when stuck—fresh eyes often spot the issue!
+
+---
+
+## Take-Home Challenges
+
+Three multi-part exercises with realistic datasets. Include open-ended components and solutions with trade-offs.
 
 ---
 

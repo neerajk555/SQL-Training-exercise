@@ -1,8 +1,25 @@
 # Error Detective — Set Operations (5 challenges)
 
-Debug these broken queries. Each includes scenario, buggy code, error message or wrong output, sample data, expected output, guiding questions, and solution with explanation.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these error detective challenges, you will:
+- Develop debugging skills for UNION, INTERSECT, EXCEPT queries
+- Practice identifying column count mismatches and type incompatibilities
+- Learn to recognize ORDER BY placement errors
+- Build troubleshooting skills for set operations
+- Understand common set operation pitfalls
+
+### How to Approach Each Challenge
+1. **Read scenario** - understand what sets need combining/comparing
+2. **Run broken query** - observe error message
+3. **Check column counts** - ensure all SELECTs have same number
+4. **Verify data types** - ensure corresponding columns are compatible
+5. **Check ORDER BY** - must be at the very end
 
 **Detective Tip:** Read error messages carefully. Check column counts, data types, operator choice, and ORDER BY placement. Set operations are strict about structure!
+
+---
 
 ## 🔍 Systematic Debugging Approach
 

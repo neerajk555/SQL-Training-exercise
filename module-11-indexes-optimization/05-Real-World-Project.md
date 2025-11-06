@@ -1,5 +1,31 @@
 # Real-World Project — Database Performance Audit
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing this real-world project, you will:
+- Apply indexing strategies to optimize query performance
+- Practice using EXPLAIN to identify bottlenecks
+- Work with realistic slow query scenarios
+- Build composite indexes for common query patterns
+- Develop performance tuning skills
+
+### Project Approach
+**Time Allocation (60-90 minutes):**
+- 📖 **10 min**: Read audit requirements, understand goals
+- 🔧 **15 min**: Run EXPLAIN on queries, identify issues
+- 💻 **40-55 min**: Add indexes, measure improvements
+- ✅ **10 min**: Review results, document optimizations
+
+**Success Tips:**
+- ✅ Use EXPLAIN before and after indexing
+- ✅ Index columns in WHERE, JOIN, ORDER BY
+- ✅ Consider composite indexes for multi-column queries
+- ✅ Monitor query time improvements
+- ✅ Balance read speed vs write overhead
+
+---
+
 ## Project: Optimize Legacy E-Commerce Database
 
 **Goal:** Conduct performance audit and optimize slow queries

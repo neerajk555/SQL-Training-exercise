@@ -1,8 +1,43 @@
 # Module 1: Real-World Project — TinyCart Analytics (MySQL)
 
-Use the e-commerce schema from `module-01-setup.sql` (database: `m1_intro_ecom`). This provides products, customers, orders, and order_items tables with realistic edge cases (NULL emails, discontinued items, out-of-stock products).
+## 📋 Before You Start
+
+### Learning Objectives
+By completing this real-world project, you will:
+- Apply basic SELECT, WHERE, ORDER BY to business problems
+- Practice translating business requirements into SQL queries
+- Work with realistic e-commerce data including edge cases
+- Build foundational analytical queries
+- Develop problem-solving skills for data analysis
+
+### Project Approach
+**Time Allocation (45-60 minutes):**
+- 📖 **10 min**: Read all deliverables, understand business goals
+- 🔧 **5 min**: Run module-01-setup.sql, explore tables
+- 💻 **30-35 min**: Complete deliverables one at a time
+- ✅ **5-10 min**: Review solutions, verify acceptance criteria
+
+**Work Process:**
+1. **Load the database** using `module-01-setup.sql`
+2. **Explore tables** with SELECT * to understand structure
+3. **Complete deliverables in order** (they build your skills progressively)
+4. **Verify each query** matches acceptance criteria
+5. **Handle edge cases** (NULLs, discontinued items, etc.)
+
+**Success Tips:**
+- ✅ Read acceptance criteria carefully
+- ✅ Test with LIMIT to preview results
+- ✅ Handle NULLs explicitly with IS NULL or COALESCE
+- ✅ Use ORDER BY to match expected output
+- ✅ Verify row counts make sense
+
+**Beginner Tip:** This is your first complete project! Take your time, work methodically, and don't skip testing. Real-world projects have edge cases—practice finding and handling them!
 
 ---
+
+## Project Overview
+
+Use the e-commerce schema from `module-01-setup.sql` (database: `m1_intro_ecom`). This provides products, customers, orders, and order_items tables with realistic edge cases (NULL emails, discontinued items, out-of-stock products).
 
 ## Company Background
 TinyCart is a small e-commerce startup building its first analytics dashboards.

@@ -1,6 +1,41 @@
 # Real-World Project: Weekly Ops Summary Reports (45–60 min)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing this real-world project, you will:
+- Apply aggregates and GROUP BY to create business summary reports
+- Practice using HAVING to filter aggregated results
+- Work with realistic reporting scenarios (sales, inventory, customer metrics)
+- Build multi-level summaries (by category, by date, by region)
+- Develop analytical reporting skills
+
+### Project Approach
+**Time Allocation (45-60 minutes):**
+- 📖 **10 min**: Read all deliverables, understand reporting goals
+- 🔧 **5 min**: Run setup, explore data with sample aggregates
+- 💻 **30-35 min**: Build reports one at a time, verify totals
+- ✅ **5-10 min**: Review solutions, check for alternative approaches
+
+**Work Process:**
+1. **Identify grouping columns** (what to GROUP BY)
+2. **Choose aggregate functions** (COUNT, SUM, AVG, MIN, MAX)
+3. **Apply filters correctly** (WHERE before GROUP BY, HAVING after)
+4. **Order results meaningfully** (highest sales first, etc.)
+5. **Verify totals manually** for sample rows
+
+**Success Tips:**
+- ✅ Use WHERE to filter rows before aggregation
+- ✅ Use HAVING to filter groups after aggregation
+- ✅ All non-aggregated columns MUST be in GROUP BY
+- ✅ Test with COUNT(*) first to verify grouping
+- ✅ Check for NULLs in aggregate results
+
 **Beginner Tip:** This project simulates a real reporting task! Work through deliverables systematically. Verify row counts and totals make sense. Test edge cases (NULLs, empty groups). Real analysts iterate—so try, check, refine. The rubric helps you self-assess. Take breaks if needed!
+
+---
+
+## Project Overview
 
 Company background
 - EduMart is an online retailer for education supplies.

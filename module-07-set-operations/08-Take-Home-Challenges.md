@@ -1,8 +1,36 @@
 # Take-Home Challenges — Set Operations (Advanced)
 
-Three advanced multi-part problems for deeper practice. Each includes complex requirements, realistic data, open-ended components, and detailed solutions with trade-offs.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these take-home challenges, you will:
+- Apply UNION, INTERSECT, EXCEPT to complex data integration scenarios
+- Practice combining multiple data sources with set operations
+- Develop skills for finding overlaps, differences, and unions
+- Build confidence with column matching and data type compatibility
+- Learn to optimize set operations for performance
+
+### How to Approach
+**Time Allocation (45-60 min per challenge):**
+- 📖 **10 min**: Read all parts, sketch Venn diagrams
+- 🎯 **5 min**: Plan set operations and column alignments
+- 💻 **30-35 min**: Build queries, test combinations
+- ✅ **5-10 min**: Review solutions, discuss alternatives
+
+**Success Tips:**
+- ✅ Ensure column counts match across all SELECTs
+- ✅ Verify data types are compatible
+- ✅ Use UNION for deduplication, UNION ALL for speed
+- ✅ Test each SELECT independently first
+- ✅ Add ORDER BY at the very end
 
 **Challenge Tip:** These are designed to take 45-60 minutes each. Break them into parts, test incrementally, and explore multiple approaches!
+
+---
+
+## Take-Home Challenges
+
+Three advanced multi-part problems for deeper practice. Each includes complex requirements, realistic data, open-ended components, and detailed solutions with trade-offs.
 
 ## 📋 Approach Strategy for Complex Problems
 

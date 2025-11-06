@@ -1,5 +1,37 @@
 # Speed Drills: SELECT Fundamentals (10 questions, 2–3 min each)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these speed drills, you will:
+- Build muscle memory for SELECT fundamentals
+- Practice quick recall of WHERE, ORDER BY, LIMIT syntax
+- Develop speed with column selection and filtering
+- Reinforce DISTINCT, LIKE, BETWEEN patterns
+- Test your mastery of SELECT variations
+
+### How to Use Speed Drills
+**Purpose:** Rapid-fire practice for instant recall. Each question: 2-3 minutes!
+
+**Process:**
+1. **Read question** - understand what's needed
+2. **Answer immediately** - use your first instinct
+3. **Check answer** - compare with solution
+4. **Mark if wrong** - these need review
+5. **Retry later** - build automatic recall
+
+**Scoring:**
+- 9-10: Mastery! Ready for advanced topics
+- 7-8: Solid, review weak spots
+- 5-6: Practice fundamentals more
+- <5: Re-study module content
+
+**Tip:** Don't overthink! Speed drills train automatic responses. Wrong answers show what to practice!
+
+---
+
+## Speed Drill Questions
+
 How to use: Try to answer each quickly. Answers immediately follow each question for self-scoring.
 
 ---

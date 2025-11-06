@@ -1,6 +1,41 @@
 # Real-World Project — Learning Platform Analytics (45–60 min)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing this real-world project, you will:
+- Apply subqueries and CTEs to complex analytical problems
+- Practice breaking down multi-step queries into readable pieces
+- Work with realistic analytics scenarios (user behavior, course performance)
+- Build queries using EXISTS, IN, scalar subqueries, and WITH clauses
+- Develop skills for nested and multi-step query logic
+
+### Project Approach
+**Time Allocation (45-60 minutes):**
+- 📖 **10 min**: Read all deliverables, identify multi-step logic
+- 🔧 **5 min**: Run setup, explore tables and relationships
+- 💻 **30-35 min**: Build queries progressively, test CTEs individually
+- ✅ **5-10 min**: Review solutions, refactor for clarity
+
+**Work Process:**
+1. **Identify the inner query first** (what data does the outer query need?)
+2. **Test inner queries separately** (verify they return expected data)
+3. **Use CTEs for readability** (WITH clause for multi-step logic)
+4. **Choose right pattern** (EXISTS for existence, IN for lists, scalar for single values)
+5. **Avoid NOT IN with NULLs** (use NOT EXISTS instead)
+
+**Success Tips:**
+- ✅ Test subqueries independently before nesting
+- ✅ Use CTEs (WITH) to break down complex logic
+- ✅ Prefer EXISTS over IN for better performance
+- ✅ Watch for NULL behavior in NOT IN
+- ✅ Name CTEs descriptively (active_users, course_stats)
+
 **Beginner Tip:** This is your capstone for subqueries and CTEs! Start with the simplest deliverable to build momentum. Test each CTE independently before combining. Use comments to document your logic. This complexity is normal for production analytics—work through it step by step and celebrate progress!
+
+---
+
+## Project Overview
 
 Company background
 - Acme Learning Hub offers online courses with prerequisites. Students enroll, complete lessons, and generate daily activity. Stakeholders want actionable analytics driven by subqueries and CTEs.

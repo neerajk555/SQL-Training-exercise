@@ -1,8 +1,34 @@
 # Speed Drills: Aggregates & Grouping (10 questions, 2–3 min each)
 
-Immediate answers follow each question.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these speed drills, you will:
+- Build muscle memory for COUNT, SUM, AVG, MAX, MIN
+- Practice quick recall of GROUP BY and HAVING
+- Develop speed with aggregate patterns
+- Reinforce WHERE vs HAVING distinctions
+- Test your mastery of summary queries
+
+### How to Use Speed Drills
+**Purpose:** Rapid practice for GROUP BY mastery. 2-3 minutes per question!
+
+**Process:**
+1. Answer without looking at solution
+2. Check immediately
+3. Note misses for review
+4. Practice until natural
+5. Return tomorrow
+
+**Scoring:** 9-10: Excellent | 7-8: Good | 5-6: Practice more | <5: Review module
 
 **Beginner Tip:** Speed drills build quick recall of syntax and concepts. Try each question before checking the answer. These aren't tests—they're practice tools. Repeat them until the patterns feel natural!
+
+---
+
+## Speed Drill Questions
+
+Immediate answers follow each question.
 
 ---
 

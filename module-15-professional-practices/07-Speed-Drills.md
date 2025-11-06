@@ -1,5 +1,31 @@
 # Speed Drills — Professional Practices
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these speed drills, you will:
+- Build muscle memory for secure SQL patterns
+- Practice quick recall of best practices
+- Develop speed with code formatting and documentation
+- Reinforce SQL injection prevention
+- Test your mastery of professional standards
+
+### How to Use Speed Drills
+**Purpose:** Build muscle memory for professional patterns. Speed matters, but accuracy matters MORE!
+
+**Process:**
+1. Answer from memory
+2. Check security implications
+3. Verify best practices
+4. Practice until automatic
+5. Apply in all production code
+
+**Scoring:** 9-10: Professional expert | 7-8: Good practices | 5-6: Practice | <5: Review security!
+
+---
+
+## Speed Drill Questions
+
 **Goal:** Build muscle memory for professional SQL patterns. Speed matters, but accuracy matters more!
 
 **Instructions:**

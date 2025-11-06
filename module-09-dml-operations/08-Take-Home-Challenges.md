@@ -1,8 +1,43 @@
 # Take-Home Challenges — DML Operations (Advanced)
 
-Three multi-part exercises focusing on advanced DML operations. Each includes realistic data, 3–4 parts, an open-ended component, and detailed solutions with notes/trade-offs.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these take-home challenges, you will:
+- Apply INSERT, UPDATE, DELETE to complex data modification scenarios
+- Practice safe data operations with transactions and validation
+- Develop skills for batch operations and data migrations
+- Build confidence with WHERE clause precision and affected row verification
+- Learn to handle errors and rollback safely
+
+### How to Approach
+**Time Allocation (60-90 min per challenge):**
+- 📖 **10 min**: Read all parts, identify data modifications needed
+- 🎯 **5 min**: Plan transaction boundaries and safety checks
+- 💻 **40-60 min**: Execute modifications with transactions
+- ✅ **10-15 min**: Verify results, test rollback scenarios
+
+**CRITICAL Safety Rules:**
+- ⚠️ **ALWAYS START TRANSACTION first**
+- ⚠️ **Test with SELECT before UPDATE/DELETE**
+- ⚠️ **Verify affected row count after each operation**
+- ⚠️ **ROLLBACK if anything looks wrong**
+- ⚠️ **COMMIT only when certain**
+
+**Success Tips:**
+- ✅ Use WHERE carefully (no WHERE = all rows!)
+- ✅ Check affected rows match expectations
+- ✅ Test with transactions for safety
+- ✅ Backup data before bulk changes
+- ✅ Document what each operation does
 
 **⚠️ CRITICAL SAFETY:** Always use transactions for these challenges! Run `START TRANSACTION;` before modifications, verify results, then `COMMIT;` or `ROLLBACK;`.
+
+---
+
+## Take-Home Challenges
+
+Three multi-part exercises focusing on advanced DML operations. Each includes realistic data, 3–4 parts, an open-ended component, and detailed solutions with notes/trade-offs.
 
 ---
 

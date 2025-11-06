@@ -1,6 +1,34 @@
 # Paired Programming — Set Operations (30 min)
 
-Work with a partner on this collaborative activity. Switch roles at indicated points. One person is the **Driver** (types), the other is the **Navigator** (guides, reviews, suggests).
+## 📋 Before You Start
+
+### Learning Objectives
+Through paired programming, you will:
+- Experience collaborative SQL problem-solving with set operations
+- Learn to communicate UNION, INTERSECT, EXCEPT logic clearly
+- Practice identifying when to use UNION vs UNION ALL
+- Build teamwork skills essential for professional development
+- Apply set operations to multi-channel data collaboratively
+
+### Paired Programming Roles
+**🚗 Driver (Controls Keyboard):**
+- Types all SQL code
+- Verbalizes thought process ("Using UNION ALL because...")
+- Asks navigator for confirmation
+- Focuses on syntax and column matching
+
+**🧭 Navigator (Reviews & Guides):**
+- Keeps requirements visible
+- Spots errors before execution (column count/type mismatches!)
+- Suggests tests and edge cases
+- **Does NOT touch the keyboard**
+
+### Execution Flow
+1. **Setup**: Driver runs schema (CREATE + INSERT)
+2. **Part A**: Navigator reads requirements → discuss approach → Driver codes → verify → **SWITCH ROLES**
+3. **Part B**: Repeat with reversed roles → **SWITCH ROLES**
+4. **Part C**: Repeat with reversed roles
+5. **Review**: Compare solutions together
 
 **Collaboration Tip:** Navigator should actively review each query before running. Driver should explain their thought process. Discuss trade-offs between different approaches!
 

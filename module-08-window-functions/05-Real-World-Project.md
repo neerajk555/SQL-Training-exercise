@@ -1,5 +1,31 @@
 # Real-World Project — Window Functions (45-60 min)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing this real-world project, you will:
+- Apply window functions to customer analytics problems
+- Practice ROW_NUMBER, RANK, LAG/LEAD in business contexts
+- Work with realistic customer lifetime value (LTV) calculations
+- Build running totals and cohort analyses
+- Develop skills for comparing rows within partitions
+
+### Project Approach
+**Time Allocation (45-60 minutes):**
+- 📖 **10 min**: Read dashboard requirements, understand metrics
+- 🔧 **5 min**: Run setup, explore customer and order data
+- 💻 **30-35 min**: Build analytics queries using window functions
+- ✅ **5-10 min**: Review solutions, optimize queries
+
+**Success Tips:**
+- ✅ Use PARTITION BY to create separate rankings per category
+- ✅ Apply ORDER BY within windows for meaningful sequences
+- ✅ Test with LIMIT to verify window behavior
+- ✅ Use LAG/LEAD to compare with previous/next rows
+- ✅ Combine with aggregates for running totals
+
+---
+
 ## Project: E-Commerce Customer Analytics Dashboard
 
 ### 🎯 Business Problem:

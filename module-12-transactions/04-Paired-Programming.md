@@ -1,10 +1,43 @@
 # Paired Programming — Transactions
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through paired programming, you will:
+- Experience collaborative transaction management
+- Learn to communicate COMMIT/ROLLBACK decisions clearly
+- Practice handling race conditions and locking together
+- Build teamwork skills for data integrity scenarios
+- Apply transaction isolation and concurrency control
+
+### Paired Programming Roles
+**🚗 Driver (Controls Keyboard):**
+- Types all SQL code within transactions
+- Verbalizes transaction boundaries ("Starting transaction for...")
+- Asks navigator about COMMIT vs ROLLBACK decisions
+- Focuses on syntax
+
+**🧭 Navigator (Reviews & Guides):**
+- Keeps requirements visible
+- Spots missing transaction control statements
+- Suggests testing rollback scenarios
+- Discusses isolation level implications
+- **Does NOT touch the keyboard**
+
+### Execution Flow
+1. **Setup**: Driver runs schema (CREATE + INSERT)
+2. **Part A**: Navigator reads requirements → discuss approach → Driver codes → test → **SWITCH ROLES**
+3. **Part B**: Repeat with reversed roles → **SWITCH ROLES**
+4. **Part C**: Repeat with reversed roles
+5. **Review**: Compare solutions, discuss locking strategies
+
+**Beginner Explanation:** This exercise simulates what happens in real ticket booking websites when thousands of people try to buy the same seats. You'll discover why proper locking is critical!
+
+---
+
 ## Challenge: Ticket Booking System
 
 **Goal:** Build a robust ticket booking system where two users try to book the same seat. Learn about race conditions, locking, and concurrency!
-
-**Beginner Explanation:** This exercise simulates what happens in real ticket booking websites when thousands of people try to buy the same seats. You'll discover why proper locking is critical!
 
 ### Setup (Both Partners Run This)
 

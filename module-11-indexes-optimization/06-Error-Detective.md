@@ -1,5 +1,28 @@
 # Error Detective — Indexes & Optimization
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these error detective challenges, you will:
+- Develop debugging skills for performance problems
+- Practice using EXPLAIN to identify slow queries
+- Learn to recognize missing indexes and inefficient patterns
+- Build troubleshooting skills for optimization
+- Understand common performance pitfalls
+
+### How to Approach Each Challenge
+1. **Run EXPLAIN** - see current query plan
+2. **Identify problem** - look for type: ALL (full table scan)
+3. **Add index** - on WHERE/JOIN/ORDER BY columns
+4. **Run EXPLAIN again** - verify index is used
+5. **Measure improvement** - compare execution times
+
+**Beginner Tip:** Performance problems usually come from missing indexes. Use EXPLAIN before and after adding indexes to see the improvement!
+
+---
+
+## Error Detective Challenges
+
 **🎯 Goal:** Learn to identify and fix common indexing mistakes that cause slow queries!
 
 **💡 For Each Error:**

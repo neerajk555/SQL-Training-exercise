@@ -1,6 +1,41 @@
 # Real-World Project — Marketplace Sales (45–60 min)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing this real-world project, you will:
+- Apply INNER JOIN, LEFT JOIN, and multi-table joins to business problems
+- Practice joining multiple tables in sequence
+- Work with realistic relationships (orders, customers, products)
+- Build queries that combine related data from multiple sources
+- Develop skills for navigating table relationships
+
+### Project Approach
+**Time Allocation (45-60 minutes):**
+- 📖 **10 min**: Read all parts, identify table relationships
+- 🔧 **5 min**: Run setup, explore tables, note foreign keys
+- 💻 **30-35 min**: Build deliverables progressively
+- ✅ **5-10 min**: Review solutions, understand join choices
+
+**Work Process:**
+1. **Identify relationships** (which columns link tables)
+2. **Choose join type** (INNER when match required, LEFT when preserving left table)
+3. **Test with LIMIT 5** before running full query
+4. **Verify row counts** (too many? Cartesian product!)
+5. **Check for NULLs** in joined columns
+
+**Success Tips:**
+- ✅ Use INNER JOIN when only matching rows needed
+- ✅ Use LEFT JOIN to preserve all rows from left table
+- ✅ Always specify ON conditions explicitly
+- ✅ Watch for duplicate columns (use aliases or specific columns)
+- ✅ Test incrementally (one join at a time for multi-table queries)
+
 **Beginner Tip:** Multi-table projects feel challenging but are incredibly valuable! Start by understanding the relationships between tables. Tackle one deliverable at a time. Check intermediate results (use LIMIT to preview). Join two tables, verify, then add the third. Take your time—real projects require patience!
+
+---
+
+## Project Overview
 
 Company background
 - Acme Marketplace connects customers with multiple stores. Each order can have multiple items. Operations wants insights across stores, categories, and customers.

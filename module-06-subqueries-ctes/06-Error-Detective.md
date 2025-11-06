@@ -1,8 +1,29 @@
 # Error Detective — Subqueries & CTEs (5 challenges)
 
-Each challenge includes scenario, broken query, error or wrong result, sample data, expected output, guiding questions, and a fix explanation.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these error detective challenges, you will:
+- Develop debugging skills for subqueries and CTEs
+- Practice identifying NULL issues, scope problems, and NOT IN traps
+- Learn to test inner queries independently
+- Build troubleshooting skills for nested queries
+- Understand common subquery pitfalls
+
+### How to Approach Each Challenge
+1. **Read scenario** - understand the nested logic goal
+2. **Run broken query** - observe error or unexpected results
+3. **Test inner query separately** - isolate the problem
+4. **Answer guiding questions** - analyze subquery structure
+5. **Check the fix** - see correct nesting or CTE usage
 
 **Beginner Tip:** Subquery bugs often involve NULLs, wrong row counts, or scope issues. Test the inner query separately first. Watch out for NOT IN with NULLs—it's a classic trap! These challenges prepare you for real-world query debugging.
+
+---
+
+## Error Detective Challenges
+
+Each challenge includes scenario, broken query, error or wrong result, sample data, expected output, guiding questions, and a fix explanation.
 
 ---
 

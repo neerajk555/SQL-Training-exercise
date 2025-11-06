@@ -1,9 +1,37 @@
 # Take-Home Challenges — DDL & Schema Design
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these take-home challenges, you will:
+- Apply DDL to design complex, normalized database schemas
+- Practice researching advanced schema design patterns
+- Develop skills for making architectural trade-off decisions
+- Build confidence with constraints, relationships, and normalization
+- Learn to evaluate and justify design choices
+
+### How to Approach
+**Time Allocation (90-120 min per challenge):**
+- 📖 **20 min**: Research concepts, understand requirements
+- 🎯 **15 min**: Sketch ERD on paper, plan tables and relationships
+- 💻 **50-70 min**: Create schema, add constraints, test with data
+- ✅ **15 min**: Review solutions, discuss design trade-offs
+
+**Success Tips:**
+- ✅ Design on paper first (ERD)
+- ✅ Create parent tables before child tables
+- ✅ Normalize to 3NF (eliminate redundancy)
+- ✅ Add all constraints (PK, FK, UNIQUE, CHECK)
+- ✅ Test with sample INSERT to verify design
+
 **Purpose:** Advanced schema design challenges for deeper learning. Research, experiment, and think critically about database design decisions!
 
 **Difficulty:** Advanced to Expert  
 **Prerequisites:** Complete Modules 1-10
+
+---
+
+## Take-Home Challenges
 
 **How to Approach:**
 1. Research the concepts (use documentation, articles, forums)

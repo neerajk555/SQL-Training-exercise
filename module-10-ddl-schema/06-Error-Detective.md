@@ -1,5 +1,28 @@
 # Error Detective — DDL & Schema Design
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these error detective challenges, you will:
+- Develop debugging skills for DDL statements
+- Practice identifying constraint errors, ordering issues, and type mismatches
+- Learn to recognize foreign key dependency problems
+- Build troubleshooting skills for schema creation
+- Understand common DDL pitfalls
+
+### How to Approach Each Challenge
+1. **Read scenario** - understand table relationships
+2. **Try broken DDL** - observe error message
+3. **Identify dependency** - check FK requirements
+4. **Answer guiding questions** - analyze creation order
+5. **Check the fix** - see correct DDL sequence
+
+**Beginner Tip:** DDL errors often involve creation order (parent before child) or constraint violations. Read error messages carefully - they usually tell you exactly what's wrong!
+
+---
+
+## Error Detective Challenges
+
 Find and fix errors in DDL statements. Each exercise has intentional bugs!
 
 ---

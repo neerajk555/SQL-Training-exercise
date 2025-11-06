@@ -1,5 +1,31 @@
 # Real-World Project — Complete E-Commerce Trigger System
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing this real-world project, you will:
+- Apply triggers to automate data integrity and business rules
+- Practice BEFORE triggers for validation, AFTER for auditing
+- Work with realistic e-commerce automation scenarios
+- Build comprehensive trigger systems
+- Develop skills for automatic data management
+
+### Project Approach
+**Time Allocation (90-120 minutes):**
+- 📖 **15 min**: Read all trigger requirements, identify events
+- 🔧 **10 min**: Run setup, understand table relationships
+- 💻 **60-80 min**: Create triggers by category, test each
+- ✅ **15 min**: Integration testing, verify all triggers work together
+
+**Success Tips:**
+- ✅ Use BEFORE triggers for validation (reject invalid data)
+- ✅ Use AFTER triggers for auditing (log changes)
+- ✅ Test with both valid and invalid data
+- ✅ Use OLD for DELETE, NEW for INSERT, both for UPDATE
+- ✅ Document trigger purpose and logic clearly
+
+---
+
 ## 🎯 Project Overview
 
 **Project Name:** E-Commerce Data Integrity & Automation System  

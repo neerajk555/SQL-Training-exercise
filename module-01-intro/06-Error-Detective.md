@@ -1,5 +1,37 @@
 # Module 1: Error Detective (MySQL)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these error detective challenges, you will:
+- Develop debugging skills for common SQL errors
+- Practice reading error messages and symptoms
+- Learn to identify and fix syntax and logic mistakes
+- Build problem-solving approaches for troubleshooting
+- Understand common pitfalls and how to avoid them
+
+### How to Use This Exercise
+**For Each Challenge:**
+1. **Read the scenario** - understand what the query should do
+2. **Look at the broken query** - try to spot the error yourself first
+3. **Read error message/symptom** - understand what went wrong
+4. **Answer guiding questions** - think through the problem
+5. **Check the fix** - see the corrected query
+6. **Read explanation** - understand why it was wrong and why the fix works
+
+**Learning Strategy:**
+- ✅ Try to fix it yourself before looking at the solution
+- ✅ Run both broken and fixed queries to see the difference
+- ✅ Take notes on common error patterns
+- ✅ Create a personal "error cheat sheet"
+- ✅ Practice explaining the fix out loud (teaching solidifies learning)
+
+**Beginner Tip:** Errors are learning opportunities! Every developer makes these mistakes. The key is recognizing them quickly. This exercise builds your debugging muscle memory!
+
+---
+
+## Error Detective Challenges
+
 Five debugging challenges. Each includes a scenario, broken query, error details, expected output or intent, guiding questions, and a fix with explanation.
 
 ---

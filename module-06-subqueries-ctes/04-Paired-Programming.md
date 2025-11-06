@@ -1,6 +1,40 @@
 # Paired Programming — Subqueries & CTEs (30 min)
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through paired programming, you will:
+- Experience collaborative SQL problem-solving with nested queries
+- Learn to communicate subquery logic and CTE structure clearly
+- Practice breaking complex problems into manageable pieces
+- Build teamwork skills essential for professional development
+- Apply EXISTS, IN, and WITH clauses collaboratively
+
+### Paired Programming Roles
+**🚗 Driver (Controls Keyboard):**
+- Types all SQL code
+- Verbalizes thought process ("Testing this subquery first...")
+- Asks navigator for confirmation
+- Focuses on syntax and nesting
+
+**🧭 Navigator (Reviews & Guides):**
+- Keeps requirements visible
+- Spots errors before execution
+- Suggests testing inner queries separately
+- **Does NOT touch the keyboard**
+
+### Execution Flow
+1. **Setup**: Driver runs schema (CREATE + INSERT)
+2. **Part A**: Navigator reads requirements → discuss approach → Driver codes → verify → **SWITCH ROLES**
+3. **Part B**: Repeat with reversed roles → **SWITCH ROLES**
+4. **Part C**: Repeat with reversed roles
+5. **Review**: Compare solutions together
+
 **Beginner Tip:** Complex queries benefit from two minds! Driver explains the nested logic step-by-step. Navigator ensures each subquery/CTE is tested before combining. Take turns—both roles develop different problem-solving muscles. Help each other succeed!
+
+---
+
+## Activity: Employee Hierarchy & Projects
 
 Roles
 - Driver: types queries and explains each clause.

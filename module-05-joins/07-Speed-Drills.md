@@ -1,8 +1,34 @@
 # Speed Drills — Joins (10 questions)
 
-Answer quickly. Immediate answers follow each question.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these speed drills, you will:
+- Build muscle memory for INNER vs LEFT JOIN syntax
+- Practice quick recall of ON conditions
+- Develop speed with multi-table queries
+- Reinforce join type selection (when to use which)
+- Test your mastery of table relationships
+
+### How to Use Speed Drills
+**Purpose:** Rapid practice for join mastery. 2-3 minutes per question!
+
+**Process:**
+1. Answer immediately
+2. Check solution
+3. Mark wrongs
+4. Practice weak areas
+5. Revisit regularly
+
+**Scoring:** 9-10: Mastery | 7-8: Solid | 5-6: Practice | <5: Review
 
 **Beginner Tip:** Quick recall builds confidence! Try answering before looking. If you miss one, review that concept and try again later. Repetition builds mastery!
+
+---
+
+## Speed Drill Questions
+
+Answer quickly. Immediate answers follow each question.
 
 1) Which join keeps all rows from the left table and matches on keys?
 - Answer: LEFT JOIN

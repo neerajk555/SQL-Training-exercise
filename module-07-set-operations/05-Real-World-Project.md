@@ -1,8 +1,39 @@
 # Real-World Project — Set Operations (45–60 min)
 
-Apply set operations to a realistic business scenario with multiple requirements and datasets.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing this real-world project, you will:
+- Apply UNION, UNION ALL, INTERSECT, EXCEPT to business problems
+- Practice combining data from multiple sources
+- Work with realistic multi-channel scenarios (email, SMS, social media)
+- Build queries that find overlaps, unique sets, and combined datasets
+- Develop skills for data deduplication and comparison
+
+### Project Approach
+**Time Allocation (45-60 minutes):**
+- 📖 **10 min**: Read all deliverables, sketch Venn diagrams if helpful
+- 🔧 **5 min**: Run setup, query each source individually
+- 💻 **30-35 min**: Build queries one at a time, verify combinations
+- ✅ **5-10 min**: Review solutions, discuss alternatives
+
+**Work Process:**
+1. **Ensure column count matches** across all queries
+2. **Verify data types are compatible** (INT vs VARCHAR causes issues)
+3. **Choose right operation** (UNION for unique, UNION ALL for all, INTERSECT for common)
+4. **Test each SELECT separately** before combining
+5. **Add ORDER BY at the very end** (applies to combined result)
+
+**Success Tips:**
+- ✅ UNION removes duplicates, UNION ALL keeps all rows
+- ✅ Use INTERSECT to find rows in both sets
+- ✅ Use EXCEPT to find rows in first set but not second
+- ✅ Column names come from first SELECT
+- ✅ All queries must have same number of columns
 
 **Project Tip:** Read the entire project first. Plan your queries. Test incrementally. Set operations shine when combining and comparing multiple data sources!
+
+---
 
 ## 🎯 Project Planning Guide
 

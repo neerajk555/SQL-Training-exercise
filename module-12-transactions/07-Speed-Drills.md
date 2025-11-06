@@ -1,5 +1,31 @@
 # Speed Drills — Transactions
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these speed drills, you will:
+- Build muscle memory for transaction commands
+- Practice quick recall of COMMIT/ROLLBACK
+- Develop speed with transaction blocks
+- Reinforce ACID properties and safety patterns
+- Test your mastery of transactional operations
+
+### How to Use Speed Drills
+**Purpose:** Rapid practice for transaction mastery. 2-3 minutes per drill!
+
+**Process:**
+1. Write command from memory
+2. Check syntax
+3. Practice full transaction blocks
+4. Repeat until automatic
+5. Always think: "Do I need a transaction?"
+
+**Scoring:** 9-10: Transaction expert | 7-8: Solid | 5-6: Practice | <5: Review
+
+---
+
+## Speed Drill Questions
+
 ## Drill 1: Start Transaction
 `START TRANSACTION;`
 

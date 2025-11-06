@@ -1,5 +1,31 @@
 # Real-World Project — Transaction-Safe Order System
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing this real-world project, you will:
+- Apply transaction management to multi-step operations
+- Practice COMMIT/ROLLBACK for data integrity
+- Work with realistic order processing scenarios
+- Build stored procedures with error handling
+- Develop skills for handling concurrent transactions
+
+### Project Approach
+**Time Allocation (60-90 minutes):**
+- 📖 **10 min**: Read checkout requirements, identify transaction boundaries
+- 🔧 **10 min**: Run setup, understand order flow
+- 💻 **40-60 min**: Build checkout procedure with transactions
+- ✅ **10 min**: Test success and failure scenarios
+
+**Success Tips:**
+- ✅ Use START TRANSACTION for multi-step operations
+- ✅ COMMIT only when all steps succeed
+- ✅ ROLLBACK immediately on any error
+- ✅ Test both success and failure paths
+- ✅ Use locking to prevent race conditions
+
+---
+
 ## Project: Build Complete E-Commerce Checkout
 
 **Requirements:**

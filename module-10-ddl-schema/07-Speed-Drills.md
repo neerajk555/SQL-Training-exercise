@@ -1,5 +1,16 @@
 # Speed Drills — DDL & Schema Design
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these speed drills, you will:
+- Build muscle memory for CREATE TABLE, ALTER TABLE, DROP
+- Practice quick recall of constraint syntax (PK, FK, UNIQUE)
+- Develop speed with DDL commands
+- Reinforce data type selection patterns
+- Test your mastery of schema operations
+
+### How to Use Speed Drills
 **Purpose:** Build muscle memory for common DDL operations.
 
 **How to Practice:**
@@ -7,8 +18,15 @@
 2. Try to write the SQL from memory
 3. Check your answer
 4. If wrong, practice that drill 3 more times
+5. Repeat until automatic
+
+**Scoring:** 9-10: DDL master | 7-8: Solid | 5-6: Practice | <5: Review
 
 **Beginner Tip:** These are the commands you'll use most often. Memorize the patterns!
+
+---
+
+## Speed Drill Questions
 
 ---
 

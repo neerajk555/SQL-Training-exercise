@@ -1,8 +1,31 @@
 # Error Detective: Fix Broken DML Statements (6 challenges)
 
-**Format per challenge:** Scenario, sample data, broken query, error message/symptom, expected outcome, guiding questions, and fixed solution with explanation.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these error detective challenges, you will:
+- Develop debugging skills for INSERT, UPDATE, DELETE errors
+- Practice identifying missing WHERE clauses and dangerous operations
+- Learn to recognize data integrity violations
+- Build troubleshooting skills for data modification queries
+- Understand critical DML safety practices
+
+### How to Approach Each Challenge
+1. **READ THE WARNING** - these errors can destroy data!
+2. **Run in transaction** - always START TRANSACTION first
+3. **Test with SELECT** - verify WHERE clause before UPDATE/DELETE
+4. **Check affected rows** - ensure count matches expectation
+5. **ROLLBACK if wrong** - undo dangerous changes
 
 **⚠️ CRITICAL SAFETY:** These examples show common mistakes that can PERMANENTLY damage data. Always use transactions when testing!
+
+**Beginner Tip:** DML errors are the most dangerous because they modify data. ALWAYS test with SELECT first, use WHERE clauses, and work within transactions. Build safe habits now!
+
+---
+
+## Error Detective Challenges
+
+**Format per challenge:** Scenario, sample data, broken query, error message/symptom, expected outcome, guiding questions, and fixed solution with explanation.
 
 ---
 

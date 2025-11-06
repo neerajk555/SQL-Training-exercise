@@ -1,6 +1,40 @@
 # Paired Programming — Joins (30 min)
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through paired programming, you will:
+- Experience collaborative SQL problem-solving with joins
+- Learn to communicate join logic and relationships clearly
+- Practice identifying INNER vs LEFT JOIN scenarios together
+- Build teamwork skills essential for professional development
+- Apply multi-table queries in a collaborative setting
+
+### Paired Programming Roles
+**🚗 Driver (Controls Keyboard):**
+- Types all SQL code
+- Verbalizes thought process ("Using LEFT JOIN because...")
+- Asks navigator for confirmation
+- Focuses on syntax and join conditions
+
+**🧭 Navigator (Reviews & Guides):**
+- Keeps requirements visible
+- Spots errors before execution (watch for cartesian products!)
+- Suggests tests and edge cases
+- **Does NOT touch the keyboard**
+
+### Execution Flow
+1. **Setup**: Driver runs schema (CREATE + INSERT)
+2. **Part A**: Navigator reads requirements → discuss approach → Driver codes → verify → **SWITCH ROLES**
+3. **Part B**: Repeat with reversed roles → **SWITCH ROLES**
+4. **Part C**: Repeat with reversed roles
+5. **Review**: Compare solutions together
+
 **Beginner Tip:** Joins are easier to learn together! The driver thinks aloud while building queries. The navigator watches for row count surprises (too many = accidental cartesian product). Switch roles to practice both perspectives. Celebrate progress!
+
+---
+
+## Activity: Music Streaming Platform
 
 Roles
 - Driver: types the queries and explains each clause aloud.

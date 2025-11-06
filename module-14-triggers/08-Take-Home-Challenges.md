@@ -1,5 +1,34 @@
 # Take-Home Challenges — Triggers
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these take-home challenges, you will:
+- Apply triggers for advanced validation and auditing
+- Master BEFORE vs AFTER timing and OLD/NEW references
+- Research trigger performance implications and best practices
+- Develop skills for preventing infinite trigger loops
+- Build confidence with multi-trigger coordination
+
+### How to Approach
+**Time Allocation (60-90 min per challenge):**
+- 📖 **10 min**: Research trigger timing, understand business rule
+- 🎯 **10 min**: Plan trigger logic, identify OLD/NEW usage
+- 💻 **35-60 min**: Create trigger with DELIMITER, test thoroughly
+- ✅ **15 min**: Review solutions, analyze performance impact
+
+**Success Tips:**
+- ✅ Use BEFORE triggers for validation (prevent bad data)
+- ✅ Use AFTER triggers for auditing (log after success)
+- ✅ Test with NEW.column_name references carefully
+- ✅ Avoid triggers that modify same table (infinite loops!)
+- ✅ Document trigger purpose in header comments
+- ✅ Use SHOW TRIGGERS to verify creation
+
+**⚠️ Performance Warning:** Triggers fire on EVERY row—keep logic minimal!
+
+---
+
 ## 🎯 Overview
 These advanced challenges are designed for deeper learning outside of class. Each challenge requires research, experimentation, and documentation. Take your time and explore!
 

@@ -1,6 +1,32 @@
 # Speed Drills — Window Functions
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these speed drills, you will:
+- Build muscle memory for ROW_NUMBER, RANK, LAG/LEAD
+- Practice quick recall of OVER, PARTITION BY, ORDER BY
+- Develop speed with window function syntax
+- Reinforce frame specifications and analytical patterns
+- Test your mastery of window functions
+
+### How to Use Speed Drills
+**Purpose:** Rapid practice for window function mastery. 2-3 minutes per question!
+
+**Process:**
+1. Answer without looking
+2. Check solution immediately
+3. Mark missed questions
+4. Practice until natural
+5. Revisit tomorrow
+
+**Scoring:** 9-10: Mastery | 7-8: Strong | 5-6: More practice | <5: Re-study
+
 **🎯 Goal:** Quick-fire questions to test your understanding. Answer without looking, then check!
+
+---
+
+## Speed Drill Questions
 
 ---
 

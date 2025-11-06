@@ -1,5 +1,35 @@
 # Take-Home Challenges (Advanced, SELECT Fundamentals)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these take-home challenges, you will:
+- Apply SELECT fundamentals to complex, realistic scenarios
+- Practice multi-part problem-solving with related queries
+- Develop skills for handling ambiguous business requirements
+- Build confidence with advanced filtering and sorting
+- Learn to evaluate multiple valid solution approaches
+
+### How to Approach
+**Time Allocation (45-60 min per challenge):**
+- 📖 **10 min**: Read all parts, understand business context
+- 🎯 **5 min**: Plan approach, identify key columns/filters
+- 💻 **30-35 min**: Complete parts in order, test each
+- ✅ **5-10 min**: Review solutions, understand trade-offs
+
+**Success Tips:**
+- ✅ Complete parts in order (they build on each other)
+- ✅ Test edge cases (NULL, empty results, duplicates)
+- ✅ Handle open-ended requirements creatively
+- ✅ Compare your approach with provided solutions
+- ✅ Understand pros/cons of alternative approaches
+
+**Beginner Tip:** Take-home challenges simulate real analyst work. They're meant to be challenging! If stuck, review hints or solutions—learning from them is part of the process.
+
+---
+
+## Take-Home Challenges
+
 Three multi-part exercises. Use MySQL syntax. Each includes realistic data, 3–4 parts, an open-ended component, and detailed solutions with notes/trade-offs.
 
 ---

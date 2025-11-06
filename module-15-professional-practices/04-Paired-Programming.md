@@ -1,5 +1,44 @@
 # Paired Programming — Professional Practices
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through paired programming, you will:
+- Experience collaborative code review processes
+- Learn to identify SQL injection vulnerabilities together
+- Practice discussing code quality and readability standards
+- Build teamwork skills for security and performance reviews
+- Apply professional SQL practices collaboratively
+
+### Paired Programming Roles
+**🚗 Driver (Controls Keyboard):**
+- Types refactored SQL code
+- Verbalizes security concerns ("This needs parameterization...")
+- Asks navigator about best practices
+- Focuses on implementation
+
+**🧭 Navigator (Reviews & Guides):**
+- Keeps code quality checklist visible
+- **Spots security vulnerabilities**
+- Suggests formatting and naming improvements
+- Discusses performance implications
+- **Does NOT touch the keyboard**
+
+### Execution Flow
+1. **Setup**: Both review problematic code together
+2. **Section 1**: Navigator identifies issues → discuss fixes → Driver refactors → **SWITCH ROLES**
+3. **Section 2**: Repeat with reversed roles → **SWITCH ROLES**
+4. **Section 3**: Repeat with reversed roles
+5. **Review**: Compare with solutions, discuss trade-offs
+
+**Critical Focus Areas:**
+- 🔒 SQL injection prevention
+- 📝 Code readability and formatting
+- ⚡ Performance considerations
+- 🏗️ Naming conventions and structure
+
+---
+
 ## Challenge: Complete Database Code Review
 
 ### Scenario:

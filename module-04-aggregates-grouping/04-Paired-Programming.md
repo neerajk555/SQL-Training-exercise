@@ -1,6 +1,40 @@
 # Paired Programming: Ops Dash Summaries (30 min)
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through paired programming, you will:
+- Experience collaborative SQL problem-solving with aggregates
+- Learn to communicate GROUP BY logic clearly
+- Practice HAVING vs WHERE distinctions together
+- Build teamwork skills essential for professional development
+- Apply aggregate functions in a collaborative setting
+
+### Paired Programming Roles
+**🚗 Driver (Controls Keyboard):**
+- Types all SQL code
+- Verbalizes thought process ("Grouping by city because...")
+- Asks navigator for confirmation
+- Focuses on syntax
+
+**🧭 Navigator (Reviews & Guides):**
+- Keeps requirements visible
+- Spots errors before execution
+- Suggests tests and edge cases
+- **Does NOT touch the keyboard**
+
+### Execution Flow
+1. **Setup**: Driver runs schema (CREATE + INSERT)
+2. **Part A**: Navigator reads requirements → discuss approach → Driver codes → verify → **SWITCH ROLES**
+3. **Part B**: Repeat with reversed roles → **SWITCH ROLES**
+4. **Part C**: Repeat with reversed roles
+5. **Review**: Compare solutions together
+
 **Beginner Tip:** Collaboration strengthens learning! Talk through your logic as driver—explaining helps you think clearly. As navigator, ask "what if?" questions to explore edge cases. Both roles teach different skills. Be patient and encouraging!
+
+---
+
+## Activity: Ops Dash Summaries
 
 Roles
 - Driver: Writes SQL, narrates choices.

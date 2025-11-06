@@ -1,6 +1,34 @@
 # Take-Home Challenges — Window Functions (Advanced)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these take-home challenges, you will:
+- Apply window functions to comprehensive analytical scenarios
+- Practice combining ROW_NUMBER, RANK, LAG/LEAD in complex queries
+- Develop skills for cohort analysis and running calculations
+- Build confidence with PARTITION BY and frame specifications
+- Learn to choose optimal window functions for different analyses
+
+### How to Approach
+**Time Allocation (60-90 min per challenge):**
+- 📖 **15 min**: Read all parts, understand analytical goals
+- 🎯 **10 min**: Plan window function applications
+- 💻 **40-50 min**: Build queries, test partitioning logic
+- ✅ **10-15 min**: Review solutions, optimize performance
+
+**Success Tips:**
+- ✅ Test with LIMIT to verify window behavior
+- ✅ Use PARTITION BY to create separate groups
+- ✅ Verify ORDER BY within windows
+- ✅ Combine with aggregates when needed
+- ✅ Check frame specifications for running totals
+
 **🎯 Purpose:** These are comprehensive, real-world challenges that combine multiple window function techniques and simulate actual data analyst work.
+
+---
+
+## Take-Home Challenges
 
 **💡 Approach:**
 1. Read the business context carefully

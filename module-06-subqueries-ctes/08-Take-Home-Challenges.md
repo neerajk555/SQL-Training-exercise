@@ -1,8 +1,36 @@
 # Take-Home Challenges — Subqueries & CTEs (Advanced)
 
-Three multi-part exercises mixing subqueries, derived tables, and recursive CTEs. Includes open-ended prompts, detailed solutions, and trade-offs.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these take-home challenges, you will:
+- Apply subqueries and CTEs to complex analytical problems
+- Practice breaking down multi-step logic into manageable pieces
+- Develop skills for nested queries and recursive patterns
+- Build confidence with EXISTS, IN, scalar subqueries, and WITH clauses
+- Learn to choose between subqueries and CTEs for readability
+
+### How to Approach
+**Time Allocation (45-60 min per challenge):**
+- 📖 **10 min**: Read all parts, identify nested logic requirements
+- 🎯 **5 min**: Sketch CTEs or subqueries needed
+- 💻 **30-35 min**: Build incrementally, test each CTE separately
+- ✅ **5-10 min**: Review solutions, refactor for clarity
+
+**Success Tips:**
+- ✅ Test inner queries independently first
+- ✅ Use CTEs for multi-step logic (more readable)
+- ✅ Prefer EXISTS over IN for performance
+- ✅ Watch for NULL behavior in NOT IN
+- ✅ Name CTEs descriptively
 
 **Beginner Tip:** These are the most advanced exercises in this module! Build complexity gradually—start with the simplest part of each challenge. CTEs let you name intermediate steps, making debugging easier. Test each CTE separately before combining them. Persistence pays off!
+
+---
+
+## Take-Home Challenges
+
+Three multi-part exercises mixing subqueries, derived tables, and recursive CTEs. Includes open-ended prompts, detailed solutions, and trade-offs.
 
 ---
 

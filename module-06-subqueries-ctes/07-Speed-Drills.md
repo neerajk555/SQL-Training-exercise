@@ -1,8 +1,34 @@
 # Speed Drills — Subqueries & CTEs (10 questions)
 
-Answer quickly. Immediate answers follow each question.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these speed drills, you will:
+- Build muscle memory for subquery and CTE syntax
+- Practice quick recall of EXISTS, IN, WITH patterns
+- Develop speed with nested queries
+- Reinforce scalar vs table subquery distinctions
+- Test your mastery of complex query structures
+
+### How to Use Speed Drills
+**Purpose:** Rapid practice for subquery mastery. 2-3 minutes per question!
+
+**Process:**
+1. Answer from memory
+2. Check immediately
+3. Note incorrect ones
+4. Practice until automatic
+5. Return for spaced repetition
+
+**Scoring:** 9-10: Expert | 7-8: Strong | 5-6: Practice more | <5: Review
 
 **Beginner Tip:** These questions test your understanding of subquery patterns and best practices. Try answering first, then check. Revisit any you miss—these concepts are crucial for advanced SQL!
+
+---
+
+## Speed Drill Questions
+
+Answer quickly. Immediate answers follow each question.
 
 1) Which predicate is more NULL-safe for anti-joins: NOT IN or NOT EXISTS?
 - **Answer:** NOT EXISTS

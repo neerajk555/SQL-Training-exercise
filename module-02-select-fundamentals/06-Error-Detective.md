@@ -1,5 +1,28 @@
 # Error Detective: Fix Broken SELECTs (5 challenges)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these error detective challenges, you will:
+- Develop debugging skills for SELECT queries
+- Practice identifying NULL comparison errors, alias issues, and clause ordering
+- Learn to read error messages effectively
+- Build troubleshooting approaches for query problems
+- Understand common SELECT pitfalls
+
+### How to Approach Each Challenge
+1. **Read scenario** - understand the goal
+2. **Try broken query** - observe the error or unexpected behavior
+3. **Answer guiding questions** - think through the problem
+4. **Check the fix** - compare with correct version
+5. **Test both versions** - see the difference
+
+**Beginner Tip:** Debugging teaches you more than perfect code! Try to fix errors yourself before looking at solutions. Build your error recognition muscle memory!
+
+---
+
+## Error Detective Challenges
+
 Format per challenge: scenario, sample data, broken query, error message, expected output, guiding questions, and fixed solution with explanation.
 
 ---

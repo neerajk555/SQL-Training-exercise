@@ -1,6 +1,41 @@
 # Real-World Project: Clean Data Export Suite (45–60 min)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing this real-world project, you will:
+- Apply data type conversions and functions to solve data quality problems
+- Practice data cleaning and normalization techniques
+- Work with realistic messy data (inconsistent formats, NULLs, spacing issues)
+- Build export queries that transform data without modifying source tables
+- Develop practical data preparation skills
+
+### Project Approach
+**Time Allocation (45-60 minutes):**
+- 📖 **10 min**: Read requirements, identify data quality issues
+- 🔧 **5 min**: Run setup, explore tables, note inconsistencies
+- 💻 **30-35 min**: Build deliverables one at a time, test each
+- ✅ **5-10 min**: Review solutions, verify cleaned output
+
+**Work Process:**
+1. **Identify data quality issues** (spacing, casing, date formats)
+2. **Choose appropriate functions** (TRIM, UPPER, CAST, STR_TO_DATE, etc.)
+3. **Test with sample rows** before writing full query
+4. **Verify output format** matches business requirements
+5. **Handle NULLs appropriately** with COALESCE or CASE
+
+**Success Tips:**
+- ✅ Use TRIM to remove extra spaces
+- ✅ Standardize casing with UPPER/LOWER
+- ✅ Parse dates carefully with STR_TO_DATE
+- ✅ Handle NULLs explicitly (don't let them propagate)
+- ✅ Test edge cases (NULL, empty string, unusual formats)
+
 **Beginner Tip:** Real-world projects tie everything together! Take your time—45-60 minutes means you should work methodically, not rush. Complete deliverables one at a time, checking output at each step. This simulates actual data analyst work. You've got this!
+
+---
+
+## Project Overview
 
 Company background
 - CareCart is a small retailer expanding its online presence.

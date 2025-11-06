@@ -1,6 +1,40 @@
 # Paired Programming: Data Cleanup Lab (30 min)
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through paired programming, you will:
+- Experience collaborative SQL problem-solving
+- Learn to communicate technical decisions clearly
+- Practice giving and receiving constructive feedback
+- Build teamwork skills essential for professional development
+- Apply data type conversions and functions collaboratively
+
+### Paired Programming Roles
+**🚗 Driver (Controls Keyboard):**
+- Types all SQL code
+- Verbalizes thought process ("I'm using TRIM because...")
+- Asks navigator for confirmation
+- Focuses on syntax
+
+**🧭 Navigator (Reviews & Guides):**
+- Keeps requirements visible
+- Spots errors before execution
+- Suggests tests and edge cases
+- **Does NOT touch the keyboard**
+
+### Execution Flow
+1. **Setup**: Driver runs schema (CREATE + INSERT)
+2. **Part A**: Navigator reads requirements → discuss approach → Driver codes → verify → **SWITCH ROLES**
+3. **Part B**: Repeat with reversed roles → **SWITCH ROLES**
+4. **Part C**: Repeat with reversed roles
+5. **Review**: Compare solutions together
+
 **Beginner Tip:** Pair programming helps you learn from each other! The driver explains their thinking out loud (this solidifies learning). The navigator catches mistakes early. Switch roles so both people practice each skill. Be supportive and curious!
+
+---
+
+## Activity: Data Cleanup Lab
 
 Roles
 - Driver: Types SQL, narrates approach.

@@ -1,5 +1,28 @@
 # Error Detective — Window Functions (5 challenges)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these error detective challenges, you will:
+- Develop debugging skills for window function queries
+- Practice identifying missing ORDER BY, wrong PARTITION BY, and frame issues
+- Learn to recognize when OVER clause is incomplete
+- Build troubleshooting skills for analytical queries
+- Understand common window function pitfalls
+
+### How to Approach Each Challenge
+1. **Read scenario** - understand the analytical goal
+2. **Run broken query** - observe unexpected results
+3. **Check OVER clause** - verify PARTITION BY and ORDER BY
+4. **Answer guiding questions** - analyze window definition
+5. **Check the fix** - see correct window specification
+
+**Beginner Tip:** Window function errors often show unexpected rankings or running totals. Always check: Is ORDER BY needed? Is PARTITION BY correct? Are frames defined properly?
+
+---
+
+## Error Detective Challenges
+
 **🎯 Learning Goal:** Understand common window function mistakes and how to fix them. Each challenge shows broken code, explains WHY it's wrong, and provides the fix.
 
 ---

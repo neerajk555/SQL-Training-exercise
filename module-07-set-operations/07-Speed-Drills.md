@@ -1,5 +1,33 @@
 # Speed Drills — Set Operations (2–3 min each)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these speed drills, you will:
+- Build muscle memory for UNION, INTERSECT, EXCEPT
+- Practice quick recall of set operation rules
+- Develop speed with combining queries
+- Reinforce UNION vs UNION ALL distinctions
+- Test your mastery of set-based operations
+
+### How to Use Speed Drills
+**Purpose:** Rapid practice for set operation mastery. 2-3 minutes per question!
+
+**Process:**
+1. Answer immediately
+2. Verify with solution
+3. Mark errors
+4. Repeat weak areas
+5. Practice regularly
+
+**Scoring:** 9-10: Excellent | 7-8: Good | 5-6: Practice | <5: Review
+
+**Tip:** Try to answer before looking at the solution!
+
+---
+
+## Speed Drill Questions
+
 Quick-fire questions to test your knowledge. Try to answer before looking at the solution!
 
 ---

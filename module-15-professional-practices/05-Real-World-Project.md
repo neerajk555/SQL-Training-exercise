@@ -1,5 +1,31 @@
 # Real-World Project — Professional Practices
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing this real-world project, you will:
+- Apply professional SQL standards to production systems
+- Practice secure coding (prevent SQL injection)
+- Work with realistic deployment and documentation requirements
+- Build production-ready database systems
+- Develop professional development workflows
+
+### Project Approach
+**Time Allocation (90-120 minutes):**
+- 📖 **15 min**: Read all requirements, understand production standards
+- 🔧 **15 min**: Plan schema, security, and deployment strategy
+- 💻 **60-70 min**: Build system with documentation and tests
+- ✅ **20 min**: Code review, security audit, deployment checklist
+
+**Success Tips:**
+- ✅ Use parameterized queries (never concatenate user input)
+- ✅ Document all tables, columns, procedures with comments
+- ✅ Follow naming conventions consistently
+- ✅ Format code for readability (indentation, spacing)
+- ✅ Test security vulnerabilities explicitly
+
+---
+
 ## Project: Production-Ready E-Commerce Database
 
 ### Overview:

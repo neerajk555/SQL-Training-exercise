@@ -1,6 +1,33 @@
-# Take-Home Challenges — Indexes & Optimization# Take-Home Challenges — Indexes & Optimization
+# Take-Home Challenges — Indexes & Optimization
 
+## 📋 Before You Start
 
+### Learning Objectives
+By completing these take-home challenges, you will:
+- Apply indexing strategies to optimize query performance
+- Master EXPLAIN output analysis for bottleneck identification
+- Research advanced index types (composite, covering, partial)
+- Develop performance auditing and tuning methodology
+- Learn to balance index benefits vs maintenance costs
+
+### How to Approach
+**Time Allocation (60-90 min per challenge):**
+- 📖 **10 min**: Analyze slow query, understand table structures
+- 🎯 **10 min**: Run EXPLAIN, identify missing indexes
+- 💻 **35-60 min**: Add indexes, test performance, compare times
+- ✅ **15 min**: Document findings, review index strategy
+
+**Success Tips:**
+- ✅ Always run EXPLAIN before and after indexing
+- ✅ Test with realistic data volumes (1000+ rows)
+- ✅ Consider composite indexes for multi-column WHERE/JOIN
+- ✅ Use SHOW INDEXES to verify index creation
+- ✅ Document execution time improvements (e.g., 2.5s → 0.03s)
+- ✅ Watch for "Using filesort" and "Using temporary" in EXPLAIN
+
+**Performance Note:** Indexes speed up reads but slow down writes. Balance carefully!
+
+---
 
 **🎯 Goal:** Deep-dive research projects to master advanced indexing concepts## Challenge 1: Optimize Complex JOIN Query
 

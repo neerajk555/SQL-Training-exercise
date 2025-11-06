@@ -1,16 +1,45 @@
 # Paired Programming — Indexes & Optimization
 
-## Challenge: Optimize Slow E-Commerce Queries
+## 📋 Before You Start
 
-**👥 Roles:**
-- **Driver:** Writes SQL code, creates indexes
-- **Navigator:** Analyzes EXPLAIN output, suggests optimization strategies, catches errors
+### Learning Objectives
+Through paired programming, you will:
+- Experience collaborative query optimization
+- Learn to communicate EXPLAIN output and bottlenecks clearly
+- Practice index design decisions together
+- Build teamwork skills for performance tuning
+- Apply indexing strategies collaboratively
+
+### Paired Programming Roles
+**🚗 Driver (Controls Keyboard):**
+- Types all SQL code and creates indexes
+- Verbalizes optimization approach ("Creating index on WHERE column...")
+- Asks navigator to interpret EXPLAIN results
+- Focuses on implementation
+
+**🧭 Navigator (Reviews & Guides):**
+- Keeps requirements visible
+- **Analyzes EXPLAIN output carefully**
+- Suggests alternative index strategies
+- Discusses trade-offs (query speed vs write performance)
+- **Does NOT touch the keyboard**
+
+### Execution Flow
+1. **Setup**: Driver runs schema (CREATE + INSERT + load data)
+2. **Part A**: Run EXPLAIN → Navigator analyzes → discuss strategy → Driver creates index → verify → **SWITCH ROLES**
+3. **Part B**: Repeat with reversed roles → **SWITCH ROLES**
+4. **Part C**: Repeat with reversed roles
+5. **Review**: Compare results, discuss index choices
 
 **💡 Collaboration Tips:**
 - Switch roles regularly
 - Navigator should read EXPLAIN results aloud
 - Discuss index choices before implementing
 - Challenge each other's assumptions!
+
+---
+
+## Challenge: Optimize Slow E-Commerce Queries
 
 ---
 

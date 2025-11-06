@@ -1,8 +1,29 @@
 # Error Detective — Joins (5 challenges)
 
-Each challenge includes a scenario, broken query, error or wrong result, sample data, expected output, guiding questions, and a fix explanation.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these error detective challenges, you will:
+- Develop debugging skills for join queries
+- Practice identifying cartesian products, missing ON clauses, and wrong join types
+- Learn to recognize when INNER vs LEFT JOIN is needed
+- Build troubleshooting skills for multi-table queries
+- Understand common join pitfalls
+
+### How to Approach Each Challenge
+1. **Read scenario** - understand table relationships
+2. **Run broken query** - observe unexpected row count or NULLs
+3. **Answer guiding questions** - analyze join conditions
+4. **Check the fix** - see correct join type and ON clause
+5. **Verify row counts** - ensure results match expectations
 
 **Beginner Tip:** Join bugs often produce too many rows (cartesian product) or too few (wrong join type). Count rows before and after joining. Check your ON conditions carefully. These exercises teach you to spot common join pitfalls!
+
+---
+
+## Error Detective Challenges
+
+Each challenge includes a scenario, broken query, error or wrong result, sample data, expected output, guiding questions, and a fix explanation.
 
 ---
 

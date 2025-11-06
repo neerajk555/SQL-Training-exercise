@@ -1,5 +1,28 @@
 # Error Detective — Procedures & Functions
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these error detective challenges, you will:
+- Develop debugging skills for stored procedures and functions
+- Practice identifying DELIMITER issues, parameter errors, and return value problems
+- Learn to recognize syntax errors in complex code blocks
+- Build troubleshooting skills for procedural SQL
+- Understand common procedure/function pitfalls
+
+### How to Approach Each Challenge
+1. **Read scenario** - understand what procedure should do
+2. **Identify syntax error** - check DELIMITER, parameters, RETURN
+3. **Answer guiding questions** - analyze procedure structure
+4. **Check the fix** - see correct syntax
+5. **Test with CALL or SELECT** - verify it works
+
+**Beginner Tip:** Procedure errors often involve missing DELIMITER changes or wrong parameter types. Always use DELIMITER // before CREATE and DELIMITER ; after!
+
+---
+
+## Error Detective Challenges
+
 ## Error 1: Missing DELIMITER ❌
 
 **Beginner Explanation:** Without changing the delimiter, MySQL sees the first semicolon and thinks the CREATE statement is complete!

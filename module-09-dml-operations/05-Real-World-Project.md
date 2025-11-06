@@ -1,5 +1,38 @@
 # Real-World Project: E-commerce Database Migration (60–90 min)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing this real-world project, you will:
+- Apply INSERT, UPDATE, DELETE to data migration scenarios
+- Practice data cleaning and transformation during migration
+- Work with realistic legacy data issues (duplicates, NULLs, invalid refs)
+- Build safe migration scripts with transactions and validation
+- Develop skills for production data operations
+
+### Project Approach
+**Time Allocation (60-90 minutes):**
+- 📖 **10 min**: Read migration requirements, identify data issues
+- 🔧 **10 min**: Run setup, explore legacy data problems
+- 💻 **40-60 min**: Execute migration phases with validation
+- ✅ **10 min**: Review results, verify data integrity
+
+**Critical Safety Practices:**
+- ⚠️ **ALWAYS test with SELECT before UPDATE/DELETE**
+- ⚠️ **Use transactions** (START TRANSACTION, COMMIT, ROLLBACK)
+- ⚠️ **Verify row counts** after each operation
+- ⚠️ **Back up data** before major changes
+- ⚠️ **Test rollback scenarios** to ensure safety
+
+**Success Tips:**
+- ✅ Complete phases in order (they build on each other)
+- ✅ Validate data after each phase
+- ✅ Use WHERE carefully to target correct rows
+- ✅ Document assumptions and decisions
+- ✅ Test edge cases (NULL, duplicates, invalid FKs)
+
+---
+
 ## 📋 Company Background
 
 **ShopLegacy Inc.** is modernizing their 10-year-old e-commerce database. The legacy system has:

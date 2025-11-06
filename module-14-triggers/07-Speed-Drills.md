@@ -1,5 +1,31 @@
 # Speed Drills — Triggers
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these speed drills, you will:
+- Build muscle memory for CREATE TRIGGER syntax
+- Practice quick recall of BEFORE vs AFTER timing
+- Develop speed with OLD and NEW references
+- Reinforce trigger patterns for common scenarios
+- Test your mastery of automatic data management
+
+### How to Use Speed Drills
+**Purpose:** Memorize trigger patterns in under 30 seconds each!
+
+**Process:**
+1. Write trigger from memory
+2. Check timing (BEFORE/AFTER)
+3. Verify OLD/NEW usage
+4. Practice until automatic
+5. Test with actual data
+
+**Scoring:** 9-10: Trigger expert | 7-8: Strong | 5-6: Practice | <5: Review
+
+---
+
+## Speed Drill Questions
+
 ## 🎯 Purpose
 Speed drills help you memorize common trigger patterns. Practice these until you can write them from memory in under 30 seconds each!
 

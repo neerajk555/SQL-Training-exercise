@@ -1,5 +1,42 @@
 # Real-World Project: Launch-Week Readiness Dashboard (45–60 min)
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing this real-world project, you will:
+- Apply SELECT fundamentals to solve business problems
+- Practice translating business requirements into SQL queries
+- Work with realistic datasets including edge cases (NULLs, duplicates)
+- Build deliverables that simulate actual analyst work
+- Develop end-to-end problem-solving skills
+
+### Project Approach
+**Time Allocation (45-60 minutes):**
+- 📖 **10 min**: Read all requirements, understand business context
+- 🔧 **5 min**: Run database setup, explore tables with SELECT *
+- 💻 **30-35 min**: Build deliverables one at a time, test each
+- ✅ **5-10 min**: Review solutions, verify acceptance criteria
+
+**Work Process:**
+1. **Read the entire project** before writing any SQL
+2. **Understand the business goal** (not just technical requirements)
+3. **Complete deliverables in order** (they often build on each other)
+4. **Test incrementally** (verify each query produces expected output)
+5. **Save your work** (comment queries for future reference)
+
+**Success Tips:**
+- ✅ Focus on one deliverable at a time
+- ✅ Check for NULLs and edge cases
+- ✅ Verify row counts match expectations
+- ✅ Compare your output format with requirements
+- ✅ Review solutions to learn alternative approaches
+
+**Beginner Tip:** Real-world projects simulate actual work scenarios. Take your time, work methodically, and don't skip testing. This is where everything comes together!
+
+---
+
+## Project Overview
+
 Company background
 - BrightCart is a small e-commerce startup preparing a launch-week promo.
 - The team needs clean, filterable exports: customer outreach list, spotlight products, and recent orders snapshot.

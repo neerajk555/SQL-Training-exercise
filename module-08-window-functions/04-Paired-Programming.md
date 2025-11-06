@@ -1,11 +1,34 @@
 # Paired Programming — Window Functions (30 min)
 
-## 👥 How Paired Programming Works
+## � Before You Start
 
-**Roles:**
-- **Driver**: Types the code, executes queries
-- **Navigator**: Reviews code, suggests improvements, catches errors
-- **Switch roles** after each part (every ~10 minutes)
+### Learning Objectives
+Through paired programming, you will:
+- Experience collaborative SQL problem-solving with window functions
+- Learn to communicate OVER, PARTITION BY, ORDER BY logic clearly
+- Practice distinguishing between aggregates and window functions
+- Build teamwork skills essential for professional development
+- Apply ROW_NUMBER, RANK, LAG/LEAD collaboratively
+
+### Paired Programming Roles
+**🚗 Driver (Controls Keyboard):**
+- Types all SQL code
+- Verbalizes thought process ("Partitioning by category because...")
+- Asks navigator for confirmation
+- Focuses on syntax and window clauses
+
+**🧭 Navigator (Reviews & Guides):**
+- Keeps requirements visible
+- Spots errors before execution
+- Suggests tests and edge cases
+- **Does NOT touch the keyboard**
+
+### Execution Flow
+1. **Setup**: Driver runs schema (CREATE + INSERT)
+2. **Part A**: Navigator reads requirements → discuss approach → Driver codes → verify → **SWITCH ROLES**
+3. **Part B**: Repeat with reversed roles → **SWITCH ROLES**
+4. **Part C**: Repeat with reversed roles
+5. **Review**: Compare solutions together
 
 **Communication Tips:**
 - Navigator: Explain your thinking out loud

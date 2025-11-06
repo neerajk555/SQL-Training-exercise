@@ -1,15 +1,50 @@
 # Paired Programming: Order Fulfillment System (30–40 min)
 
-**Roles**
-- **Driver**: Types SQL, verbalizes approach and safety checks
-- **Navigator**: Reviews logic, asks questions about WHERE clauses, checks affected rows
-- **Switch roles** after each part (A → B → C)
+## 📋 Before You Start
 
-**Critical Reminders:**
+### Learning Objectives
+Through paired programming, you will:
+- Experience collaborative SQL data modification
+- Learn to communicate UPDATE/DELETE safety checks clearly
+- Practice transaction management together
+- Build teamwork skills for handling critical operations
+- Apply DML operations with proper WHERE clauses
+
+### Paired Programming Roles
+**🚗 Driver (Controls Keyboard):**
+- Types all SQL code
+- Verbalizes safety checks ("Testing with SELECT first...")
+- Asks navigator to verify WHERE clauses
+- Focuses on transaction boundaries
+
+**🧭 Navigator (Reviews & Guides):**
+- Keeps requirements visible
+- **CRITICALLY reviews WHERE clauses** before execution
+- Suggests testing with SELECT first
+- Verifies affected row counts
+- **Does NOT touch the keyboard**
+
+### Execution Flow
+1. **Setup**: Driver runs schema (CREATE + INSERT)
+2. **Part A**: Navigator reads requirements → discuss safety → Driver codes → verify → **SWITCH ROLES**
+3. **Part B**: Repeat with reversed roles → **SWITCH ROLES**
+4. **Part C**: Repeat with reversed roles
+5. **Review**: Compare solutions together
+
+**Critical Safety Reminders:**
 - ⚠️ ALWAYS use WHERE with UPDATE/DELETE
 - ⚠️ Test with SELECT first before UPDATE/DELETE
 - ⚠️ Use transactions for safety (START TRANSACTION, COMMIT, ROLLBACK)
 - ⚠️ Verify affected row count after each operation
+
+---
+
+## Activity: Order Fulfillment System
+
+**Roles**
+- **Driver**: Types SQL, verbalizes approach and safety checks
+- **Navigator**: Reviews logic, asks questions about WHERE clauses, checks affected rows
+- **Switch roles** after each part (A → B → C)
 
 ---
 

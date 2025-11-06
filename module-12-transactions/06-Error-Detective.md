@@ -1,5 +1,28 @@
 # Error Detective — Transactions
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these error detective challenges, you will:
+- Develop debugging skills for transaction errors
+- Practice identifying missing COMMIT, forgotten ROLLBACK, and deadlocks
+- Learn to recognize isolation level issues
+- Build troubleshooting skills for transactional code
+- Understand common transaction pitfalls
+
+### How to Approach Each Challenge
+1. **Read scenario** - understand the multi-step operation
+2. **Identify problem** - missing COMMIT? No transaction?
+3. **Answer guiding questions** - analyze transaction boundaries
+4. **Check the fix** - see proper transaction management
+5. **Test both paths** - verify COMMIT and ROLLBACK work
+
+**Beginner Tip:** Transaction errors often result in lost changes (forgot COMMIT) or messy data (didn't ROLLBACK on error). Always START TRANSACTION, then explicitly COMMIT or ROLLBACK!
+
+---
+
+## Error Detective Challenges
+
 ## Error 1: Forgot COMMIT ❌
 
 **Beginner Explanation:** Starting a transaction without committing is like writing a document but never clicking "Save"!

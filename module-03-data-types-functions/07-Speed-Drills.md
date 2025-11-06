@@ -1,8 +1,34 @@
 # Speed Drills: Data Types & Functions (10 questions, 2–3 min each)
 
-Immediate answers provided for self-scoring.
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these speed drills, you will:
+- Build muscle memory for function syntax (CAST, TRIM, DATE functions)
+- Practice quick recall of data type conversions
+- Develop speed with string and date manipulation
+- Reinforce COALESCE, CASE, and formatting patterns
+- Test your mastery of data transformation
+
+### How to Use Speed Drills
+**Purpose:** Rapid practice for instant recall. 2-3 minutes per question!
+
+**Process:**
+1. Answer immediately from memory
+2. Check answer right away
+3. Mark wrong answers for review
+4. Repeat until automatic
+5. Revisit tomorrow for spaced repetition
+
+**Scoring:** 9-10: Mastery | 7-8: Solid | 5-6: More practice | <5: Re-study
 
 **Beginner Tip:** These are for building muscle memory! Try to answer without looking, then check immediately. Repeat any you miss. Speed comes with practice—don't worry if you need to look things up at first!
+
+---
+
+## Speed Drill Questions
+
+Immediate answers provided for self-scoring.
 
 ---
 

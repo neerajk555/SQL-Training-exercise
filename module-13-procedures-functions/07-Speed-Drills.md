@@ -1,5 +1,31 @@
 # Speed Drills — Procedures & Functions
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these speed drills, you will:
+- Build muscle memory for DELIMITER management
+- Practice quick recall of procedure/function syntax
+- Develop speed with parameter declarations
+- Reinforce CALL and SELECT usage
+- Test your mastery of stored routines
+
+### How to Use Speed Drills
+**Purpose:** Rapid practice for procedure mastery. 2-3 minutes per drill!
+
+**Process:**
+1. Write complete syntax from memory
+2. Check DELIMITER usage
+3. Verify parameter types
+4. Practice until automatic
+5. Test with CALL/SELECT
+
+**Scoring:** 9-10: Expert | 7-8: Good | 5-6: Practice | <5: Review
+
+---
+
+## Speed Drill Questions
+
 ## Drill 1: Simple Procedure
 ```sql
 DELIMITER //

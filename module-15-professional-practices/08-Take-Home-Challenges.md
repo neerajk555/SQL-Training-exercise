@@ -1,5 +1,35 @@
 # Take-Home Challenges — Professional Practices
 
+## 📋 Before You Start
+
+### Learning Objectives
+By completing these take-home challenges, you will:
+- Apply professional-grade security, testing, and deployment practices
+- Master SQL injection prevention and parameterized queries
+- Research industry standards for documentation and version control
+- Develop skills for code review and performance testing
+- Build production-ready database solutions with confidence
+
+### How to Approach
+**Time Allocation (90-120 min per challenge):**
+- 📖 **20 min**: Research industry standards, understand security implications
+- 🎯 **20 min**: Plan solution with documentation, testing strategy
+- 💻 **50-70 min**: Implement with comments, test edge cases thoroughly
+- ✅ **20 min**: Review solutions, perform security audit
+
+**Success Tips:**
+- ✅ Never trust user input—always validate and sanitize
+- ✅ Use prepared statements (parameterized queries) to prevent SQL injection
+- ✅ Write comprehensive header comments (purpose, author, date, params)
+- ✅ Test with malicious inputs (', --, OR 1=1)
+- ✅ Document deployment steps and rollback procedures
+- ✅ Peer review your code before deployment
+- ✅ Version control all database scripts
+
+**🔐 CRITICAL SECURITY:** Always assume user input is malicious. Never concatenate user data into SQL!
+
+---
+
 **Welcome to the Big League!**
 
 These are real-world challenges that professional database engineers face. Unlike the quick drills, these require:

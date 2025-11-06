@@ -1,5 +1,40 @@
 # Paired Programming — Triggers
 
+## 📋 Before You Start
+
+### Learning Objectives
+Through paired programming, you will:
+- Experience collaborative trigger development
+- Learn to communicate BEFORE vs AFTER timing decisions clearly
+- Practice OLD vs NEW row value usage together
+- Build teamwork skills for automatic data integrity enforcement
+- Apply validation and audit triggers collaboratively
+
+### Paired Programming Roles
+**🚗 Driver (Controls Keyboard):**
+- Types all SQL code with DELIMITER management
+- Verbalizes trigger timing ("Using BEFORE to validate...")
+- Asks navigator about OLD vs NEW usage
+- Focuses on syntax
+
+**🧭 Navigator (Reviews & Guides):**
+- Keeps requirements visible
+- Spots missing validation logic
+- Suggests test cases (valid and invalid data)
+- Discusses BEFORE vs AFTER trade-offs
+- **Does NOT touch the keyboard**
+
+### Execution Flow
+1. **Setup**: Driver runs schema (CREATE + INSERT)
+2. **Partner A**: Focus on validation (BEFORE triggers) → test → **SWITCH ROLES**
+3. **Partner B**: Focus on auditing (AFTER triggers) → test → **SWITCH ROLES**
+4. **Together**: Test entire system with edge cases
+5. **Review**: Compare solutions, discuss trigger design
+
+**Tip:** Test triggers with both valid and invalid data to verify they work correctly!
+
+---
+
 ## 🤝 Overview
 Pair programming helps you learn by collaborating. One person is the "driver" (writing code), the other is the "navigator" (reviewing, suggesting, catching errors). Switch roles frequently!
 
