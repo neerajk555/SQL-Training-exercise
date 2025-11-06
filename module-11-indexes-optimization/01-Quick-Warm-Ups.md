@@ -1,6 +1,6 @@
 # Quick Warm-Ups — Indexes & Optimization (5–10 min each)
 
-## 📋 Before You Start
+##  Before You Start
 
 ### Learning Objectives
 By completing these warm-ups, you will:

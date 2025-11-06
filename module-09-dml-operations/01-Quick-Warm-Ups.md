@@ -1,6 +1,6 @@
 # Quick Warm-Ups — DML Operations
 
-## 📋 Before You Start
+##  Before You Start
 
 ### Learning Objectives
 By completing these warm-ups, you will:
