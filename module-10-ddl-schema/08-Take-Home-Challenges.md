@@ -2,7 +2,6 @@
 
 **Purpose:** Advanced schema design challenges for deeper learning. Research, experiment, and think critically about database design decisions!
 
-**Time Commitment:** Each challenge: 2-4 hours  
 **Difficulty:** Advanced to Expert  
 **Prerequisites:** Complete Modules 1-10
 
@@ -17,8 +16,7 @@
 
 ## Challenge 1: Schema Migration Strategy
 
-**Difficulty:** ⭐⭐⭐ Advanced  
-**Time Estimate:** 2-3 hours
+**Difficulty:** ⭐⭐⭐ Advanced
 
 **Context:**
 In real-world projects, you often inherit poorly designed databases. This challenge simulates migrating from a denormalized "flat" structure to a properly normalized relational schema.
@@ -96,8 +94,7 @@ SELECT SUBSTRING_INDEX(product_names, ',', 1) FROM bad_orders;
 
 ## Challenge 2: Multi-Tenancy Schema Design
 
-**Difficulty:** ⭐⭐⭐⭐ Expert  
-**Time Estimate:** 3-4 hours
+**Difficulty:** ⭐⭐⭐⭐ Expert
 
 **Context:**
 Multi-tenancy is crucial for SaaS (Software as a Service) applications. Multiple customers (tenants) use the same application, but their data must be completely isolated. Example: A project management tool used by 1000 different companies.
@@ -313,8 +310,7 @@ CREATE TABLE schema_migrations (
 
 ## Challenge 7: Soft Delete Patterns
 
-**Difficulty:** ⭐⭐⭐ Advanced  
-**Time Estimate:** 2-3 hours
+**Difficulty:** ⭐⭐⭐ Advanced
 
 **Context:**
 **Soft delete** means marking records as deleted without actually removing them from the database. This is essential for:

@@ -1,6 +1,6 @@
 # Guided Step-by-Step — Procedures & Functions
 
-## Activity 1: Order Total Calculator — 18 min
+## Activity 1: Order Total Calculator
 
 **Goal:** Build a complete order calculator using both functions and procedures!
 
@@ -112,7 +112,7 @@ SELECT @subtotal, @tax, @total;
 
 ---
 
-## Activity 2: Customer Management Procedures — 20 min
+## Activity 2: Customer Management Procedures
 
 **Goal:** Build a customer registration procedure with validation and error handling!
 

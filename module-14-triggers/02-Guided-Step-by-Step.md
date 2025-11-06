@@ -5,7 +5,7 @@ These activities guide you through building complete, real-world trigger systems
 
 ---
 
-## Activity 1: Complete Audit System — 20 min
+## Activity 1: Complete Audit System
 
 **🎯 Objective**: Build a comprehensive audit logging system that tracks all changes (INSERT, UPDATE, DELETE) to a users table.
 
@@ -42,7 +42,7 @@ CREATE TABLE gs14_user_audit (
 );
 ```
 
-### Step 1: Create AFTER INSERT Trigger (5 min)
+### Step 1: Create AFTER INSERT Trigger
 
 **Purpose**: Log when new users are created.
 
@@ -81,7 +81,7 @@ SELECT * FROM gs14_user_audit;
 -- Expected: action='INSERT', new_data contains alice's info, old_data is NULL
 ```
 
-### Step 2: Create AFTER UPDATE Trigger (5 min)
+### Step 2: Create AFTER UPDATE Trigger
 
 **Purpose**: Log when user data is modified.
 
@@ -120,7 +120,7 @@ SELECT * FROM gs14_user_audit ORDER BY timestamp;
 -- UPDATE record shows old_data="active", new_data="suspended"
 ```
 
-### Step 3: Create AFTER DELETE Trigger (5 min)
+### Step 3: Create AFTER DELETE Trigger
 
 **Purpose**: Log when users are deleted (archive the data before it's gone).
 
@@ -163,7 +163,7 @@ SELECT * FROM gs14_users;
 -- Expected: Empty (user was deleted)
 ```
 
-### Step 4: Comprehensive Testing (3 min)
+### Step 4: Comprehensive Testing
 
 ```sql
 -- Test complete lifecycle for another user
@@ -185,7 +185,7 @@ ORDER BY user_id, timestamp;
 -- Expected: Complete history of both users' lifecycles
 ```
 
-### Step 5: Query Audit Trail (2 min)
+### Step 5: Query Audit Trail
 
 **Useful queries for analysis:**
 
@@ -227,7 +227,7 @@ ORDER BY timestamp DESC;
 
 ---
 
-## Activity 2: Inventory Auto-Update — 18 min
+## Activity 2: Inventory Auto-Update
 
 **🎯 Objective**: Automatically deduct inventory when orders are placed, with validation to prevent overselling.
 
@@ -269,7 +269,7 @@ INSERT INTO gs14_inventory VALUES
 SELECT * FROM gs14_inventory;
 ```
 
-### Step 1: Create Basic Inventory Update Trigger (5 min)
+### Step 1: Create Basic Inventory Update Trigger
 
 **Purpose**: Automatically deduct from inventory when order is placed.
 
@@ -310,7 +310,7 @@ SELECT * FROM gs14_inventory ORDER BY product_id;
 -- Expected: Product 101 has 40, Product 102 has 25 (was 30)
 ```
 
-### Step 2: Add Validation to Prevent Overselling (8 min)
+### Step 2: Add Validation to Prevent Overselling
 
 **Problem**: What if someone orders more than available stock? We need validation!
 
@@ -372,7 +372,7 @@ Think of it like a security guard at a warehouse:
 - This is called a "transaction rollback" - it's like hitting the undo button
 - So even though it's AFTER INSERT, the insert gets undone if the trigger fails!
 
-### Step 3: Test Validation (5 min)
+### Step 3: Test Validation
 
 **Test Case 1: Valid order**
 ```sql

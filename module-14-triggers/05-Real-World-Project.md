@@ -3,7 +3,6 @@
 ## 🎯 Project Overview
 
 **Project Name:** E-Commerce Data Integrity & Automation System  
-**Duration:** 90 minutes  
 **Difficulty:** Advanced  
 **Goal:** Build a production-ready trigger system for a complete e-commerce platform
 
@@ -23,7 +22,7 @@ This project simulates a real production system where triggers ensure data consi
 
 ## 🏗️ Database Schema
 
-### Step 1: Create Complete Schema (10 min)
+### Step 1: Create Complete Schema
 
 ```sql
 -- Clean slate
@@ -242,7 +241,7 @@ CREATE TABLE customer_activities (
 
 ## 📝 Implementation Guide
 
-### Phase 1: Validation Triggers (20 min)
+### Phase 1: Validation Triggers
 
 #### Trigger 1: Product Validation
 
@@ -374,7 +373,7 @@ END //
 DELIMITER ;
 ```
 
-### Phase 2: Calculation Triggers (20 min)
+### Phase 2: Calculation Triggers
 
 #### Trigger 3: Order Item Calculations
 
@@ -536,7 +535,7 @@ END //
 DELIMITER ;
 ```
 
-### Phase 3: Inventory Management Triggers (15 min)
+### Phase 3: Inventory Management Triggers
 
 #### Trigger 5: Inventory Deduction
 
@@ -628,7 +627,7 @@ END //
 DELIMITER ;
 ```
 
-### Phase 4: Audit & History Triggers (15 min)
+### Phase 4: Audit & History Triggers
 
 #### Trigger 7: Price History Tracking
 
@@ -732,7 +731,7 @@ END //
 DELIMITER ;
 ```
 
-### Phase 5: Advanced Features (20 min)
+### Phase 5: Advanced Features
 
 #### Trigger 10: Customer Balance Management
 

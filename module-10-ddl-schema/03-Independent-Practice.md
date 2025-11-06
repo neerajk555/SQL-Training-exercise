@@ -1,6 +1,6 @@
 # Independent Practice — DDL & Schema Design
 
-Work through these exercises independently. Each includes difficulty, time estimate, scenario, requirements, success criteria, hints, and solution.
+Work through these exercises independently. Each includes difficulty, scenario, requirements, success criteria, hints, and solution.
 
 ## 📋 Before You Start
 
@@ -13,9 +13,9 @@ Through independent practice, you will:
 - Test schema integrity
 
 ### Difficulty Progression
-- ⭐ **Easy (1-2)**: 2-3 tables, simple relationships, 15-18 minutes
-- ⭐⭐ **Medium (3-5)**: 3-4 tables, multiple FKs, junction tables, 20-25 minutes
-- ⭐⭐⭐ **Challenge (6-7)**: Complex schemas, many-to-many, advanced constraints, 30-40 minutes
+- ⭐ **Easy (1-2)**: 2-3 tables, simple relationships
+- ⭐⭐ **Medium (3-5)**: 3-4 tables, multiple FKs, junction tables
+- ⭐⭐⭐ **Challenge (6-7)**: Complex schemas, many-to-many, advanced constraints
 
 ### Problem-Solving Strategy
 1. **READ** requirements thoroughly
@@ -54,10 +54,9 @@ Through independent practice, you will:
 
 ---
 
-## Exercise 1: Library Book Catalog (Easy) — 15 min
+## Exercise 1: Library Book Catalog (Easy)
 
-**Difficulty:** ⭐ Easy  
-**Time Estimate:** 15 minutes
+**Difficulty:** ⭐ Easy
 
 ### Scenario
 Create a simple library database with books and authors. Each book has one author (simplified model).
@@ -194,10 +193,9 @@ ORDER BY b.published_year;
 
 ---
 
-## Exercise 2: Blog Platform Schema (Medium) — 25 min
+## Exercise 2: Blog Platform Schema (Medium)
 
-**Difficulty:** ⭐⭐ Medium  
-**Time Estimate:** 25 minutes
+**Difficulty:** ⭐⭐ Medium
 
 ### Scenario
 Design a blog platform with users, posts, and comments. Users write posts, and any user can comment on any post.
@@ -390,10 +388,9 @@ ORDER BY total_comments DESC;
 
 ---
 
-## Exercise 3: E-Learning Platform (Hard) — 35 min
+## Exercise 3: E-Learning Platform (Hard)
 
-**Difficulty:** ⭐⭐⭐ Hard  
-**Time Estimate:** 35 minutes
+**Difficulty:** ⭐⭐⭐ Hard
 
 ### Scenario
 Build a schema for an online learning platform. Instructors create courses, students enroll, and we track progress.
@@ -599,10 +596,9 @@ ORDER BY s.name, e.enrolled_at;
 
 ---
 
-## Exercise 4: Hospital Management System (Expert) — 45 min
+## Exercise 4: Hospital Management System (Expert)
 
-**Difficulty:** ⭐⭐⭐⭐ Expert  
-**Time Estimate:** 45 minutes
+**Difficulty:** ⭐⭐⭐ Expert
 
 ### Scenario
 Design a hospital database tracking patients, doctors, appointments, and medical records.

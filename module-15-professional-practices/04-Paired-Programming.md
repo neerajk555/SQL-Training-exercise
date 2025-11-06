@@ -3,14 +3,29 @@
 ## Challenge: Complete Database Code Review
 
 ### Scenario:
-Your team is reviewing a new developer's code before merging to production. Work in pairs to review and improve this code.
+Your team is reviewing a junior developer's code before merging to production. This is a critical security and quality review—the code has several serious issues that could cause data breaches or system failures. Work in pairs to find and fix all problems.
+
+**Pair Programming Approach:**
+- **Person A (Driver):** Types the code and explains their thinking
+- **Person B (Navigator):** Reviews, suggests improvements, catches errors
+- **Switch roles** after each section to keep both engaged
+
+**Why Pair Programming?**
+- Two sets of eyes catch more bugs
+- Knowledge sharing (learn from each other)
+- Better code quality (real-time review)
+- Reduces knowledge silos (both understand the code)
 
 ---
 
 ### Code Under Review:
 
+**⚠️ WARNING: This code has critical security flaws! DO NOT use in production!**
+
 ```sql
 -- File: user_management.sql
+-- Submitted by: Junior Developer
+-- Status: NEEDS MAJOR REVISION
 
 CREATE TABLE user (
   id int,
@@ -38,24 +53,97 @@ BEGIN
 END;
 ```
 
+**First Impressions—Spot the Problems:**
+Take a moment with your pair to list everything wrong. How many issues can you find?
+
+<details>
+<summary>Click to see the 15+ issues we found</summary>
+
+**Security Issues (CRITICAL):**
+1. Plain-text passwords (`pass varchar(50)`)
+2. Login procedure allows SQL injection (though params are safer than concatenation)
+3. Returns passwords in `get_user` SELECT *
+4. No account lockout after failed attempts
+
+**Data Integrity Issues:**
+5. No PRIMARY KEY on id
+6. No AUTO_INCREMENT on id
+7. No UNIQUE constraint on user_name or email
+8. No NOT NULL constraints (allows invalid data)
+9. status is INT (should be ENUM for clarity)
+
+**Code Quality Issues:**
+10. Reserved word `user` as table name (causes syntax errors!)
+11. Poor column names (`pass` instead of `password_hash`)
+12. No data types specified (int vs INT)
+13. No character sets/collations
+14. Inconsistent formatting
+
+**Missing Features:**
+15. No created_at/updated_at timestamps
+16. No indexes (slow queries!)
+17. No input validation
+18. Log table not defined (trigger will fail!)
+19. No error handling
+20. Zero documentation
+
+</details>
+
 ---
 
 ### Paired Review Checklist:
 
-#### Part 1: Security Issues (Person A leads)
-1. Identify all security vulnerabilities
-2. Propose fixes for each
-3. Add input validation
+Work through each section together. Take turns being the driver (typing) and navigator (reviewing).
 
-#### Part 2: Code Quality (Person B leads)
-1. Fix naming conventions
-2. Add proper data types
-3. Improve table structure
+#### Part 1: Security Issues (Person A leads, Person B reviews)
 
-#### Part 3: Documentation (Both)
-1. Add comprehensive comments
-2. Document all procedures
-3. Create usage examples
+**Task List:**
+1. ❌ Fix plain-text password storage → Use bcrypt hash storage
+2. ❌ Remove password from SELECT * queries → Return only safe columns
+3. ❌ Add input validation → Check for NULL, length limits, format
+4. ❌ Add audit logging → Track all login attempts
+5. ❌ Implement account lockout → Prevent brute force attacks
+
+**Discussion Questions:**
+- Why is plain-text password storage dangerous?
+- What happens if the database is stolen?
+- How can we prevent SQL injection?
+
+---
+
+#### Part 2: Code Quality (Person B leads, Person A reviews)
+
+**Task List:**
+1. ❌ Rename `user` table → Avoid reserved words (use `users`)
+2. ❌ Fix column names → Use descriptive names (`password_hash` not `pass`)
+3. ❌ Add PRIMARY KEY and AUTO_INCREMENT
+4. ❌ Add UNIQUE constraints → Prevent duplicate usernames/emails
+5. ❌ Add NOT NULL constraints → Prevent invalid data
+6. ❌ Use ENUM for status → Replace INT with meaningful values
+7. ❌ Add indexes → Speed up queries
+8. ❌ Add timestamps → Track when records created/modified
+9. ❌ Specify character sets → Use utf8mb4 for full Unicode support
+
+**Discussion Questions:**
+- What problems does a PRIMARY KEY solve?
+- Why use ENUM instead of INT for status?
+- Where should we add indexes?
+
+---
+
+#### Part 3: Documentation (Both work together)
+
+**Task List:**
+1. ❌ Add table header comment → Purpose, dependencies, business rules
+2. ❌ Document each procedure → Purpose, parameters, examples
+3. ❌ Add column comments → Explain what each field stores
+4. ❌ Create usage examples → Show how to call procedures correctly
+5. ❌ Document security requirements → bcrypt, input validation
+
+**Discussion Questions:**
+- What information would help a new developer?
+- What might be confusing 6 months from now?
+- What assumptions should we document?
 
 ---
 
@@ -236,8 +324,116 @@ END;
 - Poor parameter names
 - No documentation
 
+---
+
+### Pair Exercise:
+Now review this query together and apply the same improvements:
+
+**New Code to Review:**
+```sql
+CREATE PROCEDURE transfer(from_id int, to_id int, amt decimal)
+BEGIN
+  UPDATE accounts SET balance = balance - amt WHERE id = from_id;
+  UPDATE accounts SET balance = balance + amt WHERE id = to_id;
+END;
+```
+
+**Pair Discussion:**
+Take some time to identify problems:
+- What's wrong with this code?
+- What could go wrong at runtime?
+- How would you fix it?
+
+<details>
+<summary>Click to see issues and fixes</summary>
+
+**What's Wrong:**
+1. ❌ No transaction (not atomic!)
+2. ❌ No balance check (could go negative)
+3. ❌ No error handling (fails silently)
+4. ❌ Poor parameter names (from_id is vague)
+5. ❌ No validation (amt could be negative)
+6. ❌ No audit trail (who transferred what?)
+7. ❌ No documentation
+
+**Example of What Could Go Wrong:**
+```sql
+-- Account 1 has $100
+-- Transfer $50 from Account 1 to Account 2
+CALL transfer(1, 2, 50);
+
+-- Step 1: balance = 100 - 50 = 50 ✓
+-- ** DATABASE CRASHES HERE **
+-- Step 2: Never happens! ✗
+
+-- Result: Account 1 lost $50, Account 2 gained nothing
+-- Money disappeared! This is called a "partial update" bug
+```
+
+**Fixed Version:**
+```sql
+DELIMITER //
+CREATE PROCEDURE transfer_funds(
+  IN p_from_account_id INT,
+  IN p_to_account_id INT,
+  IN p_amount DECIMAL(10,2)
+)
+BEGIN
+  DECLARE v_from_balance DECIMAL(10,2);
+  
+  -- Error handler: rollback on any error
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN
+    ROLLBACK;
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Transfer failed';
+  END;
+  
+  -- Validate inputs
+  IF p_amount <= 0 THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Amount must be positive';
+  END IF;
+  
+  IF p_from_account_id = p_to_account_id THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Cannot transfer to same account';
+  END IF;
+  
+  -- Start transaction (atomic: all or nothing)
+  START TRANSACTION;
+  
+  -- Check sufficient balance
+  SELECT balance INTO v_from_balance
+  FROM accounts
+  WHERE id = p_from_account_id
+  FOR UPDATE;  -- Lock row to prevent concurrent transfers
+  
+  IF v_from_balance < p_amount THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Insufficient funds';
+  END IF;
+  
+  -- Perform transfer
+  UPDATE accounts SET balance = balance - p_amount WHERE id = p_from_account_id;
+  UPDATE accounts SET balance = balance + p_amount WHERE id = p_to_account_id;
+  
+  -- Audit log
+  INSERT INTO transfer_log (from_account, to_account, amount, timestamp)
+  VALUES (p_from_account_id, p_to_account_id, p_amount, NOW());
+  
+  COMMIT;
+END//
+DELIMITER ;
+```
+
+</details>
+
+---
+
 **Key Takeaways:**
-- Code review catches issues before production
-- Pair programming improves code quality
-- Security and documentation are non-negotiable
+- Code review catches critical bugs before they reach production
+- Pair programming produces higher quality code (two brains > one)
+- Security issues are often invisible to the original developer
+- Documentation and validation are NOT optional extras
+- Transactions prevent data corruption from partial updates
+- Always ask: "What could go wrong?" and handle those cases
+
+**Beginner Tip:** The best time to catch bugs is during code review. The worst time is in production when customers are affected!
 

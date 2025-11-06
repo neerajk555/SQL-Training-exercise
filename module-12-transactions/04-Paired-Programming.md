@@ -1,6 +1,6 @@
 # Paired Programming — Transactions
 
-## Challenge: Ticket Booking System — 35 min
+## Challenge: Ticket Booking System
 
 **Goal:** Build a robust ticket booking system where two users try to book the same seat. Learn about race conditions, locking, and concurrency!
 

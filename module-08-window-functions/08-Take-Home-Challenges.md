@@ -1,6 +1,6 @@
 # Take-Home Challenges — Window Functions (Advanced)
 
-**🎯 Purpose:** These are comprehensive, real-world challenges that combine multiple window function techniques. Each takes 45-60 minutes and simulates actual data analyst work.
+**🎯 Purpose:** These are comprehensive, real-world challenges that combine multiple window function techniques and simulate actual data analyst work.
 
 **💡 Approach:**
 1. Read the business context carefully
@@ -10,7 +10,7 @@
 
 ---
 
-## Challenge 1: Time Series Anomaly Detection (50 min)
+## Challenge 1: Time Series Anomaly Detection
 
 ### 🎯 Business Context:
 You're a data analyst at a SaaS company. The operations team needs an automated alert system to detect unusual traffic patterns that might indicate:

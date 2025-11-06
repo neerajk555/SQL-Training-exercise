@@ -1,6 +1,6 @@
 # Independent Practice — Procedures & Functions
 
-## Exercise 1: Discount Calculator (Easy) — 20 min
+## Exercise 1: Discount Calculator (Easy)
 
 **Goal:** Create a function to calculate discounted prices based on customer tier!
 
@@ -75,7 +75,7 @@ FROM ip13_products;
 
 ---
 
-## Exercise 2: Inventory Management (Medium) — 30 min
+## Exercise 2: Inventory Management (Medium)
 
 **Goal:** Create procedures for: add_stock, remove_stock, check_low_stock with validation!
 
@@ -228,7 +228,7 @@ CALL ip13_check_low_stock();
 
 ---
 
-## Exercise 3: Report Generator (Hard) — 40 min
+## Exercise 3: Report Generator (Hard)
 
 **Goal:** Create a comprehensive sales report procedure!
 

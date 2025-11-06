@@ -9,7 +9,7 @@
 
 ---
 
-## Exercise 1: Blog Platform Optimization (Easy) — 20 min
+## Exercise 1: Blog Platform Optimization (Easy)
 
 **Scenario:** You're a backend developer for a blog platform. Users complain that searching for posts by category is slow. Your job is to identify the problem and optimize the queries!
 
@@ -177,7 +177,7 @@ SHOW INDEXES FROM ip11_posts;
 
 ---
 
-## Exercise 2: Social Media Feed (Medium) — 30 min
+## Exercise 2: Social Media Feed (Medium)
 
 **Scenario:** You're optimizing a social media app. The timeline feed query (showing posts from users you follow) is very slow. With 100 users and 500 posts, it takes 2+ seconds!
 
@@ -380,7 +380,7 @@ LIMIT 20;
 
 ---
 
-## Exercise 3: Analytics Dashboard (Hard) — 40 min
+## Exercise 3: Analytics Dashboard (Hard)
 
 **Scenario:** You're building an analytics dashboard for an e-commerce company. The dashboard queries are timing out with large sales data. You need to optimize aggregate queries (GROUP BY, SUM) using strategic indexes.
 

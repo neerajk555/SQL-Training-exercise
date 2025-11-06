@@ -1,4 +1,4 @@
-# Guided Step-by-Step — DDL & Schema Design (15–20 min each)
+# Guided Step-by-Step — DDL & Schema Design
 
 Each activity includes business context, database setup, final goal, step-by-step instructions with checkpoints, common mistakes, complete solution, and discussion questions.
 
@@ -45,7 +45,7 @@ Through these guided activities, you will:
 
 ---
 
-## Activity 1: E-Commerce Product Catalog Schema — 18 min
+## Activity 1: E-Commerce Product Catalog Schema
 
 ### Business Context
 You're building an e-commerce platform. Products belong to categories, and you need to track inventory levels. The schema must enforce referential integrity and prevent invalid data.
@@ -62,7 +62,7 @@ Create a two-table schema where products reference categories, with appropriate 
 
 ### Step-by-Step Instructions
 
-**Step 1: Create Categories Table (3 min)**
+**Step 1: Create Categories Table**
 Create a table to store product categories with:
 - category_id (INT, PRIMARY KEY, AUTO_INCREMENT)
 - category_name (VARCHAR(100), UNIQUE, NOT NULL)
@@ -80,7 +80,7 @@ CREATE TABLE gs10_categories (
 
 ---
 
-**Step 2: Insert Category Data (2 min)**
+**Step 2: Insert Category Data**
 Add three categories: Electronics, Clothing, Books.
 
 ```sql
@@ -94,7 +94,7 @@ INSERT INTO gs10_categories (category_name, description) VALUES
 
 ---
 
-**Step 3: Create Products Table with Foreign Key (4 min)**
+**Step 3: Create Products Table with Foreign Key**
 
 **Beginner Explanation:**
 Now we create the products table that **references** the categories table. This is a parent-child relationship:
@@ -140,7 +140,7 @@ This confirms the relationship is properly established!
 
 ---
 
-**Step 4: Test Foreign Key Constraint (3 min)**
+**Step 4: Test Foreign Key Constraint**
 
 **Beginner Explanation:**
 Now let's test that our foreign key actually works! We'll try inserting valid data (should work) and invalid data (should fail). This verifies our database is protecting data integrity.
@@ -184,7 +184,7 @@ Without the foreign key, you could insert `category_id = 99` even though that ca
 
 ---
 
-**Step 5: Add Index for Performance (2 min)**
+**Step 5: Add Index for Performance**
 Add index on category_id for faster JOIN operations.
 
 ```sql
@@ -195,7 +195,7 @@ CREATE INDEX idx_category ON gs10_products(category_id);
 
 ---
 
-**Step 6: Modify Schema - Add SKU Column (2 min)**
+**Step 6: Modify Schema - Add SKU Column**
 Business requires unique SKU codes for each product.
 
 ```sql
@@ -207,7 +207,7 @@ ADD COLUMN sku VARCHAR(50) UNIQUE;
 
 ---
 
-**Step 7: Verify Complete Schema (2 min)**
+**Step 7: Verify Complete Schema**
 Query products with their category names.
 
 ```sql
@@ -277,7 +277,7 @@ INSERT INTO gs10_products (product_name, category_id, price, stock_quantity, sku
 
 ---
 
-## Activity 2: User Account System with Audit — 20 min
+## Activity 2: User Account System with Audit
 
 ### Business Context
 Build a user management system that tracks account changes. Need users table, roles table, and audit log for compliance.
@@ -294,7 +294,7 @@ Create a three-table system with proper relationships and an audit trail structu
 
 ### Step-by-Step Instructions
 
-**Step 1: Create Roles Table (2 min)**
+**Step 1: Create Roles Table**
 ```sql
 CREATE TABLE gs10_roles (
   role_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -312,7 +312,7 @@ INSERT INTO gs10_roles (role_name, description) VALUES
 
 ---
 
-**Step 2: Create Users Table (4 min)**
+**Step 2: Create Users Table**
 ```sql
 CREATE TABLE gs10_users (
   user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -333,7 +333,7 @@ CREATE TABLE gs10_users (
 
 ---
 
-**Step 3: Create Audit Table (3 min)**
+**Step 3: Create Audit Table**
 Track all changes to user records.
 
 ```sql
@@ -354,7 +354,7 @@ CREATE TABLE gs10_user_audit (
 
 ---
 
-**Step 4: Insert Test Users (3 min)**
+**Step 4: Insert Test Users**
 ```sql
 INSERT INTO gs10_users (username, email, role_id, password_hash) VALUES
 ('admin_user', 'admin@company.com', 1, 'hash123'),
@@ -371,7 +371,7 @@ JOIN gs10_roles r ON u.role_id = r.role_id;
 
 ---
 
-**Step 5: Simulate Audit Entry (2 min)**
+**Step 5: Simulate Audit Entry**
 Manually log a user update.
 
 ```sql
@@ -385,7 +385,7 @@ VALUES
 
 ---
 
-**Step 6: Add Email Validation Constraint (3 min)**
+**Step 6: Add Email Validation Constraint**
 
 **Beginner Explanation:**
 We can use CHECK constraints to validate data format. Here we ensure emails contain @ and a dot (.) - a basic email validation. More complex validation is better done in application code, but this provides a basic safety net.
@@ -434,7 +434,7 @@ DELETE FROM gs10_users WHERE username = 'testuser';
 
 ---
 
-**Step 7: Query Complete User History (3 min)**
+**Step 7: Query Complete User History**
 See user details with audit trail.
 
 ```sql

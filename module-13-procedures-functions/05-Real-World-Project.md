@@ -1,6 +1,6 @@
 # Real-World Project — Business Logic Library
 
-## Project: E-Commerce Stored Procedure Library (90 min)
+## Project: E-Commerce Stored Procedure Library
 
 **Create procedures for:**
 1. `place_order()` - Create order with validation, inventory check, transaction

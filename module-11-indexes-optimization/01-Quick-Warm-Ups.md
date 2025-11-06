@@ -1,4 +1,4 @@
-# Quick Warm-Ups — Indexes & Optimization (5–10 min each)
+# Quick Warm-Ups — Indexes & Optimization
 
 ##  Before You Start
 
@@ -43,7 +43,7 @@ By completing these warm-ups, you will:
 
 ---
 
-## 1) Create Simple Index — 5 min
+## 1) Create Simple Index
 ```sql
 DROP TABLE IF EXISTS wu11_users;
 CREATE TABLE wu11_users (
@@ -66,7 +66,7 @@ SHOW INDEXES FROM wu11_users;
 
 ---
 
-## 2) Analyze Query with EXPLAIN — 6 min
+## 2) Analyze Query with EXPLAIN
 ```sql
 DROP TABLE IF EXISTS wu11_products;
 CREATE TABLE wu11_products (
@@ -98,7 +98,7 @@ EXPLAIN SELECT * FROM wu11_products WHERE category = 'Electronics';
 
 ---
 
-## 3) Composite Index — 7 min
+## 3) Composite Index
 ```sql
 DROP TABLE IF EXISTS wu11_orders;
 CREATE TABLE wu11_orders (
@@ -126,7 +126,7 @@ WHERE customer_id = 101 AND order_date >= '2025-11-01';
 
 ---
 
-## 4) Drop Unused Index — 5 min
+## 4) Drop Unused Index
 
 **What You'll Learn:** How to identify and remove unnecessary indexes.
 
@@ -171,7 +171,7 @@ SELECT * FROM wu11_logs WHERE log_date >= '2025-01-01';
 
 ---
 
-## 5) Optimize Slow Query — 8 min
+## 5) Optimize Slow Query
 ```sql
 DROP TABLE IF EXISTS wu11_employees;
 CREATE TABLE wu11_employees (
@@ -204,7 +204,7 @@ WHERE dept_id = 10 ORDER BY salary DESC;
 
 ---
 
-## 6) UNIQUE Index — 6 min
+## 6) UNIQUE Index
 ```sql
 DROP TABLE IF EXISTS wu11_accounts;
 CREATE TABLE wu11_accounts (
@@ -228,7 +228,7 @@ INSERT INTO wu11_accounts VALUES (1, 'alice');
 
 ---
 
-## 7) Covering Index — 7 min
+## 7) Covering Index
 
 **What You'll Learn:** Create "covering indexes" that make queries super-fast.
 
@@ -281,7 +281,7 @@ SELECT email, city FROM wu11_customers WHERE customer_id = 2;
 
 ---
 
-## 8) Prefix Index on VARCHAR — 6 min
+## 8) Prefix Index on VARCHAR
 
 **What You'll Learn:** Save disk space with prefix indexes on long VARCHAR columns.
 

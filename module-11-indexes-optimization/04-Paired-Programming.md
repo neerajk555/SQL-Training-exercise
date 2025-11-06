@@ -1,13 +1,13 @@
 # Paired Programming — Indexes & Optimization
 
-## Challenge: Optimize Slow E-Commerce Queries — 40 min
+## Challenge: Optimize Slow E-Commerce Queries
 
 **👥 Roles:**
 - **Driver:** Writes SQL code, creates indexes
 - **Navigator:** Analyzes EXPLAIN output, suggests optimization strategies, catches errors
 
 **💡 Collaboration Tips:**
-- Switch roles every 10-15 minutes
+- Switch roles regularly
 - Navigator should read EXPLAIN results aloud
 - Discuss index choices before implementing
 - Challenge each other's assumptions!
@@ -167,7 +167,7 @@ SELECT 'Order Items', COUNT(*) FROM pp11_order_items;
 
 **🎯 Your Tasks:**
 
-### Task 1: Optimize Customer Order History (15 min)
+### Task 1: Optimize Customer Order History
 
 **Problem:** Customer order history page is very slow!
 
@@ -196,7 +196,7 @@ ORDER BY o.order_date DESC;
 
 ---
 
-### Task 2: Optimize Product Search (10 min)
+### Task 2: Optimize Product Search
 
 **Problem:** Searching for products by category and price is slow!
 
@@ -216,7 +216,7 @@ ORDER BY price ASC;
 
 ---
 
-### Task 3: Optimize Popular Products Report (15 min)
+### Task 3: Optimize Popular Products Report
 
 **Problem:** Report showing most popular products times out!
 

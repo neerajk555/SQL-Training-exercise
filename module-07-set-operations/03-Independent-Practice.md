@@ -1,6 +1,6 @@
 # Independent Practice — Set Operations
 
-Work through these exercises on your own. Each includes difficulty level, time estimate, scenario, schema with sample data, requirements, example output, success criteria, hints (3 levels), and detailed solution with alternatives.
+Work through these exercises on your own. Each includes difficulty level, scenario, schema with sample data, requirements, example output, success criteria, hints (3 levels), and detailed solution with alternatives.
 
 ## 📋 Before You Start
 
@@ -51,7 +51,6 @@ Through independent practice, you will:
 
 ## Exercise 1: Merge Regional Sales 🟢 Easy
 
-**Time Estimate:** 12–15 min  
 **Difficulty:** 🟢 Easy
 
 ### Scenario
@@ -180,7 +179,6 @@ ORDER BY sale_date, sale_id;  -- Sort combined result by date, then ID
 
 ## Exercise 2: Common Customers Across Stores 🟢 Easy
 
-**Time Estimate:** 13–16 min  
 **Difficulty:** 🟢 Easy
 
 ### Scenario
@@ -288,7 +286,6 @@ ORDER BY d.customer_id;
 
 ## Exercise 3: Exclusive Downtown Shoppers 🟢 Easy
 
-**Time Estimate:** 14–17 min  
 **Difficulty:** 🟢 Easy
 
 ### Scenario
@@ -358,9 +355,8 @@ ORDER BY d.customer_id;
 
 ---
 
-## Exercise 4: All-Stores Customer List 🟡 Medium
+## Exercise 4: Multi-Store Customer List 🟡 Medium
 
-**Time Estimate:** 18–22 min  
 **Difficulty:** 🟡 Medium
 
 ### Scenario
@@ -459,7 +455,6 @@ ORDER BY customer_id, location;
 
 ## Exercise 5: Product Availability Gap Analysis 🟡 Medium
 
-**Time Estimate:** 20–25 min  
 **Difficulty:** 🟡 Medium
 
 ### Scenario
@@ -582,7 +577,6 @@ ORDER BY missing_count DESC, category;
 
 ## Exercise 6: Multi-Source Data Validation 🟡 Medium
 
-**Time Estimate:** 22–27 min  
 **Difficulty:** 🟡 Medium
 
 ### Scenario
@@ -737,7 +731,6 @@ ORDER BY status, emp_id;
 
 ## Exercise 7: Customer Lifetime Value Segments 🔴 Challenge
 
-**Time Estimate:** 30–40 min  
 **Difficulty:** 🔴 Challenge
 
 ### Scenario

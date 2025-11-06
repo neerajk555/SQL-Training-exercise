@@ -1,4 +1,4 @@
-# Quick Warm-Ups — Stored Procedures & Functions (5–10 min each)
+# Quick Warm-Ups — Stored Procedures & Functions
 
 ## 📋 Before You Start
 
@@ -40,7 +40,7 @@ By completing these warm-ups, you will:
 
 ---
 
-## 1) Simple Procedure — 5 min
+## 1) Simple Procedure
 
 **What You'll Learn:** Create your first stored procedure!
 
@@ -72,7 +72,7 @@ CALL wu13_hello();
 
 ---
 
-## 2) Procedure with IN Parameter — 6 min
+## 2) Procedure with IN Parameter
 
 **What You'll Learn:** Pass values INTO a procedure (like function arguments!).
 
@@ -101,7 +101,7 @@ CALL wu13_greet('Bob');    -- Output: Hello, Bob!
 
 ---
 
-## 3) Function that Returns Value — 7 min
+## 3) Function that Returns Value
 
 **What You'll Learn:** Create a function that calculates and returns a value!
 
@@ -138,7 +138,7 @@ FROM products;
 
 ---
 
-## 4) Procedure with OUT Parameter — 7 min
+## 4) Procedure with OUT Parameter
 
 **What You'll Learn:** How procedures can "return" values using OUT parameters!
 
@@ -177,7 +177,7 @@ SELECT @count AS total_products;
 
 ---
 
-## 5) Function with Conditional Logic — 8 min
+## 5) Function with Conditional Logic
 ```sql
 DROP FUNCTION IF EXISTS wu13_grade;
 
@@ -201,7 +201,7 @@ SELECT student_name, score, wu13_grade(score) AS grade FROM students;
 
 ---
 
-## 6) Procedure with Loop — 8 min
+## 6) Procedure with Loop
 
 **What You'll Learn:** Use loops inside procedures for repetitive tasks!
 
@@ -246,7 +246,7 @@ SELECT * FROM wu13_numbers;
 
 ---
 
-## 7) Function with Date Calculation — 7 min
+## 7) Function with Date Calculation
 ```sql
 DROP FUNCTION IF EXISTS wu13_days_until;
 
@@ -264,7 +264,7 @@ SELECT wu13_days_until('2025-12-31') AS days_remaining;
 
 ---
 
-## 8) Procedure with INOUT Parameter — 8 min
+## 8) Procedure with INOUT Parameter
 
 **What You'll Learn:** Use INOUT for parameters that are both input AND output!
 

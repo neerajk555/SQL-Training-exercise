@@ -1,6 +1,6 @@
-# Speed Drills — DDL & Schema Design (2 min each)
+# Speed Drills — DDL & Schema Design
 
-**Purpose:** Build muscle memory for common DDL operations. Set a 2-minute timer for each drill!
+**Purpose:** Build muscle memory for common DDL operations.
 
 **How to Practice:**
 1. Read the task

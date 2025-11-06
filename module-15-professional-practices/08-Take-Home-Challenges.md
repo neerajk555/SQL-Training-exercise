@@ -1,15 +1,74 @@
 # Take-Home Challenges — Professional Practices
 
+**Welcome to the Big League!**
+
+These are real-world challenges that professional database engineers face. Unlike the quick drills, these require:
+- Research and planning
+- Multiple files and scripts
+- Testing and validation
+- Complete documentation
+
+**Instructions:**
+1. Pick one challenge to start with
+2. Read the entire challenge before coding
+3. Create a project folder with organized files
+4. Document your approach and decisions
+5. Test thoroughly before submitting
+6. Be prepared to explain your choices
+
+**Skill Level:** Advanced (requires understanding of all previous modules)
+
+---
+
 ## Challenge 1: Database Migration Strategy
 
 ### Scenario:
-You need to migrate a production database from version 1.0 to 2.0 with zero downtime.
+You're the lead database engineer at a growing e-commerce company. Your production database needs a major schema change: adding a `status` column to the `users` table (100 million rows). The site must stay online 24/7—any downtime costs $10,000 per minute.
 
-### Requirements:
-1. Create versioned migration scripts
-2. Implement rollback capability
-3. Document deployment steps
-4. Add data validation
+**Business Requirements:**
+- Zero downtime (site must remain operational)
+- No data loss (every user must be preserved)
+- Rollback capability (in case something goes wrong)
+- Complete audit trail (document every change)
+- Performance impact < 5% during migration
+
+**Technical Constraints:**
+- Production database: 100M users, 500GB total size
+- Peak traffic: 10,000 queries/second
+- Backup window: Limited to overnight maintenance window (2am-6am)
+- Team approval required for all changes
+
+### Your Deliverables:
+Create a complete migration package with:
+
+1. **Migration Scripts** (versioned, tested)
+   - Forward migration (add column)
+   - Data backfill (populate existing rows)
+   - Rollback script (undo changes)
+
+2. **Pre-flight Checks** (validate before running)
+   - Database connectivity
+   - Sufficient disk space
+   - No blocking locks
+   - Backup exists
+
+3. **Post-migration Validation** (verify success)
+   - All rows have status
+   - No NULL values where unexpected
+   - Indexes functioning
+   - Application still works
+
+4. **Documentation** (explain everything)
+   - Migration plan (step-by-step)
+   - Risk analysis (what could go wrong)
+   - Rollback procedure (how to undo)
+   - Communication plan (who to notify)
+
+5. **Monitoring** (track progress)
+   - Migration progress (% complete)
+   - Performance impact (query times)
+   - Error logging (what failed)
+   - Estimated completion time
 
 ### Example Migration Scripts:
 
@@ -20,53 +79,269 @@ You need to migrate a production database from version 1.0 to 2.0 with zero down
 -- Author: DevOps Team
 -- Date: 2024-01-15
 -- Description: Add status field to users table
+-- Note: May require significant processing for large tables (100M rows)
 -- Rollback: migrations/rollback/v1.1_rollback.sql
+-- Risk Level: MEDIUM (large table, but non-blocking approach)
 -- ============================================
 
--- Pre-migration checks
-DO $$
-BEGIN
-  IF EXISTS (SELECT 1 FROM users WHERE id IS NULL) THEN
-    RAISE EXCEPTION 'Data integrity issue: NULL user IDs found';
-  END IF;
-END $$;
+-- ============================================
+-- STEP 1: PRE-MIGRATION CHECKS
+-- ============================================
 
--- Add column with default
-ALTER TABLE users 
-ADD COLUMN status ENUM('active', 'inactive', 'suspended') DEFAULT 'active';
+-- Check 1: Verify database connectivity
+SELECT 'Database connection OK' AS check_1;
 
--- Backfill existing data
-UPDATE users SET status = 'active' WHERE status IS NULL;
-
--- Make column NOT NULL
-ALTER TABLE users MODIFY COLUMN status ENUM('active', 'inactive', 'suspended') NOT NULL;
-
--- Add index
-CREATE INDEX idx_users_status ON users(status);
-
--- Post-migration validation
+-- Check 2: Verify table exists and check row count
 SELECT 
-  COUNT(*) AS total_users,
-  COUNT(CASE WHEN status IS NULL THEN 1 END) AS null_status
+  COUNT(*) AS total_rows,
+  'Row count verified' AS check_2
 FROM users;
 
--- Record migration
-INSERT INTO schema_migrations (version, applied_at) VALUES ('1.1', NOW());
+-- Check 3: Check for NULL IDs (data integrity)
+SELECT COUNT(*) INTO @null_ids FROM users WHERE id IS NULL;
+IF @null_ids > 0 THEN
+  SIGNAL SQLSTATE '45000' 
+  SET MESSAGE_TEXT = 'MIGRATION ABORTED: Found NULL user IDs';
+END IF;
+
+-- Check 4: Verify sufficient disk space (need ~10GB for index)
+-- (Run this from shell: df -h /var/lib/mysql)
+
+-- Check 5: Verify backup exists
+-- (Confirm backup file dated today exists)
+
+-- Check 6: Create tracking table for migration
+CREATE TABLE IF NOT EXISTS schema_migrations (
+  version VARCHAR(10) PRIMARY KEY,
+  description TEXT,
+  applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  applied_by VARCHAR(100),
+  rollback_script VARCHAR(255)
+);
+
+-- ============================================
+-- STEP 2: ADD COLUMN (Non-blocking approach)
+-- ============================================
+
+-- Add column with DEFAULT value (fast operation in MySQL 8.0+)
+-- This uses INSTANT algorithm - no table copy needed
+ALTER TABLE users 
+ADD COLUMN status ENUM('active', 'inactive', 'suspended') 
+DEFAULT 'active'
+COMMENT 'User account status: active=can login, inactive=cannot login, suspended=banned';
+
+-- Verify column added
+SELECT 
+  COLUMN_NAME, 
+  COLUMN_DEFAULT, 
+  IS_NULLABLE,
+  COLUMN_TYPE
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'users' AND COLUMN_NAME = 'status';
+
+-- ============================================
+-- STEP 3: BACKFILL EXISTING DATA (if needed)
+-- ============================================
+
+-- Note: With DEFAULT, new column already has 'active' for all rows
+-- But let's verify and log any issues
+
+-- Check for NULL values (shouldn't be any with DEFAULT)
+SELECT COUNT(*) INTO @null_count 
+FROM users 
+WHERE status IS NULL;
+
+IF @null_count > 0 THEN
+  -- Backfill in batches to avoid long locks
+  SET @batch_size = 10000;
+  SET @rows_updated = 0;
+  
+  REPEAT
+    UPDATE users 
+    SET status = 'active' 
+    WHERE status IS NULL 
+    LIMIT @batch_size;
+    
+    SET @rows_updated = @rows_updated + ROW_COUNT();
+    
+    -- Log progress
+    SELECT CONCAT('Backfilled ', @rows_updated, ' rows') AS progress;
+    
+    -- Small delay to avoid overwhelming system
+    DO SLEEP(0.1);
+  UNTIL ROW_COUNT() = 0 END REPEAT;
+END IF;
+
+-- ============================================
+-- STEP 4: ADD INDEX (Can take time on large table)
+-- ============================================
+
+-- Add index for status queries (used in WHERE status = 'active')
+-- This can take significant time on large tables (100M rows)
+-- Monitor progress: SHOW PROCESSLIST;
+CREATE INDEX idx_users_status ON users(status);
+
+-- Verify index created
+SHOW INDEX FROM users WHERE Key_name = 'idx_users_status';
+
+-- ============================================
+-- STEP 5: POST-MIGRATION VALIDATION
+-- ============================================
+
+-- Validation 1: Check all rows have status
+SELECT 
+  COUNT(*) AS total_users,
+  COUNT(CASE WHEN status IS NULL THEN 1 END) AS null_status_count,
+  COUNT(CASE WHEN status = 'active' THEN 1 END) AS active_count,
+  COUNT(CASE WHEN status = 'inactive' THEN 1 END) AS inactive_count,
+  COUNT(CASE WHEN status = 'suspended' THEN 1 END) AS suspended_count
+FROM users;
+
+-- Validation 2: Verify index is usable
+EXPLAIN SELECT * FROM users WHERE status = 'active';
+-- Should show "key: idx_users_status" in output
+
+-- Validation 3: Test query performance
+SET @start_time = NOW(6);
+SELECT COUNT(*) FROM users WHERE status = 'active';
+SET @end_time = NOW(6);
+SELECT TIMESTAMPDIFF(MICROSECOND, @start_time, @end_time) / 1000 AS query_time_ms;
+-- Should be < 100ms with index
+
+-- ============================================
+-- STEP 6: RECORD MIGRATION
+-- ============================================
+
+INSERT INTO schema_migrations (version, description, applied_by, rollback_script)
+VALUES (
+  '1.1',
+  'Add status column to users table',
+  CURRENT_USER(),
+  'migrations/rollback/v1.1_rollback.sql'
+);
+
+-- ============================================
+-- MIGRATION COMPLETE
+-- ============================================
+SELECT 
+  'Migration v1.1 completed successfully' AS status,
+  NOW() AS completed_at;
 ```
 
 **File: migrations/rollback/v1.1_rollback.sql**
 ```sql
--- Rollback for v1.1 migration
-DROP INDEX idx_users_status ON users;
+-- ============================================
+-- ROLLBACK: v1.1 -> v1.0
+-- Author: DevOps Team
+-- Date: 2024-01-15
+-- Description: Remove status column from users table
+-- WARNING: This will DELETE the status column and all its data!
+-- ============================================
+
+-- ============================================
+-- PRE-ROLLBACK CHECKS
+-- ============================================
+
+-- Verify migration was actually applied
+SELECT * FROM schema_migrations WHERE version = '1.1';
+-- If empty, migration was never applied - don't rollback!
+
+-- Backup current state before rollback
+-- (Confirm backup exists before proceeding)
+
+-- ============================================
+-- ROLLBACK STEPS
+-- ============================================
+
+-- Step 1: Remove index (fast)
+DROP INDEX IF EXISTS idx_users_status ON users;
+SELECT 'Index dropped' AS step_1;
+
+-- Step 2: Remove column (fast in MySQL 8.0+, uses INSTANT algorithm)
 ALTER TABLE users DROP COLUMN status;
+SELECT 'Column dropped' AS step_2;
+
+-- Step 3: Remove migration record
 DELETE FROM schema_migrations WHERE version = '1.1';
+SELECT 'Migration record removed' AS step_3;
+
+-- ============================================
+-- POST-ROLLBACK VALIDATION
+-- ============================================
+
+-- Verify column no longer exists
+SELECT COUNT(*) INTO @status_exists
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'users' AND COLUMN_NAME = 'status';
+
+IF @status_exists > 0 THEN
+  SIGNAL SQLSTATE '45000' 
+  SET MESSAGE_TEXT = 'ROLLBACK FAILED: status column still exists';
+END IF;
+
+-- Verify index no longer exists
+SELECT COUNT(*) INTO @index_exists
+FROM INFORMATION_SCHEMA.STATISTICS
+WHERE TABLE_NAME = 'users' AND INDEX_NAME = 'idx_users_status';
+
+IF @index_exists > 0 THEN
+  SIGNAL SQLSTATE '45000' 
+  SET MESSAGE_TEXT = 'ROLLBACK FAILED: index still exists';
+END IF;
+
+-- ============================================
+-- ROLLBACK COMPLETE
+-- ============================================
+SELECT 
+  'Rollback v1.1 completed - database restored to v1.0' AS status,
+  NOW() AS completed_at;
 ```
 
 ### Your Tasks:
-1. Create migration for adding email verification
-2. Write rollback script
-3. Add pre/post validation checks
-4. Document deployment process
+
+Now create your own migration using this as a template:
+
+**Task 1: Create Migration for Email Verification**
+Add an `email_verified` column to the `users` table:
+- Boolean field (0 = not verified, 1 = verified)
+- Default to 0 (unverified) for existing users
+- Add index for quick lookups
+- Include all pre/post validation checks
+
+**Task 2: Write Complete Rollback Script**
+- Remove column and index
+- Verify complete removal
+- Update migration tracking table
+- Add safety checks (don't rollback if never applied)
+
+**Task 3: Create Deployment Documentation**
+Write a `MIGRATION_PLAN.md` that includes:
+- Executive summary (what, why, when)
+- Risk analysis (what could go wrong)
+- Rollback procedure (how to undo)
+- Communication plan (who to notify)
+- Success criteria (how to verify)
+
+**Task 4: Test on Sample Data**
+- Create test database with sample data
+- Run migration and verify success
+- Run rollback and verify restoration
+- Document any issues encountered
+
+**Bonus Challenge:**
+Add monitoring queries that track:
+- Migration progress (% complete)
+- Performance impact (query latency)
+- Error rate (failed operations)
+- Estimated time remaining
+
+**Evaluation Criteria:**
+- ✅ Code works correctly (no data loss)
+- ✅ Comprehensive error handling
+- ✅ Clear documentation
+- ✅ Proper validation (pre and post)
+- ✅ Safe rollback capability
+- ✅ Performance considerations (batching, indexing)
 
 ---
 
@@ -326,7 +601,7 @@ SELECT
   MAX(execution_time_ms) AS max_time_ms,
   SUM(rows_examined) AS total_rows_examined
 FROM query_performance
-WHERE execution_time_ms > 1000  -- Queries over 1 second
+WHERE execution_time_ms > 1000  -- Slow queries
   AND executed_at > DATE_SUB(NOW(), INTERVAL 24 HOUR)
 GROUP BY query_hash, LEFT(query_text, 100)
 ORDER BY avg_time_ms DESC;

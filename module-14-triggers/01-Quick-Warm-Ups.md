@@ -1,4 +1,4 @@
-# Quick Warm-Ups — Triggers (5–10 min each)
+# Quick Warm-Ups — Triggers
 
 ## 📋 Before You Start
 
@@ -71,7 +71,7 @@ Think of a trigger like a motion sensor light:
 
 ---
 
-## 1) Simple AFTER INSERT Trigger — 6 min
+## 1) Simple AFTER INSERT Trigger
 
 **🎯 Goal**: Create a trigger that automatically logs a message whenever a new user is inserted.
 
@@ -136,7 +136,7 @@ SELECT * FROM wu14_audit_log;
 
 ---
 
-## 2) BEFORE INSERT Validation — 7 min
+## 2) BEFORE INSERT Validation
 
 **🎯 Goal**: Create a trigger that prevents negative prices from being inserted into the products table.
 
@@ -216,7 +216,7 @@ SELECT * FROM wu14_products;
 
 ---
 
-## 3) AFTER UPDATE Trigger — 7 min
+## 3) AFTER UPDATE Trigger
 
 **🎯 Goal**: Track all inventory changes by automatically recording the old and new stock levels whenever inventory is updated.
 
@@ -312,7 +312,7 @@ SELECT * FROM wu14_inventory_history;
 
 ---
 
-## 4) BEFORE UPDATE Validation — 7 min
+## 4) BEFORE UPDATE Validation
 
 **🎯 Goal**: Prevent account balances from ever going negative using a BEFORE UPDATE trigger.
 
@@ -407,7 +407,7 @@ This trigger enforces a critical business rule at the database level:
 
 ---
 
-## 5) AFTER DELETE Trigger — 6 min
+## 5) AFTER DELETE Trigger
 
 **🎯 Goal**: Automatically archive deleted customers instead of losing their data forever.
 
@@ -515,7 +515,7 @@ SELECT * FROM customers WHERE deleted_at IS NULL;
 
 ---
 
-## 6) Auto-Update Timestamp — 6 min
+## 6) Auto-Update Timestamp
 
 **🎯 Goal**: Automatically set created_at and updated_at timestamps without users having to remember to do it.
 
@@ -650,7 +650,7 @@ But triggers give you more control and flexibility!
 
 ---
 
-## 7) Computed Column with Trigger — 7 min
+## 7) Computed Column with Trigger
 
 **🎯 Goal**: Automatically calculate order item totals (quantity × unit_price) without requiring manual calculation.
 
@@ -795,7 +795,7 @@ Even if someone tries to set total manually, the trigger overrides it! The trigg
 
 ---
 
-## 8) Multiple Triggers on Same Table — 7 min
+## 8) Multiple Triggers on Same Table
 
 **🎯 Goal**: Learn how to create multiple triggers on the same table and understand their execution order.
 

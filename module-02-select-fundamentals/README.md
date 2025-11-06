@@ -21,6 +21,5 @@ This folder contains a complete set of beginner-friendly SQL practice activities
 - Uses only MySQL syntax. Backticks are used where needed.
 - Includes NULLs, duplicates, and empty-result edge cases.
 - Solutions include comments and brief performance notes for larger datasets.
-- Time estimates are guides—take what you need!
 
 **Encouragement:** Take your time, read errors carefully, and iterate. Every expert was once a beginner. You've got this! 🚀

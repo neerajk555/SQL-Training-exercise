@@ -14,7 +14,9 @@ Given a 5-table JOIN with slow performance, identify bottlenecks and add strateg
 
 
 
-## Challenge 1: Optimize Complex Multi-Table JOIN Query (2-3 hours)## Challenge 3: Covering Index Analysis
+## Challenge 1: Optimize Complex Multi-Table JOIN Query
+
+## Challenge 3: Covering Index Analysis
 
 Find queries that would benefit from covering indexes. Calculate space vs performance trade-offs.
 
@@ -51,7 +53,7 @@ Find queries that would benefit from covering indexes. Calculate space vs perfor
 
 ---
 
-## Challenge 2: Index Strategy for Time-Series Data (3-4 hours)
+## Challenge 2: Index Strategy for Time-Series Data
 
 **Scenario:** Design indexing for IoT sensor data (billions of rows).
 
@@ -77,7 +79,7 @@ CREATE TABLE sensor_readings (
 
 ---
 
-## Challenge 3: Covering Index Cost-Benefit Analysis (2 hours)
+## Challenge 3: Covering Index Cost-Benefit Analysis
 
 **Task:** Analyze if covering indexes are worth the disk space.
 
@@ -91,7 +93,7 @@ CREATE TABLE sensor_readings (
 
 ---
 
-## Challenge 4: Unused Index Detection Script (2 hours)
+## Challenge 4: Unused Index Detection Script
 
 **Task:** Write script to find unused indexes in production.
 
@@ -103,7 +105,7 @@ CREATE TABLE sensor_readings (
 
 ---
 
-## Challenge 5: Query Rewriting for Index Compatibility (2-3 hours)
+## Challenge 5: Query Rewriting for Index Compatibility
 
 **Task:** Rewrite these queries to be index-friendly:
 
@@ -122,7 +124,7 @@ SELECT * FROM orders WHERE status = 'pending' OR status = 'processing';
 
 ---
 
-## Challenge 6: Composite Index Column Order (2 hours)
+## Challenge 6: Composite Index Column Order
 
 **Task:** Test all column order permutations to find optimal performance.
 
@@ -135,7 +137,7 @@ SELECT * FROM orders WHERE status = 'pending' OR status = 'processing';
 
 ---
 
-## Challenge 7: Full-Text Search vs Regular Indexes (3 hours)
+## Challenge 7: Full-Text Search vs Regular Indexes
 
 **Task:** Compare performance of:
 ```sql

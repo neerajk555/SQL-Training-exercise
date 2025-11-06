@@ -11,9 +11,9 @@ Through independent practice, you will:
 - Validate data modifications
 
 ### Difficulty Progression
-- 🟢 **Easy (1-3)**: Single-table INSERT/UPDATE/DELETE, 10-12 minutes
-- 🟡 **Medium (4-6)**: Multi-row updates, conditional logic, JOINs, 15-20 minutes
-- 🔴 **Challenge (7)**: Data migration with validation and error handling, 25-30 minutes
+- 🟢 **Easy (1-3)**: Single-table INSERT/UPDATE/DELETE
+- 🟡 **Medium (4-6)**: Multi-row updates, conditional logic, JOINs
+- 🔴 **Challenge (7)**: Data migration with validation and error handling
 
 ### Problem-Solving Strategy
 1. **READ** requirements carefully—understand WHAT data to change
@@ -48,7 +48,7 @@ Through independent practice, you will:
 
 ---
 
-## Exercise 1: Add New Products (🟢 Easy) — 10 min
+## Exercise 1: Add New Products (🟢 Easy)
 
 **Scenario:** Your store is launching 5 new products. Add them to the inventory database.
 
@@ -135,7 +135,7 @@ SELECT * FROM ip9_products ORDER BY product_id;
 
 ---
 
-## Exercise 2: Apply Category Discount (🟢 Easy) — 12 min
+## Exercise 2: Apply Category Discount (🟢 Easy)
 
 **Scenario:** Your store is running a 15% off sale on all Electronics. Update prices for that category.
 
@@ -254,7 +254,7 @@ COMMIT;
 
 ---
 
-## Exercise 3: Delete Out-of-Stock Items (🟢 Easy) — 11 min
+## Exercise 3: Delete Out-of-Stock Items (🟢 Easy)
 
 **Scenario:** Remove products that have been out of stock (quantity = 0) for cleanup.
 
@@ -367,7 +367,7 @@ SELECT * FROM ip9_inventory WHERE is_active = TRUE;
 
 ---
 
-## Exercise 4: Restock from Shipments (🟡 Medium) — 18 min
+## Exercise 4: Restock from Shipments (🟡 Medium)
 
 **Scenario:** You have a `shipments` table with incoming stock. Update product inventory by adding shipment quantities using a JOIN.
 
@@ -489,7 +489,7 @@ SET s.current_stock = s.current_stock + sh.quantity_received;
 
 ---
 
-## Exercise 5: Update Status Based on Multiple Conditions (🟡 Medium) — 20 min
+## Exercise 5: Update Status Based on Multiple Conditions (🟡 Medium)
 
 **Scenario:** Assign order statuses based on payment and shipment states using CASE logic.
 
@@ -609,7 +609,7 @@ COMMIT;
 
 ---
 
-## Exercise 6: Bulk Price Adjustment with Conditions (🟡 Medium) — 19 min
+## Exercise 6: Bulk Price Adjustment with Conditions (🟡 Medium)
 
 **Scenario:** Apply different price adjustments based on product category and current price tier.
 
@@ -742,7 +742,7 @@ COMMIT;
 
 ---
 
-## Exercise 7: Complex Data Migration with Validation (🔴 Challenge) — 28 min
+## Exercise 7: Complex Data Migration with Validation (🔴 Challenge)
 
 **Scenario:** Migrate customer data from legacy system to new system with data cleansing, validation, and error handling.
 

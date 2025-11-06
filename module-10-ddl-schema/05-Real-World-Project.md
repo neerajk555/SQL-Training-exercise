@@ -2,7 +2,6 @@
 
 ## Project: Multi-Vendor E-Commerce Platform Database
 
-**Estimated Time:** 90-120 minutes  
 **Difficulty:** Advanced  
 **Goal:** Design a complete, normalized database schema for a realistic e-commerce platform
 
@@ -48,7 +47,7 @@ You're building the database for an online marketplace (like Amazon or Etsy) whe
 
 ### Schema Design Tasks
 
-#### Phase 1: User Management (20 min)
+#### Phase 1: User Management
 
 ```sql
 -- Vendors table
@@ -94,7 +93,7 @@ CREATE TABLE rw10_addresses (
 );
 ```
 
-#### Phase 2: Product Catalog (25 min)
+#### Phase 2: Product Catalog
 
 ```sql
 -- Categories table
@@ -143,7 +142,7 @@ CREATE TABLE rw10_product_variants (
 );
 ```
 
-#### Phase 3: Shopping Cart & Orders (25 min)
+#### Phase 3: Shopping Cart & Orders
 
 ```sql
 -- Shopping cart
@@ -206,7 +205,7 @@ CREATE TABLE rw10_order_items (
 );
 ```
 
-#### Phase 4: Payments & Reviews (20 min)
+#### Phase 4: Payments & Reviews
 
 ```sql
 -- Payments table

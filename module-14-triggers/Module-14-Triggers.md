@@ -215,9 +215,9 @@ DROP TRIGGER IF EXISTS trigger_name;
 
 ## 🚀 Ready to Practice!
 Now that you understand the basics, work through the exercises:
-1. **Quick Warm-Ups**: Simple triggers to get comfortable (5-10 min each)
-2. **Guided Step-by-Step**: Build complete systems with guidance (15-20 min each)
-3. **Independent Practice**: Solve problems on your own (20-40 min)
-4. **Real-World Project**: Apply everything you learned (90 min)
+1. **Quick Warm-Ups**: Simple triggers to get comfortable
+2. **Guided Step-by-Step**: Build complete systems with guidance
+3. **Independent Practice**: Solve problems on your own
+4. **Real-World Project**: Apply everything you learned
 
 **Remember**: Triggers are powerful but should be used wisely. Start simple, test thoroughly, and only add complexity when needed!

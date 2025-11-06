@@ -1,4 +1,4 @@
-# Quick Warm-Ups — Transactions (5–10 min each)
+# Quick Warm-Ups — Transactions
 
 ## 📋 Before You Start
 
@@ -46,7 +46,7 @@ By completing these warm-ups, you will:
 
 ---
 
-## 1) Basic Transaction — 5 min
+## 1) Basic Transaction
 ```sql
 DROP TABLE IF EXISTS wu12_accounts;
 CREATE TABLE wu12_accounts (
@@ -71,7 +71,7 @@ SELECT * FROM wu12_accounts;
 
 ---
 
-## 2) ROLLBACK on Error — 6 min
+## 2) ROLLBACK on Error
 
 **What You'll Learn:** How to undo changes when something goes wrong.
 
@@ -111,7 +111,7 @@ SELECT * FROM wu12_inventory;
 
 ---
 
-## 3) Multiple Operations — 7 min
+## 3) Multiple Operations
 
 **What You'll Learn:** How to group multiple related changes together.
 
@@ -155,7 +155,7 @@ SELECT * FROM wu12_order_items;
 
 ---
 
-## 4) Savepoint — 7 min
+## 4) Savepoint
 
 **What You'll Learn:** How to create "checkpoints" within a transaction.
 
@@ -202,7 +202,7 @@ SELECT * FROM wu12_logs;
 
 ---
 
-## 5) Autocommit Mode — 6 min
+## 5) Autocommit Mode
 ```sql
 -- Check autocommit status
 SELECT @@autocommit;  -- 1 = ON (default)
@@ -231,7 +231,7 @@ SET autocommit = 1;
 
 ---
 
-## 6) Isolation Level — 8 min
+## 6) Isolation Level
 
 **What You'll Learn:** How to control what changes your transaction can see from others.
 
@@ -277,7 +277,7 @@ COMMIT;
 
 ---
 
-## 7) Deadlock Scenario — 8 min
+## 7) Deadlock Scenario
 
 **What You'll Learn:** What deadlocks are and how they occur.
 
@@ -334,7 +334,7 @@ COMMIT;
 
 ---
 
-## 8) SELECT FOR UPDATE — 7 min
+## 8) SELECT FOR UPDATE
 
 **What You'll Learn:** How to lock rows to prevent race conditions.
 

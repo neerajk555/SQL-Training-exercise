@@ -1,6 +1,6 @@
-# Speed Drills — Indexes & Optimization (2 min each)
+# Speed Drills — Indexes & Optimization
 
-**🎯 Goal:** Build muscle memory for index operations. Complete each drill in under 2 minutes!
+**🎯 Goal:** Build muscle memory for index operations.
 
 ---
 
@@ -111,5 +111,5 @@ CREATE INDEX idx_order_id ON order_items(order_id);
 
 ---
 
-## 🏆 Challenge: Complete All 10 in Under 15 Minutes!
+## 🏆 Challenge: Complete All 10!
 

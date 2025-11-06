@@ -53,7 +53,6 @@ Notebook | 5.00      | 4
 Mug      | 7.50      | 7
 Lamp     | 12.00     | 12
 ```
-- Time: 5–7 min
 - Solution
 ```sql
 SELECT 
@@ -90,7 +89,6 @@ id | trimmed            | normalized
 3  | mia@example.com    | mia@example.com
 4  | NULL               | NULL
 ```
-- Time: 5–7 min
 - Solution
 ```sql
 SELECT 
@@ -125,7 +123,6 @@ id | parsed_date
 2  | 2025-04-15
 3  | 2025-04-30
 ```
-- Time: 7–10 min
 - Solution
 ```sql
 SELECT 
@@ -164,7 +161,6 @@ id | unit_price
 2  | NULL
 3  | NULL
 ```
-- Time: 5–7 min
 - Solution
 ```sql
 SELECT 
@@ -198,7 +194,6 @@ id | domain
 2  | example.org
 3  | NULL
 ```
-- Time: 5–7 min
 - Solution
 ```sql
 SELECT 

@@ -1,6 +1,6 @@
 # Independent Practice: SELECT Fundamentals
 
-Seven exercises: 3 Easy 🟢, 3 Medium 🟡, 1 Challenge 🔴. Each has schema+data, requirements, example output, hints, and solutions. Time estimates are guides—take what you need.
+Seven exercises: 3 Easy 🟢, 3 Medium 🟡, 1 Challenge 🔴. Each has schema+data, requirements, example output, hints, and solutions.
 
 ## 📋 Before You Start
 

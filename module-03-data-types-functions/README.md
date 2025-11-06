@@ -20,6 +20,5 @@ This folder contains complete practice activities focused on MySQL data types an
 ## Notes
 - Strictly MySQL syntax; includes NULL and edge cases.
 - Performance notes included where relevant.
-- Time estimates are guides—work at your own pace!
 
 **Encouragement:** You've got this! Be curious and try variations to deepen understanding. Data cleaning is a crucial real-world skill. 🚀

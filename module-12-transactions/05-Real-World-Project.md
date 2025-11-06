@@ -1,6 +1,6 @@
 # Real-World Project — Transaction-Safe Order System
 
-## Project: Build Complete E-Commerce Checkout (90 min)
+## Project: Build Complete E-Commerce Checkout
 
 **Requirements:**
 1. Validate cart items exist and in stock

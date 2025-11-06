@@ -1,4 +1,4 @@
-# Speed Drills — Transactions (2 min each)
+# Speed Drills — Transactions
 
 ## Drill 1: Start Transaction
 `START TRANSACTION;`

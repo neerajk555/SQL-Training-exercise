@@ -56,7 +56,7 @@ By completing these warm-ups, you will:
 
 ---
 
-## Exercise 1: Insert New Product — 6 min ⏱️
+## Exercise 1: Insert New Product
 
 **Scenario:** You're setting up a new e-commerce database. The first step is adding products to your inventory.
 
@@ -136,7 +136,7 @@ SELECT * FROM wu9_products;
 
 ---
 
-## Exercise 2: Update Prices — 7 min ⏱️
+## Exercise 2: Update Prices
 
 **Scenario:** Your company is increasing all product prices by 10% due to inflation. You need to update every product in the database.
 
@@ -240,7 +240,7 @@ COMMIT;  -- Save changes, OR use ROLLBACK to undo
 
 ---
 
-## Exercise 3: Conditional Update — 8 min ⏱️
+## Exercise 3: Conditional Update
 
 **Scenario:** Your company has a new policy: no product should be priced below $20 (minimum viable price). You need to raise any "cheap" items to the new minimum.
 
@@ -373,7 +373,7 @@ SET SQL_SAFE_UPDATES = 1;  -- Re-enable (good practice!)
 
 ---
 
-## Exercise 4: Delete Expired Records — 7 min ⏱️
+## Exercise 4: Delete Expired Records
 
 **Scenario:** Your application stores user login sessions with expiration dates. You need to clean up old/expired sessions to keep the database tidy and secure.
 
@@ -538,7 +538,7 @@ WHERE date_column BETWEEN '2025-01-01' AND '2025-12-31'
 
 ---
 
-## Exercise 5: Upsert Pattern — 9 min ⏱️
+## Exercise 5: Upsert Pattern
 
 **Scenario:** You're building a user login tracking system. Every time a user logs in, you need to increment their `login_count`. But if it's their first login, you need to create their record. You need ONE query that handles both cases!
 

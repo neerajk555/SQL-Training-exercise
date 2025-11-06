@@ -1,10 +1,10 @@
-# Guided Step-by-Step — Indexes & Optimization (15–20 min each)
+# Guided Step-by-Step — Indexes & Optimization
 
 **Beginner Tip:** Always EXPLAIN before and after adding indexes to see the difference!
 
 ---
 
-## Activity 1: Optimizing E-Commerce Product Search — 18 min
+## Activity 1: Optimizing E-Commerce Product Search
 
 ### Business Context
 Your e-commerce site is slow when customers search for products. Queries take 3+ seconds with only 100,000 products.
@@ -52,7 +52,7 @@ FROM gs11_products
 GROUP BY category;
 ```
 
-### Step 1: Identify Slow Query (3 min)
+### Step 1: Identify Slow Query
 
 **What to Look For:** When you run EXPLAIN, check the `type` column. `ALL` means "full table scan" - MySQL reads EVERY row! This is slow on large tables.
 
@@ -77,7 +77,7 @@ SELECT * FROM gs11_products WHERE category = 'Electronics';
 
 ---
 
-### Step 2: Create Index (2 min)
+### Step 2: Create Index
 
 **Solution:** Create an index on the `category` column so MySQL can jump directly to Electronics products.
 
@@ -97,7 +97,7 @@ SHOW INDEXES FROM gs11_products;
 
 ---
 
-### Step 3: Verify Improvement (2 min)
+### Step 3: Verify Improvement
 
 **Check if MySQL uses the index:**
 
@@ -119,7 +119,7 @@ SELECT * FROM gs11_products WHERE category = 'Electronics';
 -- With 1,000,000 rows, this would be 5-10x faster!
 ```
 
-### Step 4: Optimize Multi-Column Search (3 min)
+### Step 4: Optimize Multi-Column Search
 
 **Problem:** Customers often search by BOTH category AND price range. Can we optimize further?
 
@@ -166,7 +166,7 @@ CREATE INDEX idx_category_price ON gs11_products(category, price);
 
 **Think of it like a phone book:** Organized by (LastName, FirstName). You can find "Smith" or "Smith, John", but NOT all "Johns" efficiently!
 
-### Step 5: Handle Sort Operations (3 min)
+### Step 5: Handle Sort Operations
 
 **Problem:** Sorting large result sets is slow. Can indexes help?
 
@@ -213,7 +213,7 @@ SELECT * FROM gs11_products WHERE category = 'Books' ORDER BY stock_quantity;
 -- stock_quantity is not in the index!
 ```
 
-### Step 6: Analyze Index Usage (3 min)
+### Step 6: Analyze Index Usage
 ```sql
 SHOW INDEXES FROM gs11_products;
 -- See all indexes and their cardinality
@@ -224,7 +224,7 @@ WHERE brand = 'BrandA' AND category = 'Electronics';
 -- Uses idx_category (not brand)
 ```
 
-### Step 7: Drop Unnecessary Index (2 min)
+### Step 7: Drop Unnecessary Index
 ```sql
 -- Remove single-column index since composite index covers it
 DROP INDEX idx_category ON gs11_products;
@@ -262,7 +262,7 @@ CREATE TABLE gs11_products (
 
 ---
 
-## Activity 2: Optimizing JOIN Queries — 20 min
+## Activity 2: Optimizing JOIN Queries
 
 ### Business Context
 Customer order history query times out with 50,000+ orders.

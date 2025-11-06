@@ -333,15 +333,15 @@ DELIMITER ;
 
 ## 🏃 Speed Drill Challenges
 
-**Time yourself on these:**
+**Quick challenges:**
 
-### Challenge 1: Write from memory (2 min)
+### Challenge 1: Write from memory
 Write a BEFORE INSERT trigger that:
 - Validates email contains '@'
 - Sets created_at to NOW()
 - Sets status to 'active' if NULL
 
-### Challenge 2: Fix the bugs (2 min)
+### Challenge 2: Fix the bugs
 ```sql
 CREATE TRIGGER tr_example AFTER UPDATE ON products
 BEGIN

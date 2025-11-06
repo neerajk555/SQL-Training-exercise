@@ -15,5 +15,3 @@ Assessment
 - Warm-ups and drills for retrieval
 - Guided and independent practice for skill-building
 - Take-home challenges and a project for synthesis
-
-Estimated time: 3–4 hours total

@@ -34,7 +34,7 @@ COMMIT;  -- Or ROLLBACK if something's wrong
 
 ---
 
-## Activity 1: Product Inventory Update (17 min) ⏱️
+## Activity 1: Product Inventory Update
 
 **Scenario:** Your warehouse just received shipments for several products. You have a `shipments` table with quantities received, and you need to update your `products` inventory accordingly.
 
@@ -315,7 +315,7 @@ This UPDATE + JOIN pattern is used for:
 
 ---
 
-## Activity 2: Order Archival (18 min) ⏱️
+## Activity 2: Order Archival
 
 **Scenario:** Your e-commerce platform keeps all orders in one table, but it's getting huge (millions of rows). To improve performance, you need to move old completed orders (over 1 year old) to an archive table, then delete them from the active table.
 
@@ -677,7 +677,7 @@ SELECT * FROM gs9_orders WHERE is_archived = FALSE;
 
 ---
 
-## Activity 3: Customer Data Cleansing (19 min) ⏱️
+## Activity 3: Customer Data Cleansing
 
 **Scenario:** Your customer database has inconsistent data quality issues:
 1. Email addresses with leading/trailing spaces

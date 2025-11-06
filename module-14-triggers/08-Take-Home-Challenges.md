@@ -5,7 +5,7 @@ These advanced challenges are designed for deeper learning outside of class. Eac
 
 ---
 
-## Challenge 1: Trigger Performance Analysis (2-3 hours)
+## Challenge 1: Trigger Performance Analysis
 
 ### 📋 Objective
 Measure and document the performance impact of triggers on bulk operations. Create a comprehensive performance report.
@@ -134,7 +134,7 @@ SET profiling = 0;
 
 ---
 
-## Challenge 2: Temporal Data System (3-4 hours)
+## Challenge 2: Temporal Data System
 
 ### 📋 Objective
 Implement a complete temporal (time-based) data system that tracks the entire history of every table using triggers.
@@ -212,7 +212,7 @@ Create stored procedures or views for:
 
 ---
 
-## Challenge 3: Business Rule Engine (3-4 hours)
+## Challenge 3: Business Rule Engine
 
 ### 📋 Objective
 Build a sophisticated business rule engine using triggers that implements complex discount calculations, eligibility checks, and workflow automation.
@@ -292,7 +292,7 @@ Create comprehensive test cases for:
 
 ---
 
-## Challenge 4: Trigger Debugging System (2-3 hours)
+## Challenge 4: Trigger Debugging System
 
 ### 📋 Objective
 Build a comprehensive logging and debugging system to trace trigger execution order, data flow, and performance issues.
@@ -376,7 +376,7 @@ Create queries/procedures to:
 
 ---
 
-## Challenge 5: Conflict Resolution (2-3 hours)
+## Challenge 5: Conflict Resolution
 
 ### 📋 Objective
 Handle scenarios where multiple triggers fire simultaneously and ensure correct execution order using trigger naming conventions and design patterns.
@@ -450,7 +450,7 @@ END;
 
 ---
 
-## Challenge 6: Trigger vs Application Logic (2 hours)
+## Challenge 6: Trigger vs Application Logic
 
 ### 📋 Objective
 Create a comprehensive decision framework for when to use triggers versus application code.
@@ -505,7 +505,7 @@ Document how to:
 
 ---
 
-## Challenge 7: Transaction-Safe Triggers (2-3 hours)
+## Challenge 7: Transaction-Safe Triggers
 
 ### 📋 Objective
 Ensure triggers work correctly with transactions, including proper COMMIT and ROLLBACK behavior.
@@ -630,7 +630,7 @@ Complete all 7 challenges and document your work. Your portfolio should include:
 - [ ] README with project overview
 - [ ] Lessons learned document
 
-**Estimated total time:** 15-20 hours
+
 
 **Congratulations on taking your trigger skills to an advanced level!**
 

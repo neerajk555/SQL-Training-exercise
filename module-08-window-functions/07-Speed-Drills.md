@@ -1,4 +1,4 @@
-# Speed Drills — Window Functions (2-3 min each)
+# Speed Drills — Window Functions
 
 **🎯 Goal:** Quick-fire questions to test your understanding. Answer without looking, then check!
 

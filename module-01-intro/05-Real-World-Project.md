@@ -1,7 +1,5 @@
 # Module 1: Real-World Project — TinyCart Analytics (MySQL)
 
-Estimated Time: 45–60 minutes
-
 Use the e-commerce schema from `module-01-setup.sql` (database: `m1_intro_ecom`). This provides products, customers, orders, and order_items tables with realistic edge cases (NULL emails, discontinued items, out-of-stock products).
 
 ---

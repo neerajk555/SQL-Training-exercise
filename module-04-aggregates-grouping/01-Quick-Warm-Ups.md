@@ -57,7 +57,6 @@ order_count
 -----------
 4
 ```
-- Time: 5 min
 - Solution
 ```sql
 SELECT COUNT(*) AS order_count
@@ -87,7 +86,6 @@ category   | avg_price
 home       | 15.00
 stationery | 4.37
 ```
-- Time: 5–7 min
 - Solution
 ```sql
 SELECT category, ROUND(AVG(price),2) AS avg_price
@@ -108,7 +106,6 @@ status     | cnt
 -----------+----
 processing | 2
 ```
-- Time: 5–7 min
 - Solution
 ```sql
 SELECT status, COUNT(*) AS cnt
@@ -139,7 +136,6 @@ donor | total
 Ava   | 25.50
 Ben   | 0.00
 ```
-- Time: 7–10 min
 - Solution
 ```sql
 SELECT donor, COALESCE(SUM(amount),0) AS total
@@ -169,7 +165,6 @@ unique_emails
 -------------
 2
 ```
-- Time: 7–10 min
 - Solution
 ```sql
 SELECT COUNT(DISTINCT LOWER(email)) AS unique_emails

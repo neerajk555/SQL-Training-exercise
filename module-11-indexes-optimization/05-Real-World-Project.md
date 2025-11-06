@@ -1,6 +1,6 @@
 # Real-World Project — Database Performance Audit
 
-## Project: Optimize Legacy E-Commerce Database — 90 min
+## Project: Optimize Legacy E-Commerce Database
 
 **Goal:** Conduct performance audit and optimize slow queries
 

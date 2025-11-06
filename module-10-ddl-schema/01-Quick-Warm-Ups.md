@@ -1,4 +1,4 @@
-# Quick Warm-Ups — DDL & Schema Design (5–10 min each)
+# Quick Warm-Ups — DDL & Schema Design
 
 Each exercise includes setup, task, expected output, and solution. Run each in its own session.
 
@@ -46,7 +46,7 @@ By completing these warm-ups, you will:
 
 ---
 
-## 1) Create Simple Table — 5 min
+## 1) Create Simple Table
 Scenario: Create a products table with basic columns.
 
 Task: Create a table with product_id (primary key, auto-increment), product_name (up to 100 chars, required), and price (decimal with 2 decimal places).
@@ -73,7 +73,7 @@ DESCRIBE wu10_products;
 
 ---
 
-## 2) Add New Column — 6 min
+## 2) Add New Column
 Scenario: Add a stock quantity column to existing table.
 
 Sample data:
@@ -101,7 +101,7 @@ SELECT * FROM wu10_inventory;
 
 ---
 
-## 3) Add Foreign Key Constraint — 7 min
+## 3) Add Foreign Key Constraint
 **Scenario:** Link orders to customers with foreign key to enforce referential integrity.
 
 **Beginner Context:** 
@@ -160,7 +160,7 @@ INSERT INTO wu10_orders VALUES (100, '2025-11-06', 1);
 
 ---
 
-## 4) Modify Column Data Type — 6 min
+## 4) Modify Column Data Type
 Scenario: Increase email field size.
 
 Sample data:
@@ -188,7 +188,7 @@ SELECT * FROM wu10_users;  -- Data preserved
 
 ---
 
-## 5) Add UNIQUE Constraint — 7 min
+## 5) Add UNIQUE Constraint
 Scenario: Ensure email addresses are unique.
 
 Sample data:
@@ -220,7 +220,7 @@ SHOW CREATE TABLE wu10_members;
 
 ---
 
-## 6) Create Table with Multiple Constraints — 8 min
+## 6) Create Table with Multiple Constraints
 **Scenario:** Create employee table with various constraints to enforce data quality.
 
 **Beginner Context:**
@@ -279,7 +279,7 @@ DESCRIBE wu10_employees;
 
 ---
 
-## 7) Drop and Recreate Table — 6 min
+## 7) Drop and Recreate Table
 Scenario: Completely replace a table structure.
 
 Sample data:
@@ -312,7 +312,7 @@ DESCRIBE wu10_old_table;
 
 ---
 
-## 8) Composite Primary Key — 7 min
+## 8) Composite Primary Key
 **Scenario:** Create enrollment table with composite primary key.
 
 **Beginner Context:**

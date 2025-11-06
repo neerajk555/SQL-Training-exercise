@@ -1,6 +1,6 @@
 # Module 1: Quick Warm-Ups (MySQL)
 
-Each warm-up includes a tiny dataset, a focused task, expected output, and a solution. Time per exercise: 5–10 minutes.
+Each warm-up includes a tiny dataset, a focused task, expected output, and a solution.
 
 ##  Before You Start
 
@@ -64,7 +64,6 @@ Tip: These use temporary tables and won't affect your database. You can also loa
   |------------|-------------|-------|
   | 1          | USB-C Cable | 9.99  |
   | 3          | Mouse Pad   | 6.50  |
-- Time: 5–7 min
 - Solution:
   ```sql
   SELECT `product_id`, `name`, `price`
@@ -93,7 +92,6 @@ Tip: These use temporary tables and won't affect your database. You can also loa
   | student_id | full_name |
   |------------|-----------|
   | 2          | Omar Ali  |
-- Time: 5 min
 - Solution:
   ```sql
   SELECT `student_id`, `full_name`
@@ -123,7 +121,6 @@ Tip: These use temporary tables and won't affect your database. You can also loa
   |---------|---------------------|
   | 3       | 2025-11-15 11:30:00 |
   | 2       | 2025-12-01 14:00:00 |
-- Time: 6–8 min
 - Solution:
   ```sql
   SELECT `appt_id`, `appt_date`
@@ -151,7 +148,6 @@ Tip: These use temporary tables and won't affect your database. You can also loa
   |------------|-------|
   | Backpack   | 29.99 |
   | Headphones | 49.99 |
-- Time: 5 min
 - Solution:
   ```sql
   SELECT `name`, `price`
@@ -179,7 +175,6 @@ Tip: These use temporary tables and won't affect your database. You can also loa
   | Ben        | Kim       |
   | Ava        | Lee       |
   | Cara       | Singh     |
-- Time: 5 min
 - Solution:
   ```sql
   SELECT *

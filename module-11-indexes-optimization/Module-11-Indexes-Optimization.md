@@ -187,9 +187,9 @@ SELECT * FROM sys.schema_unused_indexes;
 
 ## 📖 Module Structure
 
-- **Quick Warm-Ups:** 8 exercises (5-10 min each) - Basic index creation and EXPLAIN
-- **Guided Step-by-Step:** 2 detailed projects (15-20 min each) - Real optimization scenarios
-- **Independent Practice:** 3 exercises (20-40 min each) - Apply indexing strategies
+- **Quick Warm-Ups:** 8 exercises - Basic index creation and EXPLAIN
+- **Guided Step-by-Step:** 2 detailed projects - Real optimization scenarios
+- **Independent Practice:** 3 exercises - Apply indexing strategies
 - **Paired Programming:** Collaborative optimization challenge
 - **Real-World Project:** Full database performance audit
 - **Error Detective:** Common indexing mistakes and fixes

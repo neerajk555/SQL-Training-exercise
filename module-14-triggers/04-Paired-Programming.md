@@ -5,7 +5,7 @@ Pair programming helps you learn by collaborating. One person is the "driver" (w
 
 ---
 
-## Challenge: Complete Data Integrity System — 40 min
+## Challenge: Complete Data Integrity System
 
 ### 🎯 Objective
 Build a comprehensive trigger system for an e-commerce order management system. Partner A focuses on validation (BEFORE triggers), Partner B focuses on auditing (AFTER triggers). Then test together!
@@ -63,7 +63,7 @@ CREATE TABLE pp14_low_stock_alerts (
 
 ### 👥 Role Assignment
 
-#### Partner A: Validation Triggers (BEFORE) — 20 min
+#### Partner A: Validation Triggers (BEFORE)
 
 **Your Responsibilities:**
 Create BEFORE triggers to validate and enforce business rules:
@@ -127,7 +127,7 @@ DELIMITER ;
 - Use SIGNAL SQLSTATE '45000' to raise errors and stop invalid orders
 - BEFORE triggers can modify NEW values before they're saved
 
-#### Partner B: Audit & Automation Triggers (AFTER) — 20 min
+#### Partner B: Audit & Automation Triggers (AFTER)
 
 **Your Responsibilities:**
 Create AFTER triggers for logging and automation:
@@ -187,7 +187,7 @@ DELIMITER ;
 - All your changes happen in one transaction - if anything fails, everything rolls back
 - Remember to also log to audit_log and update customer balance!
 
-### 🧪 Together: Testing Phase (10 min)
+### 🧪 Together: Testing Phase
 
 Once both partners complete their triggers, test together:
 
@@ -257,7 +257,7 @@ SELECT * FROM pp14_low_stock_alerts;
 -- Expected: Error about email format
 ```
 
-### 🔍 Together: Analysis & Optimization (10 min)
+### 🔍 Together: Analysis & Optimization
 
 **Discussion Questions:**
 

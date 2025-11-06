@@ -1,6 +1,6 @@
 # Independent Practice — Joins (7 exercises)
 
-Includes 3 easy, 3 medium, and 1 challenge. Each exercise has a time estimate, scenario, schema with data, requirements, example output, success criteria, tiered hints, and a detailed solution with alternatives.
+Includes 3 easy, 3 medium, and 1 challenge. Each exercise has scenario, schema with data, requirements, example output, success criteria, tiered hints, and a detailed solution with alternatives.
 
 ## 📋 Before You Start
 

@@ -1,6 +1,6 @@
-# Guided Step-by-Step — Transactions (15–20 min each)
+# Guided Step-by-Step — Transactions
 
-## Activity 1: Bank Transfer with Error Handling — 18 min
+## Activity 1: Bank Transfer with Error Handling
 
 ### Business Context
 Implement secure money transfer between accounts. Must be atomic: both debit and credit succeed or neither happens.
@@ -117,7 +117,7 @@ SELECT * FROM gs12_accounts WHERE account_id = 1;
 
 ---
 
-## Activity 2: Order Processing with Inventory — 20 min
+## Activity 2: Order Processing with Inventory
 
 ### Business Context
 When customer places order, must: create order record, deduct inventory, all in one transaction.
@@ -247,7 +247,7 @@ SELECT * FROM gs12_products WHERE product_id IN (1, 2);
 
 ---
 
-## Activity 3: Savepoints for Complex Operations — 18 min
+## Activity 3: Savepoints for Complex Operations
 
 ### Business Context
 Batch import with ability to rollback individual records but keep successful ones.

@@ -1,6 +1,6 @@
 # Paired Programming — Procedures & Functions
 
-## Challenge: Build User Management Library — 40 min
+## Challenge: Build User Management Library
 
 **Tasks:**
 1. Partner A: Create `register_user()` procedure with validation

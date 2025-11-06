@@ -16,8 +16,8 @@ Tip: You can optionally run the reusable setup in `module-01-setup.sql` for larg
 
 ---
 
-## 1) Quick Warm-Ups (5 exercises, 5–10 min each)
-Each includes: title, scenario, sample data, task, expected output, time estimate.
+## 1) Quick Warm-Ups (5 exercises)
+Each includes: title, scenario, sample data, task, expected output.
 
 ### Warm-Up 1: List Active Products
 - Scenario: You just joined an e-commerce team and need a quick view of active products.
@@ -40,7 +40,6 @@ Each includes: title, scenario, sample data, task, expected output, time estimat
   |------------|------------|-------|
   | 1          | USB-C Cable| 9.99  |
   | 3          | Mouse Pad  | 6.50  |
-- Time: 5–7 min
 - Solution:
   ```sql
   SELECT `product_id`, `name`, `price`
@@ -67,7 +66,6 @@ Each includes: title, scenario, sample data, task, expected output, time estimat
   | student_id | full_name |
   |------------|-----------|
   | 2          | Omar Ali  |
-- Time: 5 min
 - Solution:
   ```sql
   SELECT `student_id`, `full_name`
@@ -95,7 +93,6 @@ Each includes: title, scenario, sample data, task, expected output, time estimat
   |---------|---------------------|
   | 3       | 2025-11-15 11:30:00 |
   | 2       | 2025-12-01 14:00:00 |
-- Time: 6–8 min
 - Solution:
   ```sql
   SELECT `appt_id`, `appt_date`
@@ -121,7 +118,6 @@ Each includes: title, scenario, sample data, task, expected output, time estimat
   |------------|-------|
   | Backpack   | 29.99 |
   | Headphones | 49.99 |
-- Time: 5 min
 - Solution:
   ```sql
   SELECT `name`, `price`
@@ -147,7 +143,6 @@ Each includes: title, scenario, sample data, task, expected output, time estimat
   | Ben        | Kim       |
   | Ava        | Lee       |
   | Cara       | Singh     |
-- Time: 5 min
 - Solution:
   ```sql
   SELECT *

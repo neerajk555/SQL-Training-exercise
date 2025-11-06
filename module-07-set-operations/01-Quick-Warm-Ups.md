@@ -330,6 +330,4 @@ ORDER BY emp_id;
 
 ---
 
-**Time Estimate Check:** Each warm-up should take 5–10 minutes. If you're taking longer, focus on understanding the set operation syntax. If faster, great—you're ready for guided activities!
-
 **Next Step:** Move to `02-Guided-Step-by-Step.md` for structured scenarios with checkpoints.

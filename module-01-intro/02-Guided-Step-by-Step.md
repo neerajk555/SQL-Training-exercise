@@ -1,6 +1,6 @@
 # Module 1: Guided Step-by-Step (MySQL)
 
-Three structured activities with business context, setup, final goal, stepwise checkpoints, common mistakes, and full solutions. Time per activity: 15–20 minutes.
+Three structured activities with business context, setup, final goal, stepwise checkpoints, common mistakes, and full solutions.
 
 ## 📋 Before You Start
 

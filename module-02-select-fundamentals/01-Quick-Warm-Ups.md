@@ -68,7 +68,6 @@ Gel Pen     | 1.49
 Coffee Mug  | 7.99
 T-Shirt     | 12.00
 ```
-- Time: 5 min
 - Solution
 ```sql
 SELECT name, price
@@ -88,7 +87,6 @@ product_id | name
 1          | Notebook
 2          | Gel Pen
 ```
-- Time: 5–7 min
 - Solution
 ```sql
 SELECT product_id, name
@@ -110,7 +108,6 @@ name       | price
 T-Shirt    | 12.00
 Coffee Mug | 7.99
 ```
-- Time: 5–7 min
 - Solution
 ```sql
 SELECT name, price
@@ -145,7 +142,6 @@ Ava Brown | ava@example.com
 Noah Smith| no email
 Mia Chen  | mia@example.com
 ```
-- Time: 5–7 min
 - Solution
 ```sql
 SELECT full_name,
@@ -181,7 +177,6 @@ SAN JOSE
 Santa Fe
 san marino
 ```
-- Time: 7–10 min
 - Solution
 ```sql
 SELECT DISTINCT city

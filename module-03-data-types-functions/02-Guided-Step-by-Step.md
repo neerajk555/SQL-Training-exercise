@@ -145,7 +145,7 @@ Discussion questions
 ---
 
 ## Activity 3: Appointment Durations and Buckets
-- Business context: A clinic wants to estimate time slots and categorize duration.
+- Business context: A clinic wants to categorize appointment durations.
 - Database setup
 ```sql
 DROP TABLE IF EXISTS gss_appt_time;
@@ -159,14 +159,14 @@ INSERT INTO gss_appt_time VALUES
 (2,'2025-03-01 10:00:00','2025-03-01 11:15:00'),
 (3,'2025-03-01 13:00:00',NULL);
 ```
-- Final goal: Return `appt_id`, minutes duration using `TIMESTAMPDIFF(MINUTE, start_dt, end_dt)` as `mins`, and a bucket `short` (<=30), `standard` (31–60), `long` (>60), with '-' when end_dt is NULL.
+- Final goal: Return `appt_id`, minutes using `TIMESTAMPDIFF(MINUTE, start_dt, end_dt)` as `mins`, and a bucket `short` (<=30), `standard` (31–60), `long` (>60), with '-' when end_dt is NULL.
 
 Step-by-step with checkpoints
-1) Compute duration minutes with TIMESTAMPDIFF; end_dt NULL yields NULL.
+1) Compute minutes with TIMESTAMPDIFF; end_dt NULL yields NULL.
    - Checkpoint: Row 3 shows NULL.
 2) Build CASE for buckets based on minutes.
    - Checkpoint: 30 → short; 75 → long.
-3) COALESCE bucket to '-' when duration is NULL.
+3) COALESCE bucket to '-' when NULL.
    - Checkpoint: Row 3 shows '-'.
 4) Order by start_dt.
 
@@ -192,4 +192,4 @@ ORDER BY start_dt;
 
 Discussion questions
 - How would time zones affect these calculations?
-- Would storing duration as an INT column be helpful for reporting?
+- Would storing the calculated value as an INT column be helpful for reporting?

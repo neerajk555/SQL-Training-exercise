@@ -5,7 +5,7 @@ These exercises challenge you to apply trigger concepts independently. Try to so
 
 ---
 
-## Exercise 1: Email Validation (Easy) — 20 min
+## Exercise 1: Email Validation (Easy)
 
 ### 🎯 Problem Statement
 Create a trigger that validates email addresses before inserting users. The trigger should:
@@ -148,7 +148,7 @@ SELECT * FROM ip14_users;
 
 ---
 
-## Exercise 2: Price History Tracking (Medium) — 30 min
+## Exercise 2: Price History Tracking (Medium)
 
 ### 🎯 Problem Statement
 Build a complete price history system that tracks all price changes for products. When a product price changes, automatically record:
@@ -373,7 +373,7 @@ ORDER BY changed_at;
 
 ---
 
-## Exercise 3: Cascade Update System (Hard) — 40 min
+## Exercise 3: Cascade Update System (Hard)
 
 ### 🎯 Problem Statement
 Build a trigger system that cascades customer email updates across multiple related tables. When a customer's email changes in the `customers` table, automatically update it in:

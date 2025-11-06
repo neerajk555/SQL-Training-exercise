@@ -1,6 +1,6 @@
 # Independent Practice — Transactions
 
-## Exercise 1: Shopping Cart Checkout (Easy) — 20 min
+## Exercise 1: Shopping Cart Checkout (Easy)
 
 **Goal:** Implement a complete checkout process - create order, deduct inventory, clear cart - all in one transaction.
 
@@ -94,7 +94,7 @@ SELECT * FROM ip12_cart WHERE user_id = 1;  -- Should be empty
 
 ---
 
-## Exercise 2: Multi-Step Booking (Medium) — 30 min
+## Exercise 2: Multi-Step Booking (Medium)
 
 **Goal:** Build a hotel booking system: check availability, create reservation, process payment - with savepoints for error handling.
 
@@ -200,7 +200,7 @@ SELECT * FROM ip12_rooms WHERE room_id = 201;
 
 ---
 
-## Exercise 3: Concurrent Access Handling (Hard) — 40 min
+## Exercise 3: Concurrent Access Handling (Hard)
 
 **Goal:** Simulate two users trying to book the last concert seat simultaneously. Use proper locking to ensure only one succeeds!
 

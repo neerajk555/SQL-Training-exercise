@@ -3,13 +3,13 @@
 This folder contains complete MySQL practice activities for aggregates and grouping. All tasks include copy-paste sample data and commented solutions.
 
 ## What's inside
-- **01-Quick-Warm-Ups.md** — 5 fast exercises (5-10 min each) to try common aggregates
-- **02-Guided-Step-by-Step.md** — 3 structured scenarios using GROUP BY and HAVING (15-20 min each)
+- **01-Quick-Warm-Ups.md** — 5 fast exercises to try common aggregates
+- **02-Guided-Step-by-Step.md** — 3 structured scenarios using GROUP BY and HAVING
 - **03-Independent-Practice.md** — 7 exercises: 3 Easy 🟢, 3 Medium 🟡, 1 Challenge 🔴
-- **04-Paired-Programming.md** — 1 collaborative summarization activity (30 min)
-- **05-Real-World-Project.md** — 1 comprehensive reporting project (45-60 min)
+- **04-Paired-Programming.md** — 1 collaborative summarization activity
+- **05-Real-World-Project.md** — 1 comprehensive reporting project
 - **06-Error-Detective.md** — 5 challenges to fix common grouping and aggregate mistakes
-- **07-Speed-Drills.md** — 10 short questions (2-3 min each) with immediate answers
+- **07-Speed-Drills.md** — 10 short questions with immediate answers
 - **08-Take-Home-Challenges.md** — 3 advanced multi-part aggregate problems
 
 ## How to start
@@ -20,6 +20,5 @@ This folder contains complete MySQL practice activities for aggregates and group
 ## Notes
 - MySQL 8.0+ friendly; `GROUP_CONCAT` used for list aggregation.
 - Edge cases include NULLs, duplicates, and empty-result groups.
-- Time estimates are guides—work at your own pace!
 
 **Encouragement:** Summaries tell the story—filter carefully, group thoughtfully, and validate totals. You've got this! 🚀

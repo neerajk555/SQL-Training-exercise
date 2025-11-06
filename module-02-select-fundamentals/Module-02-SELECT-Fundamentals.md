@@ -20,7 +20,6 @@ Conventions
 - MySQL syntax only. Use backticks for identifiers when needed (e.g., reserved words or spaces).
 - Each activity provides sample data you can copy-paste into a scratch database.
 - Edge cases are included (NULLs, duplicates, empty results).
-- Time estimates are suggestions—take what you need.
 
 Files in this module
 - 01-Quick-Warm-Ups.md

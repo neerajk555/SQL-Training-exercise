@@ -6,7 +6,7 @@ Work with a partner: one person as **Driver** (writes code), one as **Navigator*
 
 ---
 
-## Challenge 1: Movie Streaming Platform Schema — 30 min
+## Challenge 1: Movie Streaming Platform Schema
 
 ### Scenario
 Design a database for a movie streaming service like Netflix. Track movies, users, watchlists, and viewing history.
