@@ -313,11 +313,21 @@ DELIMITER ;
 - If any fails, all rollback
 - Each statement ends with semicolon
 
-**⚠️ Performance Warning:**
-- More statements = slower trigger
-- Affects every insert
-- Consider if all updates are really needed
-- Maybe use stored procedure instead for complex logic
+**⚠️ Performance Warning for Beginners:**
+- **More statements = slower trigger** 
+  - This trigger has 4 UPDATE statements
+  - Each UPDATE queries and modifies a table
+  - This happens for EVERY order inserted (no way to skip it!)
+- **Affects every insert**
+  - If you insert 1000 orders, this runs 1000 times
+  - 4 updates × 1000 orders = 4000 table updates!
+- **Consider if all updates are really needed**
+  - Do you REALLY need to update daily_summary on every order?
+  - Maybe batch this update once per hour instead?
+- **Alternative: Use stored procedure for complex logic**
+  - Stored procedures can be called when needed (not automatically)
+  - Application can decide when to run complex calculations
+  - Triggers should be fast and simple!
 
 ---
 
@@ -339,7 +349,23 @@ BEGIN
     INSERT INTO price_increases VALUES (NEW.id, NOW());
 END;
 ```
-**Bugs:** Missing DELIMITER, missing FOR EACH ROW, missing END IF
+**Bugs to find and fix:**
+1. Missing DELIMITER (should be DELIMITER // at start and DELIMITER ; at end)
+2. Missing FOR EACH ROW (required in MySQL)
+3. Missing END IF (IF statement not properly closed)
+
+**Corrected version:**
+```sql
+DELIMITER //
+CREATE TRIGGER tr_example AFTER UPDATE ON products
+FOR EACH ROW
+BEGIN
+  IF OLD.price < NEW.price THEN
+    INSERT INTO price_increases VALUES (NEW.id, NOW());
+  END IF;
+END //
+DELIMITER ;
+```
 
 ### Challenge 3: Complete the pattern (90 sec)
 Create AFTER DELETE trigger that archives deleted products with all their data.
@@ -347,13 +373,42 @@ Create AFTER DELETE trigger that archives deleted products with all their data.
 ### Challenge 4: Optimization (90 sec)
 This trigger is slow—how would you improve it?
 ```sql
+DELIMITER //
 CREATE TRIGGER tr_slow AFTER INSERT ON orders
-FOR EACH ROW BEGIN
+FOR EACH ROW 
+BEGIN
+  -- ❌ BAD: Scans entire orders table 3 times!
   UPDATE summary SET count = (SELECT COUNT(*) FROM orders);
   UPDATE summary SET total = (SELECT SUM(amount) FROM orders);
   UPDATE summary SET avg = (SELECT AVG(amount) FROM orders);
-END;
+END //
+DELIMITER ;
 ```
+
+**Problems:**
+- Counts/sums ALL orders every time one order is inserted
+- If you have 1 million orders, it counts 1 million rows for each new order!
+- Three separate table scans (COUNT, SUM, AVG)
+
+**Improved version:**
+```sql
+DELIMITER //
+CREATE TRIGGER tr_fast AFTER INSERT ON orders
+FOR EACH ROW 
+BEGIN
+  -- ✅ GOOD: Just increment/add the new values
+  UPDATE summary SET 
+    count = count + 1,                    -- Add 1 to count
+    total = total + NEW.amount,           -- Add new amount to total
+    avg = (total + NEW.amount) / (count + 1);  -- Recalculate average
+END //
+DELIMITER ;
+```
+
+**Why it's faster:**
+- No table scans (doesn't look at old orders)
+- Uses simple math: increment count, add to total
+- Runs in constant time regardless of table size!
 
 ---
 

@@ -94,21 +94,38 @@ CREATE TRIGGER tr_validate_order
 BEFORE INSERT ON pp14_orders
 FOR EACH ROW
 BEGIN
+  -- Step 1: Declare variables to hold data we'll fetch
   DECLARE product_stock INT;
   DECLARE product_price DECIMAL(10,2);
   DECLARE customer_balance DECIMAL(10,2);
   DECLARE customer_limit DECIMAL(10,2);
   
-  -- Get product details
+  -- Step 2: Get product details from products table
   SELECT stock, price INTO product_stock, product_price
   FROM pp14_products WHERE product_id = NEW.product_id;
   
-  -- Validation checks...
-  -- Calculate totals...
-  -- Update NEW values...
+  -- Step 3: Get customer details from customers table
+  SELECT current_balance, credit_limit INTO customer_balance, customer_limit
+  FROM pp14_customers WHERE customer_id = NEW.customer_id;
+  
+  -- Step 4: Validation checks with SIGNAL
+  -- IF product_stock IS NULL THEN ... (product doesn't exist)
+  -- IF NEW.quantity > product_stock THEN ... (not enough stock)
+  -- IF customer_balance + NEW.total_price > customer_limit THEN ... (over credit limit)
+  
+  -- Step 5: Calculate and set values
+  -- SET NEW.unit_price = product_price;
+  -- SET NEW.total_price = NEW.quantity * product_price;
 END //
 DELIMITER ;
 ```
+
+**Beginner Tips for Partner A:**
+- Use DECLARE to create variables (like creating variables in any programming language)
+- SELECT INTO retrieves data from database and stores it in your variables
+- Check for NULL to detect if product/customer doesn't exist
+- Use SIGNAL SQLSTATE '45000' to raise errors and stop invalid orders
+- BEFORE triggers can modify NEW values before they're saved
 
 #### Partner B: Audit & Automation Triggers (AFTER) — 20 min
 
@@ -139,24 +156,36 @@ CREATE TRIGGER tr_update_inventory
 AFTER INSERT ON pp14_orders
 FOR EACH ROW
 BEGIN
+  -- Step 1: Declare variables
   DECLARE new_stock INT;
   DECLARE product_min_stock INT;
   
-  -- Update stock
+  -- Step 2: Deduct quantity from product stock
   UPDATE pp14_products
   SET stock = stock - NEW.quantity
   WHERE product_id = NEW.product_id;
   
-  -- Check if alert needed
+  -- Step 3: Get the updated stock level
   SELECT stock, min_stock INTO new_stock, product_min_stock
   FROM pp14_products WHERE product_id = NEW.product_id;
   
+  -- Step 4: Check if stock dropped below minimum
   IF new_stock < product_min_stock THEN
-    INSERT INTO pp14_low_stock_alerts...
+    -- Insert alert record
+    INSERT INTO pp14_low_stock_alerts (product_id, current_stock, min_stock)
+    VALUES (NEW.product_id, new_stock, product_min_stock);
   END IF;
 END //
 DELIMITER ;
 ```
+
+**Beginner Tips for Partner B:**
+- AFTER triggers run after data is already saved (order is confirmed)
+- Use UPDATE to modify other tables (not the table that fired the trigger!)
+- Retrieve updated values with SELECT INTO after the UPDATE
+- Use IF to conditionally insert alerts only when needed
+- All your changes happen in one transaction - if anything fails, everything rolls back
+- Remember to also log to audit_log and update customer balance!
 
 ### 🧪 Together: Testing Phase (10 min)
 

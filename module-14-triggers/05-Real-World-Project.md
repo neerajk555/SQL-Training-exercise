@@ -327,9 +327,11 @@ BEFORE INSERT ON customers
 FOR EACH ROW
 BEGIN
   -- Email format validation
+  -- Pattern: %_@__%.__%' means:
+  -- % = any characters, _ = at least one character, @ = literal @, then domain with dot
   IF NEW.email NOT LIKE '%_@__%.__%' THEN
     SIGNAL SQLSTATE '45000'
-    SET MESSAGE_TEXT = 'Invalid email format';
+    SET MESSAGE_TEXT = 'Invalid email format - must be like user@domain.com';
   END IF;
   
   -- Credit limit validation
@@ -425,6 +427,8 @@ BEGIN
   SET NEW.unit_price = product_price;
   
   -- Calculate line total with discount
+  -- Formula: quantity × price × (1 - discount%)
+  -- Example: 10 items × $100 × (1 - 20/100) = 10 × 100 × 0.8 = $800
   SET NEW.line_total = NEW.quantity * NEW.unit_price * 
                        (1 - NEW.discount_percent / 100);
 END //
@@ -444,13 +448,15 @@ BEGIN
   DECLARE order_discount DECIMAL(10,2);
   DECLARE order_total DECIMAL(10,2);
   
-  -- Calculate subtotal (sum of all line totals)
+  -- Calculate subtotal (sum of all line totals for this order)
+  -- COALESCE returns 0 if SUM is NULL (when no items exist)
   SELECT COALESCE(SUM(line_total), 0)
   INTO order_subtotal
   FROM order_items
   WHERE order_id = NEW.order_id;
   
   -- Calculate tax (8% of subtotal)
+  -- Example: $100 subtotal × 0.08 = $8 tax
   SET order_tax = order_subtotal * 0.08;
   
   -- Get existing discount

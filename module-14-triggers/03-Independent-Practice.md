@@ -124,12 +124,19 @@ SELECT * FROM ip14_users;
 -- Expected: Only the 3 valid emails
 ```
 
-**Explanation:**
-- `LOCATE('@', NEW.email)` finds position of '@', returns 0 if not found
-- `LOCATE('.', NEW.email, start_position)` finds '.' starting from given position
-- `LOCATE('.', email, LOCATE('@', email))` finds '.' after the '@'
-- Multiple IF statements check each rule independently
-- Clear error messages help users understand what's wrong
+**Explanation for Beginners:**
+- `LOCATE('@', NEW.email)` searches for '@' in the email, returns position (1, 2, 3...) or 0 if not found
+- `LOCATE('.', NEW.email, start_position)` searches for '.' starting from a specific position
+- `LOCATE('.', email, LOCATE('@', email))` is nested: first finds '@', then searches for '.' after that position
+- Think of LOCATE like "Find" function in a text editor - it tells you where something is located
+- Multiple IF statements check each rule independently (like a checklist)
+- Clear error messages help users understand what's wrong with their input
+
+**Why these checks matter:**
+- 'alice' - no @ symbol, not valid
+- 'alice@' - has @ but no domain after it
+- 'alice@test' - has @ but no dot in domain (should be like test.com)
+- 'alice@test.com' - valid! Has @ and dot after @
 
 **Alternative: More Robust Validation**
 ```sql
@@ -340,12 +347,20 @@ ORDER BY changed_at;
 -- Shows complete price history for product 1
 ```
 
-**Explanation:**
-- BEFORE UPDATE trigger captures both OLD and NEW prices
-- `IF OLD.price != NEW.price` prevents logging when only name changes
-- CASE statement handles division by zero (when old_price = 0)
-- Negative change_amount indicates price decrease
-- Indexes on product_id and changed_at improve query performance
+**Explanation for Beginners:**
+- **BEFORE UPDATE** trigger captures both OLD and NEW prices before the change is saved
+- `IF OLD.price != NEW.price` is crucial - it prevents logging when you update the name but price stays the same
+- **CASE statement** handles division by zero: if old_price is 0, we can't divide (0/0 = error), so return NULL
+- **Negative change_amount** indicates price decrease (e.g., $120 → $90 = -$30)
+- **Positive change_amount** indicates price increase (e.g., $100 → $120 = +$20)
+- **Indexes** on product_id and changed_at make queries faster (like an index in a book)
+
+**Why this pattern is useful:**
+- Historical pricing data for analytics
+- Price tracking for competitive analysis  
+- Compliance requirements (prove prices weren't manipulated)
+- Customer service (explain why price changed)
+- Rollback capability (undo price changes if needed)
 
 **Advanced Enhancement Ideas:**
 1. Add user tracking (who made the change)
@@ -649,13 +664,25 @@ SELECT
 FROM ip14_email_change_log;
 ```
 
-**Explanation:**
-- AFTER UPDATE trigger ensures customer email is already updated
-- `IF OLD.email != NEW.email` prevents unnecessary cascading
-- ROW_COUNT() captures how many rows were affected by each UPDATE
-- Variables track which tables were updated
-- All updates happen in same transaction (all succeed or all fail)
-- Log provides complete audit trail
+**Explanation for Beginners:**
+- **AFTER UPDATE** trigger means customer email is already updated in customers table before trigger fires
+- `IF OLD.email != NEW.email` prevents unnecessary cascading when you update name but not email
+- **ROW_COUNT()** is a MySQL function that tells you how many rows the last UPDATE changed (0, 1, 2, etc.)
+- **Variables** (orders_updated, tickets_updated) track which tables were affected - used for logging
+- **Transaction Safety**: All updates happen in same transaction - think of it as "all or nothing"
+  - If any UPDATE fails, MySQL automatically rolls back ALL changes (even the original customer email update)
+  - This prevents partial updates that could leave data inconsistent
+- **Log** provides complete audit trail - you can see exactly what changed, when, and what was affected
+
+**How the cascade works:**
+1. User updates: `UPDATE customers SET email = 'new@email.com' WHERE customer_id = 1`
+2. Customer email is updated in customers table
+3. Trigger fires AFTER that update
+4. Trigger updates email in orders table (for that customer)
+5. Trigger updates email in tickets table (for that customer)
+6. Trigger updates email in newsletters table (for that customer)
+7. Trigger logs the change with count of affected rows
+8. All done automatically - user only updated one table!
 
 **Important Notes:**
 1. **Data Denormalization**: In this exercise, email is stored in multiple tables (denormalized). In real systems, you'd typically use customer_id as a foreign key and JOIN to get email.

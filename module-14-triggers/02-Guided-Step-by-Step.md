@@ -351,14 +351,26 @@ END //
 DELIMITER ;
 ```
 
-**Explanation**:
-- DECLARE creates a variable to store current stock
-- SELECT INTO retrieves current stock into the variable
-- Multiple IF conditions check for different error cases
-- SIGNAL raises errors to prevent invalid orders
-- Only if validation passes does the inventory update happen
+**Explanation Step-by-Step**:
+1. **DECLARE current_stock INT**: Creates a temporary variable to hold a number (like declaring a variable in programming)
+2. **SELECT stock INTO current_stock**: Retrieves the stock from the database and stores it in our variable
+3. **IF current_stock IS NULL**: Checks if product doesn't exist (SELECT returned nothing)
+4. **ELSEIF current_stock < NEW.quantity**: Checks if there's not enough stock
+5. **ELSE**: If all checks pass, update the inventory
+6. **SIGNAL SQLSTATE '45000'**: Raises a custom error that stops everything and rolls back
 
-**Important Note**: This is an AFTER trigger, but SIGNAL still works! The order insertion will be rolled back if an error is raised.
+Think of it like a security guard at a warehouse:
+- First, check if the product exists
+- Then, check if there's enough in stock
+- Only if both checks pass, allow the inventory to be deducted
+
+**Important Note for Beginners**: This is an AFTER trigger, but SIGNAL still works! Here's what happens:
+- The order IS inserted into gs14_orders table
+- Then the trigger fires and checks stock
+- If validation fails, SIGNAL raises an error
+- MySQL automatically rolls back EVERYTHING (including the order insertion)
+- This is called a "transaction rollback" - it's like hitting the undo button
+- So even though it's AFTER INSERT, the insert gets undone if the trigger fails!
 
 ### Step 3: Test Validation (5 min)
 
@@ -374,9 +386,10 @@ SELECT * FROM gs14_inventory WHERE product_id = 101;
 
 **Test Case 2: Insufficient stock (should fail)**
 ```sql
--- Product 101 has 25 units, try to order 30
+-- Product 101 has 25 units, try to order 30 (uncomment to test)
 -- INSERT INTO gs14_orders VALUES (4, 101, 30);
 -- ❌ Error! "Insufficient stock for this order"
+-- You'll see: Error Code: 1644. Insufficient stock for this order
 
 -- Verify inventory unchanged
 SELECT * FROM gs14_inventory WHERE product_id = 101;
@@ -384,14 +397,17 @@ SELECT * FROM gs14_inventory WHERE product_id = 101;
 
 -- Verify order wasn't inserted
 SELECT * FROM gs14_orders WHERE order_id = 4;
--- Expected: Empty (order was rolled back)
+-- Expected: Empty result (order was rolled back - it never actually got saved!)
+-- This is the beauty of triggers: atomic operations - either everything succeeds or nothing does
 ```
 
 **Test Case 3: Non-existent product (should fail)**
 ```sql
--- Try to order product 999 (doesn't exist)
+-- Try to order product 999 (doesn't exist) - uncomment to test
 -- INSERT INTO gs14_orders VALUES (5, 999, 10);
 -- ❌ Error! "Product not found in inventory"
+-- This happens when SELECT INTO returns NULL (no matching product)
+-- It's like trying to buy something that doesn't exist in the store!
 ```
 
 **Test Case 4: Exact stock amount**
@@ -406,9 +422,11 @@ SELECT * FROM gs14_inventory WHERE product_id = 102;
 
 **Test Case 5: Try to order from depleted stock**
 ```sql
--- Product 102 has 0 units, try to order 1
+-- Product 102 has 0 units, try to order 1 (uncomment to test)
 -- INSERT INTO gs14_orders VALUES (7, 102, 1);
 -- ❌ Error! "Insufficient stock for this order"
+-- Even trying to order 1 when stock is 0 fails the check: 0 < 1 is TRUE
+-- This prevents "backorders" unless you specifically program that feature
 ```
 
 ### Complete Test Suite

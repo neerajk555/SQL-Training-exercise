@@ -20,7 +20,7 @@ Measure and document the performance impact of triggers on bulk operations. Crea
 
 **Part 1: Setup Benchmark Environment**
 ```sql
--- Create test table with 100,000 rows
+-- Create test table with space for 100,000+ rows
 CREATE TABLE perf_test (
   id INT AUTO_INCREMENT PRIMARY KEY,
   data VARCHAR(100),
@@ -28,14 +28,35 @@ CREATE TABLE perf_test (
   updated_at TIMESTAMP
 );
 
--- Create audit table
+-- Create audit table to log operations
 CREATE TABLE perf_audit (
   audit_id INT AUTO_INCREMENT PRIMARY KEY,
   test_id INT,
   action VARCHAR(20),
   timestamp TIMESTAMP
 );
+
+-- Populate with sample data using stored procedure
+DELIMITER //
+CREATE PROCEDURE populate_test_data(num_rows INT)
+BEGIN
+  DECLARE i INT DEFAULT 1;
+  WHILE i <= num_rows DO
+    INSERT INTO perf_test (data, created_at, updated_at)
+    VALUES (CONCAT('Test data ', i), NOW(), NOW());
+    SET i = i + 1;
+  END WHILE;
+END //
+DELIMITER ;
+
+-- Generate 100,000 rows (may take a few minutes)
+CALL populate_test_data(100000);
 ```
+
+**Beginner Note:** 
+- Benchmarking means measuring how fast something runs
+- We're comparing trigger performance vs no trigger
+- More data = more realistic test (that's why 100,000 rows!)
 
 **Part 2: Create Test Scenarios**
 1. Baseline (no triggers)
@@ -60,20 +81,49 @@ Create report with:
 - Lock contention observations
 - Recommendations for optimization
 
-### 💡 Tools to Use
+### 💡 Tools to Use (Beginner Guide)
+
+**Method 1: Manual timing with NOW(6)**
 ```sql
--- MySQL timing
+-- NOW(6) gives timestamp with microsecond precision
 SET @start = NOW(6);
--- Your operation here
+
+-- Your operation here (e.g., INSERT 1000 rows)
+INSERT INTO perf_test (data) VALUES ('test');
+
 SET @end = NOW(6);
+
+-- Calculate difference in microseconds (1 second = 1,000,000 microseconds)
 SELECT TIMESTAMPDIFF(MICROSECOND, @start, @end) AS execution_time_microseconds;
 
--- Profile queries
-SET profiling = 1;
--- Run operations
-SHOW PROFILES;
-SHOW PROFILE FOR QUERY 1;
+-- Convert to milliseconds for easier reading
+SELECT TIMESTAMPDIFF(MICROSECOND, @start, @end) / 1000 AS execution_time_ms;
 ```
+
+**Method 2: MySQL Profiling (more detailed)**
+```sql
+-- Turn on profiling
+SET profiling = 1;
+
+-- Run your operations
+INSERT INTO perf_test (data) VALUES ('test1');
+INSERT INTO perf_test (data) VALUES ('test2');
+
+-- See summary of all queries
+SHOW PROFILES;
+
+-- Get detailed breakdown of specific query (use Query_ID from SHOW PROFILES)
+SHOW PROFILE FOR QUERY 1;
+
+-- Turn off profiling when done
+SET profiling = 0;
+```
+
+**Understanding the numbers:**
+- 1 microsecond = 0.000001 seconds (very fast!)
+- 1 millisecond = 1,000 microseconds = 0.001 seconds
+- 1 second = 1,000,000 microseconds
+- Example: 50,000 microseconds = 50 ms = 0.05 seconds
 
 ### 🎯 Deliverables
 - [ ] SQL scripts for all test scenarios

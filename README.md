@@ -158,27 +158,16 @@ A comprehensive SQL training course covering fundamental to advanced database co
 - [Speed Drills](module-14-triggers/07-Speed-Drills.md)
 - [Take-Home Challenges](module-14-triggers/08-Take-Home-Challenges.md)
 
-### Module 15: Advanced Concepts
-- [Module Overview](module-15-advanced-concepts/Module-15-Advanced-Concepts.md)
-- [Quick Warm-Ups](module-15-advanced-concepts/01-Quick-Warm-Ups.md)
-- [Guided Step-by-Step](module-15-advanced-concepts/02-Guided-Step-by-Step.md)
-- [Independent Practice](module-15-advanced-concepts/03-Independent-Practice.md)
-- [Paired Programming](module-15-advanced-concepts/04-Paired-Programming.md)
-- [Real-World Project](module-15-advanced-concepts/05-Real-World-Project.md)
-- [Error Detective](module-15-advanced-concepts/06-Error-Detective.md)
-- [Speed Drills](module-15-advanced-concepts/07-Speed-Drills.md)
-- [Take-Home Challenges](module-15-advanced-concepts/08-Take-Home-Challenges.md)
-
-### Module 16: Professional Practices
-- [Module Overview](module-16-professional-practices/Module-16-Professional-Practices.md)
-- [Quick Warm-Ups](module-16-professional-practices/01-Quick-Warm-Ups.md)
-- [Guided Step-by-Step](module-16-professional-practices/02-Guided-Step-by-Step.md)
-- [Independent Practice](module-16-professional-practices/03-Independent-Practice.md)
-- [Paired Programming](module-16-professional-practices/04-Paired-Programming.md)
-- [Real-World Project](module-16-professional-practices/05-Real-World-Project.md)
-- [Error Detective](module-16-professional-practices/06-Error-Detective.md)
-- [Speed Drills](module-16-professional-practices/07-Speed-Drills.md)
-- [Take-Home Challenges](module-16-professional-practices/08-Take-Home-Challenges.md)
+### Module 15: Professional Practices
+- [Module Overview](module-15-professional-practices/Module-15-Professional-Practices.md)
+- [Quick Warm-Ups](module-15-professional-practices/01-Quick-Warm-Ups.md)
+- [Guided Step-by-Step](module-15-professional-practices/02-Guided-Step-by-Step.md)
+- [Independent Practice](module-15-professional-practices/03-Independent-Practice.md)
+- [Paired Programming](module-15-professional-practices/04-Paired-Programming.md)
+- [Real-World Project](module-15-professional-practices/05-Real-World-Project.md)
+- [Error Detective](module-15-professional-practices/06-Error-Detective.md)
+- [Speed Drills](module-15-professional-practices/07-Speed-Drills.md)
+- [Take-Home Challenges](module-15-professional-practices/08-Take-Home-Challenges.md)
 
 ## Getting Started
 

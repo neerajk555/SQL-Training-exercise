@@ -179,14 +179,18 @@ INSERT INTO wu14_products VALUES (1, 'Laptop', 1200);
 SELECT * FROM wu14_products;
 -- Expected: Product #1 with Laptop, price 1200.00
 
--- Step 4: Test with invalid data (uncomment to test)
+-- Step 4: Test with invalid data (uncomment one line at a time to test)
 -- INSERT INTO wu14_products VALUES (2, 'Invalid', -10);  
 -- ❌ Error! "Price cannot be negative"
 -- The INSERT is completely prevented—no row is saved
 
+-- Note: In MySQL, you'll see an error like:
+-- Error Code: 1644. Price cannot be negative
+
 -- Step 5: Try edge cases
 INSERT INTO wu14_products VALUES (3, 'Free Item', 0);
 -- ✅ Success! Zero is allowed (not negative)
+-- Many databases allow $0 items (free samples, promotional items, etc.)
 
 SELECT * FROM wu14_products;
 -- Expected: Two products (Laptop and Free Item), no negative prices!
@@ -200,9 +204,10 @@ SELECT * FROM wu14_products;
 5. INSERT is **completely cancelled**—no row is added to the table
 
 **🎓 Understanding SIGNAL**:
-- `SQLSTATE '45000'`: Standard MySQL error code for user-defined errors
-- `MESSAGE_TEXT`: Your custom error message that users will see
-- Effect: Stops the current operation (INSERT/UPDATE/DELETE) immediately
+- `SQLSTATE '45000'`: This is the standard MySQL error code for user-defined errors (think of it as "custom error code")
+- `MESSAGE_TEXT`: Your custom error message that users will see when the error occurs
+- Effect: Stops the current operation (INSERT/UPDATE/DELETE) immediately and rolls back any changes
+- It's like pressing an emergency stop button - everything halts right there!
 
 **✅ Success Check**: 
 - Valid inserts (positive prices) should work
@@ -276,12 +281,14 @@ UPDATE wu14_inventory SET stock = 85 WHERE product_id = 1;
 SELECT * FROM wu14_inventory_history ORDER BY changed_at;
 -- Expected: Two records showing the progression: 100→90→85
 
--- Step 8: Try updating without changing stock
+-- Step 8: Try updating without changing stock (same value)
 UPDATE wu14_inventory SET stock = 85 WHERE product_id = 1;
--- Stock didn't change (85 to 85), so trigger doesn't log it
+-- Stock didn't change (85 to 85), so trigger's IF condition is false
+-- No history record created - this keeps your history table clean!
 
 SELECT * FROM wu14_inventory_history;
 -- Expected: Still only two records (the IF statement prevented logging)
+-- This is smart! Why log when nothing actually changed?
 ```
 
 **🔍 How It Works**:
@@ -368,9 +375,10 @@ UPDATE wu14_accounts SET balance = 0 WHERE account_id = 1;
 SELECT * FROM wu14_accounts;
 -- Expected: Balance is now 0.00
 
--- Step 7: Try to go negative from zero
+-- Step 7: Try to go negative from zero (uncomment to test)
 -- UPDATE wu14_accounts SET balance = -0.01 WHERE account_id = 1;
 -- ❌ Error! Even tiny negative amounts are blocked
+-- This is database-level protection - even $0.01 negative is caught!
 ```
 
 **🔍 How It Works**:
@@ -725,16 +733,20 @@ WHERE item_id = 1;
 SELECT * FROM wu14_order_items WHERE item_id = 1;
 -- Expected: total = 40.00 (2 × 20.00), NOT 999.99!
 -- The trigger overrides any manual total value
+-- This demonstrates that triggers have the "final say" - they execute AFTER your UPDATE
+-- Even if you try to cheat by setting total manually, the trigger recalculates it!
 
--- Step 9: View all items
+-- Step 9: View all items with formatted output
 SELECT 
   item_id,
   quantity,
   unit_price,
   total,
-  CONCAT('$', ROUND(total, 2)) AS formatted_total
+  CONCAT('$', FORMAT(total, 2)) AS formatted_total
 FROM wu14_order_items
 ORDER BY item_id;
+-- FORMAT() adds comma separators (e.g., $1,234.56)
+-- ROUND() just rounds without formatting
 ```
 
 **🔍 How It Works**:
@@ -846,11 +858,15 @@ SELECT * FROM wu14_employees;
 -- Step 6: Check execution order with SHOW TRIGGERS
 SHOW TRIGGERS WHERE `Table` = 'wu14_employees';
 -- Expected: You'll see both triggers listed
+-- Note: The output shows Timing, Event, and Statement columns
+-- You can see which trigger fires when (BEFORE UPDATE) and what it does
 
--- Step 7: Test invalid update (validation should fail)
+-- Step 7: Test invalid update (validation should fail) - uncomment to test
 -- UPDATE wu14_employees SET salary = -1000 WHERE emp_id = 1;
 -- ❌ Error! First trigger (tr_emp_validate) catches it
 -- Second trigger (tr_emp_timestamp) never runs because first trigger stopped the update
+-- This is important: When one trigger raises an error, subsequent triggers don't execute
+-- It's like a security checkpoint - if you fail at checkpoint 1, you never reach checkpoint 2
 
 SELECT * FROM wu14_employees;
 -- Expected: Salary still 55000 (invalid update was blocked)
