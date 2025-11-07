@@ -4,11 +4,11 @@ A comprehensive SQL training course covering fundamental to advanced database co
 
 ## 📚 About This Course
 
-This repository contains a complete SQL training curriculum with 15 modules covering everything from basic SELECT statements to advanced stored procedures, triggers, and optimization techniques. Each module includes 8 different types of exercises designed to reinforce learning through varied practice approaches.
+This repository contains a complete SQL training curriculum with 14 modules plus best practices covering everything from basic SELECT statements to advanced stored procedures, triggers, and optimization techniques. Each module includes 8 different types of exercises designed to reinforce learning through varied practice approaches.
 
 ## 🎓 Capstone Project
 
-Ready to put your skills to the test? Check out the [**CityLibrary Management System Capstone Project**](Capstone_Project.md) - a comprehensive, real-world database project that integrates concepts from all 15 modules.
+Ready to put your skills to the test? Check out the [**CityLibrary Management System Capstone Project**](Capstone_Project.md) - a comprehensive, real-world database project that integrates concepts from all modules.
 
 **Project Highlights:**
 - Design a complete library management system with 9 interconnected tables
@@ -172,16 +172,16 @@ Ready to put your skills to the test? Check out the [**CityLibrary Management Sy
 - [Speed Drills](module-14-triggers/07-Speed-Drills.md)
 - [Take-Home Challenges](module-14-triggers/08-Take-Home-Challenges.md)
 
-### Module 15: Best Practices for SQL
-- [Module Overview](module-15-best-practices-for-sql/Module-15-Best-Practices-for-SQL.md)
-- [Quick Warm-Ups](module-15-best-practices-for-sql/01-Quick-Warm-Ups.md)
-- [Guided Step-by-Step](module-15-best-practices-for-sql/02-Guided-Step-by-Step.md)
-- [Independent Practice](module-15-best-practices-for-sql/03-Independent-Practice.md)
-- [Paired Programming](module-15-best-practices-for-sql/04-Paired-Programming.md)
-- [Real-World Project](module-15-best-practices-for-sql/05-Real-World-Project.md)
-- [Error Detective](module-15-best-practices-for-sql/06-Error-Detective.md)
-- [Speed Drills](module-15-best-practices-for-sql/07-Speed-Drills.md)
-- [Take-Home Challenges](module-15-best-practices-for-sql/08-Take-Home-Challenges.md)
+### Best Practices for SQL
+- [Overview](best-practices-for-sql/Best-Practices-for-SQL.md)
+- [Quick Warm-Ups](best-practices-for-sql/01-Quick-Warm-Ups.md)
+- [Guided Step-by-Step](best-practices-for-sql/02-Guided-Step-by-Step.md)
+- [Independent Practice](best-practices-for-sql/03-Independent-Practice.md)
+- [Paired Programming](best-practices-for-sql/04-Paired-Programming.md)
+- [Real-World Project](best-practices-for-sql/05-Real-World-Project.md)
+- [Error Detective](best-practices-for-sql/06-Error-Detective.md)
+- [Speed Drills](best-practices-for-sql/07-Speed-Drills.md)
+- [Take-Home Challenges](best-practices-for-sql/08-Take-Home-Challenges.md)
 
 ## Getting Started
 
