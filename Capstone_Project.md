@@ -57,11 +57,92 @@ You've been hired as the database developer. Your job is to design a normalized 
 
 ---
 
-## 🗂️ Database Requirements
+## � Getting Started (Read This First!)
+
+### Prerequisites
+- MySQL installed (version 5.7 or higher recommended)
+- A database client (MySQL Workbench, command line, or VS Code with MySQL extension)
+- Basic understanding of SQL from Modules 1-4
+
+### Step-by-Step Approach for Beginners
+
+**Don't feel overwhelmed!** This project looks large, but you'll build it piece by piece. Here's how to approach it:
+
+1. **Start Small**: Begin with just 3 core tables (members, authors, books) before adding the rest
+2. **Test as You Go**: After creating each table, insert 2-3 test rows to verify it works
+3. **Progressive Complexity**: Complete goals 1-4 first (BASIC level) before attempting intermediate or advanced goals
+4. **Use the Templates**: We provide starter code templates below - copy and modify them!
+5. **It's OK to Skip**: Goals 9-12 (procedures, triggers, transactions) are optional for your first attempt
+
+### ⏱️ Realistic Time Expectations (2-Day Project)
+
+**Total time needed: 8-12 hours** spread over 2 days
+
+**What you WILL accomplish in 2 days:**
+- ✅ Complete database schema with 5-7 tables
+- ✅ Insert realistic sample data
+- ✅ Write 15-20 working queries (Goals 3-4)
+- ✅ Learn joins and subqueries (Goals 5-6 basics)
+
+**What you probably WON'T finish in 2 days:**
+- ❌ All 12 goals (that's unrealistic!)
+- ❌ Advanced features (procedures, triggers, optimization)
+- ❌ All queries for Goals 5-8 (pick 3-4 from each)
+
+**That's completely normal!** Focus on quality over quantity.
+
+### Minimum Viable Product (MVP)
+
+For a successful **basic completion**, focus on:
+- ✅ Goals 1-4 (Create tables, insert data, basic queries, aggregation)
+- ✅ At least 5 tables: members, authors, books, book_copies, loans
+- ✅ At least 10 members, 5 authors, 10 books, 15 book copies, 10 loans
+- ✅ Working queries for Goals 3-4
+
+**Everything else is extra credit!** You can always come back and add more features later.
+
+### ⚡ Fast Track (2-Day Completion Strategy)
+
+**To finish in 2 days, follow this plan:**
+
+1. **Use the starter templates** - Don't write from scratch! Copy and modify the provided code
+2. **Focus on MVP first** - Complete Goals 1-4 thoroughly before attempting anything else
+3. **Test incrementally** - Verify each table and query works before moving on
+4. **Skip optional tables** - Start with just the 5 core tables; add fines/events later if time permits
+5. **Prioritize quality over quantity** - Better to have 5 perfect queries than 20 broken ones
+6. **Budget your time:**
+   - Schema creation: 1-2 hours
+   - Sample data insertion: 1-2 hours
+   - Basic queries (Goal 3): 1-2 hours
+   - Aggregate queries (Goal 4): 1-2 hours
+   - Joins (Goal 5): 2-3 hours
+   - Buffer time for debugging: 2 hours
+
+### Recommended 2-Day Timeline
+
+**Day 1 (4-6 hours):**
+- Morning: Goals 1-2 (Create schema + Insert sample data)
+- Afternoon: Goal 3 (Basic queries)
+- Evening: Goal 4 (Aggregates and grouping)
+
+**Day 2 (4-6 hours):**
+- Morning: Goal 5 (Joins - at least 5a-5d)
+- Afternoon: Goal 6 (Subqueries - at least 6a-6c)
+- Review and test all queries
+
+**Optional Extensions (If you have extra time):**
+- Goals 7-8 (Set Operations & Window Functions)
+- Goals 9-12 (Advanced Features - Procedures, Triggers, Optimization)
+
+---
+
+## ️ Database Requirements
 
 ### Tables to Create:
 
-#### 1. **members**
+**🎯 Core Tables (Required for MVP):**
+
+#### 1. **members** ⭐ REQUIRED
 Stores library patron information.
 - `member_id` (Primary Key, Auto-increment)
 - `first_name` (Required)
@@ -73,14 +154,14 @@ Stores library patron information.
 - `membership_type` (ENUM: 'standard', 'premium', 'student')
 - `status` (ENUM: 'active', 'suspended', 'expired')
 
-#### 2. **authors**
+#### 2. **authors** ⭐ REQUIRED
 Information about book authors.
 - `author_id` (Primary Key, Auto-increment)
 - `author_name` (Required)
 - `birth_year` (Optional)
 - `country` (Optional)
 
-#### 3. **books**
+#### 3. **books** ⭐ REQUIRED
 Catalog of unique book titles (not individual copies).
 - `book_id` (Primary Key, Auto-increment)
 - `title` (Required)
@@ -90,7 +171,7 @@ Catalog of unique book titles (not individual copies).
 - `genre` (Required: Fiction, Non-Fiction, Science, History, Biography, Children, etc.)
 - `total_copies` (Default: 1, must be > 0)
 
-#### 4. **book_copies**
+#### 4. **book_copies** ⭐ REQUIRED
 Individual physical copies of books (for tracking which specific copy is borrowed).
 - `copy_id` (Primary Key, Auto-increment)
 - `book_id` (Foreign Key → books)
@@ -98,7 +179,7 @@ Individual physical copies of books (for tracking which specific copy is borrowe
 - `condition` (ENUM: 'excellent', 'good', 'fair', 'poor')
 - `acquisition_date` (When the library got this copy)
 
-#### 5. **loans**
+#### 5. **loans** ⭐ REQUIRED
 Records of book borrowing transactions.
 - `loan_id` (Primary Key, Auto-increment)
 - `member_id` (Foreign Key → members)
@@ -108,7 +189,9 @@ Records of book borrowing transactions.
 - `return_date` (NULL until returned)
 - `status` (ENUM: 'active', 'returned', 'lost')
 
-#### 6. **fines**
+**📚 Additional Tables (Recommended but Optional):**
+
+#### 6. **fines** 🔵 OPTIONAL
 Overdue and damage fines.
 - `fine_id` (Primary Key, Auto-increment)
 - `loan_id` (Foreign Key → loans)
@@ -117,7 +200,7 @@ Overdue and damage fines.
 - `paid` (BOOLEAN: 0 = unpaid, 1 = paid)
 - `payment_date` (NULL until paid)
 
-#### 7. **events**
+#### 7. **events** 🔵 OPTIONAL
 Library events like book clubs, workshops, and reading programs.
 - `event_id` (Primary Key, Auto-increment)
 - `event_name` (Required)
@@ -126,7 +209,7 @@ Library events like book clubs, workshops, and reading programs.
 - `max_attendees` (Optional)
 - `description` (TEXT, Optional)
 
-#### 8. **event_registrations**
+#### 8. **event_registrations** 🔵 OPTIONAL
 Tracks which members signed up for which events.
 - `registration_id` (Primary Key, Auto-increment)
 - `event_id` (Foreign Key → events)
@@ -134,7 +217,7 @@ Tracks which members signed up for which events.
 - `registration_date` (Default: current date)
 - UNIQUE constraint on (event_id, member_id) - can't register twice for same event
 
-#### 9. **audit_log**
+#### 9. **audit_log** 🟣 ADVANCED (Skip for MVP)
 Tracks important database changes for security and troubleshooting.
 - `log_id` (Primary Key, Auto-increment)
 - `table_name` (VARCHAR)
@@ -157,7 +240,9 @@ Complete the following 12 tasks in order. Each builds on previous concepts.
 ### **Goal 1: Create the Database Schema**
 **Module Focus:** DDL (Module 10), Database Design (Module 1)
 
-**Task:** Create all 9 tables with proper data types, primary keys, foreign keys, and constraints.
+**Task:** Create the database and tables with proper data types, primary keys, foreign keys, and constraints.
+
+**🎯 For MVP (Minimum Viable Product):** Create the 5 REQUIRED tables (members, authors, books, book_copies, loans). You can add the optional tables later!
 
 **Requirements:**
 - Use appropriate data types for each column
@@ -167,6 +252,64 @@ Complete the following 12 tasks in order. Each builds on previous concepts.
 - Add UNIQUE constraints for email (members) and isbn (books)
 - Add DEFAULT values for dates and status fields
 - Use ENUM types for status fields to prevent invalid data
+
+**📝 Starter Code Template:**
+
+```sql
+-- Step 1: Create the database
+CREATE DATABASE IF NOT EXISTS city_library;
+USE city_library;
+
+-- Step 2: Create tables WITHOUT foreign keys first
+
+-- Table 1: members (no dependencies)
+CREATE TABLE members (
+    member_id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    phone VARCHAR(20),
+    address VARCHAR(200),
+    join_date DATE DEFAULT (CURRENT_DATE),
+    membership_type ENUM('standard', 'premium', 'student') DEFAULT 'standard',
+    status ENUM('active', 'suspended', 'expired') DEFAULT 'active'
+);
+
+-- Table 2: authors (no dependencies)
+CREATE TABLE authors (
+    author_id INT AUTO_INCREMENT PRIMARY KEY,
+    author_name VARCHAR(100) NOT NULL,
+    birth_year INT,
+    country VARCHAR(50)
+);
+
+-- Table 3: books (depends on authors)
+CREATE TABLE books (
+    book_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    author_id INT NOT NULL,
+    isbn VARCHAR(20) UNIQUE NOT NULL,
+    publication_year INT,
+    genre VARCHAR(50) NOT NULL,
+    total_copies INT DEFAULT 1 CHECK (total_copies > 0),
+    CONSTRAINT fk_books_author 
+        FOREIGN KEY (author_id) 
+        REFERENCES authors(author_id)
+        ON DELETE RESTRICT
+);
+
+-- TODO: Add book_copies table (depends on books)
+-- TODO: Add loans table (depends on members and book_copies)
+-- TODO: Add fines table if needed (depends on loans)
+-- TODO: Add events table if needed (no dependencies)
+-- TODO: Add event_registrations table if needed (depends on events and members)
+```
+
+**✅ Checkpoint:** After creating each table, verify it exists:
+```sql
+SHOW TABLES;
+DESCRIBE members;
+```
 
 **Hints:**
 - Start with tables that have no dependencies (members, authors, events)
@@ -188,14 +331,17 @@ Complete the following 12 tasks in order. Each builds on previous concepts.
 ### **Goal 2: Populate with Realistic Sample Data**
 **Module Focus:** DML Operations (Module 9)
 
-**Task:** Insert comprehensive test data that represents realistic library operations.
+**Task:** Insert test data that represents realistic library operations.
 
-**Requirements:**
-- Insert at least 20 members with varied membership types and statuses
-- Insert at least 10 authors from different countries
-- Insert at least 25 books across multiple genres
-- Insert at least 40 book copies (some books have multiple copies)
-- Insert at least 30 loans (mix of active, returned, and overdue)
+**🎯 MVP Requirements (Start Here):**
+- Insert at least **10 members** with varied membership types and statuses
+- Insert at least **5 authors** from different countries
+- Insert at least **10 books** across multiple genres
+- Insert at least **15 book copies** (some books have multiple copies)
+- Insert at least **10 loans** (mix of active, returned, and overdue)
+
+**🔵 Extended Requirements (Optional):**
+- Insert at least 20 members
 - Insert at least 10 fines (some paid, some unpaid)
 - Insert at least 8 events of different types
 - Insert at least 25 event registrations
@@ -212,13 +358,56 @@ Complete the following 12 tasks in order. Each builds on previous concepts.
 - For dates, use formats like '2024-10-15' or use functions like DATE_SUB(CURDATE(), INTERVAL 30 DAY)
 - Remember the order: insert parent records before children (members before loans)
 
+**📝 Complete Starter Code Example:**
+```sql
+-- Insert authors first (no dependencies)
+INSERT INTO authors (author_name, birth_year, country) VALUES
+  ('J.K. Rowling', 1965, 'United Kingdom'),
+  ('George Orwell', 1903, 'United Kingdom'),
+  ('Harper Lee', 1926, 'United States'),
+  ('Gabriel García Márquez', 1927, 'Colombia'),
+  ('Agatha Christie', 1890, 'United Kingdom');
+
+-- Insert members (no dependencies)
+INSERT INTO members (first_name, last_name, email, join_date, membership_type, status) VALUES
+  ('Alice', 'Johnson', 'alice.j@email.com', DATE_SUB(CURDATE(), INTERVAL 400 DAY), 'premium', 'active'),
+  ('Bob', 'Smith', 'bob.smith@email.com', DATE_SUB(CURDATE(), INTERVAL 200 DAY), 'standard', 'active'),
+  ('Carol', 'White', 'carol.w@email.com', DATE_SUB(CURDATE(), INTERVAL 100 DAY), 'student', 'active'),
+  ('David', 'Brown', 'david.b@email.com', DATE_SUB(CURDATE(), INTERVAL 50 DAY), 'standard', 'active'),
+  ('Emma', 'Davis', 'emma.d@email.com', DATE_SUB(CURDATE(), INTERVAL 30 DAY), 'premium', 'active'),
+  ('Frank', 'Miller', 'frank.m@email.com', DATE_SUB(CURDATE(), INTERVAL 500 DAY), 'standard', 'suspended'),
+  ('Grace', 'Wilson', 'grace.w@email.com', DATE_SUB(CURDATE(), INTERVAL 20 DAY), 'student', 'active'),
+  ('Henry', 'Moore', 'henry.m@email.com', DATE_SUB(CURDATE(), INTERVAL 10 DAY), 'standard', 'active'),
+  ('Ivy', 'Taylor', 'ivy.t@email.com', DATE_SUB(CURDATE(), INTERVAL 5 DAY), 'premium', 'active'),
+  ('Jack', 'Anderson', 'jack.a@email.com', CURDATE(), 'student', 'active');
+
+-- Insert books (depends on authors - note we use author_id 1-5 from above)
+INSERT INTO books (title, author_id, isbn, publication_year, genre, total_copies) VALUES
+  ('Harry Potter and the Philosopher''s Stone', 1, '9780747532699', 1997, 'Fiction', 3),
+  ('1984', 2, '9780451524935', 1949, 'Fiction', 2),
+  ('To Kill a Mockingbird', 3, '9780061120084', 1960, 'Fiction', 2),
+  ('One Hundred Years of Solitude', 4, '9780060883287', 1967, 'Fiction', 1),
+  ('Murder on the Orient Express', 5, '9780062693662', 1934, 'Fiction', 2),
+  ('Animal Farm', 2, '9780451526342', 1945, 'Fiction', 1),
+  ('Harry Potter and the Chamber of Secrets', 1, '9780747538493', 1998, 'Fiction', 2),
+  ('And Then There Were None', 5, '9780062073488', 1939, 'Fiction', 1),
+  ('The Great Gatsby', 1, '9780743273565', 1925, 'Fiction', 1),
+  ('Pride and Prejudice', 3, '9780141439518', 1813, 'Fiction', 2);
+
+-- TODO: Insert book_copies (depends on books)
+-- TODO: Insert loans (depends on members and book_copies)
+```
+
 **Data Tips:**
 ```sql
--- Example pattern for dates spread over time
-INSERT INTO members (first_name, last_name, email, join_date, membership_type, status)
-VALUES 
-  ('Alice', 'Johnson', 'alice.j@email.com', DATE_SUB(CURDATE(), INTERVAL 400 DAY), 'premium', 'active'),
-  ('Bob', 'Smith', 'bob.smith@email.com', DATE_SUB(CURDATE(), INTERVAL 200 DAY), 'standard', 'active');
+-- Pattern for dates spread over time
+DATE_SUB(CURDATE(), INTERVAL 30 DAY)  -- 30 days ago
+DATE_ADD(CURDATE(), INTERVAL 7 DAY)   -- 7 days from now
+
+-- Pattern for overdue loans (for testing)
+INSERT INTO loans (member_id, copy_id, loan_date, due_date, return_date, status) VALUES
+  (1, 1, DATE_SUB(CURDATE(), INTERVAL 30 DAY), DATE_SUB(CURDATE(), INTERVAL 16 DAY), NULL, 'active');
+  -- This creates a loan that is 16 days overdue
 ```
 
 **Common Pitfalls:**
@@ -238,7 +427,23 @@ VALUES
 
 **3a)** List all active members, showing first name, last name, and email, sorted alphabetically by last name.
 
+```sql
+-- Template to get you started:
+SELECT first_name, last_name, email
+FROM members
+WHERE status = '______'  -- Fill in the status
+ORDER BY ______ ASC;     -- Fill in the column to sort by
+```
+
 **3b)** Find all books in the 'Fiction' genre published after 2010, sorted by publication year (newest first).
+
+```sql
+-- Template to get you started:
+SELECT title, publication_year, genre
+FROM books
+WHERE genre = '______' AND publication_year > ______
+ORDER BY publication_year ______;  -- DESC for newest first
+```
 
 **3c)** Show all book copies in 'fair' or 'poor' condition that need replacement.
 
@@ -314,9 +519,16 @@ VALUES
 
 ### **INTERMEDIATE LEVEL (Goals 5-8): Complex Queries & Multiple Table Operations**
 
+**⚠️ IMPORTANT - 2-Day Timeline Guidance:**
+- **If completing in 2 days:** Complete Goals 1-4 fully, then attempt 3-4 queries from Goals 5-6 only
+- **Don't attempt to finish everything!** Focus on depth over breadth
+- Goals 7-8 are optional - skip these if on a tight deadline
+- For Day 2, prioritize: 5a-5d (Joins) and 6a-6c (Subqueries)
+- It's perfectly fine to complete just the BASIC level (Goals 1-4) in 2 days!
+
 ---
 
-### **Goal 5: Multi-Table Joins and Analysis**
+### **Goal 5: Multi-Table Joins and Analysis** 🔵 INTERMEDIATE
 **Module Focus:** Joins (Module 5)
 
 **Task:** Combine data from multiple tables to answer complex questions.
@@ -356,7 +568,7 @@ VALUES
 
 ---
 
-### **Goal 6: Subqueries and Common Table Expressions**
+### **Goal 6: Subqueries and Common Table Expressions** 🔵 INTERMEDIATE
 **Module Focus:** Subqueries & CTEs (Module 6)
 
 **Task:** Use nested queries and CTEs to solve complex problems.
@@ -400,7 +612,7 @@ VALUES
 
 ---
 
-### **Goal 7: Set Operations and Combined Results**
+### **Goal 7: Set Operations and Combined Results** 🔵 INTERMEDIATE
 **Module Focus:** Set Operations (Module 7)
 
 **Task:** Combine different result sets using UNION, INTERSECT concepts.
@@ -434,7 +646,7 @@ VALUES
 
 ---
 
-### **Goal 8: Window Functions for Ranking and Analytics**
+### **Goal 8: Window Functions for Ranking and Analytics** 🟣 ADVANCED
 **Module Focus:** Window Functions (Module 8)
 
 **Task:** Use analytical functions to rank and analyze data.
@@ -477,9 +689,15 @@ VALUES
 
 ### **CHALLENGING LEVEL (Goals 9-12): Advanced Features & Automation**
 
+**🎓 FOR ADVANCED STUDENTS ONLY:**
+These goals involve advanced MySQL features. They are completely optional!
+- Skip these if this is your first capstone project
+- Come back to these after mastering Goals 1-8
+- These are great for building your portfolio
+
 ---
 
-### **Goal 9: Create Stored Procedures and Functions**
+### **Goal 9: Create Stored Procedures and Functions** 🟣 ADVANCED - OPTIONAL
 **Module Focus:** Procedures & Functions (Module 13)
 
 **Task:** Build reusable database logic.
@@ -529,7 +747,7 @@ VALUES
 
 ---
 
-### **Goal 10: Implement Triggers for Data Integrity**
+### **Goal 10: Implement Triggers for Data Integrity** 🟣 ADVANCED - OPTIONAL
 **Module Focus:** Triggers (Module 14)
 
 **Task:** Create automatic data validation and logging.
@@ -574,7 +792,7 @@ VALUES
 
 ---
 
-### **Goal 11: Optimize Query Performance**
+### **Goal 11: Optimize Query Performance** 🟣 ADVANCED - OPTIONAL
 **Module Focus:** Indexes & Optimization (Module 11)
 
 **Task:** Improve database performance through indexing and query optimization.
@@ -614,7 +832,7 @@ VALUES
 
 ---
 
-### **Goal 12: Transaction Management for Critical Operations**
+### **Goal 12: Transaction Management for Critical Operations** 🟣 ADVANCED - OPTIONAL
 **Module Focus:** Transactions (Module 12)
 
 **Task:** Implement safe multi-step operations.
@@ -661,51 +879,661 @@ VALUES
 
 ## 📊 Deliverables & Submission
 
-Organize your work into these SQL files:
+### 📤 Submission Requirements
 
-1. **`schema.sql`** - All CREATE TABLE statements
-2. **`sample_data.sql`** - All INSERT statements
-3. **`queries_basic.sql`** - Solutions for Goals 3-4
-4. **`queries_intermediate.sql`** - Solutions for Goals 5-8
-5. **`procedures_functions.sql`** - Solutions for Goal 9
-6. **`triggers.sql`** - Solutions for Goal 10
-7. **`indexes.sql`** - Solutions for Goal 11
-8. **`transactions.sql`** - Solutions for Goal 12
-9. **`README.md`** - Brief documentation of your design decisions and any challenges faced
+**All students must submit their work on GitHub with the following:**
+
+### Minimum Deliverables (MVP - Required for 2-Day Completion):
+
+#### 1. **SQL Files:**
+   - **`schema.sql`** - All CREATE TABLE statements (at least 5 core tables)
+   - **`sample_data.sql`** - All INSERT statements with test data
+   - **`queries_basic.sql`** - All queries for Goals 3-4 with comments
+
+#### 2. **Documentation File:**
+   - **`CityLibrary_Project_Documentation.docx` (or PDF)** - Word document with:
+     - **Cover Page**: Your name, date, project title
+     - **Table of Contents**
+     - **For Each Goal (1-4 minimum):**
+       - Goal number and description
+       - Your SQL code (formatted and commented)
+       - Screenshot of the query execution showing results
+       - Brief explanation (2-3 sentences) of what the query does
+       - Any challenges you faced and how you solved them
+
+#### 3. **GitHub Repository:**
+   - Create a repo named: `SQL-Capstone-CityLibrary`
+   - Upload all SQL files
+   - Upload your Word/PDF documentation file
+   - Include a `README.md` with:
+     - Project title and description
+     - List of completed goals
+     - Technologies used (MySQL version)
+     - How to run your SQL files
+     - Brief summary of what you learned
+
+---
+
+### 📸 Screenshot Requirements (IMPORTANT!)
+
+**For your Word document, include screenshots showing:**
+
+#### Goal 1 (Schema Creation):
+- Screenshot of `SHOW TABLES;` output showing all created tables
+- Screenshot of `DESCRIBE members;` output
+- Screenshot of `DESCRIBE books;` output
+- Screenshot showing successful table creation messages
+
+#### Goal 2 (Sample Data):
+- Screenshot of `SELECT COUNT(*) FROM members;` showing row count
+- Screenshot of `SELECT * FROM members LIMIT 5;` showing sample data
+- Screenshot of `SELECT * FROM books LIMIT 5;` showing sample data
+- Screenshot of `SELECT * FROM loans LIMIT 5;` showing sample data
+
+#### Goal 3 (Basic Queries):
+- **For EACH query (3a-3h):**
+  - Screenshot showing the SQL query AND its results
+  - Include at least 5-10 rows of output (use LIMIT if needed)
+  - Caption explaining what the query does
+
+#### Goal 4 (Aggregation):
+- **For EACH query (4a-4h):**
+  - Screenshot showing the SQL query AND its results
+  - Full output (aggregated results are usually small)
+  - Caption explaining the business insight
+
+#### Goals 5-6 (If completed - Optional):
+- **For EACH query you completed:**
+  - Screenshot showing the SQL query AND results
+  - Brief explanation of the join/subquery logic
+
+---
+
+### 📝 Word Document Format Example:
+
+```
+===========================================
+GOAL 1: CREATE DATABASE SCHEMA
+===========================================
+
+SQL Code:
+---------
+CREATE TABLE members (
+    member_id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    ...
+);
+
+[SCREENSHOT 1: Table creation success message]
+
+[SCREENSHOT 2: SHOW TABLES output showing all tables]
+
+[SCREENSHOT 3: DESCRIBE members output]
+
+Explanation:
+------------
+I created 5 core tables with proper primary keys, foreign keys, 
+and constraints. The members table stores patron information with 
+email as a unique constraint to prevent duplicate accounts.
+
+Challenges Faced:
+-----------------
+Initially forgot to create the authors table before books table, 
+which caused a foreign key error. Fixed by reordering table creation.
+
+===========================================
+GOAL 3A: LIST ACTIVE MEMBERS
+===========================================
+
+SQL Code:
+---------
+SELECT first_name, last_name, email
+FROM members
+WHERE status = 'active'
+ORDER BY last_name ASC;
+
+[SCREENSHOT: Query and results showing active members sorted by last name]
+
+Explanation:
+------------
+This query retrieves all active library members and sorts them 
+alphabetically by last name for easy lookup by library staff.
+
+===========================================
+```
+
+---
+
+### Full Submission (If completing beyond MVP):
+
+4. **`queries_intermediate.sql`** - Solutions for Goals 5-8 (optional)
+5. **`procedures_functions.sql`** - Solutions for Goal 9 (optional)
+6. **`triggers.sql`** - Solutions for Goal 10 (optional)
+7. **`indexes.sql`** - Solutions for Goal 11 (optional)
+8. **`transactions.sql`** - Solutions for Goal 12 (optional)
+
+**For advanced goals, include screenshots showing:**
+- Procedure/function creation success
+- Execution of procedures with results
+- Trigger firing examples
+- EXPLAIN output for optimization queries
+
+---
+
+### 📁 Final GitHub Repository Structure:
+
+```
+SQL-Capstone-CityLibrary/
+├── schema.sql
+├── sample_data.sql
+├── queries_basic.sql
+├── queries_intermediate.sql (optional)
+├── procedures_functions.sql (optional)
+├── CityLibrary_Project_Documentation.docx (or PDF)
+├── README.md
+└── screenshots/ (optional folder)
+    ├── goal1_schema.png
+    ├── goal2_data.png
+    ├── goal3a_active_members.png
+    └── ...
+```
+
+---
+
+### ✅ Pre-Submission Checklist:
+
+Before uploading to GitHub, verify:
+
+- [ ] All SQL files run without errors when executed in order
+- [ ] Word document includes screenshots for ALL completed queries
+- [ ] Each screenshot clearly shows both the query AND the results
+- [ ] Screenshots are readable (not too small, good resolution)
+- [ ] Word document has explanations for each goal
+- [ ] README.md is complete with setup instructions
+- [ ] Repository is public (so it can be reviewed)
+- [ ] All files are committed and pushed to GitHub
+- [ ] You've tested downloading and running your own SQL files
+
+---
+
+### 🎯 Grading Criteria:
+
+Your submission will be evaluated on:
+
+1. **Completeness** (40%):
+   - All required SQL files present
+   - All MVP goals completed
+   - Documentation file included
+
+2. **Correctness** (30%):
+   - Queries execute without errors
+   - Results are accurate and logical
+   - Proper use of SQL syntax
+
+3. **Documentation** (20%):
+   - Clear screenshots showing query results
+   - Explanations demonstrate understanding
+   - Word document is well-organized
+
+4. **Code Quality** (10%):
+   - SQL code is formatted and readable
+   - Comments explain complex logic
+   - Follows best practices
+
+---
+
+### 📤 How to Submit:
+
+1. **Create your GitHub repository**
+2. **Upload all SQL files**
+3. **Upload your Word document with screenshots**
+4. **Create a good README.md**
+5. **Submit your GitHub repository URL** (e.g., `https://github.com/your-username/SQL-Capstone-CityLibrary`)
+
+**Submission Deadline:** [Your instructor will specify]
+
+---
+
+### 💡 Tips for Great Screenshots:
+
+- Use a dark or light theme consistently (choose one)
+- Zoom in so text is readable (minimum 12pt font equivalent)
+- Capture the entire result set (or use LIMIT 10 if too large)
+- Show the query AND the output in the same screenshot when possible
+- Use the Snipping Tool (Windows) or Screenshot tool (Mac)
+- Save screenshots with descriptive names: `goal3a_active_members.png`
+- If results are too wide, it's okay to take multiple screenshots
+- Include the MySQL prompt or workbench interface to show it's real execution
+- Annotate screenshots with arrows or highlights if needed
+
+---
+
+### 📄 Word Document Template Structure:
+
+Use this structure for your `CityLibrary_Project_Documentation.docx`:
+
+```
+============================================
+CITYLIBRARY MANAGEMENT SYSTEM
+MySQL Capstone Project
+============================================
+
+Student Name: [Your Name]
+Date: [Submission Date]
+Course: MySQL Fundamentals
+Instructor: [Instructor Name]
+
+============================================
+TABLE OF CONTENTS
+============================================
+1. Project Overview
+2. Database Schema (Goal 1)
+3. Sample Data (Goal 2)
+4. Basic Queries (Goal 3)
+5. Aggregation Queries (Goal 4)
+6. Joins (Goal 5) - Optional
+7. Subqueries (Goal 6) - Optional
+8. Challenges and Solutions
+9. Learning Outcomes
+
+============================================
+1. PROJECT OVERVIEW
+============================================
+Brief description: This project implements a database system
+for CityLibrary to manage books, members, loans, and events...
+
+Technologies Used:
+- MySQL 8.0
+- MySQL Workbench
+- Windows/Mac OS
+
+Completed Goals:
+✓ Goal 1: Database Schema
+✓ Goal 2: Sample Data
+✓ Goal 3: Basic Queries
+✓ Goal 4: Aggregation
+...
+
+============================================
+2. DATABASE SCHEMA (GOAL 1)
+============================================
+
+2.1 - Tables Created
+--------------------
+[SCREENSHOT: SHOW TABLES output]
+
+2.2 - Members Table Structure
+------------------------------
+SQL Code:
+CREATE TABLE members (
+    member_id INT AUTO_INCREMENT PRIMARY KEY,
+    ...
+);
+
+[SCREENSHOT: DESCRIBE members output]
+
+Explanation: This table stores library patron information...
+
+2.3 - Books Table Structure
+----------------------------
+[Similar format for each table]
+
+Challenges: Initially had issues with foreign keys...
+
+============================================
+3. SAMPLE DATA (GOAL 2)
+============================================
+
+3.1 - Data Summary
+------------------
+[SCREENSHOT: SELECT COUNT(*) FROM each table]
+
+Tables populated:
+- Members: 10 records
+- Authors: 5 records
+- Books: 10 records
+- Book Copies: 15 records
+- Loans: 10 records
+
+3.2 - Sample Members Data
+--------------------------
+[SCREENSHOT: SELECT * FROM members LIMIT 5]
+
+3.3 - Sample Books Data
+-----------------------
+[SCREENSHOT: SELECT * FROM books LIMIT 5]
+
+Explanation: I created diverse test data with various
+membership types, genres, and loan scenarios...
+
+============================================
+4. BASIC QUERIES (GOAL 3)
+============================================
+
+4.1 - Query 3a: Active Members
+-------------------------------
+Business Question: List all active members alphabetically
+
+SQL Code:
+SELECT first_name, last_name, email
+FROM members
+WHERE status = 'active'
+ORDER BY last_name ASC;
+
+[SCREENSHOT: Query execution and results]
+
+Results: 8 active members found
+Explanation: This query helps librarians quickly find...
+
+4.2 - Query 3b: Recent Fiction Books
+-------------------------------------
+[Similar format for each query]
+
+============================================
+5. AGGREGATION QUERIES (GOAL 4)
+============================================
+
+5.1 - Query 4a: Books by Genre
+-------------------------------
+Business Question: How many books in each genre?
+
+SQL Code:
+SELECT genre, COUNT(*) as book_count
+FROM books
+GROUP BY genre
+ORDER BY book_count DESC;
+
+[SCREENSHOT: Query execution and results]
+
+Results Analysis:
+- Fiction: 10 books (most popular)
+- Science: 0 books (need to add)
+
+Business Insight: This helps identify which genres need
+more inventory...
+
+============================================
+8. CHALLENGES AND SOLUTIONS
+============================================
+
+Challenge 1: Foreign Key Errors
+Problem: Got "Cannot add foreign key constraint" error
+Solution: Created parent tables (authors) before child
+tables (books)
+
+Challenge 2: Date Functions
+Problem: Confused about DATE_SUB syntax
+Solution: Reviewed Module 3 materials and tested with
+simple examples first
+
+Challenge 3: LEFT JOIN vs INNER JOIN
+Problem: Missing members with 0 loans
+Solution: Changed to LEFT JOIN to include all members
+
+============================================
+9. LEARNING OUTCOMES
+============================================
+
+What I Learned:
+- How to design normalized database schemas
+- Importance of foreign key relationships
+- Difference between various JOIN types
+- How to use aggregate functions for business insights
+- The value of testing queries incrementally
+
+Skills Gained:
+✓ DDL: CREATE TABLE with constraints
+✓ DML: INSERT, UPDATE operations
+✓ Queries: SELECT with WHERE, JOIN, GROUP BY
+✓ Functions: Date and string manipulation
+✓ Problem-solving: Debugging SQL errors
+
+Next Steps:
+- Complete Goals 5-6 (Joins and Subqueries)
+- Learn stored procedures
+- Practice query optimization
+
+============================================
+END OF DOCUMENTATION
+============================================
+```
+
+**Download this template structure and fill in with your actual code and screenshots!**
+
+---
+
+### 📷 How to Take Screenshots in Different Tools:
+
+#### MySQL Workbench:
+1. Execute your query
+2. Ensure both the query editor and results panel are visible
+3. Windows: Use `Win + Shift + S` or Snipping Tool
+4. Mac: Use `Cmd + Shift + 4`
+5. Crop to show just the relevant query and results
+
+#### MySQL Command Line:
+1. Execute your query
+2. Make sure prompt and results are in view
+3. Take screenshot (may need to scroll up for longer results)
+4. For very long results, use `LIMIT 10` in your query
+
+#### VS Code with MySQL Extension:
+1. Execute query in SQL file
+2. Results appear in output panel
+3. Take screenshot showing both editor and output
+4. Can split screen to show code and results together
+
+#### DBeaver / Other Tools:
+1. Similar process - show query and results together
+2. Make sure database name is visible in screenshot
+3. Use tool's built-in export feature if available
+
+---
+
+### 🚀 Quick Upload Guide for GitHub:
+
+**Step-by-Step:**
+
+1. **Create GitHub Account** (if you don't have one):
+   - Go to github.com
+   - Sign up for free
+
+2. **Create New Repository**:
+   - Click "New Repository"
+   - Name: `SQL-Capstone-CityLibrary`
+   - Description: "MySQL Capstone Project - Library Management System"
+   - Choose "Public"
+   - Check "Add README file"
+   - Click "Create repository"
+
+3. **Upload Files**:
+   - Click "Add file" → "Upload files"
+   - Drag and drop your SQL files and Word document
+   - Write commit message: "Initial commit - Capstone project submission"
+   - Click "Commit changes"
+
+4. **Edit README.md**:
+   - Click on README.md file
+   - Click pencil icon to edit
+   - Add project description, setup instructions
+   - Click "Commit changes"
+
+5. **Verify Everything**:
+   - Check all files are uploaded
+   - Click on each SQL file to preview
+   - Make sure Word document is there
+
+6. **Copy Repository URL**:
+   - Click green "Code" button
+   - Copy the HTTPS URL
+   - Submit this URL to your instructor
+
+**Example README.md for GitHub:**
+```markdown
+# 🎓 CityLibrary Management System - MySQL Capstone Project
+
+## 📖 Project Description
+A complete database system for managing a public library's books, members, loans, fines, and events.
+
+## ✅ Completed Goals
+- ✓ Goal 1: Database Schema (5 tables)
+- ✓ Goal 2: Sample Data (50+ records)
+- ✓ Goal 3: Basic Queries (8 queries)
+- ✓ Goal 4: Aggregation (8 queries)
+- ⚪ Goal 5: Joins (in progress)
+
+## 🛠 Technologies Used
+- MySQL 8.0.33
+- MySQL Workbench 8.0
+- Windows 11
+
+## 📂 Files Included
+- `schema.sql` - Database table definitions
+- `sample_data.sql` - Test data inserts
+- `queries_basic.sql` - Solutions for Goals 3-4
+- `CityLibrary_Project_Documentation.docx` - Complete documentation with screenshots
+
+## 🚀 How to Run
+1. Install MySQL 8.0+
+2. Open MySQL Workbench or command line
+3. Execute files in order:
+   ```sql
+   SOURCE schema.sql;
+   SOURCE sample_data.sql;
+   SOURCE queries_basic.sql;
+   ```
+
+## 📊 Database Schema
+- **members**: Library patrons (10 records)
+- **authors**: Book authors (5 records)
+- **books**: Book catalog (10 records)
+- **book_copies**: Physical copies (15 records)
+- **loans**: Borrowing transactions (10 records)
+
+## 🎯 Learning Outcomes
+- Designed normalized database schemas
+- Implemented foreign key relationships
+- Wrote complex SQL queries with JOINs
+- Used aggregate functions for business insights
+- Debugged SQL errors effectively
+
+## 👨‍💻 Author
+[Your Name]
+
+## 📅 Date
+November 2025
+```
 
 ---
 
 ## ✅ Self-Assessment Checklist
 
-Before submitting, verify:
+### For 2-Day MVP (Realistic Minimum):
+
+- ✅ At least 5 core tables created (members, authors, books, book_copies, loans)
+- ✅ Tables have proper PRIMARY KEY, FOREIGN KEY, and basic constraints
+- ✅ At least 10 members, 5 authors, 10 books, 15 copies, 10 loans inserted
+- ✅ All queries in Goal 3 (Basic Queries) work without errors
+- ✅ All queries in Goal 4 (Aggregates) work without errors
+- ✅ Code is formatted with comments
+- ✅ Tested all code in MySQL before submitting
+
+### For 2-Day Extended Completion (If time permits):
+
+- ✅ 6-7 tables created (add fines and/or events tables)
+- ✅ At least 3-4 queries from Goal 5 (Joins) working correctly
+- ✅ At least 3-4 queries from Goal 6 (Subqueries/CTEs) working correctly
+- ✅ Sample data is realistic with edge cases for testing
+- ✅ README.md documents what was completed and any challenges
+
+### For Full Completion (Beyond 2 Days):
 
 - ✅ All 9 tables created with proper constraints and relationships
-- ✅ Realistic sample data with at least the minimum required records
-- ✅ All 12 goals completed with working SQL code
-- ✅ Code is well-formatted with comments explaining complex logic
-- ✅ Tested all queries and procedures (they execute without errors)
-- ✅ EXPLAIN analysis performed on key queries
-- ✅ At least 5 useful indexes created
-- ✅ At least 4 triggers functioning correctly
-- ✅ At least 3 procedures and 2 functions implemented
-- ✅ Transaction examples with both COMMIT and ROLLBACK scenarios
+- ✅ Comprehensive sample data exceeding minimum requirements
+- ✅ Goals 5-8 completed (Joins, Subqueries, Set Operations, Window Functions)
+- ✅ At least 2 stored procedures or functions (Goal 9)
+- ✅ At least 2 triggers implemented (Goal 10)
+- ✅ EXPLAIN analysis performed and indexes created (Goal 11)
+- ✅ Transaction examples with error handling (Goal 12)
+
+---
+
+## 🆘 Beginner Troubleshooting Guide
+
+### Common Errors and How to Fix Them:
+
+**Error: "Cannot add foreign key constraint"**
+- **Cause:** You're trying to reference a table that doesn't exist yet
+- **Fix:** Create parent tables first (authors before books, books before book_copies, etc.)
+
+**Error: "Duplicate entry for key 'PRIMARY'"**
+- **Cause:** Trying to insert a record with an ID that already exists
+- **Fix:** Don't manually specify IDs - let AUTO_INCREMENT handle it
+- **Example:** Use `INSERT INTO members (first_name, last_name, email) VALUES (...)` not `INSERT INTO members (member_id, first_name, ...) VALUES (1, ...)`
+
+**Error: "Column count doesn't match value count"**
+- **Cause:** Number of columns in INSERT doesn't match number of values
+- **Fix:** Count your columns and values - they must be equal
+- **Example:** `INSERT INTO members (first_name, last_name) VALUES ('John', 'Doe', 'extra@email.com')` ← 2 columns but 3 values!
+
+**Error: "Unknown column in 'where clause'"**
+- **Cause:** Typo in column name, or column doesn't exist
+- **Fix:** Use `DESCRIBE table_name;` to see exact column names, check spelling
+
+**Error: "Operand should contain 1 column(s)"**
+- **Cause:** Subquery returns multiple columns when it should return one
+- **Fix:** Make sure subqueries return only one column: `SELECT column` not `SELECT *`
+
+**No results when you expect some:**
+- Check your WHERE conditions - might be too restrictive
+- Verify data actually exists: `SELECT COUNT(*) FROM table;`
+- For JOINs, check if foreign keys match: `SELECT * FROM table1 LEFT JOIN table2 ON ... WHERE table2.id IS NULL;`
+
+### Getting Unstuck:
+
+1. **Run queries in small pieces:**
+   ```sql
+   -- Instead of this complex query all at once:
+   -- Break it down:
+   SELECT * FROM members;  -- Does this work?
+   SELECT * FROM loans;    -- Does this work?
+   -- Then combine:
+   SELECT * FROM members m JOIN loans l ON m.member_id = l.member_id;
+   ```
+
+2. **Use LIMIT for testing:**
+   ```sql
+   SELECT * FROM big_table LIMIT 5;  -- See just 5 rows while developing
+   ```
+
+3. **Comment out parts that aren't working:**
+   ```sql
+   SELECT m.first_name, m.last_name
+   FROM members m
+   -- JOIN loans l ON m.member_id = l.member_id  -- Comment out JOIN to test
+   WHERE m.status = 'active';
+   ```
 
 ---
 
 ## 💡 General Tips for Success
 
-### Approach Strategy:
-1. **Read all goals first** to understand the full scope
+### Approach Strategy (2-Day Plan):
+1. **Skim all goals first** to understand scope, then focus on Goals 1-4
 2. **Complete in order** - each goal builds on previous concepts
-3. **Test incrementally** - don't write everything then test
-4. **Use transactions for testing** - easily rollback test data
+3. **Use starter code** - Copy the templates and fill in the blanks to save time
+4. **Test incrementally** - verify each step works before moving on (saves debugging time)
+5. **Set time limits** - If stuck on one query for >30 minutes, move on and come back later
+6. **Use transactions for testing** - easily rollback test data without losing progress
 
-### When Stuck:
-- Review the relevant module materials
+### When Stuck (Don't Waste Time!):
+- **Set a 30-minute limit per problem** - if not solved, mark it and move on
+- Review the relevant module materials quickly (10 minutes max)
 - Break complex problems into smaller sub-queries
 - Use SELECT to verify intermediate steps
 - Check for typos in table/column names
 - Read error messages carefully - they often point to the issue
+- **Ask for help** - Don't spend hours on one issue in a 2-day project!
 
 ### Best Practices:
 - Comment your code to explain intent
@@ -752,6 +1580,66 @@ Upon completion, you will have demonstrated mastery of:
 
 ---
 
+---
+
+## 📋 Quick Reference Guide
+
+### Essential SQL Syntax Reminders:
+
+```sql
+-- CREATE TABLE
+CREATE TABLE table_name (
+    column1 datatype constraints,
+    column2 datatype constraints,
+    PRIMARY KEY (column1),
+    FOREIGN KEY (column2) REFERENCES other_table(column)
+);
+
+-- INSERT DATA
+INSERT INTO table_name (column1, column2) VALUES 
+  (value1, value2),
+  (value3, value4);
+
+-- SELECT with JOIN
+SELECT t1.column, t2.column
+FROM table1 t1
+JOIN table2 t2 ON t1.id = t2.foreign_id
+WHERE condition
+ORDER BY column;
+
+-- AGGREGATE
+SELECT category, COUNT(*), AVG(value)
+FROM table
+GROUP BY category
+HAVING COUNT(*) > 5;
+```
+
+### Common Data Types:
+- `INT` - whole numbers
+- `VARCHAR(n)` - text up to n characters
+- `DATE` - dates (YYYY-MM-DD)
+- `DECIMAL(10,2)` - numbers with 2 decimal places
+- `BOOLEAN` or `TINYINT(1)` - true/false (1/0)
+- `ENUM('option1', 'option2')` - predefined list of values
+
+### Useful Functions:
+- `CURDATE()` - today's date
+- `DATE_ADD(date, INTERVAL n DAY)` - add days to date
+- `DATE_SUB(date, INTERVAL n DAY)` - subtract days from date
+- `DATEDIFF(date1, date2)` - days between dates
+- `CONCAT(str1, str2)` - combine strings
+- `UPPER(str)` / `LOWER(str)` - change case
+- `COUNT(*)` / `SUM()` / `AVG()` / `MIN()` / `MAX()` - aggregates
+
+---
+
 **You're now ready to build a real-world database system! Take your time, experiment, learn from errors, and most importantly - have fun with SQL!** 🚀
+
+**Remember:** 
+- ✨ Start with the MVP (Goals 1-4)
+- ✨ Test each step before moving forward
+- ✨ Use the starter templates provided
+- ✨ Don't hesitate to ask for help
+- ✨ Advanced goals are completely optional!
 
 Good luck! 📚
