@@ -873,3 +873,1965 @@ Take a break, then continue with Goals 3-4 (Basic Queries and Aggregation).
 
 ---
 
+## 🟢 PHASE 1: BASIC QUERIES (Required - Continued)
+
+# Goal 3: Basic Information Retrieval Queries
+
+**📌 Module Focus:** SELECT Fundamentals (Module 2)  
+**⏱️ Estimated Time:** 1-2 hours  
+**🎯 What You'll Learn:** SELECT, WHERE, ORDER BY, LIMIT, LIKE, IN, BETWEEN
+
+### What You Need to Do
+
+Write 8 queries that retrieve and filter data from single tables. These queries help librarians find specific information quickly.
+
+### 📝 Query Requirements
+
+Write queries for the following scenarios:
+
+#### Query 3.1: List All Active Members
+**Business Need:** Get a contact list of all active library members.
+
+```sql
+-- Display: first name, last name, email, membership type
+-- Filter: Only active members
+-- Sort: By last name, then first name alphabetically
+```
+
+**Expected Result:** Should show all members with status = 'active'
+
+---
+
+#### Query 3.2: Find Books Published After 2000
+**Business Need:** Librarians want to promote newer books.
+
+```sql
+-- Display: title, author name, publication year, genre
+-- Filter: Published in 2001 or later
+-- Sort: By publication year (newest first)
+```
+
+**Hint:** You'll need to JOIN books with authors table.
+
+---
+
+#### Query 3.3: Search Books by Genre
+**Business Need:** A patron asks "What fiction books do you have?"
+
+```sql
+-- Display: title, author name, genre, total copies
+-- Filter: Genre is 'Fiction'
+-- Sort: By title alphabetically
+```
+
+---
+
+#### Query 3.4: Find Overdue Loans
+**Business Need:** Identify which books are overdue right now.
+
+```sql
+-- Display: member name, book title, loan date, due date, days overdue
+-- Filter: Due date has passed AND not yet returned (status = 'active')
+-- Sort: By days overdue (most overdue first)
+-- Hint: Use DATEDIFF(CURDATE(), due_date) to calculate days overdue
+```
+
+---
+
+#### Query 3.5: Members Who Joined in the Last 6 Months
+**Business Need:** Track new member growth.
+
+```sql
+-- Display: first name, last name, join date, membership type
+-- Filter: Joined within last 180 days
+-- Sort: By join date (newest first)
+```
+
+**Hint:** Use DATE_SUB(CURDATE(), INTERVAL 180 DAY)
+
+---
+
+#### Query 3.6: Books in Poor Condition
+**Business Need:** Identify books that need replacement.
+
+```sql
+-- Display: book title, copy number, condition, acquisition date
+-- Filter: Condition is 'poor' or 'fair'
+-- Sort: By condition (poor first), then by acquisition date (oldest first)
+```
+
+---
+
+#### Query 3.7: Top 10 Most Expensive Unpaid Fines
+**Business Need:** Follow up on members with high unpaid fines.
+
+```sql
+-- Display: member name, fine amount, fine reason, loan date
+-- Filter: Fines that are NOT paid (paid = FALSE)
+-- Sort: By fine amount (highest first)
+-- Limit: Top 10 only
+```
+
+---
+
+#### Query 3.8: Upcoming Events This Month
+**Business Need:** Promote events happening soon.
+
+```sql
+-- Display: event name, event date, event type, max attendees
+-- Filter: Event date is in the future AND within 30 days
+-- Sort: By event date (soonest first)
+```
+
+---
+
+### ✅ Testing Your Queries
+
+For each query, verify:
+- Results match the filter criteria
+- Sorting is correct
+- Column names are descriptive
+- No errors or warnings
+
+### 🎯 Success Criteria
+
+- [ ] All 8 queries run without errors
+- [ ] Results are filtered correctly
+- [ ] Data is sorted as specified
+- [ ] Column aliases are used for calculated fields
+- [ ] Screenshots show query + results for each
+
+---
+
+# Goal 4: Statistical Summaries and Aggregation
+
+**📌 Module Focus:** Aggregates and Grouping (Module 4)  
+**⏱️ Estimated Time:** 1-2 hours  
+**🎯 What You'll Learn:** COUNT, SUM, AVG, MIN, MAX, GROUP BY, HAVING
+
+### What You Need to Do
+
+Write 8 queries that calculate statistics and summaries. These help library management understand trends and patterns.
+
+### 📝 Query Requirements
+
+#### Query 4.1: Count Members by Membership Type
+**Business Need:** How many members of each type do we have?
+
+```sql
+-- Group by: membership_type
+-- Calculate: COUNT of members, percentage of total
+-- Display: membership type, member count, percentage
+-- Sort: By count (highest first)
+```
+
+**Expected Output:**
+```
+membership_type | member_count | percentage
+premium         | 8            | 40%
+standard        | 7            | 35%
+student         | 5            | 25%
+```
+
+---
+
+#### Query 4.2: Total Fines Collected vs Outstanding
+**Business Need:** What's our fine revenue and how much is owed?
+
+```sql
+-- Calculate:
+--   - Total fines collected (paid = TRUE)
+--   - Total fines outstanding (paid = FALSE)
+--   - Overall total
+-- Display: payment status, total amount, count of fines
+```
+
+---
+
+#### Query 4.3: Most Popular Genres
+**Business Need:** Which genres should we buy more of?
+
+```sql
+-- Group by: genre
+-- Calculate: 
+--   - COUNT of distinct books
+--   - SUM of total_copies
+-- Display: genre, number of titles, total copies
+-- Sort: By total copies (most popular first)
+-- Limit: Top 5 genres
+```
+
+---
+
+#### Query 4.4: Average Loan Duration by Member Type
+**Business Need:** Do premium members keep books longer?
+
+```sql
+-- Group by: membership_type
+-- Calculate: AVG days between loan_date and return_date
+-- Filter: Only returned books (status = 'returned')
+-- Display: membership type, average days, count of loans
+-- Sort: By average days (longest first)
+```
+
+**Hint:** Use DATEDIFF(return_date, loan_date)
+
+---
+
+#### Query 4.5: Books Never Borrowed
+**Business Need:** Identify unpopular books for removal.
+
+```sql
+-- Find: book_copies that have ZERO loans
+-- Display: book title, author, genre, acquisition date
+-- Sort: By acquisition date (oldest first)
+-- Hint: Use LEFT JOIN and WHERE loans.loan_id IS NULL
+```
+
+---
+
+#### Query 4.6: Member Borrowing Activity
+**Business Need:** Who are our most active borrowers?
+
+```sql
+-- Group by: member
+-- Calculate:
+--   - COUNT of total loans (all time)
+--   - COUNT of active loans (currently borrowed)
+--   - SUM of unpaid fines
+-- Display: member name, total loans, active loans, unpaid fines
+-- Filter: Members with at least 1 loan
+-- Sort: By total loans (most active first)
+-- Limit: Top 10 members
+```
+
+---
+
+#### Query 4.7: Monthly Loan Statistics
+**Business Need:** Track circulation trends over time.
+
+```sql
+-- Group by: Year and Month of loan_date
+-- Calculate:
+--   - COUNT of loans
+--   - COUNT of distinct members
+--   - COUNT of distinct books
+-- Display: year, month, total loans, unique borrowers, unique books
+-- Sort: By year and month (most recent first)
+-- Limit: Last 6 months
+```
+
+**Hint:** Use YEAR(loan_date) and MONTH(loan_date) or DATE_FORMAT(loan_date, '%Y-%m')
+
+---
+
+#### Query 4.8: Event Registration Summary
+**Business Need:** Which events are most popular?
+
+```sql
+-- Group by: event
+-- Calculate:
+--   - COUNT of registrations
+--   - Percentage of max capacity filled
+-- Display: event name, event date, registrations, max attendees, capacity percentage
+-- Filter: Only future events
+-- Sort: By capacity percentage (fullest first)
+```
+
+---
+
+### ✅ Testing Your Queries
+
+For each query, verify:
+- Aggregations calculate correctly
+- GROUP BY groups data properly
+- HAVING filters work (if used)
+- Results are sorted as specified
+
+### 🎯 Success Criteria
+
+- [ ] All 8 queries run without errors
+- [ ] Aggregations (COUNT, SUM, AVG) are correct
+- [ ] GROUP BY groups data appropriately
+- [ ] Results are sorted and limited as specified
+- [ ] Screenshots show query + results
+
+---
+
+**🎉 Congratulations! You've completed Phase 1!**
+
+You now have a working database with basic queries. Take a break before starting Phase 2 (Intermediate Queries).
+
+---
+
+## 🟡 PHASE 2: INTERMEDIATE QUERIES (Required)
+
+# Goal 5: Multi-Table Joins and Analysis
+
+**📌 Module Focus:** Joins (Module 5)  
+**⏱️ Estimated Time:** 2-3 hours  
+**🎯 What You'll Learn:** INNER JOIN, LEFT JOIN, RIGHT JOIN, self-joins, multiple joins
+
+### What You Need to Do
+
+Write 8 queries that combine data from multiple tables. Real-world reporting requires joining related tables.
+
+### 📝 Query Requirements
+
+#### Query 5.1: Complete Loan History with Details
+**Business Need:** Full report of all loans with member and book information.
+
+```sql
+-- Join: loans + members + book_copies + books + authors
+-- Display: 
+--   - Member name and email
+--   - Book title and author
+--   - Loan date, due date, return date, status
+-- Sort: By loan date (most recent first)
+-- Limit: 20 rows
+```
+
+---
+
+#### Query 5.2: Books Currently On Loan
+**Business Need:** Which books are checked out right now?
+
+```sql
+-- Join: loans + book_copies + books + authors + members
+-- Filter: status = 'active' (not returned)
+-- Display:
+--   - Book title and author
+--   - Copy number
+--   - Member name
+--   - Loan date and due date
+--   - Days until due (negative if overdue)
+-- Sort: By due date (soonest first)
+```
+
+---
+
+#### Query 5.3: Members with Overdue Books and Fines
+**Business Need:** Who owes us money?
+
+```sql
+-- Join: members + loans + fines
+-- Filter: fines.paid = FALSE
+-- Display:
+--   - Member name, email, phone
+--   - Number of overdue books
+--   - Total unpaid fines
+-- Group by: member
+-- Sort: By total unpaid fines (highest first)
+```
+
+---
+
+#### Query 5.4: Book Availability Report
+**Business Need:** For each book, show total copies vs copies on loan.
+
+```sql
+-- Join: books + book_copies + loans (LEFT JOIN for availability)
+-- Calculate:
+--   - Total copies (COUNT of book_copies)
+--   - Copies on loan (COUNT of active loans)
+--   - Available copies (total - on loan)
+-- Display: title, author, total copies, on loan, available
+-- Group by: book
+-- Filter: Show all books (even those with 0 loans)
+-- Sort: By available copies (least available first)
+```
+
+---
+
+#### Query 5.5: Event Attendance List
+**Business Need:** Who's registered for each event?
+
+```sql
+-- Join: events + event_registrations + members
+-- Display:
+--   - Event name and date
+--   - Member name and email
+--   - Registration date
+-- Filter: Only future events (event_date >= CURDATE())
+-- Sort: By event date, then member last name
+```
+
+---
+
+#### Query 5.6: Author Popularity Report
+**Business Need:** Which authors have the most loans?
+
+```sql
+-- Join: authors + books + book_copies + loans
+-- Group by: author
+-- Calculate:
+--   - COUNT of distinct books by author
+--   - COUNT of total loans
+--   - AVG loans per book
+-- Display: author name, book count, total loans, avg loans per book
+-- Filter: Only authors with at least 1 loan
+-- Sort: By total loans (most popular first)
+-- Limit: Top 10 authors
+```
+
+---
+
+#### Query 5.7: Members Who Never Borrowed
+**Business Need:** Inactive members who might need outreach.
+
+```sql
+-- Join: members LEFT JOIN loans
+-- Filter: loans.loan_id IS NULL
+-- Display: member name, email, join date, membership type
+-- Sort: By join date (oldest first)
+```
+
+---
+
+#### Query 5.8: Self-Join - Members from Same Address
+**Business Need:** Identify family accounts or duplicates.
+
+```sql
+-- Self-join: members as m1 JOIN members as m2
+-- Filter: 
+--   - Same address
+--   - Different member_id (m1.member_id < m2.member_id to avoid duplicates)
+-- Display: 
+--   - Member 1 name
+--   - Member 2 name
+--   - Shared address
+-- Sort: By address
+```
+
+---
+
+### ✅ Testing Your Queries
+
+For each query:
+- Verify all joins connect properly (no missing data)
+- Check that LEFT JOINs preserve all left table rows
+- Ensure filters work correctly with joined data
+
+### 🎯 Success Criteria
+
+- [ ] All 8 queries run without errors
+- [ ] Joins connect tables correctly
+- [ ] LEFT JOINs preserve unmatched rows where needed
+- [ ] Filters and sorts work with joined data
+- [ ] Screenshots show query + results
+
+---
+
+# Goal 6: Subqueries and Common Table Expressions
+
+**📌 Module Focus:** Subqueries and CTEs (Module 6)  
+**⏱️ Estimated Time:** 2-3 hours  
+**🎯 What You'll Learn:** Subqueries in WHERE, FROM, SELECT; WITH clauses (CTEs)
+
+### What You Need to Do
+
+Write 8 queries using subqueries or CTEs to solve complex problems. These are powerful tools for breaking down complex logic.
+
+### 📝 Query Requirements
+
+#### Query 6.1: Members with Above-Average Fines
+**Business Need:** Find members with unusually high fines.
+
+```sql
+-- Use subquery to calculate average fine amount
+-- Filter: Members whose total unpaid fines > average
+-- Display: member name, total unpaid fines, number of fines
+-- Sort: By total fines (highest first)
+```
+
+**Example Structure:**
+```sql
+SELECT ...
+FROM members m
+WHERE (SELECT SUM(...) FROM fines ...) > (SELECT AVG(...) FROM fines ...)
+```
+
+---
+
+#### Query 6.2: Books More Popular Than Average
+**Business Need:** Which books should we buy more copies of?
+
+```sql
+-- Subquery: Calculate average loans per book
+-- Main query: Find books with more loans than average
+-- Display: title, author, total loans, average loans (for comparison)
+-- Sort: By total loans (most popular first)
+```
+
+---
+
+#### Query 6.3: CTE - Member Borrowing Summary
+**Business Need:** Complex member activity report.
+
+```sql
+-- CTE 1: Calculate total loans per member
+-- CTE 2: Calculate total fines per member
+-- CTE 3: Calculate active loans per member
+-- Main query: Combine all CTEs
+-- Display: member name, total loans, active loans, total fines, status
+-- Sort: By total loans (most active first)
+```
+
+**Example Structure:**
+```sql
+WITH loan_counts AS (
+  SELECT member_id, COUNT(*) as total_loans FROM loans GROUP BY member_id
+),
+fine_totals AS (
+  SELECT member_id, SUM(fine_amount) as total_fines FROM fines ... GROUP BY member_id
+),
+active_counts AS (
+  SELECT member_id, COUNT(*) as active_loans FROM loans WHERE status='active' GROUP BY member_id
+)
+SELECT m.first_name, ...
+FROM members m
+LEFT JOIN loan_counts lc ON ...
+LEFT JOIN fine_totals ft ON ...
+LEFT JOIN active_counts ac ON ...
+```
+
+---
+
+#### Query 6.4: Find Books Never Loaned (Subquery Method)
+**Business Need:** Alternative approach to finding unpopular books.
+
+```sql
+-- Use NOT IN or NOT EXISTS subquery
+-- Main query: books table
+-- Subquery: book_ids that have been loaned
+-- Display: title, author, genre, total copies
+-- Sort: By publication year (oldest first)
+```
+
+---
+
+#### Query 6.5: Members Who Attended All Book Club Events
+**Business Need:** Identify super engaged members.
+
+```sql
+-- Subquery 1: Count total book club events
+-- Subquery 2: Count events each member attended
+-- Filter: Members where attended count = total count
+-- Display: member name, events attended
+-- Sort: By member name
+```
+
+**Hint:** Use HAVING COUNT(*) = (SELECT COUNT(*) FROM events WHERE event_type = 'book_club')
+
+---
+
+#### Query 6.6: CTE - Monthly Revenue Report
+**Business Need:** Complex financial report.
+
+```sql
+-- CTE 1: Fines collected per month
+-- CTE 2: New memberships per month (estimated revenue)
+-- Main query: Combine revenue sources by month
+-- Display: year-month, fine revenue, membership revenue, total revenue
+-- Sort: By month (most recent first)
+-- Limit: Last 12 months
+```
+
+---
+
+#### Query 6.7: Correlated Subquery - Loan History
+**Business Need:** For each book, show most recent loan.
+
+```sql
+-- Use correlated subquery to find MAX(loan_date) per book
+-- Display: book title, author, most recent loan date, borrower name
+-- Filter: Only books that have been loaned at least once
+-- Sort: By most recent loan date (newest first)
+```
+
+**Example Structure:**
+```sql
+SELECT b.title, ...
+FROM books b
+WHERE EXISTS (
+  SELECT 1 FROM loans l
+  JOIN book_copies bc ON l.copy_id = bc.copy_id
+  WHERE bc.book_id = b.book_id
+)
+```
+
+---
+
+#### Query 6.8: CTE - Book Recommendation Engine
+**Business Need:** Recommend books to members based on genre preferences.
+
+```sql
+-- CTE 1: Determine each member's favorite genre (most borrowed)
+-- CTE 2: Find highly-rated books in those genres
+-- Main query: Match members with recommended books
+-- Display: member name, favorite genre, recommended book title
+-- Filter: Don't recommend books they've already borrowed
+-- Limit: Top 5 recommendations per member
+```
+
+---
+
+### ✅ Testing Your Queries
+
+For each query:
+- Verify subqueries return expected results when run alone
+- Check CTEs can be queried independently
+- Ensure correlated subqueries reference correct tables
+
+### 🎯 Success Criteria
+
+- [ ] All 8 queries run without errors
+- [ ] Subqueries filter/calculate correctly
+- [ ] CTEs make complex queries readable
+- [ ] Results match business requirements
+- [ ] Screenshots show query + results
+
+---
+
+# Goal 7: Set Operations and Combined Results
+
+**📌 Module Focus:** Set Operations (Module 7)  
+**⏱️ Estimated Time:** 1-2 hours  
+**🎯 What You'll Learn:** UNION, UNION ALL, INTERSECT (simulated), EXCEPT (simulated)
+
+### What You Need to Do
+
+Write 5 queries that combine result sets from multiple queries. Useful for creating comprehensive reports.
+
+### 📝 Query Requirements
+
+#### Query 7.1: All People in the System
+**Business Need:** Master contact list (members + authors for events).
+
+```sql
+-- UNION query combining:
+--   - Members: name, email, 'Member' as type
+--   - Authors: name, null as email, 'Author' as type
+-- Display: full name, email, type
+-- Sort: By type, then name
+-- Remove duplicates: Use UNION (not UNION ALL)
+```
+
+---
+
+#### Query 7.2: Comprehensive Activity Log
+**Business Need:** Timeline of all library activities.
+
+```sql
+-- UNION ALL of:
+--   - Loans: 'Loan' as activity, loan_date, member name, book title
+--   - Events: 'Event' as activity, event_date, event name, null as person
+--   - Registrations: 'Registration' as activity, registration_date, member name, event name
+-- Display: activity type, date, description
+-- Sort: By date (most recent first)
+-- Limit: Last 50 activities
+```
+
+---
+
+#### Query 7.3: Books Available vs Currently Loaned
+**Business Need:** Two-part inventory report.
+
+```sql
+-- Part 1 (UNION): Available books
+--   - Books with copies where NO active loan exists
+-- Part 2 (UNION): Books on loan
+--   - Books with active loans
+-- Display: book title, status ('Available' or 'On Loan'), count
+-- Sort: By title
+```
+
+---
+
+#### Query 7.4: Members with Issues
+**Business Need:** Combine different member problems for follow-up.
+
+```sql
+-- UNION of:
+--   - Members with overdue books: 'Overdue' as issue
+--   - Members with unpaid fines: 'Unpaid Fines' as issue
+--   - Suspended members: 'Suspended' as issue
+-- Display: member name, email, issue type, count of issues
+-- Sort: By member name
+```
+
+---
+
+#### Query 7.5: Popular vs Unpopular Books
+**Business Need:** Acquisition decision report.
+
+```sql
+-- UNION of:
+--   - Top 10 most borrowed books: 'Popular' as category
+--   - 10 least borrowed books: 'Unpopular' as category
+-- Display: book title, author, category, loan count
+-- Sort: By category, then loan count
+```
+
+---
+
+### ✅ Testing Your Queries
+
+For each query:
+- Verify UNION removes duplicates where intended
+- Check column counts and types match across queries
+- Ensure UNION ALL preserves all rows when needed
+
+### 🎯 Success Criteria
+
+- [ ] All 5 queries run without errors
+- [ ] UNION combines result sets correctly
+- [ ] Column types match across combined queries
+- [ ] Duplicates handled appropriately
+- [ ] Screenshots show query + results
+
+---
+
+# Goal 8: Window Functions for Ranking and Analytics
+
+**📌 Module Focus:** Window Functions (Module 8)  
+**⏱️ Estimated Time:** 2-3 hours  
+**🎯 What You'll Learn:** ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD, running totals
+
+### What You Need to Do
+
+Write 8 queries using window functions for advanced analytics. These are powerful for ranking, running totals, and comparisons.
+
+### 📝 Query Requirements
+
+#### Query 8.1: Rank Members by Borrowing Activity
+**Business Need:** Leaderboard of most active borrowers.
+
+```sql
+-- Use: ROW_NUMBER() and RANK()
+-- Partition: Not needed (global ranking)
+-- Order by: Total loans (descending)
+-- Display: rank, member name, total loans, dense_rank
+-- Show difference between RANK() and DENSE_RANK()
+```
+
+**Example:**
+```sql
+SELECT 
+  ROW_NUMBER() OVER (ORDER BY COUNT(*) DESC) as row_num,
+  RANK() OVER (ORDER BY COUNT(*) DESC) as rank,
+  DENSE_RANK() OVER (ORDER BY COUNT(*) DESC) as dense_rank,
+  m.first_name, m.last_name,
+  COUNT(*) as total_loans
+FROM members m
+JOIN loans l ON m.member_id = l.member_id
+GROUP BY m.member_id
+ORDER BY total_loans DESC;
+```
+
+---
+
+#### Query 8.2: Running Total of Fines Collected
+**Business Need:** Track cumulative fine revenue over time.
+
+```sql
+-- Use: SUM() OVER (ORDER BY date)
+-- Calculate running total of fines paid
+-- Display: payment date, fine amount, running total
+-- Filter: Only paid fines
+-- Sort: By payment date
+```
+
+---
+
+#### Query 8.3: Rank Books by Genre
+**Business Need:** Best books within each category.
+
+```sql
+-- Use: RANK() OVER (PARTITION BY genre ORDER BY loan_count)
+-- Partition: By genre
+-- Order by: Total loans within genre
+-- Display: genre, book title, loans, rank within genre
+-- Filter: Show top 3 books per genre
+```
+
+**Hint:** Use subquery or CTE to filter WHERE rank <= 3
+
+---
+
+#### Query 8.4: Loan Frequency Comparison
+**Business Need:** Compare each member's loans to previous month.
+
+```sql
+-- Use: LAG() OVER (PARTITION BY member_id ORDER BY month)
+-- Calculate loans per member per month
+-- Compare to previous month using LAG()
+-- Display: member, month, loans this month, loans last month, difference
+-- Sort: By member, then month
+```
+
+---
+
+#### Query 8.5: Next Event for Each Member
+**Business Need:** What's the next event each registered member will attend?
+
+```sql
+-- Use: ROW_NUMBER() OVER (PARTITION BY member_id ORDER BY event_date)
+-- Partition: By member
+-- Order by: Event date
+-- Filter: Only future events (event_date >= CURDATE())
+-- Display: member name, next event name, event date
+-- Show only the FIRST (ROW_NUMBER = 1) upcoming event per member
+```
+
+---
+
+#### Query 8.6: Moving Average of Loans
+**Business Need:** Smooth out loan trends over time.
+
+```sql
+-- Use: AVG() OVER (ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)
+-- Calculate 7-day moving average of daily loans
+-- Display: date, loans that day, 7-day moving average
+-- Group by: day (DATE(loan_date))
+-- Sort: By date (most recent first)
+-- Limit: Last 30 days
+```
+
+---
+
+#### Query 8.7: Percentile Ranking of Fines
+**Business Need:** Where does each fine fall in the distribution?
+
+```sql
+-- Use: PERCENT_RANK() OVER (ORDER BY fine_amount)
+-- Calculate percentile for each fine
+-- Display: member name, fine amount, percentile (as percentage)
+-- Filter: Unpaid fines only
+-- Sort: By percentile (highest first)
+```
+
+---
+
+#### Query 8.8: Gap Analysis - Days Between Loans
+**Business Need:** How often does each member borrow?
+
+```sql
+-- Use: LAG() OVER (PARTITION BY member_id ORDER BY loan_date)
+-- Calculate days between consecutive loans for each member
+-- Display: member name, loan date, previous loan date, days gap
+-- Filter: Members with at least 2 loans
+-- Sort: By member, then loan date
+```
+
+**Example:**
+```sql
+SELECT 
+  m.first_name, m.last_name,
+  l.loan_date,
+  LAG(l.loan_date) OVER (PARTITION BY m.member_id ORDER BY l.loan_date) as prev_loan,
+  DATEDIFF(l.loan_date, LAG(l.loan_date) OVER (PARTITION BY m.member_id ORDER BY l.loan_date)) as days_gap
+FROM members m
+JOIN loans l ON m.member_id = l.member_id
+ORDER BY m.member_id, l.loan_date;
+```
+
+---
+
+### ✅ Testing Your Queries
+
+For each query:
+- Verify window function calculations are correct
+- Check PARTITION BY groups data properly
+- Ensure ORDER BY within window is appropriate
+- Test edge cases (NULL values, ties)
+
+### 🎯 Success Criteria
+
+- [ ] All 8 queries run without errors
+- [ ] Window functions calculate correctly
+- [ ] PARTITION BY groups data appropriately
+- [ ] Rankings and running totals are accurate
+- [ ] Screenshots show query + results
+
+---
+
+**🎉 Congratulations! You've completed Phase 2 - Intermediate Queries!**
+
+You now have all required skills (Goals 1-8 = 100%). The following goals are optional bonus challenges.
+
+---
+
+## 🔵 PHASE 3: ADVANCED FEATURES (Optional Bonus)
+
+# Goal 9: Create Stored Procedures and Functions (BONUS)
+
+**📌 Module Focus:** Stored Procedures and Functions (Module 13)  
+**⏱️ Estimated Time:** 2-3 hours  
+**🎯 What You'll Learn:** CREATE PROCEDURE, CREATE FUNCTION, parameters, CALL statement  
+**💰 Bonus Points:** +5%
+
+### What You Need to Do
+
+Create 4 reusable stored procedures or functions that encapsulate common library operations.
+
+### 📝 Requirements
+
+#### Procedure 9.1: CheckoutBook
+**Business Need:** Automate the book checkout process.
+
+```sql
+DELIMITER //
+CREATE PROCEDURE CheckoutBook(
+  IN p_member_id INT,
+  IN p_copy_id INT,
+  OUT p_due_date DATE,
+  OUT p_message VARCHAR(200)
+)
+BEGIN
+  -- Check if member is active
+  -- Check if book copy is available
+  -- Insert loan record
+  -- Calculate due date (14 days from now)
+  -- Return due date and success message
+END //
+DELIMITER ;
+
+-- Test it:
+CALL CheckoutBook(1, 5, @due, @msg);
+SELECT @due, @msg;
+```
+
+---
+
+#### Procedure 9.2: ReturnBook
+**Business Need:** Process book returns and calculate fines.
+
+```sql
+DELIMITER //
+CREATE PROCEDURE ReturnBook(
+  IN p_loan_id INT,
+  OUT p_fine_amount DECIMAL(10,2),
+  OUT p_message VARCHAR(200)
+)
+BEGIN
+  -- Update loan record with return_date = CURDATE()
+  -- Calculate days overdue
+  -- If overdue, create fine record ($0.25 per day)
+  -- Return fine amount and message
+END //
+DELIMITER ;
+```
+
+---
+
+#### Function 9.3: CalculateFineDays
+**Business Need:** Reusable function to calculate overdue days.
+
+```sql
+DELIMITER //
+CREATE FUNCTION CalculateFineDays(
+  p_due_date DATE,
+  p_return_date DATE
+) RETURNS INT
+DETERMINISTIC
+BEGIN
+  DECLARE days_late INT;
+  -- Calculate days between due date and return date
+  -- Return 0 if not late, otherwise return days
+  SET days_late = DATEDIFF(p_return_date, p_due_date);
+  IF days_late < 0 THEN
+    RETURN 0;
+  ELSE
+    RETURN days_late;
+  END IF;
+END //
+DELIMITER ;
+
+-- Test it:
+SELECT title, CalculateFineDays(due_date, CURDATE()) as days_overdue
+FROM loans l
+JOIN book_copies bc ON l.copy_id = bc.copy_id
+JOIN books b ON bc.book_id = b.book_id
+WHERE l.status = 'active';
+```
+
+---
+
+#### Procedure 9.4: GenerateMemberReport
+**Business Need:** Comprehensive member activity report.
+
+```sql
+DELIMITER //
+CREATE PROCEDURE GenerateMemberReport(IN p_member_id INT)
+BEGIN
+  -- Return multiple result sets:
+  
+  -- Result Set 1: Member info
+  SELECT first_name, last_name, email, membership_type, status
+  FROM members WHERE member_id = p_member_id;
+  
+  -- Result Set 2: Current loans
+  SELECT b.title, l.loan_date, l.due_date
+  FROM loans l
+  JOIN book_copies bc ON l.copy_id = bc.copy_id
+  JOIN books b ON bc.book_id = b.book_id
+  WHERE l.member_id = p_member_id AND l.status = 'active';
+  
+  -- Result Set 3: Unpaid fines
+  SELECT SUM(fine_amount) as total_unpaid
+  FROM fines f
+  JOIN loans l ON f.loan_id = l.loan_id
+  WHERE l.member_id = p_member_id AND f.paid = FALSE;
+  
+  -- Result Set 4: Registered events
+  SELECT e.event_name, e.event_date
+  FROM event_registrations er
+  JOIN events e ON er.event_id = e.event_id
+  WHERE er.member_id = p_member_id AND e.event_date >= CURDATE();
+END //
+DELIMITER ;
+```
+
+---
+
+### ✅ Testing Your Work
+
+```sql
+-- Test CheckoutBook
+CALL CheckoutBook(1, 10, @due, @msg);
+SELECT @due, @msg;
+
+-- Test ReturnBook
+CALL ReturnBook(1, @fine, @msg);
+SELECT @fine, @msg;
+
+-- Test CalculateFineDays
+SELECT CalculateFineDays('2024-01-01', '2024-01-15') as days;
+
+-- Test GenerateMemberReport
+CALL GenerateMemberReport(1);
+```
+
+### 🎯 Success Criteria
+
+- [ ] All 4 procedures/functions created successfully
+- [ ] Parameters work correctly (IN, OUT)
+- [ ] Functions return correct values
+- [ ] Procedures handle edge cases (invalid IDs, etc.)
+- [ ] Test calls produce expected results
+- [ ] Screenshots show CREATE statements + test results
+
+---
+
+# Goal 10: Implement Triggers for Data Integrity (BONUS)
+
+**📌 Module Focus:** Triggers (Module 14)  
+**⏱️ Estimated Time:** 2-3 hours  
+**🎯 What You'll Learn:** CREATE TRIGGER, BEFORE/AFTER, INSERT/UPDATE/DELETE, NEW/OLD  
+**💰 Bonus Points:** +5%
+
+### What You Need to Do
+
+Create 5 triggers that automatically enforce business rules and maintain data integrity.
+
+### 📝 Requirements
+
+#### Trigger 10.1: Audit Log for Member Changes
+**Business Need:** Track all member updates for security.
+
+```sql
+DELIMITER //
+CREATE TRIGGER after_member_update
+AFTER UPDATE ON members
+FOR EACH ROW
+BEGIN
+  INSERT INTO audit_log (table_name, action, record_id, description)
+  VALUES (
+    'members',
+    'UPDATE',
+    NEW.member_id,
+    CONCAT('Member ', OLD.first_name, ' ', OLD.last_name, 
+           ' updated. Status: ', OLD.status, ' -> ', NEW.status)
+  );
+END //
+DELIMITER ;
+```
+
+---
+
+#### Trigger 10.2: Prevent Loan if Member Suspended
+**Business Need:** Don't allow suspended members to borrow.
+
+```sql
+DELIMITER //
+CREATE TRIGGER before_loan_insert
+BEFORE INSERT ON loans
+FOR EACH ROW
+BEGIN
+  DECLARE member_status VARCHAR(20);
+  
+  SELECT status INTO member_status
+  FROM members
+  WHERE member_id = NEW.member_id;
+  
+  IF member_status != 'active' THEN
+    SIGNAL SQLSTATE '45000'
+    SET MESSAGE_TEXT = 'Cannot create loan: Member is not active';
+  END IF;
+END //
+DELIMITER ;
+```
+
+---
+
+#### Trigger 10.3: Auto-Calculate Due Date
+**Business Need:** Automatically set due_date when loan is created.
+
+```sql
+DELIMITER //
+CREATE TRIGGER before_loan_insert_due_date
+BEFORE INSERT ON loans
+FOR EACH ROW
+BEGIN
+  -- Set due_date to 14 days from loan_date if not provided
+  IF NEW.due_date IS NULL THEN
+    SET NEW.due_date = DATE_ADD(NEW.loan_date, INTERVAL 14 DAY);
+  END IF;
+END //
+DELIMITER ;
+```
+
+---
+
+#### Trigger 10.4: Auto-Create Fine for Overdue Returns
+**Business Need:** Automatically create fine when overdue book is returned.
+
+```sql
+DELIMITER //
+CREATE TRIGGER after_loan_return
+AFTER UPDATE ON loans
+FOR EACH ROW
+BEGIN
+  DECLARE days_late INT;
+  DECLARE fine_amt DECIMAL(10,2);
+  
+  -- Only if status changed to 'returned' and was not already returned
+  IF NEW.status = 'returned' AND OLD.status = 'active' THEN
+    -- Calculate days late
+    SET days_late = DATEDIFF(NEW.return_date, NEW.due_date);
+    
+    -- If late, create fine
+    IF days_late > 0 THEN
+      SET fine_amt = days_late * 0.25;
+      
+      INSERT INTO fines (loan_id, fine_amount, fine_reason, paid)
+      VALUES (NEW.loan_id, fine_amt, 'overdue', FALSE);
+    END IF;
+  END IF;
+END //
+DELIMITER ;
+```
+
+---
+
+#### Trigger 10.5: Prevent Deleting Books with Active Loans
+**Business Need:** Can't delete a book that's currently borrowed.
+
+```sql
+DELIMITER //
+CREATE TRIGGER before_book_delete
+BEFORE DELETE ON books
+FOR EACH ROW
+BEGIN
+  DECLARE active_loan_count INT;
+  
+  SELECT COUNT(*) INTO active_loan_count
+  FROM loans l
+  JOIN book_copies bc ON l.copy_id = bc.copy_id
+  WHERE bc.book_id = OLD.book_id AND l.status = 'active';
+  
+  IF active_loan_count > 0 THEN
+    SIGNAL SQLSTATE '45000'
+    SET MESSAGE_TEXT = 'Cannot delete book: Active loans exist';
+  END IF;
+END //
+DELIMITER ;
+```
+
+---
+
+### ✅ Testing Your Triggers
+
+```sql
+-- Test Trigger 10.1 (Audit log)
+UPDATE members SET status = 'suspended' WHERE member_id = 1;
+SELECT * FROM audit_log ORDER BY log_id DESC LIMIT 1;
+
+-- Test Trigger 10.2 (Prevent suspended member loan)
+-- Should fail:
+INSERT INTO loans (member_id, copy_id, loan_date, due_date, status)
+VALUES (4, 15, CURDATE(), DATE_ADD(CURDATE(), INTERVAL 14 DAY), 'active');
+
+-- Test Trigger 10.3 (Auto due date)
+INSERT INTO loans (member_id, copy_id, loan_date, status)
+VALUES (1, 20, CURDATE(), 'active');
+-- Check that due_date was set automatically
+
+-- Test Trigger 10.4 (Auto fine)
+UPDATE loans SET status = 'returned', return_date = DATE_ADD(due_date, INTERVAL 10 DAY)
+WHERE loan_id = 1;
+SELECT * FROM fines WHERE loan_id = 1;
+
+-- Test Trigger 10.5 (Prevent delete)
+-- Should fail if book has active loans:
+DELETE FROM books WHERE book_id = 1;
+```
+
+### 🎯 Success Criteria
+
+- [ ] All 5 triggers created successfully
+- [ ] BEFORE triggers prevent invalid operations
+- [ ] AFTER triggers perform automated actions
+- [ ] Error messages are clear and helpful
+- [ ] Test cases demonstrate trigger behavior
+- [ ] Screenshots show CREATE statements + tests
+
+---
+
+# Goal 11: Optimize Query Performance (BONUS)
+
+**📌 Module Focus:** Indexes and Optimization (Module 11)  
+**⏱️ Estimated Time:** 2-3 hours  
+**🎯 What You'll Learn:** CREATE INDEX, EXPLAIN, query optimization  
+**💰 Bonus Points:** +5%
+
+### What You Need to Do
+
+Analyze query performance and add indexes to improve speed. Demonstrate understanding of when and where indexes help.
+
+### 📝 Requirements
+
+#### Task 11.1: Analyze Query Performance
+**Use EXPLAIN to analyze slow queries:**
+
+```sql
+-- Analyze this query:
+EXPLAIN
+SELECT b.title, a.author_name, COUNT(*) as loan_count
+FROM loans l
+JOIN book_copies bc ON l.copy_id = bc.copy_id
+JOIN books b ON bc.book_id = b.book_id
+JOIN authors a ON b.author_id = a.author_id
+GROUP BY b.book_id
+ORDER BY loan_count DESC;
+
+-- Look for:
+-- - type: ALL (full table scan - bad)
+-- - rows: high numbers
+-- - Using temporary, Using filesort
+```
+
+---
+
+#### Task 11.2: Create Performance-Boosting Indexes
+
+```sql
+-- Index 1: Speed up loan lookups by member
+CREATE INDEX idx_loans_member_id ON loans(member_id);
+
+-- Index 2: Speed up loan lookups by copy
+CREATE INDEX idx_loans_copy_id ON loans(copy_id);
+
+-- Index 3: Speed up active loan searches
+CREATE INDEX idx_loans_status ON loans(status);
+
+-- Index 4: Composite index for overdue loan queries
+CREATE INDEX idx_loans_status_due ON loans(status, due_date);
+
+-- Index 5: Speed up book searches by genre
+CREATE INDEX idx_books_genre ON books(genre);
+
+-- Index 6: Speed up foreign key lookups
+CREATE INDEX idx_book_copies_book_id ON book_copies(book_id);
+
+-- Index 7: Speed up fine searches
+CREATE INDEX idx_fines_paid ON fines(paid);
+
+-- Index 8: Email lookups (already unique, but explicit index)
+-- Already exists due to UNIQUE constraint
+
+-- Index 9: Event date searches
+CREATE INDEX idx_events_date ON events(event_date);
+
+-- Index 10: Composite for event registrations
+CREATE INDEX idx_registrations_event_member ON event_registrations(event_id, member_id);
+```
+
+---
+
+#### Task 11.3: Before and After Comparison
+
+```sql
+-- Document performance improvement:
+
+-- BEFORE indexes:
+EXPLAIN
+SELECT m.first_name, m.last_name, COUNT(*) as loan_count
+FROM members m
+JOIN loans l ON m.member_id = l.member_id
+WHERE l.status = 'active'
+GROUP BY m.member_id;
+-- Note: rows examined, execution time
+
+-- CREATE indexes (from 11.2)
+
+-- AFTER indexes:
+EXPLAIN
+SELECT m.first_name, m.last_name, COUNT(*) as loan_count
+FROM members m
+JOIN loans l ON m.member_id = l.member_id
+WHERE l.status = 'active'
+GROUP BY m.member_id;
+-- Note: improvement in rows examined
+```
+
+---
+
+#### Task 11.4: Query Optimization Without Indexes
+
+Rewrite this inefficient query:
+
+```sql
+-- BEFORE (inefficient - multiple subqueries):
+SELECT b.title,
+  (SELECT COUNT(*) FROM loans l JOIN book_copies bc ON l.copy_id = bc.copy_id 
+   WHERE bc.book_id = b.book_id) as total_loans,
+  (SELECT COUNT(*) FROM loans l JOIN book_copies bc ON l.copy_id = bc.copy_id 
+   WHERE bc.book_id = b.book_id AND l.status = 'active') as active_loans
+FROM books b;
+
+-- AFTER (optimized - single pass with LEFT JOINs):
+SELECT b.title,
+  COUNT(l.loan_id) as total_loans,
+  SUM(CASE WHEN l.status = 'active' THEN 1 ELSE 0 END) as active_loans
+FROM books b
+LEFT JOIN book_copies bc ON b.book_id = bc.book_id
+LEFT JOIN loans l ON bc.copy_id = l.copy_id
+GROUP BY b.book_id;
+```
+
+---
+
+#### Task 11.5: Demonstrate Index Usage
+
+```sql
+-- Show that indexes are being used:
+SHOW INDEXES FROM loans;
+SHOW INDEXES FROM books;
+SHOW INDEXES FROM members;
+
+-- Verify index improves query plan:
+EXPLAIN
+SELECT * FROM loans
+WHERE status = 'active' AND due_date < CURDATE();
+-- Should show "Using index condition" or similar
+```
+
+---
+
+### 🎯 Success Criteria
+
+- [ ] Created at least 8 appropriate indexes
+- [ ] Used EXPLAIN to analyze queries
+- [ ] Documented before/after performance
+- [ ] Rewrote at least 1 inefficient query
+- [ ] Explained why each index was chosen
+- [ ] Screenshots show EXPLAIN output + index creation
+
+---
+
+# Goal 12: Transaction Management (BONUS)
+
+**📌 Module Focus:** Transactions (Module 12)  
+**⏱️ Estimated Time:** 1-2 hours  
+**🎯 What You'll Learn:** START TRANSACTION, COMMIT, ROLLBACK, ACID properties  
+**💰 Bonus Points:** +5%
+
+### What You Need to Do
+
+Demonstrate safe multi-step operations using transactions. Show how to handle errors and maintain data consistency.
+
+### 📝 Requirements
+
+#### Transaction 12.1: Safe Book Checkout
+**Business Need:** Checkout must be all-or-nothing.
+
+```sql
+START TRANSACTION;
+
+-- Step 1: Check book availability
+SELECT copy_id INTO @available_copy
+FROM book_copies bc
+WHERE book_id = 1
+  AND copy_id NOT IN (
+    SELECT copy_id FROM loans WHERE status = 'active'
+  )
+LIMIT 1;
+
+-- Step 2: Create loan record
+INSERT INTO loans (member_id, copy_id, loan_date, due_date, status)
+VALUES (1, @available_copy, CURDATE(), DATE_ADD(CURDATE(), INTERVAL 14 DAY), 'active');
+
+-- Step 3: Log the action
+INSERT INTO audit_log (table_name, action, record_id, description)
+VALUES ('loans', 'INSERT', LAST_INSERT_ID(), 'Book checked out');
+
+-- If all succeeded:
+COMMIT;
+
+-- If error occurred:
+-- ROLLBACK;
+```
+
+---
+
+#### Transaction 12.2: Process Fine Payment
+**Business Need:** Payment must update fine and create audit trail atomically.
+
+```sql
+START TRANSACTION;
+
+-- Step 1: Mark fine as paid
+UPDATE fines
+SET paid = TRUE, payment_date = CURDATE()
+WHERE fine_id = 1;
+
+-- Step 2: Log payment
+INSERT INTO audit_log (table_name, action, record_id, description)
+VALUES ('fines', 'UPDATE', 1, CONCAT('Fine paid: $', (SELECT fine_amount FROM fines WHERE fine_id = 1)));
+
+-- Step 3: Check if member should be reactivated
+UPDATE members
+SET status = 'active'
+WHERE member_id = (
+  SELECT l.member_id FROM fines f
+  JOIN loans l ON f.loan_id = l.loan_id
+  WHERE f.fine_id = 1
+)
+AND status = 'suspended'
+AND NOT EXISTS (
+  SELECT 1 FROM fines f2
+  JOIN loans l2 ON f2.loan_id = l2.loan_id
+  WHERE l2.member_id = members.member_id
+    AND f2.paid = FALSE
+    AND f2.fine_id != 1
+);
+
+COMMIT;
+```
+
+---
+
+#### Transaction 12.3: Rollback Example (Error Handling)
+**Business Need:** Demonstrate how rollback prevents partial updates.
+
+```sql
+START TRANSACTION;
+
+-- Attempt to checkout book
+INSERT INTO loans (member_id, copy_id, loan_date, due_date, status)
+VALUES (1, 5, CURDATE(), DATE_ADD(CURDATE(), INTERVAL 14 DAY), 'active');
+
+-- Simulate error check: member has too many active loans
+SET @active_count = (
+  SELECT COUNT(*) FROM loans
+  WHERE member_id = 1 AND status = 'active'
+);
+
+IF @active_count > 5 THEN
+  -- Too many books! Undo the insert
+  ROLLBACK;
+  SELECT 'Transaction rolled back: Member has too many active loans' as message;
+ELSE
+  COMMIT;
+  SELECT 'Transaction committed successfully' as message;
+END IF;
+```
+
+---
+
+#### Transaction 12.4: Batch Book Return
+**Business Need:** Return multiple books for a member at once.
+
+```sql
+START TRANSACTION;
+
+-- Return all active loans for member 1
+UPDATE loans
+SET status = 'returned', return_date = CURDATE()
+WHERE member_id = 1 AND status = 'active';
+
+-- Calculate and create fines for any overdue
+INSERT INTO fines (loan_id, fine_amount, fine_reason, paid)
+SELECT 
+  loan_id,
+  GREATEST(0, DATEDIFF(CURDATE(), due_date)) * 0.25 as fine_amount,
+  'overdue',
+  FALSE
+FROM loans
+WHERE member_id = 1 
+  AND status = 'returned'
+  AND return_date > due_date
+  AND loan_id NOT IN (SELECT loan_id FROM fines);
+
+-- Log the batch return
+INSERT INTO audit_log (table_name, action, record_id, description)
+VALUES ('loans', 'UPDATE', 1, CONCAT('Batch return for member 1: ', ROW_COUNT(), ' books'));
+
+COMMIT;
+```
+
+---
+
+### ✅ Testing Your Transactions
+
+```sql
+-- Test successful transaction
+START TRANSACTION;
+INSERT INTO members (first_name, last_name, email, membership_type)
+VALUES ('Test', 'User', 'test@example.com', 'standard');
+SELECT * FROM members WHERE email = 'test@example.com';
+COMMIT;
+SELECT * FROM members WHERE email = 'test@example.com'; -- Should exist
+
+-- Test rollback
+START TRANSACTION;
+INSERT INTO members (first_name, last_name, email, membership_type)
+VALUES ('Rollback', 'Test', 'rollback@example.com', 'standard');
+SELECT * FROM members WHERE email = 'rollback@example.com'; -- Should exist
+ROLLBACK;
+SELECT * FROM members WHERE email = 'rollback@example.com'; -- Should NOT exist
+```
+
+---
+
+### 🎯 Success Criteria
+
+- [ ] Demonstrated at least 4 transaction scenarios
+- [ ] Used COMMIT for successful operations
+- [ ] Used ROLLBACK to undo partial changes
+- [ ] Showed error handling with transactions
+- [ ] Explained ACID properties (in comments)
+- [ ] Screenshots show transaction execution
+
+---
+
+**🎉 Congratulations! You've completed ALL GOALS (1-12)!**
+
+If you completed all bonus goals, you've achieved 120% - outstanding work!
+
+---
+
+## 📤 Deliverables & Submission
+
+### What to Submit
+
+Create a ZIP file containing:
+
+#### 1. SQL Script Files (Required)
+- `01_schema.sql` - Goal 1 (CREATE TABLE statements)
+- `02_data.sql` - Goal 2 (INSERT statements)
+- `03_basic_queries.sql` - Goal 3 (8 queries)
+- `04_aggregation.sql` - Goal 4 (8 queries)
+- `05_joins.sql` - Goal 5 (8 queries)
+- `06_subqueries.sql` - Goal 6 (8 queries)
+- `07_set_operations.sql` - Goal 7 (5 queries)
+- `08_window_functions.sql` - Goal 8 (8 queries)
+- `09_procedures.sql` - Goal 9 (BONUS - 4 procedures/functions)
+- `10_triggers.sql` - Goal 10 (BONUS - 5 triggers)
+- `11_indexes.sql` - Goal 11 (BONUS - index creation + EXPLAIN)
+- `12_transactions.sql` - Goal 12 (BONUS - 4 transactions)
+
+#### 2. Documentation (Required)
+- `README.md` or `PROJECT_REPORT.pdf` containing:
+  - Your name and date
+  - Brief project description
+  - List of completed goals (1-8 required, 9-12 optional)
+  - Screenshots for each goal (see requirements below)
+  - Challenges faced and solutions
+  - What you learned
+
+#### 3. Screenshots (Required)
+- At least ONE screenshot per goal showing:
+  - The SQL query
+  - The query results
+  - Proof it works (row counts, successful execution)
+
+---
+
+## 📸 Screenshot Requirements
+
+### What to Capture
+
+For **each goal**, provide screenshots showing:
+
+1. **The SQL Code** - Your query or CREATE statement
+2. **The Results** - Output data or success messages
+3. **Verification** - Row counts, DESCRIBE output, or test results
+
+### Screenshot Checklist by Goal
+
+- **Goal 1 (Schema):**
+  - Screenshot: `SHOW TABLES;` output
+  - Screenshot: `DESCRIBE` for 2-3 key tables
+  - Screenshot: One CREATE TABLE statement
+
+- **Goal 2 (Data):**
+  - Screenshot: Row count verification query
+  - Screenshot: Sample data from 2-3 tables
+
+- **Goals 3-8 (Queries):**
+  - Screenshot: 2-3 example queries with results
+  - Or: One screenshot per goal showing multiple queries
+
+- **Goals 9-12 (Bonus):**
+  - Screenshot: CREATE statement
+  - Screenshot: Test execution and results
+
+### How to Take Good Screenshots
+
+✅ **DO:**
+- Include both query and results
+- Show timestamps or dates to prove recency
+- Capture error messages if troubleshooting
+- Use clear, readable font sizes
+- Label screenshots (e.g., "Goal_3_Query_1.png")
+
+❌ **DON'T:**
+- Submit blurry or unreadable screenshots
+- Cut off important parts of results
+- Forget to show the actual query code
+- Submit screenshots from old projects
+
+---
+
+## 🌐 How to Submit
+
+### Option 1: GitHub (Recommended)
+
+1. **Create a new repository:**
+   ```bash
+   git init city-library-project
+   cd city-library-project
+   ```
+
+2. **Organize your files:**
+   ```
+   city-library-project/
+   ├── README.md
+   ├── sql/
+   │   ├── 01_schema.sql
+   │   ├── 02_data.sql
+   │   ├── 03_basic_queries.sql
+   │   └── ... (all SQL files)
+   ├── screenshots/
+   │   ├── goal1_schema.png
+   │   ├── goal2_data.png
+   │   └── ... (all screenshots)
+   └── documentation/
+       └── project_report.md
+   ```
+
+3. **Commit and push:**
+   ```bash
+   git add .
+   git commit -m "Complete CityLibrary capstone project"
+   git remote add origin https://github.com/yourusername/city-library-project.git
+   git push -u origin main
+   ```
+
+4. **Submit the GitHub URL** to your instructor
+
+---
+
+### Option 2: ZIP File Submission
+
+1. Create folder structure (same as above)
+2. Add all SQL files, screenshots, and documentation
+3. Compress to ZIP: `city-library-project.zip`
+4. Upload to your course platform or email to instructor
+
+---
+
+## 🆘 Beginner Troubleshooting Guide
+
+### Common Errors and Solutions
+
+#### Error: "Table doesn't exist"
+```
+ERROR 1146 (42S02): Table 'city_library.books' doesn't exist
+```
+**Solution:** Create tables in order. Parent tables (authors, members) before child tables (books, loans).
+
+---
+
+#### Error: "Duplicate entry for key"
+```
+ERROR 1062 (23000): Duplicate entry 'alice.j@email.com' for key 'email'
+```
+**Solution:** Email addresses must be unique. Use different emails or delete existing row.
+
+---
+
+#### Error: "Cannot add foreign key constraint"
+```
+ERROR 1215 (HY000): Cannot add foreign key constraint
+```
+**Solution:** 
+- Ensure referenced table exists
+- Referenced column must be PRIMARY KEY or have UNIQUE index
+- Data types must match exactly (both INT, same size)
+
+---
+
+#### Error: "Column count doesn't match"
+```
+ERROR 1136 (21S01): Column count doesn't match value count
+```
+**Solution:** Number of columns in INSERT must match number of values.
+```sql
+-- Wrong:
+INSERT INTO members (first_name, last_name) VALUES ('John', 'Doe', 'john@email.com');
+
+-- Right:
+INSERT INTO members (first_name, last_name, email) VALUES ('John', 'Doe', 'john@email.com');
+```
+
+---
+
+#### Error: "Syntax error near..."
+```
+ERROR 1064 (42000): You have an error in your SQL syntax
+```
+**Solution:**
+- Check for missing commas
+- Verify all keywords spelled correctly
+- Ensure quotes match (' or ")
+- Check for missing semicolons
+
+---
+
+#### Error: "Out of range value"
+```
+ERROR 1264 (22003): Out of range value for column
+```
+**Solution:** Value is too large for data type. Use bigger type (INT -> BIGINT) or smaller value.
+
+---
+
+### Performance Issues
+
+#### "Query is too slow"
+**Solution:**
+1. Add indexes on columns used in WHERE, JOIN, and ORDER BY
+2. Use EXPLAIN to see query plan
+3. Avoid SELECT * - specify only needed columns
+4. Use LIMIT to test with smaller result sets
+
+---
+
+### Data Issues
+
+#### "Wrong number of rows returned"
+**Solution:**
+- Check JOIN conditions (missing ON clause?)
+- Verify filter logic in WHERE clause
+- Watch for NULL values (use IS NULL, not = NULL)
+- Check for duplicate data
+
+---
+
+## 📚 Quick Reference Guide
+
+### Essential SQL Syntax
+
+#### Basic SELECT
+```sql
+SELECT column1, column2
+FROM table_name
+WHERE condition
+ORDER BY column1 DESC
+LIMIT 10;
+```
+
+#### Aggregation
+```sql
+SELECT category, COUNT(*), AVG(price)
+FROM products
+GROUP BY category
+HAVING COUNT(*) > 5
+ORDER BY COUNT(*) DESC;
+```
+
+#### Joins
+```sql
+-- Inner join
+SELECT a.*, b.*
+FROM table_a a
+INNER JOIN table_b b ON a.id = b.a_id;
+
+-- Left join (preserve all left table rows)
+SELECT a.*, b.*
+FROM table_a a
+LEFT JOIN table_b b ON a.id = b.a_id;
+```
+
+#### Subquery
+```sql
+SELECT name
+FROM employees
+WHERE salary > (SELECT AVG(salary) FROM employees);
+```
+
+#### CTE (Common Table Expression)
+```sql
+WITH high_earners AS (
+  SELECT * FROM employees WHERE salary > 100000
+)
+SELECT department, COUNT(*)
+FROM high_earners
+GROUP BY department;
+```
+
+#### Window Function
+```sql
+SELECT name, department, salary,
+  RANK() OVER (PARTITION BY department ORDER BY salary DESC) as dept_rank
+FROM employees;
+```
+
+#### Stored Procedure
+```sql
+DELIMITER //
+CREATE PROCEDURE procedure_name(IN param1 INT, OUT param2 VARCHAR(100))
+BEGIN
+  -- procedure logic
+END //
+DELIMITER ;
+
+CALL procedure_name(10, @result);
+SELECT @result;
+```
+
+#### Trigger
+```sql
+DELIMITER //
+CREATE TRIGGER trigger_name
+AFTER INSERT ON table_name
+FOR EACH ROW
+BEGIN
+  -- trigger logic using NEW.column_name
+END //
+DELIMITER ;
+```
+
+#### Transaction
+```sql
+START TRANSACTION;
+-- multiple SQL statements
+COMMIT;  -- or ROLLBACK; if error
+```
+
+---
+
+### Date Functions
+```sql
+CURDATE()                          -- Current date
+NOW()                              -- Current datetime
+DATE_ADD(date, INTERVAL 14 DAY)    -- Add days
+DATE_SUB(date, INTERVAL 1 MONTH)   -- Subtract months
+DATEDIFF(date1, date2)             -- Days between dates
+YEAR(date), MONTH(date), DAY(date) -- Extract parts
+```
+
+### String Functions
+```sql
+CONCAT(str1, str2)          -- Combine strings
+UPPER(str), LOWER(str)      -- Change case
+LENGTH(str)                 -- String length
+SUBSTRING(str, start, len)  -- Extract substring
+```
+
+### Aggregate Functions
+```sql
+COUNT(*)              -- Count rows
+COUNT(DISTINCT col)   -- Count unique values
+SUM(col)              -- Total
+AVG(col)              -- Average
+MIN(col), MAX(col)    -- Minimum, Maximum
+GROUP_CONCAT(col)     -- Concatenate grouped values
+```
+
+---
+
+## 🎓 Final Checklist
+
+Before submitting, verify:
+
+### Completeness
+- [ ] All required goals (1-8) completed
+- [ ] Optional goals (9-12) attempted if desired
+- [ ] All SQL files included and properly named
+- [ ] Documentation/README exists
+- [ ] Screenshots for every goal
+
+### Quality
+- [ ] All queries run without errors
+- [ ] Code is well-formatted and commented
+- [ ] Results match expected outcomes
+- [ ] Screenshots are clear and readable
+- [ ] README explains what you built
+
+### Organization
+- [ ] Files organized in logical folders
+- [ ] Consistent naming conventions
+- [ ] README has table of contents
+- [ ] Easy for grader to navigate
+
+### Testing
+- [ ] Tested all queries with sample data
+- [ ] Verified edge cases (empty results, NULL values)
+- [ ] Checked that foreign keys work
+- [ ] Confirmed triggers and procedures execute
+
+---
+
+## 🎉 Congratulations!
+
+You've completed the **CityLibrary Management System** capstone project! This comprehensive project demonstrates your mastery of:
+
+✅ Database design and normalization  
+✅ SQL fundamentals (SELECT, WHERE, JOIN, GROUP BY)  
+✅ Advanced queries (subqueries, CTEs, window functions)  
+✅ Database programming (procedures, triggers)  
+✅ Performance optimization (indexes, query tuning)  
+✅ Transaction management and data integrity  
+
+**You're now ready to:**
+- Build real-world database applications
+- Work with existing databases in professional settings
+- Optimize queries for performance
+- Design schemas for new projects
+- Explain database concepts to others
+
+**What's Next?**
+- Add this project to your portfolio/GitHub
+- Expand the system with new features (reservations, e-books, etc.)
+- Apply these skills to your own project ideas
+- Continue learning advanced topics (replication, sharding, NoSQL)
+
+---
+
+**Good luck, and happy querying! 🚀📚**
+
