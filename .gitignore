@@ -1,0 +1,53 @@
+# SQL Training Exercise - .gitignore
+
+# MySQL Workbench files
+*.mwb.bak
+*.mwb.beforefix
+
+# Database dumps (if you create backups locally)
+*.sql.bak
+*.dump
+*.dmp
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Personal notes or scratch files (optional)
+scratch/
+notes/
+temp/
+*.tmp
+
+# MySQL connection configuration (if you add them)
+*.cnf
+my.cnf
+.my.cnf
+
+# Environment variables
+.env
+.env.local
+
+# Node modules (if you add any automation tools)
+node_modules/
+
+# Python cache (if you add Python scripts)
+__pycache__/
+*.py[cod]
+*$py.class

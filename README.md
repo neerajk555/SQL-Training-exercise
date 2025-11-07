@@ -2,6 +2,20 @@
 
 A comprehensive SQL training course covering fundamental to advanced database concepts and operations.
 
+## 📚 About This Course
+
+This repository contains a complete SQL training curriculum with 15 modules covering everything from basic SELECT statements to advanced stored procedures, triggers, and optimization techniques. Each module includes 8 different types of exercises designed to reinforce learning through varied practice approaches.
+
+## 🎓 Capstone Project
+
+Ready to put your skills to the test? Check out the [**CityLibrary Management System Capstone Project**](Capstone_Project.md) - a comprehensive, real-world database project that integrates concepts from all 15 modules.
+
+**Project Highlights:**
+- Design a complete library management system with 9 interconnected tables
+- Practice all SQL concepts: queries, joins, subqueries, window functions, procedures, triggers, and more
+- Choose your path: Complete core requirements (100%) or tackle bonus challenges (up to 120%)
+- Beginner-friendly with step-by-step guidance and detailed documentation
+
 ## Course Modules
 
 ### Module 01: Introduction to Databases
@@ -245,6 +259,36 @@ Running `module-01-setup.sql` creates three small databases you can reuse across
    - appointments(appt_id, patient_id, appt_date, status)
 
 These include useful edge cases: NULL emails, out-of-stock or discontinued products, inactive courses, future appointments, etc.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
+- Reporting issues and bugs
+- Suggesting new exercises or improvements
+- Submitting pull requests
+- Code style and formatting standards
+
+## 📖 Additional Resources
+
+- [Git & GitHub Setup Guide](Git-GitHub-Setup-Guide.md) - Learn how to use Git and GitHub for version control
+- [Capstone Project](Capstone_Project.md) - Comprehensive final project integrating all concepts
+- [Module 01 Setup Script](module-01-intro/module-01-setup.sql) - Optional sample databases for practice
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## ⭐ Acknowledgments
+
+This training material is designed for students and self-learners who want to master SQL from fundamentals to advanced concepts. Special thanks to all contributors who help improve this educational resource.
+
+---
+
+**Ready to start learning?** Begin with [Module 01: Introduction to Databases](module-01-intro/Module-01-Intro-to-Databases.md) or jump directly to the [Capstone Project](Capstone_Project.md) to test your existing skills!
+
+**Questions or feedback?** Open an issue or contribute to make this resource even better! 🚀
 
 ## Common Troubleshooting
 
