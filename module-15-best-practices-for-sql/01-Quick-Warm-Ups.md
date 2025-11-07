@@ -1,4 +1,4 @@
-# Quick Warm-Ups — Professional Practices
+# Quick Warm-Ups — Best Practices for SQL
 
 ## 📋 Before You Start
 

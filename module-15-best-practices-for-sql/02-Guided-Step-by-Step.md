@@ -1,4 +1,4 @@
-# Guided Step-by-Step — Professional Practices
+# Guided Step-by-Step — Best Practices for SQL
 
 ## Activity 1: Refactor Legacy Query
 

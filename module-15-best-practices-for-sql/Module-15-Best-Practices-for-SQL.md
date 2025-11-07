@@ -1,4 +1,4 @@
-# Module 15 · Professional SQL Practices
+# Module 15 · Best Practices for SQL
 
 **What You'll Learn:**
 Write production-quality SQL that is readable, secure, maintainable, and performant. This module teaches you the industry standards and best practices that professional developers use every day.

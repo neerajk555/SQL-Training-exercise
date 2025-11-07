@@ -1,4 +1,4 @@
-# Take-Home Challenges — Professional Practices
+# Take-Home Challenges — Best Practices for SQL
 
 ## 📋 Before You Start
 

@@ -1,4 +1,4 @@
-# Paired Programming — Professional Practices
+# Paired Programming — Best Practices for SQL
 
 ## 📋 Before You Start
 

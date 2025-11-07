@@ -1,4 +1,4 @@
-# Independent Practice — Professional Practices
+# Independent Practice — Best Practices for SQL
 
 ## Exercise 1: Code Review & Style Fix
 

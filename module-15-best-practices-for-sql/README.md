@@ -1,4 +1,4 @@
-# Module 15 · Professional Practices
+# Module 15 · Best Practices for SQL
 
 Master SQL best practices: Code style, documentation, security, testing, version control, and production-ready patterns.
 

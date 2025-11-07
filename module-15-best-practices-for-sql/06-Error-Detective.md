@@ -1,4 +1,4 @@
-# Error Detective — Professional Practices
+# Error Detective — Best Practices for SQL
 
 ## 📋 Before You Start
 

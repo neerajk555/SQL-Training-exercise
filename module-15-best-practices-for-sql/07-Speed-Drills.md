@@ -1,4 +1,4 @@
-# Speed Drills — Professional Practices
+# Speed Drills — Best Practices for SQL
 
 ## 📋 Before You Start
 

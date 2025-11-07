@@ -1,4 +1,4 @@
-# Real-World Project — Professional Practices
+# Real-World Project — Best Practices for SQL
 
 ## 📋 Before You Start
 
