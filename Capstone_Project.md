@@ -76,63 +76,68 @@ You've been hired as the database developer. Your job is to design a normalized 
 
 ### ⏱️ Realistic Time Expectations (2-Day Project)
 
-**Total time needed: 8-12 hours** spread over 2 days
+**Total time needed: 12-16 hours** spread over 2 days
 
-**What you WILL accomplish in 2 days:**
-- ✅ Complete database schema with 5-7 tables
-- ✅ Insert realistic sample data
-- ✅ Write 15-20 working queries (Goals 3-4)
-- ✅ Learn joins and subqueries (Goals 5-6 basics)
+**What you MUST accomplish in 2 days (ALL REQUIRED):**
+- ✅ Complete database schema with all 9 tables
+- ✅ Insert comprehensive sample data (meeting all requirements)
+- ✅ Write 50+ working queries (Goals 3-8)
+- ✅ Create stored procedures and functions (Goal 9)
+- ✅ Implement triggers (Goal 10)
+- ✅ Perform query optimization (Goal 11)
+- ✅ Demonstrate transaction management (Goal 12)
+- ✅ Complete documentation with screenshots
 
-**What you probably WON'T finish in 2 days:**
-- ❌ All 12 goals (that's unrealistic!)
-- ❌ Advanced features (procedures, triggers, optimization)
-- ❌ All queries for Goals 5-8 (pick 3-4 from each)
+**This is an intensive project requiring dedicated focus and time management!**
 
-**That's completely normal!** Focus on quality over quantity.
+### Complete Project Requirements
 
-### Minimum Viable Product (MVP)
+For **successful completion**, you must complete:
+- ✅ ALL Goals 1-12 (All aspects of the project are required)
+- ✅ All 9 tables: members, authors, books, book_copies, loans, fines, events, event_registrations, audit_log
+- ✅ Comprehensive sample data as specified in Goal 2
+- ✅ All queries for Goals 3-8
+- ✅ All procedures/functions for Goal 9
+- ✅ All triggers for Goal 10
+- ✅ Optimization work for Goal 11
+- ✅ Transaction examples for Goal 12
 
-For a successful **basic completion**, focus on:
-- ✅ Goals 1-4 (Create tables, insert data, basic queries, aggregation)
-- ✅ At least 5 tables: members, authors, books, book_copies, loans
-- ✅ At least 10 members, 5 authors, 10 books, 15 book copies, 10 loans
-- ✅ Working queries for Goals 3-4
+**This is a comprehensive capstone project covering all MySQL fundamentals.**
 
-**Everything else is extra credit!** You can always come back and add more features later.
+### ⚡ Success Strategy (2-Day Completion)
 
-### ⚡ Fast Track (2-Day Completion Strategy)
-
-**To finish in 2 days, follow this plan:**
+**To complete ALL requirements in 2 days, follow this plan:**
 
 1. **Use the starter templates** - Don't write from scratch! Copy and modify the provided code
-2. **Focus on MVP first** - Complete Goals 1-4 thoroughly before attempting anything else
+2. **Work systematically** - Complete goals in order 1-12, don't skip ahead
 3. **Test incrementally** - Verify each table and query works before moving on
-4. **Skip optional tables** - Start with just the 5 core tables; add fines/events later if time permits
-5. **Prioritize quality over quantity** - Better to have 5 perfect queries than 20 broken ones
-6. **Budget your time:**
-   - Schema creation: 1-2 hours
-   - Sample data insertion: 1-2 hours
-   - Basic queries (Goal 3): 1-2 hours
-   - Aggregate queries (Goal 4): 1-2 hours
-   - Joins (Goal 5): 2-3 hours
-   - Buffer time for debugging: 2 hours
+4. **Complete all tables first** - Get all 9 tables done before starting queries
+5. **Stay focused** - Minimize distractions; this requires concentrated effort
+6. **Budget your time strictly:**
+   - Schema creation (all 9 tables): 2-3 hours
+   - Sample data insertion (comprehensive): 2-3 hours
+   - Basic queries (Goals 3-4): 2 hours
+   - Intermediate queries (Goals 5-8): 3-4 hours
+   - Advanced features (Goals 9-12): 3-4 hours
+   - Documentation and screenshots: 1-2 hours
+   - Buffer time for debugging: 1 hour
 
 ### Recommended 2-Day Timeline
 
-**Day 1 (4-6 hours):**
-- Morning: Goals 1-2 (Create schema + Insert sample data)
-- Afternoon: Goal 3 (Basic queries)
-- Evening: Goal 4 (Aggregates and grouping)
+**⚠️ IMPORTANT: This is an intensive 2-day project requiring 12-16 hours total**
 
-**Day 2 (4-6 hours):**
-- Morning: Goal 5 (Joins - at least 5a-5d)
-- Afternoon: Goal 6 (Subqueries - at least 6a-6c)
-- Review and test all queries
+**Day 1 (6-8 hours):**
+- Morning (3 hours): Goals 1-2 (Create all 9 tables + Insert comprehensive sample data)
+- Afternoon (3 hours): Goals 3-4 (Basic queries + Aggregates)
+- Evening (2 hours): Goal 5 (Joins - complete all queries)
 
-**Optional Extensions (If you have extra time):**
-- Goals 7-8 (Set Operations & Window Functions)
-- Goals 9-12 (Advanced Features - Procedures, Triggers, Optimization)
+**Day 2 (6-8 hours):**
+- Morning (2 hours): Goal 6 (Subqueries and CTEs - complete all queries)
+- Mid-day (2 hours): Goals 7-8 (Set Operations + Window Functions)
+- Afternoon (2 hours): Goals 9-10 (Procedures/Functions + Triggers)
+- Evening (2 hours): Goals 11-12 (Optimization + Transactions)
+
+**Note: All 12 goals are required for completion. Plan your time accordingly!**
 
 ---
 
@@ -189,9 +194,9 @@ Records of book borrowing transactions.
 - `return_date` (NULL until returned)
 - `status` (ENUM: 'active', 'returned', 'lost')
 
-**📚 Additional Tables (Recommended but Optional):**
+**📚 Additional Tables (Required for Complete Submission):**
 
-#### 6. **fines** 🔵 OPTIONAL
+#### 6. **fines** ⭐ REQUIRED
 Overdue and damage fines.
 - `fine_id` (Primary Key, Auto-increment)
 - `loan_id` (Foreign Key → loans)
@@ -200,7 +205,7 @@ Overdue and damage fines.
 - `paid` (BOOLEAN: 0 = unpaid, 1 = paid)
 - `payment_date` (NULL until paid)
 
-#### 7. **events** 🔵 OPTIONAL
+#### 7. **events** ⭐ REQUIRED
 Library events like book clubs, workshops, and reading programs.
 - `event_id` (Primary Key, Auto-increment)
 - `event_name` (Required)
@@ -209,7 +214,7 @@ Library events like book clubs, workshops, and reading programs.
 - `max_attendees` (Optional)
 - `description` (TEXT, Optional)
 
-#### 8. **event_registrations** 🔵 OPTIONAL
+#### 8. **event_registrations** ⭐ REQUIRED
 Tracks which members signed up for which events.
 - `registration_id` (Primary Key, Auto-increment)
 - `event_id` (Foreign Key → events)
@@ -217,7 +222,7 @@ Tracks which members signed up for which events.
 - `registration_date` (Default: current date)
 - UNIQUE constraint on (event_id, member_id) - can't register twice for same event
 
-#### 9. **audit_log** 🟣 ADVANCED (Skip for MVP)
+#### 9. **audit_log** ⭐ REQUIRED
 Tracks important database changes for security and troubleshooting.
 - `log_id` (Primary Key, Auto-increment)
 - `table_name` (VARCHAR)
@@ -242,7 +247,7 @@ Complete the following 12 tasks in order. Each builds on previous concepts.
 
 **Task:** Create the database and tables with proper data types, primary keys, foreign keys, and constraints.
 
-**🎯 For MVP (Minimum Viable Product):** Create the 5 REQUIRED tables (members, authors, books, book_copies, loans). You can add the optional tables later!
+**🎯 Required:** Create ALL 9 tables (members, authors, books, book_copies, loans, fines, events, event_registrations, audit_log) with proper constraints and relationships.
 
 **Requirements:**
 - Use appropriate data types for each column
@@ -300,9 +305,10 @@ CREATE TABLE books (
 
 -- TODO: Add book_copies table (depends on books)
 -- TODO: Add loans table (depends on members and book_copies)
--- TODO: Add fines table if needed (depends on loans)
--- TODO: Add events table if needed (no dependencies)
--- TODO: Add event_registrations table if needed (depends on events and members)
+-- TODO: Add fines table (depends on loans)
+-- TODO: Add events table (no dependencies)
+-- TODO: Add event_registrations table (depends on events and members)
+-- TODO: Add audit_log table (no dependencies)
 ```
 
 **✅ Checkpoint:** After creating each table, verify it exists:
@@ -333,18 +339,16 @@ DESCRIBE members;
 
 **Task:** Insert test data that represents realistic library operations.
 
-**🎯 MVP Requirements (Start Here):**
-- Insert at least **10 members** with varied membership types and statuses
-- Insert at least **5 authors** from different countries
-- Insert at least **10 books** across multiple genres
-- Insert at least **15 book copies** (some books have multiple copies)
-- Insert at least **10 loans** (mix of active, returned, and overdue)
-
-**🔵 Extended Requirements (Optional):**
-- Insert at least 20 members
-- Insert at least 10 fines (some paid, some unpaid)
-- Insert at least 8 events of different types
-- Insert at least 25 event registrations
+**🎯 Required Data (All Students Must Complete):**
+- Insert at least **20 members** with varied membership types and statuses
+- Insert at least **10 authors** from different countries
+- Insert at least **25 books** across multiple genres
+- Insert at least **40 book copies** (some books have multiple copies)
+- Insert at least **30 loans** (mix of active, returned, and overdue)
+- Insert at least **10 fines** (some paid, some unpaid)
+- Insert at least **8 events** of different types
+- Insert at least **25 event registrations**
+- Insert at least **5 audit log entries** for testing
 
 **Hints:**
 - Use multi-row INSERT statements for efficiency: `INSERT INTO table VALUES (...), (...), (...);`
@@ -519,16 +523,16 @@ ORDER BY publication_year ______;  -- DESC for newest first
 
 ### **INTERMEDIATE LEVEL (Goals 5-8): Complex Queries & Multiple Table Operations**
 
-**⚠️ IMPORTANT - 2-Day Timeline Guidance:**
-- **If completing in 2 days:** Complete Goals 1-4 fully, then attempt 3-4 queries from Goals 5-6 only
-- **Don't attempt to finish everything!** Focus on depth over breadth
-- Goals 7-8 are optional - skip these if on a tight deadline
-- For Day 2, prioritize: 5a-5d (Joins) and 6a-6c (Subqueries)
-- It's perfectly fine to complete just the BASIC level (Goals 1-4) in 2 days!
+**⚠️ REQUIRED - All Goals Must Be Completed:**
+- Complete ALL queries in Goals 5-8
+- These are not optional - they are part of the core curriculum
+- If you're short on time, complete at least the first 4-5 queries from each goal
+- Goals 5-8 demonstrate essential SQL skills for real-world applications
+- Plan your time accordingly to complete these intermediate queries
 
 ---
 
-### **Goal 5: Multi-Table Joins and Analysis** 🔵 INTERMEDIATE
+### **Goal 5: Multi-Table Joins and Analysis** ⭐ REQUIRED
 **Module Focus:** Joins (Module 5)
 
 **Task:** Combine data from multiple tables to answer complex questions.
@@ -568,7 +572,7 @@ ORDER BY publication_year ______;  -- DESC for newest first
 
 ---
 
-### **Goal 6: Subqueries and Common Table Expressions** 🔵 INTERMEDIATE
+### **Goal 6: Subqueries and Common Table Expressions** ⭐ REQUIRED
 **Module Focus:** Subqueries & CTEs (Module 6)
 
 **Task:** Use nested queries and CTEs to solve complex problems.
@@ -612,7 +616,7 @@ ORDER BY publication_year ______;  -- DESC for newest first
 
 ---
 
-### **Goal 7: Set Operations and Combined Results** 🔵 INTERMEDIATE
+### **Goal 7: Set Operations and Combined Results** ⭐ REQUIRED
 **Module Focus:** Set Operations (Module 7)
 
 **Task:** Combine different result sets using UNION, INTERSECT concepts.
@@ -646,7 +650,7 @@ ORDER BY publication_year ______;  -- DESC for newest first
 
 ---
 
-### **Goal 8: Window Functions for Ranking and Analytics** 🟣 ADVANCED
+### **Goal 8: Window Functions for Ranking and Analytics** ⭐ REQUIRED
 **Module Focus:** Window Functions (Module 8)
 
 **Task:** Use analytical functions to rank and analyze data.
@@ -687,17 +691,18 @@ ORDER BY publication_year ______;  -- DESC for newest first
 
 ---
 
-### **CHALLENGING LEVEL (Goals 9-12): Advanced Features & Automation**
+### **ADVANCED LEVEL (Goals 9-12): Advanced Features & Automation**
 
-**🎓 FOR ADVANCED STUDENTS ONLY:**
-These goals involve advanced MySQL features. They are completely optional!
-- Skip these if this is your first capstone project
-- Come back to these after mastering Goals 1-8
-- These are great for building your portfolio
+**⭐ REQUIRED - Professional Database Skills:**
+These goals involve advanced MySQL features that are essential for professional database development.
+- All students must complete Goals 9-12
+- These demonstrate production-ready database skills
+- Plan sufficient time for these advanced features
+- These skills are highly valued in the industry
 
 ---
 
-### **Goal 9: Create Stored Procedures and Functions** 🟣 ADVANCED - OPTIONAL
+### **Goal 9: Create Stored Procedures and Functions** ⭐ REQUIRED
 **Module Focus:** Procedures & Functions (Module 13)
 
 **Task:** Build reusable database logic.
@@ -747,7 +752,7 @@ These goals involve advanced MySQL features. They are completely optional!
 
 ---
 
-### **Goal 10: Implement Triggers for Data Integrity** 🟣 ADVANCED - OPTIONAL
+### **Goal 10: Implement Triggers for Data Integrity** ⭐ REQUIRED
 **Module Focus:** Triggers (Module 14)
 
 **Task:** Create automatic data validation and logging.
@@ -792,7 +797,7 @@ These goals involve advanced MySQL features. They are completely optional!
 
 ---
 
-### **Goal 11: Optimize Query Performance** 🟣 ADVANCED - OPTIONAL
+### **Goal 11: Optimize Query Performance** ⭐ REQUIRED
 **Module Focus:** Indexes & Optimization (Module 11)
 
 **Task:** Improve database performance through indexing and query optimization.
@@ -832,7 +837,7 @@ These goals involve advanced MySQL features. They are completely optional!
 
 ---
 
-### **Goal 12: Transaction Management for Critical Operations** 🟣 ADVANCED - OPTIONAL
+### **Goal 12: Transaction Management for Critical Operations** ⭐ REQUIRED
 **Module Focus:** Transactions (Module 12)
 
 **Task:** Implement safe multi-step operations.
@@ -883,12 +888,17 @@ These goals involve advanced MySQL features. They are completely optional!
 
 **All students must submit their work on GitHub with the following:**
 
-### Minimum Deliverables (MVP - Required for 2-Day Completion):
+### Required Deliverables (ALL Students - 2-Day Completion):
 
 #### 1. **SQL Files:**
-   - **`schema.sql`** - All CREATE TABLE statements (at least 5 core tables)
-   - **`sample_data.sql`** - All INSERT statements with test data
+   - **`schema.sql`** - All CREATE TABLE statements (all 9 tables)
+   - **`sample_data.sql`** - All INSERT statements with comprehensive test data
    - **`queries_basic.sql`** - All queries for Goals 3-4 with comments
+   - **`queries_intermediate.sql`** - All queries for Goals 5-8 with comments
+   - **`procedures_functions.sql`** - All procedures and functions for Goal 9
+   - **`triggers.sql`** - All triggers for Goal 10
+   - **`indexes.sql`** - All index creation and optimization for Goal 11
+   - **`transactions.sql`** - All transaction examples for Goal 12
 
 #### 2. **Documentation File:**
    - **`CityLibrary_Project_Documentation.docx` (or PDF)** - Word document with:
@@ -1004,54 +1014,65 @@ alphabetically by last name for easy lookup by library staff.
 
 ---
 
-### Full Submission (If completing beyond MVP):
-
-4. **`queries_intermediate.sql`** - Solutions for Goals 5-8 (optional)
-5. **`procedures_functions.sql`** - Solutions for Goal 9 (optional)
-6. **`triggers.sql`** - Solutions for Goal 10 (optional)
-7. **`indexes.sql`** - Solutions for Goal 11 (optional)
-8. **`transactions.sql`** - Solutions for Goal 12 (optional)
-
-**For advanced goals, include screenshots showing:**
-- Procedure/function creation success
-- Execution of procedures with results
-- Trigger firing examples
-- EXPLAIN output for optimization queries
+**For Goals 9-12, your documentation must include screenshots showing:**
+- Procedure/function creation success messages
+- Execution of procedures with input parameters and results
+- Trigger firing examples with before/after data
+- EXPLAIN output for optimization queries showing performance improvements
+- Transaction examples with COMMIT and ROLLBACK scenarios
 
 ---
 
-### 📁 Final GitHub Repository Structure:
+### 📁 Final GitHub Repository Structure (ALL FILES REQUIRED):
 
 ```
 SQL-Capstone-CityLibrary/
-├── schema.sql
-├── sample_data.sql
-├── queries_basic.sql
-├── queries_intermediate.sql (optional)
-├── procedures_functions.sql (optional)
-├── CityLibrary_Project_Documentation.docx (or PDF)
-├── README.md
-└── screenshots/ (optional folder)
+├── schema.sql (ALL 9 tables - REQUIRED)
+├── sample_data.sql (Comprehensive data - REQUIRED)
+├── queries_basic.sql (Goals 3-4 - REQUIRED)
+├── queries_intermediate.sql (Goals 5-8 - REQUIRED)
+├── procedures_functions.sql (Goal 9 - REQUIRED)
+├── triggers.sql (Goal 10 - REQUIRED)
+├── indexes.sql (Goal 11 - REQUIRED)
+├── transactions.sql (Goal 12 - REQUIRED)
+├── CityLibrary_Project_Documentation.docx (or PDF - REQUIRED)
+├── README.md (REQUIRED)
+└── screenshots/ (optional but recommended folder)
     ├── goal1_schema.png
     ├── goal2_data.png
     ├── goal3a_active_members.png
-    └── ...
+    ├── goal4a_books_by_genre.png
+    ├── goal5a_loan_history.png
+    ├── goal6a_popular_books.png
+    ├── goal7a_activity_feed.png
+    ├── goal8a_book_rankings.png
+    ├── goal9_procedures.png
+    ├── goal10_triggers.png
+    ├── goal11_indexes.png
+    └── goal12_transactions.png
 ```
 
 ---
 
-### ✅ Pre-Submission Checklist:
+### ✅ Pre-Submission Checklist (ALL ITEMS REQUIRED):
 
 Before uploading to GitHub, verify:
 
+- [ ] All 9 tables created successfully with proper constraints
+- [ ] Comprehensive sample data inserted for all tables
 - [ ] All SQL files run without errors when executed in order
-- [ ] Word document includes screenshots for ALL completed queries
+- [ ] Word document includes screenshots for ALL 12 goals
+- [ ] All 50+ queries completed and documented
+- [ ] All 4 procedures/functions created (Goal 9)
+- [ ] All 5 triggers implemented (Goal 10)
+- [ ] All 5+ indexes created with EXPLAIN analysis (Goal 11)
+- [ ] All 4 transaction examples completed (Goal 12)
 - [ ] Each screenshot clearly shows both the query AND the results
 - [ ] Screenshots are readable (not too small, good resolution)
 - [ ] Word document has explanations for each goal
 - [ ] README.md is complete with setup instructions
 - [ ] Repository is public (so it can be reviewed)
-- [ ] All files are committed and pushed to GitHub
+- [ ] All 8 SQL files are committed and pushed to GitHub
 - [ ] You've tested downloading and running your own SQL files
 
 ---
@@ -1428,33 +1449,33 @@ November 2025
 
 ## ✅ Self-Assessment Checklist
 
-### For 2-Day MVP (Realistic Minimum):
+### For Successful 2-Day Completion (ALL REQUIRED):
 
-- ✅ At least 5 core tables created (members, authors, books, book_copies, loans)
-- ✅ Tables have proper PRIMARY KEY, FOREIGN KEY, and basic constraints
-- ✅ At least 10 members, 5 authors, 10 books, 15 copies, 10 loans inserted
-- ✅ All queries in Goal 3 (Basic Queries) work without errors
-- ✅ All queries in Goal 4 (Aggregates) work without errors
+**Database Schema & Data:**
+- ✅ All 9 tables created (members, authors, books, book_copies, loans, fines, events, event_registrations, audit_log)
+- ✅ All tables have proper PRIMARY KEY, FOREIGN KEY, and constraints
+- ✅ Comprehensive sample data: 20 members, 10 authors, 25 books, 40 copies, 30 loans, 10 fines, 8 events, 25 registrations, 5 audit logs
+- ✅ Sample data includes edge cases for testing
+
+**Queries & Analysis:**
+- ✅ All 8 queries in Goal 3 (Basic Queries) completed
+- ✅ All 8 queries in Goal 4 (Aggregates) completed
+- ✅ All 8 queries in Goal 5 (Joins) completed
+- ✅ All 8 queries in Goal 6 (Subqueries/CTEs) completed
+- ✅ All 5 queries in Goal 7 (Set Operations) completed
+- ✅ All 8 queries in Goal 8 (Window Functions) completed
+
+**Advanced Features:**
+- ✅ All 4 procedures/functions in Goal 9 created and tested
+- ✅ All 5 triggers in Goal 10 implemented and tested
+- ✅ All 6 optimization tasks in Goal 11 completed with EXPLAIN analysis
+- ✅ All 4 transaction examples in Goal 12 completed
+
+**Documentation:**
 - ✅ Code is formatted with comments
-- ✅ Tested all code in MySQL before submitting
-
-### For 2-Day Extended Completion (If time permits):
-
-- ✅ 6-7 tables created (add fines and/or events tables)
-- ✅ At least 3-4 queries from Goal 5 (Joins) working correctly
-- ✅ At least 3-4 queries from Goal 6 (Subqueries/CTEs) working correctly
-- ✅ Sample data is realistic with edge cases for testing
-- ✅ README.md documents what was completed and any challenges
-
-### For Full Completion (Beyond 2 Days):
-
-- ✅ All 9 tables created with proper constraints and relationships
-- ✅ Comprehensive sample data exceeding minimum requirements
-- ✅ Goals 5-8 completed (Joins, Subqueries, Set Operations, Window Functions)
-- ✅ At least 2 stored procedures or functions (Goal 9)
-- ✅ At least 2 triggers implemented (Goal 10)
-- ✅ EXPLAIN analysis performed and indexes created (Goal 11)
-- ✅ Transaction examples with error handling (Goal 12)
+- ✅ Word document with screenshots for all 12 goals
+- ✅ README.md with complete project documentation
+- ✅ All code tested in MySQL before submitting
 
 ---
 
